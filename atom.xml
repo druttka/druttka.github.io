@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-03-30T11:36:59-07:00</updated>
+  <updated>2014-03-30T14:41:17-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Starting Multiple Projects At Once In Visual Studio]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/"/>
+    <updated>2014-03-30T08:30:32-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio</id>
+    <content type="html"><![CDATA[<p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
+
+<p><img src="http://www.davidruttka.com/images/multiple-startup-projects.png"></p>
+
+<p><code>Solution Properties &gt; Common Properties &gt; Startup Projects &gt; Multiple startup projects</code>.</p>
+
+<p>For each project in the solution, you can choose one of the following:</p>
+
+<ul>
+<li>Start</li>
+<li>Start without debugging</li>
+<li>None</li>
+</ul>
+
+
+<p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Setting Up Octopress for GitHub Pages]]></title>

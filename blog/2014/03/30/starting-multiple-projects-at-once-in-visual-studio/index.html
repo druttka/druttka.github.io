@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - David Ruttka</title>
+  <title>Starting Multiple Projects At Once In Visual Studio - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Blog Archive 2014 Starting Multiple Projects At Once In Visual Studio
-Mar 30 2014 Setting Up Octopress for GitHub Pages
-Mar 29 2014 Moving from &hellip;">
+  <meta name="description" content="Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to Matt for reminding &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Mar 29 2014 Moving from &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/archives/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,62 +73,106 @@ Mar 29 2014 Moving from &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Starting Multiple Projects at Once in Visual Studio</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-30T08:30:32-07:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
 
-  
-  <h2>2014</h2>
+<p><img src="/images/multiple-startup-projects.png"></p>
 
-<article>
-  
-<h1><a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a></h1>
-<time datetime="2014-03-30T08:30:32-07:00" pubdate><span class='month'>Mar</span> <span class='day'>30</span> <span class='year'>2014</span></time>
+<p><code>Solution Properties &gt; Common Properties &gt; Startup Projects &gt; Multiple startup projects</code>.</p>
 
+<p>For each project in the solution, you can choose one of the following:</p>
 
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a></h1>
-<time datetime="2014-03-29T21:31:06-07:00" pubdate><span class='month'>Mar</span> <span class='day'>29</span> <span class='year'>2014</span></time>
+<ul>
+<li>Start</li>
+<li>Start without debugging</li>
+<li>None</li>
+</ul>
 
 
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a></h1>
-<time datetime="2014-03-29T21:03:18-07:00" pubdate><span class='month'>Mar</span> <span class='day'>29</span> <span class='year'>2014</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a></h1>
-<time datetime="2014-03-29T19:20:29-07:00" pubdate><span class='month'>Mar</span> <span class='day'>29</span> <span class='year'>2014</span></time>
-
-
-</article>
-
+<p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-30T08:30:32-07:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/29/setting-up-octopress-for-github-pages/" title="Previous Post: Setting Up Octopress for GitHub Pages">&laquo; Setting Up Octopress for GitHub Pages</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -181,7 +223,10 @@ Mar 29 2014 Moving from &hellip;">
       var disqus_shortname = 'davidruttka';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
