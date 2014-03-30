@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[David Ruttka]]></title>
-  <link href="http://druttka.github.io/atom.xml" rel="self"/>
-  <link href="http://druttka.github.io/"/>
-  <updated>2014-03-29T22:18:23-07:00</updated>
-  <id>http://druttka.github.io/</id>
+  <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
+  <link href="http://www.davidruttka.com/"/>
+  <updated>2014-03-29T22:23:31-07:00</updated>
+  <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
     
@@ -15,10 +15,10 @@
   
   <entry>
     <title type="html"><![CDATA[Setting Up Octopress for GitHub Pages]]></title>
-    <link href="http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages/"/>
+    <link href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/"/>
     <updated>2014-03-29T21:31:06-07:00</updated>
-    <id>http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages</id>
-    <content type="html"><![CDATA[<p><em><a href="http://druttka.github.io/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
+    <id>http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages</id>
+    <content type="html"><![CDATA[<p><em><a href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
 
 <h2>Installing Octopress</h2>
 
@@ -39,11 +39,12 @@
 
 <h2>Configuration</h2>
 
-<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and update <code>_config.yml</code> accordingly.</p>
+<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
 
-<p>Speaking of <code>_config.yml</code>, you probably have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
+<p>Now, you probably also have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
 
 <ul>
+<li>url</li>
 <li>title</li>
 <li>subtitle</li>
 <li>author</li>
@@ -92,11 +93,11 @@
 
 <h2>Images</h2>
 
-<p>One thing I found while doing my <a href="http://druttka.github.io/about">About</a> page was including images. The idea is as follows</p>
+<p>One thing I found while doing my <a href="http://www.davidruttka.com/about">About</a> page was including images. The idea is as follows</p>
 
 <ul>
 <li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="http://druttka.github.io/images/the_image.jpg"&gt;</code>
+<li>Use the image tag plugin: <code>&lt;img src="http://www.davidruttka.com/images/the_image.jpg"&gt;</code>
 
 <ul>
 <li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
@@ -109,9 +110,9 @@
   
   <entry>
     <title type="html"><![CDATA[Moving from WordPress to GitHub Pages using Jekyll via Octopress]]></title>
-    <link href="http://druttka.github.io/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/"/>
+    <link href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/"/>
     <updated>2014-03-29T21:03:18-07:00</updated>
-    <id>http://druttka.github.io/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress</id>
+    <id>http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress</id>
     <content type="html"><![CDATA[<p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
 
 <h2>GitHub Pages</h2>
@@ -152,7 +153,7 @@
 
 <p>This is a little more involved than I want to write up right now. I will either update this post or create a new one later.</p>
 
-<p><em>Update: I created a <a href="http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
+<p><em>Update: I created a <a href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
 
 <p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
 ]]></content>
@@ -160,9 +161,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hello Octopress!]]></title>
-    <link href="http://druttka.github.io/blog/2014/03/29/hello-octopress/"/>
+    <link href="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/"/>
     <updated>2014-03-29T19:20:29-07:00</updated>
-    <id>http://druttka.github.io/blog/2014/03/29/hello-octopress</id>
+    <id>http://www.davidruttka.com/blog/2014/03/29/hello-octopress</id>
     <content type="html"><![CDATA[<p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
 ]]></content>
   </entry>

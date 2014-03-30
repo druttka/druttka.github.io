@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://druttka.github.io/sitemap.xml 
+Sitemap: http://www.davidruttka.com/sitemap.xml 
