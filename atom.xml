@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-03-30T14:41:17-07:00</updated>
+  <updated>2014-03-30T15:02:21-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/"/>
     <updated>2014-03-30T08:30:32-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio</id>
-    <content type="html"><![CDATA[<p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
+    <content type="html"><![CDATA[<p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. <!-- more --> Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
 
 <p><img src="http://www.davidruttka.com/images/multiple-startup-projects.png"></p>
 
@@ -43,6 +43,9 @@
     <updated>2014-03-29T21:31:06-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages</id>
     <content type="html"><![CDATA[<p><em><a href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
+
+<!-- more -->
+
 
 <h2>Installing Octopress</h2>
 
@@ -137,7 +140,10 @@
     <link href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/"/>
     <updated>2014-03-29T21:03:18-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress</id>
-    <content type="html"><![CDATA[<p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
+    <content type="html"><![CDATA[<!-- more -->
+
+
+<p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
 
 <h2>GitHub Pages</h2>
 

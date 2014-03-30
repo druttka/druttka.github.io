@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to Matt for reminding &hellip;">
+  <meta name="description" content="Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -48,6 +48,8 @@
 <body   >
   <header role="banner"><hgroup>
   <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things.</h2>
   
 </hgroup>
 
@@ -105,24 +107,12 @@
   </header>
 
 
-  <div class="entry-content"><p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
-
-<p><img src="/images/multiple-startup-projects.png"></p>
-
-<p><code>Solution Properties &gt; Common Properties &gt; Startup Projects &gt; Multiple startup projects</code>.</p>
-
-<p>For each project in the solution, you can choose one of the following:</p>
-
-<ul>
-<li>Start</li>
-<li>Start without debugging</li>
-<li>None</li>
-</ul>
-
-
-<p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
-</div>
+  <div class="entry-content"><p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -160,93 +150,12 @@
 
   <div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
 
-<h2>Installing Octopress</h2>
-
-<p>As with GitHub Pages, the <a href="http://octopress.org/docs/setup/">official documentation</a> is super solid, here. I&rsquo;m going to attempt to give a more terse set of steps that I took, but do refer back to the docs if you need more information.</p>
-
-<ul>
-<li>I already had Git and Ruby installed, so I got a free pass on that.</li>
-<li>Clone the repo <code>git clone git://github.com/imathis/octopress.git octopress</code></li>
-<li>cd into it <code>cd octopress</code></li>
-<li><code>gem install bundler</code></li>
-<li><code>bundle install</code>.</li>
-<li><code>rake install</code>, and I actually <strong>did hit a snag here</strong>
-
-<blockquote><p>You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</p></blockquote></li>
-<li>All I had to do was update the Gemfile to reference 10.0.3 and <code>rake install</code> again.</li>
-</ul>
-
-
-<h2>Configuration</h2>
-
-<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
-
-<p>Now, you probably also have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
-
-<ul>
-<li>url</li>
-<li>title</li>
-<li>subtitle</li>
-<li>author</li>
-<li>twitter_user</li>
-</ul>
-
-
-<p>More information in the official docs for <a href="http://octopress.org/docs/configuring/">Configuration</a> and <a href="http://octopress.org/docs/deploying/github/">Deployment</a>.</p>
-
-<h2>Themes</h2>
-
-<p>I went to <a href="http://octopressthemes.com/">Octopress Themes</a> and got a free one. I went the submodule route. Assuming you chose classic light, you&rsquo;d do something like this.</p>
-
-<ul>
-<li>From the directory where you cloned Octopress, <code>git submodule add git://github.com/octothemes/classic-light.git .themes/light</code></li>
-<li><code>git add .themes</code> and commit</li>
-<li><code>rake install[light]</code> will apply it</li>
-<li><code>rake generate</code> and <code>rake preview</code> will let you see how it looks on localhost:4000</li>
-<li><code>rake install[classic]</code>, with the following <code>rake generate</code>, will put things back if you don&rsquo;t like it</li>
-</ul>
-
-
-<p>FWIW, at the time of this writing, I&rsquo;m using <a href="https://github.com/octothemes/forest">forest</a>.</p>
-
-<h2>Hello, Octopress</h2>
-
-<p><code>rake new_post["Hello Octopress"]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
-
-<p><code>rake generate</code>, and then <code>rake preview</code>.</p>
-
-<h2>That&rsquo;s great for posts, what about pages</h2>
-
-<p>You might have guessed it, but <code>rake new_page["About"]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
-
-<p>Don&rsquo;t forget to update your navigation to include your new page! You&rsquo;ll find it in <code>source/_includes/custom/navigation.html</code>, at which point you&rsquo;re just adding a link.</p>
-
-<p><em>I removed the date, and turned off the sharing and footnote options for my About page. I just think it looks cleaner that way.</em></p>
-
-<h2>It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
-
-<p>When you like what you&rsquo;re seeing in <code>rake preview</code>, <code>rake deploy</code>. Given that you&rsquo;ve already gone through the delay setting up the repo and CNAME, it&rsquo;ll be live ridiculously fast.</p>
-
-<p><em>Heads up! Remember when you put CNAME and an index.html in your repo before? I had to navigate into <code>_deploy</code>, and do a <code>git pull</code> resolving some conflicts before <code>rake deploy</code> could push successfully.</em></p>
-
-<p><em>Heads up again! That CNAME that was in the root of your repo should now be in <code>source</code>. This will ensure it sticks around each time you <code>rake generate</code>.</em></p>
-
-<h2>Images</h2>
-
-<p>One thing I found while doing my <a href="/about">About</a> page was including images. The idea is as follows</p>
-
-<ul>
-<li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="/images/the_image.jpg"&gt;</code>
-
-<ul>
-<li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
-</ul>
-</li>
-</ul>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -282,51 +191,12 @@
   </header>
 
 
-  <div class="entry-content"><p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
-
-<h2>GitHub Pages</h2>
-
-<p>I <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">had said</a> that I wouldn&rsquo;t reproduce this part, since the <a href="http://pages.github.com/">existing documentation</a> is so dead simple. But here goes.</p>
-
-<ul>
-<li>Have a <a href="https://github.com">GitHub</a> account. You probably already do, and that&rsquo;s even better!</li>
-<li>Create a <a href="https://github.com/new">new repo</a> named {yourgithubusername}.github.io. So for me, it was &ldquo;druttka.github.io&rdquo;.</li>
-<li>Put an index.html file in that repo. If you&rsquo;re not sure what to put in it, &ldquo;David Ruttka is the greatest blogger ever.&rdquo; is more original than &ldquo;Hello World!&rdquo;</li>
-<li>Navigate to {yourusername}.github.io. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.</li>
-</ul>
-
-
-<h2>CNAME for the win</h2>
-
-<p>You&rsquo;d probably prefer that people visit www.yourfancytendollardomainname.com, not yourgithubusername.github.io. There are <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">a few ways to set this up</a>, but I went with CNAME.</p>
-
-<ul>
-<li>Go manage your domain.</li>
-<li>Set the naked domain (@) and the www. subdomain (www.) to be a CNAME to {yourgithubusername}.github.io.</li>
-<li>Back in your *.github.io repo, add a CNAME file.
-
-<ul>
-<li>In that file, put a single line. The single line should be www.yourfancytendollardomainname.com.</li>
-</ul>
-</li>
-<li>Navigate to www.yourfancytendollardomainname.com. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.
-
-<ul>
-<li>GitHub Pages is nice enough to send traffic to whatever is in that CNAME file in your repo, regardless of whether the visitor tried to come in on the naked domain, the www subdomain, or github.io.</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Octopress for another win that puts the previous win to shame</h2>
-
-<p>This is a little more involved than I want to write up right now. I will either update this post or create a new one later.</p>
-
-<p><em>Update: I created a <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
-
-<p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
-</div>
+  <div class="entry-content"></div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Read on &rarr;</a>
+    </footer>
   
 
 
