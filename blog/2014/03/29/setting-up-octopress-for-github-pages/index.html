@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>David Ruttka</title>
+  <title>Setting Up Octopress for GitHub Pages - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://druttka.github.io/">
+  <link rel="canonical" href="http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -60,15 +60,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a></h1>
+      <h1 class="entry-title">Setting Up Octopress for GitHub Pages</h1>
     
     
       <p class="meta">
@@ -91,7 +88,7 @@
   </header>
 
 
-  <div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
+<div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
 
 <h2>Installing Octopress</h2>
 
@@ -178,100 +175,16 @@
 </ul>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving From WordPress to GitHub Pages Using Jekyll via Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
 
-<time datetime="2014-03-29T21:03:18-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
-
-<h2>GitHub Pages</h2>
-
-<p>I <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">had said</a> that I wouldn&rsquo;t reproduce this part, since the <a href="http://pages.github.com/">existing documentation</a> is so dead simple. But here goes.</p>
-
-<ul>
-<li>Have a <a href="https://github.com">GitHub</a> account. You probably already do, and that&rsquo;s even better!</li>
-<li>Create a <a href="https://github.com/new">new repo</a> named {yourgithubusername}.github.io. So for me, it was &ldquo;druttka.github.io&rdquo;.</li>
-<li>Put an index.html file in that repo. If you&rsquo;re not sure what to put in it, &ldquo;David Ruttka is the greatest blogger ever.&rdquo; is more original than &ldquo;Hello World!&rdquo;</li>
-<li>Navigate to {yourusername}.github.io. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.</li>
-</ul>
-
-
-<h2>CNAME for the win</h2>
-
-<p>You&rsquo;d probably prefer that people visit www.yourfancytendollardomainname.com, not yourgithubusername.github.io. There are <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">a few ways to set this up</a>, but I went with CNAME.</p>
-
-<ul>
-<li>Go manage your domain.</li>
-<li>Set the naked domain (@) and the www. subdomain (www.) to be a CNAME to {yourgithubusername}.github.io.</li>
-<li>Back in your *.github.io repo, add a CNAME file.
-
-<ul>
-<li>In that file, put a single line. The single line should be www.yourfancytendollardomainname.com.</li>
-</ul>
-</li>
-<li>Navigate to www.yourfancytendollardomainname.com. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.
-
-<ul>
-<li>GitHub Pages is nice enough to send traffic to whatever is in that CNAME file in your repo, regardless of whether the visitor tried to come in on the naked domain, the www subdomain, or github.io.</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Octopress for another win that puts the previous win to shame</h2>
-
-<p>This is a little more involved than I want to write up right now. I will either update this post or create a new one later.</p>
-
-<p><em>Update: I created a <a href="/blog/2014-03-29-setting-up-octopress-for-github-pages">new one</a>.</em></p>
-
-<p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -283,27 +196,32 @@
   
 
 
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-03-29T21:31:06-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages/" data-via="druttka" data-counturl="http://druttka.github.io/blog/2014/03/29/setting-up-octopress-for-github-pages/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" title="Previous Post: Moving from WordPress to GitHub Pages using Jekyll via Octopress">&laquo; Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -331,6 +249,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
