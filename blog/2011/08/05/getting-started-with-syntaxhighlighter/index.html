@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Getting Started with SyntaxHighlighter - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+Is it just &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2011/08/05/getting-started-with-syntaxhighlighter/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Getting Started With SyntaxHighlighter</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/05/getting-started-with-syntaxhighlighter/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+Is it just me, or did it get far too quiet around here after we finished our <a href="http://givecampbirmingham.org" target="_blank">GiveCamp</a> recaps?</p>
+
+<p>Before I start writing any new posts, I need to work out syntax highlighting so that any code posted here looks good and is easily accessible. I throw a lot of snippets at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a>, but their editor takes care of the cosmetic stuff for me via toolbar buttons, ` characters, and four space indentations.</p>
+
+<p>Getting code to look right in blog posts is probably <span style="text-decoration:line-through;">old</span> ancient news for anyone who has been blogging for a while, but it???s not something that I???ve had to do before. This post is dedicated to all my fellow newbs.</p>
+
+<p>It turns out that a JavaScript solution called <a href="http://alexgorbatchev.com/SyntaxHighlighter/" target="_blank">SyntaxHighlighter</a> makes presenting code on the interwebs a wonderful dose of auto-magic! I should have known that Googling the topic would promptly direct me to <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">Hanselman???s take on it</a>. I???ve installed the <a href="http://precode.codeplex.com/" target="_blank">recommended WLW plugin</a>, but I also experimented with the <a href="http://en.support.wordpress.com/code/posting-source-code/" target="_blank">integration</a> in the <a href="http://wordpress.com" target="_blank">WordPress</a> editor.</p>
+
+<h3>WordPress Editor</h3>
+
+
+<p>When we started this thing, WordPress seemed to be the easiest, quickest, and cheapest option to get the wheels turning. What I found tonight is that the editor in wp-admin supports SyntaxHighlighter directly. Pop over to the HTML tab and make sure your code is wrapped like this:</p>
+
+<p><strong>[</strong><strong>sourcecode language=&ldquo;csharp&rdquo;]
+public string Foo(){
+return ???Bar???;
+}
+[</strong><strong>/sourcecode]</strong></p>
+
+<p>The language value can be any one of the <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/" target="_blank">supported brushes</a> for the syntax highlighting. The result:</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+public string Foo()
+{
+return &quot;Bar&quot;;
+}
+[/sourcecode]</p>
+
+<h3>PreCode Plugin for Windows Live Writer</h3>
+
+
+<p>Well, all that switching between the Visual and HTML tabs can be a bit tedious, not to mention managing the indentation. Then there&rsquo;s the camp that says you should never use the online web editor if you can use a dedicated app like Live Writer instead. Let&rsquo;s take a look at one of the WLW plugin options.</p>
+
+<p><a href="http://precode.codeplex.com/" target="_blank">PreCode</a> is the plugin recommended on <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">the post</a> I found from Scott Hanselman. The installation process is exactly what you???d expect, so I???m not going to detail it here. I will briefly cover the workflow and some of the options.</p>
+
+<p>Once again, I???m new to the blogging thing, so this is probably well known to most of you. The plugins are accessed from the Insert toolbar.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb4.png" alt="image" width="629" height="111" border="0" /></a></p>
+
+<p>When you click it, you???ll get a full editor dedicated solely to the purpose of editing and formatting your code snippet.</p>
+
+<p align="center"><a href="http://thedevstop.files.wordpress.com/2011/08/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb6.png" alt="image" width="636" height="520" border="0" /></a></p>
+
+
+<p align="left">Throw some in there. I will be wrapping my code in PRE tags rather than SCRIPT tags, but you can <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">check the documentation</a> to read up on the differences, advantages, and disadvantages.</p>
+
+
+<p align="left">You can flip a lot of other bits here: your highlighter class, whether to display the toolbar (for viewing source, copying to clipboard), etc. Also, <strong>don???t overlook the indentation management buttons</strong>! I experimented with some very broken indentation. I can???t say ???Fix Indentation??? always did the perfect thing, but it always came up with something decent.</p>
+
+
+<p align="left">Clicking ???OK??? with the options you see in the screenshot above result in what you see below.</p>
+
+
+
+
+<pre class="brush: csharp;">public string Foo()
+{
+    return "Bar";
+}</pre>
+
+
+<h3>Summary</h3>
+
+
+<p>SyntaxHighlighter and the PreCode plugin for WLW have robbed me of one of the last excuses I had left to delay blogging. There are <a href="http://alexgorbatchev.com/SyntaxHighlighter/integration.html" target="_blank">many other integration options</a> as well as support for your <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">directly handcrafted efforts</a>. Here???s to beautiful code on the internet.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2011/08/05/getting-started-with-syntaxhighlighter/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2011/08/05/getting-started-with-syntaxhighlighter/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/02/03/counter-questions/" title="Previous Post: Counter questions">&laquo; Counter questions</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/07/getting-started-with-html5-offline-app/" title="Next Post: Getting Started with HTML5 Offline App">Getting Started with HTML5 Offline App &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

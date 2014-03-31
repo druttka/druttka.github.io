@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Connecting a Lumia 800 to Zune When It Says 'Can't Connect to Your Phone' - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+I &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2012/03/12/connecting-a-lumia-800-to-zune-when-it-says-cant-connect-to-your-phone/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Connecting a Lumia 800 to Zune When It Says 'Can't Connect to Your Phone'</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-12T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/03/12/connecting-a-lumia-800-to-zune-when-it-says-cant-connect-to-your-phone/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+I participated in Microsoft???s Windows Phone 7 <a href="http://30tolaunch.com" target="_blank">30 To Launch</a> contest and was able to score a pretty phenomenal phone in the process. The <a href="http://www.nokia.com/gb-en/products/phone/lumia800/" target="_blank">Lumia 800</a> really is fantastic. I had been very impressed with the Samsung Focus, but this trumps it! It???s rare in the US, so you also collect some fun stories. For example, when I took it to my AT&amp;T store to get a micro SIM, the staff asked if I was their local Nokia rep and then geeked out about the Lumia for ten minutes. <img class="wlEmoticon wlEmoticon-smile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/03/wlemoticon-smile.png" alt="Smile" /></p>
+
+<p>Anyway, the purpose of this post is not to review the phone but to highlight the steps I took to <strong>connect my Lumia 800 to Zune after receiving an ominous ???Can???t connect to your phone.??? message.</strong></p>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;" title="Zune Connection Error - Can't connect to your phone" src="http://support.microsoft.com/Library/Images/2612718.png" alt="Zune Connection Error" width="414" height="127" /></p>
+
+<p>I will warn you that this post contains <strong>a small bit of magic</strong>.</p>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;" title="That's what makes the world go round!" src="http://i.ytimg.com/vi/L5mRQWyvkOo/0.jpg" alt="Sword in the Stone's Merlin" width="480" height="360" /></p>
+
+<p>The first thing I tried was Googling (or if you???re a Microsoft person reading this, Googling with Bing). I was able to find a fairly standard <a href="http://support.microsoft.com/kb/2468307" target="_blank">Microsoft Support article</a>, as well as a handful of forum and blog posts that ultimately led back to the same. I won???t detail the steps in the article as they spell it out very clearly. A lot of people said it worked for them, so optimism drove me to believe I was reading it wrong. I ended up trying it three times before giving up and sleeping on it. <strong>It might work for you, in which case you can stop reading now!</strong></p>
+
+<p>In the morning, <a href="http://twitter.com/UserCommunity" target="_blank">@UserCommunity</a> let me know that <a href="http://twitter.com/insanespec" target="_blank">@insanespec</a> was having a similar issue.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/03/image.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border-color:initial;border-style:initial;border-width:0;" title="Twitter conversation between UserCommunity and me" src="http://thedevstop.files.wordpress.com/2012/03/image_thumb.png" alt="Twitter conversation" width="495" height="217" border="0" /></a></p>
+
+<p>This had been just about me and getting my family pictures synced onto the phone. Now it was also about helping someone else. I can get pretty tenacious when a challenge is blocking my fellow devs:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/03/image1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border-color:initial;border-style:initial;border-width:0;" title="Twitter messages discovering AppUpload/Index" src="http://thedevstop.files.wordpress.com/2012/03/image_thumb1.png" alt="Twitter conversation" width="484" height="786" border="0" /></a></p>
+
+<p>I still need to blog about the tools and tricks I used to hunt down the IsDone flag, reset it, and find AppUpload/Index ??? but that???s for another time <img class="wlEmoticon wlEmoticon-smile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/03/wlemoticon-smile.png" alt="Smile" /></p>
+
+<p>That night I gave it another shot, determined to really pay attention and crack this nut. The bad news is I have <strong>no satisfying explanation of the details</strong>, but the good news is I have some <strong>steps that??worked for me</strong>. Here are my steps in order.</p>
+
+<p><span style="color:#ff0000;"><strong>Disclaimer: I make no guarantee, warranty, etc. that this will work for you, that it is supported, etc. It worked for me; I might have been lucky. Remember, I said there was a bit of magic, so there???s an outside chance that this could cause your laptop to explode. </strong></span></p>
+
+<p><strong><span style="color:#ff0000;">Further note: Some of these steps are probably overkill, but I was tired of fooling around and intentionally included every theory I could find or think of ??? no matter how impossible it seemed.</span></strong></p>
+
+<h3>Establish A Clean Slate</h3>
+
+
+<ol>
+    <li>Ensure your phone isn???t connected to the computer</li>
+    <li>Uninstall Zune from your computer</li>
+    <li>Factory reset your phone</li>
+    <li>Clean out any certificates as described in <a href="http://support.microsoft.com/kb/2468307" target="_blank">this support article</a> (note: I didn???t find any in certmgr)</li>
+    <li>Delete the %userprofile%\Application Data\Microsoft\Crypto\RSA directory mentioned in the same support article. <strong>It says rename / backup; I say delete.</strong> Trash. Obliterate. Make it an ex-directory.</li>
+    <li>Also delete %userprofile%\AppData\Local\Microsoft\Zune.</li>
+    <li>Windows Key + F. Search for Zune. Search and destroy everything that isn???t a driver. Leave no trace that Zune ever existed. Scorched earth or bust.</li>
+</ol>
+
+
+<h2></h2>
+
+
+<h3>Rebuild Toward Success</h3>
+
+
+<ol>
+    <li>With the phone still disconnected, run through its initial setup. One thing I did different this time was to establish a Nokia account (I had previous skipped this step after factory resets. I cannot imagine that this matters.)</li>
+    <li>Connect the phone to the computer. This should do two things
+<ol>
+    <li>Install device drivers automatically</li>
+    <li>Prompt you to get the Zune software</li>
+</ol>
+</li>
+    <li>Begin a download of the Zune software. I had downloaded it the previous night, but (taking no chances) downloaded it again. (I cannot imagine the installer downloaded this night was actually any different)</li>
+    <li>While downloading, I opened Device Manager, found the Lumia 800, and deleted it. This uninstalled the drivers that were just automatically installed. (This didn???t make much sense to me, but someone online said it helped them, and I figured that it couldn???t hurt.)</li>
+    <li>When the Zune install is downloaded, start it.</li>
+    <li>Zune will prompt to you disconnect your phone before installing, so do that.</li>
+    <li>After installation, reconnect the Lumia 800.</li>
+    <li>Drivers will automatically install.</li>
+    <li>Zune will launch, recognize your Lumia 800, and in my case immediately see an available update.</li>
+</ol>
+
+
+<h3>Equally Crazy Approach</h3>
+
+
+<p>A friend and coworker said that he had a similar issue, but resolved it by simply using his old Samsung Focus cable. Go figure.</p>
+
+<p>I hope either the linked support article, my overkill steps, or my friend&rsquo;s cable swap will help someone. If you have any other methods that have worked for you (or more information / details about which of my steps was really the key), please leave a comment!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-12T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/03/12/connecting-a-lumia-800-to-zune-when-it-says-cant-connect-to-your-phone/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/03/12/connecting-a-lumia-800-to-zune-when-it-says-cant-connect-to-your-phone/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier%21/" title="Previous Post: Comic Sans for Github   It's Like April Fools' Day, Only Way Earlier!">&laquo; Comic Sans for Github   It's Like April Fools' Day, Only Way Earlier!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/03/20/announcement-asp-net-web-api-talk-at-huntug-4102012/" title="Next Post: Announcement: ASP.NET Web API talk at HUNTUG 4/10/2012">Announcement: ASP.NET Web API talk at HUNTUG 4/10/2012 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

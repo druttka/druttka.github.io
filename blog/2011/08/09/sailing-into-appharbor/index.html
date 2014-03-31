@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sailing Into AppHarbor - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. While &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2011/08/09/sailing-into-appharbor/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Sailing Into AppHarbor</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/09/sailing-into-appharbor/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
+
+<p>While looking into options for hosting, virtual private servers, etc., I remembered hearing about <a href="http://appharbor.com" target="_blank">AppHarbor</a> and decided to check it out. Note that this is all based on <a href="http://git-scm.org" target="_blank">Git</a>, so if you aren???t <strong>familiar with Git (protip: you should be)</strong>, you might to start there. Watch this space for an upcoming series introducing Git to those coming from the TFS/SVN world; in the meantime you can check out <a href="http://git-scm.com/documentation" target="_blank">the documentation</a> or this <a href="http://tekpub.com/view/git/1" target="_blank">TekPub production</a>.</p>
+
+
+<p> <p>Note: devstoprocks is just used in these screenshots as a sample. It doesn???t really exist, or if it does, it???s not ours.</p> <h2></h2> <h2>Registration</h2> <p>When you first arrive, you???ll want to look for this button near the bottom right of your browser:</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image10.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="Get Started Now" border="0" alt="Get Started Now" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb10.png" width="202" height="81"></a></p> <p>You???ll be prompted to fill out a <strong>truly minimal amount of registration</strong> information: email, username, and password. After taking action on the confirmation email, you???ll be ready to get started.</p> <h2>Creating your first app</h2> <p>As is often the case, the hardest part is <strong>coming up with a name</strong>. In fact, that???s <strong>the only part</strong>.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image11.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new application" border="0" alt="new application" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb11.png" width="225" height="153"></a></p> <h2>Pushing the app</h2> <p>AppHarbor will create a .git repository that you???ll want to commit to, and it???s not too difficult to see where it is.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image12.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="repository url" border="0" alt="repository url" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb12.png" width="497" height="121"></a></p> <p>Even if you???ve never used Git before, I think their instructions are pretty easy to follow. Since they???re on your app???s dashboard at this point, I???m not going to fully duplicate them here. The basic idea is</p> <ol> <li>Create your solution</li> <li>git init so that the .sln is in the root</li> <li>Add a remote to the repository AppHarbor created for you</li> <li>git push it up</li></ol> <h2>Test Driven ??? Deployment!</h2> <p>This is where it gets really interesting. In the image below you???ll see a table of builds. <strong>Every time I git push to my AppHarbor remote, it triggers a build</strong>. </p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image13.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="builds" border="0" alt="builds" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb13.png" width="915" height="217"></a></p> <h3>What???s going on here?</h3> <ol> <li>This is where you can see the time that the build was deployed. </li> <li>Note that this build is ???active???. That???s what???s out on your site right now. It may not necessarily be the latest build.</li> <li>You can see the details for any build. This is particularly useful when the build fails. You???ll get full details of what errors occurred in the build <strong>or your unit tests!</strong></li> <li>You can always restore a previous version of the app providing that it was a successful build.</li></ol> <h3>Failure is not an option</h3> <p>Note that I said, ???<strong>providing that it was a successful build</strong>.??? If the build failed ??? even if it was just a broken unit test ??? the build is disqualified. To my knowledge, this is not just a default; there is seriously <strong>no way to deploy a build of degraded quality</strong>. This is of course <strong>predicated on the condition that your tests are properly reporting your build quality</strong>.</p> <h3>???The old version was better???</h3> <p>Even if your build succeeds and all the tests pass, there???s no accounting for taste. If you or your [collaborators, customers, managers, stakeholders, ???] don???t like the fluorescent magenta that just got added to the css, <strong>you can always go back to a previous version</strong> <strong>with a single click </strong>(see point 4 above).</p> <h3>What???s that about WatiN?</h3> <p>I had stepped away for about an hour and a half, and then I decided to check on automated browser testing with WatiN. I haven???t had much luck with that, and the recommendation seems to be to <strong>put those tests in a separate project</strong>, make a secondary .sln file that doesn???t include that project, and push that one to AppHarbor. I???ve seen that recommendation <a href="http://support.appharbor.com/discussions/problems/139-ui-automation-testing-before-deployment" target="_blank">here</a> and <a href="http://support.appharbor.com/discussions/problems/570-watinspecflow-testing" target="_blank">here</a>. I???d be interested to know if anyone has any other ideas.</p> <h3></h3> <h3></h3> <h3></h3> <h2>Using your own domain</h2> <p>AppHarbor will set up a URL for you right away, but it will be something like <a href="http://project-777.apphub.com.">http://project-777.apphub.com.</a> Do you think Facebook and Twitter would have taken off with an URL like that? I don???t either, and it seems that the guys behind AppHarbor feel the same way.</p> <p>When you???re looking at your app, you might notice a lot of settings to the right-hand side of the secondary bar. Let???s take a look at hostnames.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image14.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="hostnames" border="0" alt="hostnames" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb14.png" width="595" height="51"></a></p> <p>You???ll be told what IP to use in your A record. AppHarbor won???t update it for you, but they will bind the hostname you provide to your app. That???s it. You???re good to go.</p> <h2><a href="http://thedevstop.files.wordpress.com/2011/08/image15.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new hostname" border="0" alt="new hostname" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb15.png" width="476" height="275"></a></h2> <h2></h2> <h2></h2> <h2>Would you pay FREE DOLLARS?!</h2> <p>Your first <strong>server is</strong> <strong>free</strong>, and AppHarbor will also give you a 20MB SQL Server or MySQL <strong>database for free</strong>. As your app scales, you can always pay to add additional servers, upgrade to a 10GB database, etc., but there???s no reason not to give this a spin and <strong>get started today</strong>.</p> <h2>Summary</h2> <p>AppHarbor could very well be a revolutionary deployment and hosting solution and is at least a fun toy to try out. It???s insanely satisfying to git push from the command line, read output telling you that a build was queued, and then watch it in the web dashboard. </p> <p>It took me much longer to draft this post than it did to do everything I???ve done with AppHarbor. It took me literally five minutes to register, create the app, and deploy it three times to experiment with unit tests. Granted it was a skeleton app with one test, but the point of this exercise was to evaluate AppHarbor and not to spin up a new project.</p> <p>You can learn more at <a href="http://appharbor.com" target="_blank">AppHarbor.com</a> and <a href="http://twitter.com/appharbor" target="_blank">@appharbor</a>.</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2011/08/09/sailing-into-appharbor/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2011/08/09/sailing-into-appharbor/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/07/getting-started-with-html5-offline-app/" title="Previous Post: Getting Started with HTML5 Offline App">&laquo; Getting Started with HTML5 Offline App</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/30/forcing-mvc3-into-an-area/" title="Next Post: Forcing MVC3 into an area">Forcing MVC3 into an area &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

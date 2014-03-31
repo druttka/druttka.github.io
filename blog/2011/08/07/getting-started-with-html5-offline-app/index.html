@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Getting Started with HTML5 Offline App - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+This has &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2011/08/07/getting-started-with-html5-offline-app/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Getting Started With HTML5 Offline App</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-07T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/07/getting-started-with-html5-offline-app/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+This has actually been sitting as a draft for several weeks. I had decided it was time to <a title="Dive Into HTML5" href="http://diveintohtml5.org/offline.html" target="_blank">dive more deeply</a> into the offline app features of <a title="HTML5" href="http://www.w3.org/TR/html5/" target="_blank">HTML5</a>, and this was to be a streamlined quick start.</p>
+
+<p>Aside: I got a wild hair and wrote all the code you???ll see in this post using <a title="Console2" href="http://sourceforge.net/projects/console/" target="_blank">Console2 </a>and <a title="Notepad++" href="http://notepad-plus-plus.org/" target="_blank">Notepad++</a>. If you haven&rsquo;t checked out Console2, here&rsquo;s a <a title="Hanselminutes - Console2" href="http://www.hanselman.com/blog/Console2ABetterWindowsCommandPrompt.aspx" target="_blank">post by Hanselman</a> that will change your life (at least the part you spend at the command line).</p>
+
+<h3>Standard HTML and JavaScript</h3>
+
+
+<p>I wanted to keep this very small and simple, focusing only on the new feature being tested. To that end???
+[sourcecode language=&ldquo;bash&rdquo;]
+notepad++ index.html
+[/sourcecode]
+I dummied up the basic HTML structure with a completely empty body. I just gave it a title and two script tags in the head, one to jquery on code.jquery.com, one to my own offlinehtml5.js file.
+[sourcecode language=&ldquo;html&rdquo;]
+&lt;script type=&lsquo;text/javascript&rsquo; src=&lsquo;<a href="http://code.jquery.com/jquery-1.6.1.min.js">http://code.jquery.com/jquery-1.6.1.min.js</a>&rsquo;&gt;&lt;/script&gt;
+&lt;script type=&lsquo;text/javascript&rsquo; src=&lsquo;/offlinehtml5.js&rsquo;&gt;&lt;/script&gt;
+[/sourcecode]
+The offlinehtml5.js file was just an alert to see if everything was wired up.
+[sourcecode language=&ldquo;js&rdquo;]
+$(function(){</p>
+
+<pre><code>alert('wicked!');
+</code></pre>
+
+<p>});
+[/sourcecode]</p>
+
+<h3>Cache Manifest - The New Bit</h3>
+
+
+<p>The next step was to add an attribute to the &lt;html&gt; tag that specifies a manifest of resources required for offline access.
+[sourcecode language=&ldquo;html&rdquo;]
+&lt;html manifest=&quot;/cache.manifest&quot;&gt;
+[/sourcecode]
+The cache.manifest file isn???t anything special. It???s just a plain text file listing what your app will need in order to run. Note that the first line must be ???CACHE MANIFEST&#8221;. After that, URL, URL, URL. Here I have .js files, but these could also be images or whatever else you want to be available offline. Also note that the extra blank lines are being added by WordPress or SyntaxHighlighter and are unnecessary.
+[sourcecode language=&ldquo;text&rdquo;]
+CACHE MANIFEST
+<a href="http://code.jquery.com/jquery-1.6.1.min.js">http://code.jquery.com/jquery-1.6.1.min.js</a>
+/offlinehtml5.js
+[/sourcecode]</p>
+
+<h3>Web Server Configuration</h3>
+
+
+<p>You???ll have to make sure that .manifest files are served as text/cache-manifest, so hop into your web server and take care of it. In IIS7, you???ll be looking for these screens.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image9.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb9.png" alt="image" width="378" height="233" border="0" /></a></p>
+
+<p>Note that IIS7 comes with .manifest registered as a MIME type, but it&rsquo;s not text/cache-manifest. The image below shows the proper setting.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image8.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb8.png" alt="image" width="514" height="176" border="0" /></a></p>
+
+<h3>That&#8217;s It</h3>
+
+
+<p>You should be set, and supported browsers will now pull down the resources in the manifest for offline use. There are other options that can be set in the manifest to prevent a file from ever being pulled down for offline use or to set fallbacks. Until I cover them here, you can always read more at <a title="Dive Into HTML5" href="http://diveintohtml5.org/offline.html" target="_blank">Dive Into HTML5</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-07T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2011/08/07/getting-started-with-html5-offline-app/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2011/08/07/getting-started-with-html5-offline-app/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/05/getting-started-with-syntaxhighlighter/" title="Previous Post: Getting Started with SyntaxHighlighter">&laquo; Getting Started with SyntaxHighlighter</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/09/sailing-into-appharbor/" title="Next Post: Sailing Into AppHarbor">Sailing Into AppHarbor &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Updates pushed to asfac master - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2013/03/14/updates-pushed-to-asfac-master/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Updates Pushed to Asfac Master</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/14/updates-pushed-to-asfac-master/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+Integrating <a href="https://github.com/thedevstop/asfac" target="_blank">asfac</a> into a real production codebase brought some necessary enhancements to our attention. The following updates have now been pushed to <a href="https://github.com/thedevstop/asfac/" target="_blank">master</a>.</p>
+
+<h3></h3>
+
+
+<h3></h3>
+
+
+<h3>Register and Resolve with Class Scope</h3>
+
+
+<p>Suppose you have an IDoWhatever interface, and you have some concrete implementations like DoWhateverToFoos and DoWhateverToBars. They both implement IDoWhatever, but the former is to be used for Foos while the latter is for Bars.</p>
+
+<p>You can now use the Class object or any instance of the Class as the registration scope. In particular, this came in handy when we had command handlers for various command classes.
+[sourcecode language=&ldquo;javascript&rdquo;]
+// Standard
+factory.register(FooCommandHandler, IHandleCommands, FooCommand);
+var handler:IHandleCommands = factory.resolve(IHandleCommands, FooCommand);</p>
+
+<p>// Fluent
+factory.inScope(FooCommand).register(FooCommandHandler).asType(IHandleCommands);
+var handler:IHandleCommands = factory.fromScope(FooCommand).resolve(IHandleCommands);
+[/sourcecode]</p>
+
+<h3>Resolve with Fallback Scope</h3>
+
+
+<p>We also had some cases where a class wasn???t registered in the specific scope being requested, but it was registered in the default scope. For example, a default command handler doing some logging might not find the registered ILogger in its own scope. It is now possible to specify to asfac that you&rsquo;d like to take a look in the default scope in the case where a resolution cannot be performed from the specified scope.
+[sourcecode language=&ldquo;javascript&rdquo;]
+// Standard
+factory.register(ConsoleLogger, ILogger);
+var logger:ILogger = factory.resolve(ILogger, &quot;SomeScope&quot;, true);</p>
+
+<p>// Fluent
+factory.register(ConsoleLogger).asType(ILogger);
+var logger:ILogger = factory.fromScope(&quot;SomeScope&quot;).resolveWithFallback(ILogger);
+[/sourcecode]</p>
+
+<h3></h3>
+
+
+<h3>Bug Fixes</h3>
+
+
+<p>We also found a few bugs that are now fixed (with accompanying tests, of course!). Basically these were all chalked up to scoped registration using the fluent syntax.</p>
+
+<p>Consider this code:</p>
+
+<p>[sourcecode language=&ldquo;javascript&rdquo;]
+factory.inScope(&lsquo;foo&rsquo;).register(Bar).asType(IBaz);
+factory.register(Widget).asType(ISprocket);
+[/sourcecode]</p>
+
+<p>We found that Widget was actually registered in scope ???foo???, and we expected it to be in the default scope. We hope asfac users agree. If you did indeed want to register many things into a common scope, you can do it like this:</p>
+
+<p>[sourcecode language=&ldquo;javascript&rdquo;]
+var scopedRegistrar:IRegister = factory.inScope(&lsquo;scope&rsquo;);
+scopedRegistrar.register(Bar).asType(IBaz);
+scopedRegistrar.register(Widget).asType(ISprocket);</p>
+
+<p>var scopedResolver:IResolve = factory.fromScope(&lsquo;scope&rsquo;);
+// you get it???
+[/sourcecode]</p>
+
+<p>If you???re using asfac, please let us know what you think. If you run into any problems, please log an issue on <a href="https://github.com/thedevstop/asfac/issues" target="_blank">github</a>. Thanks!</p>
+
+<h3>Thanks Adobe</h3>
+
+
+<p>Also, thanks to Adobe for tweeting about asfac. However, we want to clarify that the video embedded in <a href="https://thedevstop.wordpress.com/2013/01/28/the-story-of-asfac/" target="_blank">Joey???s original asfac post</a> is not us creating asfac. It???s Jon Skeet hacking out IOC concepts in C#.</p>
+
+<blockquote class="twitter-tweet">Learn how <a href="https://twitter.com/search/%23Asfac">#Asfac</a>, an <a href="https://twitter.com/search/%23IoC">#IoC</a> container, was created in this in-depth <a href="https://twitter.com/search/%23ActionScript">#ActionScript</a> video: <a title="http://bit.ly/SZGXo4" href="http://t.co/QkefPVkU">bit.ly/SZGXo4</a>
+
+??? Adobe Flash Platform (@AdobeFlash) <a href="https://twitter.com/AdobeFlash/status/302477835187154944">February 15, 2013</a></blockquote>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2013/03/14/updates-pushed-to-asfac-master/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2013/03/14/updates-pushed-to-asfac-master/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/07/roy-osheroves-solid-katastring-calculator-redux/" title="Previous Post: Roy Osheroveâ€™s SOLID Kataâ€“String Calculator Redux">&laquo; Roy Osheroveâ€™s SOLID Kataâ€“String Calculator Redux</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/03/thoughts-on-transparent-compensation-policies/" title="Next Post: Thoughts On Transparent Compensation Policies">Thoughts On Transparent Compensation Policies &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

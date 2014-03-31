@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ScriptBundle subdirectories no longer work in Microsoft.Web.Optimization 1.1.0 when optimizations are off - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+Just a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ScriptBundle Subdirectories No Longer Work in Microsoft.Web.Optimization 1.1.0 When Optimizations Are Off</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+Just a heads up for now. I???ll track down where to report this or to whom in the morning. Excuse any spelling, grammar, sloppiness of screenshots, etc., I&rsquo;m doing this pretty quickly before heading out for the day.</p>
+
+<p><strong>tl;dr If you create ScriptBundles that recurse through subdirectories, and if you want to keep optimizations off for debug, stay on Microsoft.AspNet.Web.Optimization 1.0.0. If you go to 1.1.0, force EnableOptimizations=true, or your scripts from subdirectories won???t come through.</strong></p>
+
+<p>I had the good fortune to do a File &gt; New Project a couple of days ago. When I did, I grabbed the bundling package</p>
+
+<p>[sourcecode language=&ldquo;bash&rdquo;]
+Install-Package Microsoft.AspNet.Web.Optimization
+[/sourcecode]</p>
+
+<p>To keep this simple (i.e., to provide a <a href="http://blogs.msdn.com/b/oldnewthing/archive/2013/10/18/10457796.aspx" target="_blank">reduction</a>), I am including just two scripts here. Scripts/foo.js logs ???foo???, and Scripts/subdir/bar.js logs ???bar???.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb.png" width="244" height="144" border="0" /></a></p>
+
+<p>I create a simple, standard ScriptBundle that should pick these up.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+BundleTable.Bundles.Add(new ScriptBundle(&quot;~/scripts/bundle&quot;)
+.IncludeDirectory(&quot;~/Scripts&quot;, &quot;*.js&quot;, true));
+[/sourcecode]</p>
+
+<p>When I include these on the Home/Index view using</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+@System.Web.Optimization.Scripts.Render(&quot;~/scripts/bundle&quot;)
+[/sourcecode]</p>
+
+<p>Only foo gets logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image1.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb1.png" width="244" height="164" border="0" /></a></p>
+
+<p>But if I downgrade to 1.0.0</p>
+
+<p>[sourcecode language=&ldquo;bash&rdquo;]
+Uninstall-Package Microsoft.AspNet.Web.Optimization
+Install-Package Microsoft.AspNet.Web.Optimization ???version 1.0.0
+[/sourcecode]</p>
+
+<p>Then they both get logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image2.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb2.png" width="244" height="221" border="0" /></a></p>
+
+<p>If we update back to the 1.1.0 package, we can look in Fiddler and see the problem.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image3.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb3.png" width="244" height="123" border="0" /></a></p>
+
+<p>Optimization is recognizing that there???s a bar.js somewhere, but the bundle loses track of the fact that it???s in a subdirectory. Of course, this is in debug mode where the optimizations are not enabled and the scripts are still delivered separately. Let???s see if enabling the optimization to deliver the bundle itself will help us.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+BundleTable.EnableOptimizations = true;
+[/sourcecode]</p>
+
+<p>Now both statements are logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image4.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb4.png" width="244" height="125" border="0" /></a></p>
+
+<p>Of course, looking at the delivered bundle, we can see that the contents of both scripts are there. In other words, you wouldn&rsquo;t see this problem in Release or if you&rsquo;re explicitly forcing the optimizations into effect.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image5.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb5.png" width="244" height="125" border="0" /></a></p>
+
+<p>I lost a fair bit of time the other day thinking that I had mistyped something setting up my ScriptBundle or a similar mistake. Even after I saw the 404s in Fiddler, I blamed myself and kept looking for my own error. Then I realized that the package version was different and took this wild guess =) Hope this helps save someone from similar trouble until the problem is resolved.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/" title="Previous Post: How can I preselect an option element in a select box?">&laquo; How can I preselect an option element in a select box?</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/" title="Next Post: How to run your ASP.NET Web Application when you start debugging instead of launching the page / view youâ€™re editing">How to run your ASP.NET Web Application when you start debugging instead of launching the page / view youâ€™re editing &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

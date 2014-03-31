@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Adding OData Inline Count Support to the ASP.NET Web API - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+Note: This &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Adding OData Inline Count Support to the ASP.NET Web API</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-05T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+<strong>Note</strong>: This post assumes that you???re working against the NuGet bits as of 4/5/2012, in which OData support is limited to $top, $skip, $orderby, and $filter. I plan to go back and check whether the latest bits already have $inlinecount support now that the <a title="aspnetwebstack on CodePlex" href="http://aspnetwebstack.codeplex.com/" target="_blank">ASP.NET Web Stack has been open-sourced</a>.</p>
+
+<p><strong>Update:</strong> Moving older updates to the bottom of the post. Short version: this worked in theory, but absolutely has quirks as it is admittedly an experimental hack. It explodes if you use EF (initial testing did not). Use with caution. There&rsquo;s also a comment from Marcin Dobosz if you&rsquo;re interested in what the Web API team is looking at for OData support.</p>
+
+<p style="text-align:center;"><img class="aligncenter  wp-image-626" title="Surely this is fair use. Oh please let this be fair use." src="http://thedevstop.files.wordpress.com/2012/04/sesame-english-do-you-like-it-apple_count.jpg" alt="Surely this is fair use. Oh please let this be fair use." width="640" height="489" /></p>
+
+
+<p>As the note above implies, the <strong>ASP.NET Web API does not (or did not) support the <a title="$inlinecount documentation" href="http://www.odata.org/developers/protocols/uri-conventions#InlinecountSystemQueryOption" target="_blank">$inlinecount OData parameter</a></strong>. Many have <a title="ASP.NET Forums" href="http://forums.asp.net/t/1771116.aspx/2/10" target="_blank">pointed out</a> that this defeats much of the client-side paging advantages of OData. Indeed, a friend of mine has personally run up against this. He wants to show the user how many total pages are possible; he can say that page six should be ???skip 50 and take 10??? all day long, but <strong>without the total count, he cannot calculate the maximum page number</strong>.</p>
+
+<p>To demonstrate the problem, take a look at this Fiddler request. We ask for the total count of items, but <strong>the default ASP.NET Web API bits do not deliver the information</strong>!</p>
+
+<p style="text-align:center;"><img class="aligncenter size-full wp-image-624" title="The total count is not provided" src="http://thedevstop.files.wordpress.com/2012/04/nocount2.png" alt="The total count is not provided" width="640" height="386" /></p>
+
+
+<p>When we&rsquo;re done, <strong>we will have the count</strong>!</p>
+
+<p style="text-align:center;"><img class="aligncenter  wp-image-625" title="We have inserted the count!" src="http://thedevstop.files.wordpress.com/2012/04/hascount1.png" alt="We have inserted the count!" width="640" height="414" /></p>
+
+
+<p>Even if we apply a filter and a skip / take, we will know how many results we should plan to receive if we page through everything. Now we can divide that by the page size and know exactly how many pages the user can choose from.</p>
+
+<p>[Aside: The merits of pagination are not the topic of this post. While I tend to agree with Jeff Atwood that <a title="The End Of Pagination" href="http://www.codinghorror.com/blog/2012/03/the-end-of-pagination.html" target="_blank">paradigms are shifting</a>, many still prefer &ndash; or are bound by their customers &ndash; to provide a page list].</p>
+
+<p>One way around this was to simply make a second call to the server, parse out the $filter, and call Count(). This is not very elegant. While what I present below might not be the best possible approach, it does get us back down to a single call to the server which returns the $inlinecount as requested.</p>
+
+<p>Let???s get to the code.</p>
+
+<p>I chose to implement this as a message handler, so the first and simplest thing to do is <strong>register a new InlineCountHandler</strong>. I was working in a self-hosted Web API project, so I did this while setting up the configuration:</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>config.MessageHandlers.Add(new InlineCountHandler());</p>
+
+<p>[/sourcecode]</p>
+
+<p>I had originally tried returning an anonymous type like this</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>new { Count = unpagedResults.Count(), Results = pagedResults }
+// also tried pagedResults.ToArray() and a variety of other things</p>
+
+<p>[/sourcecode]</p>
+
+<p>but this kept resulting in a 504. I decided to just go ahead and make a type to wrap our result. Trial and error also showed that our Result property needed to be an array (i.e., do not pass along the IQueryable) and cannot be object[] (i.e., we need to specify the proper type).</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>public class ResultValue&lt;T&gt;
+{</p>
+
+<pre><code>public int Count { get; set; }
+public T[] Results { get; set; }
+</code></pre>
+
+<p>}
+[/sourcecode]</p>
+
+<p>After that it was just a matter of capturing the base response and <strong>adding the count in an override of SendAsync</strong>. If $inlinecount isn&rsquo;t present and set to &ldquo;allpages&rdquo;, we just forward along the base response.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>private??bool??ShouldInlineCount(HttpRequestMessage??request)
+{</p>
+
+<pre><code>var??queryParams??=??request.RequestUri.ParseQueryString();
+var??inlinecount??=??queryParams[&amp;quot;$inlinecount&amp;quot;];
+return??string.Compare(inlinecount,??&amp;quot;allpages&amp;quot;,??true)??==??0;
+</code></pre>
+
+<p>}</p>
+
+<p>[/sourcecode]</p>
+
+<p>Otherwise, we press on by adding a continuation to the base task. We are only going to bother working our magic if the response was a 200 OK and resulted in an ObjectContent of IQueryable&lt;&gt;.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>private??bool??ResponseIsValid(HttpResponseMessage??response)
+{</p>
+
+<pre><code>//??Only??do??work??if??the??response??is??OK
+if??(response??==??null??||??response.StatusCode??!=??HttpStatusCode.OK)??return??false;
+
+//??Only??do??work??if??we??are??an??ObjectContent
+return??response.Content??is??ObjectContent;
+</code></pre>
+
+<p>}</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+Type queriedType;
+//??Can??we??find??the??underlying??type??of??the??results?
+if??(pagedResultsValue??is??IQueryable)</p>
+
+<pre><code>queriedType??=??((IQueryable)pagedResultsValue).ElementType;
+</code></pre>
+
+<p>else</p>
+
+<pre><code>return??response;
+</code></pre>
+
+<p>[/sourcecode]</p>
+
+<p>I haven&rsquo;t performance tested the following, but my theoretical understanding is we won&rsquo;t be issuing any additional network traffic &ndash; this will just resend the modified request inside our own pipeline. Additionally, the additional database call should be limited to a SELECT COUNT, so not too much additional chatter. <strong>At any rate, it works, which is step one.</strong></p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>// Reissue the request without a skip/take to get our count. This will preserve filtering which
+// could affect the count
+var newRequest = new HttpRequestMessage(
+ request.Method,
+ request.RequestUri.AbsoluteUri.Replace(&quot;$skip=&quot;, &quot;$<em>skip=&quot;).Replace(&quot;$top=&quot;, &quot;$</em>top=&quot;));</p>
+
+<p>// Get the result with no paging
+var unpagedTaskResult = base.SendAsync(newRequest, cancellationToken).Result;
+var unpagedResultsValue = this.GetValueFromObjectContent(unpagedTaskResult.Content);</p>
+
+<p>[/sourcecode]</p>
+
+<p>We don&rsquo;t know what custom types our controllers might end up delivering as the T in IQueryable&lt;T&gt;, so <strong>we get to play with some generics and dynamic invocation</strong>.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>var resultsValueMethod =
+ this.GetType().GetMethod(&quot;CreateResultValue&quot;, BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(new[] { queriedType });
+ // Create the result value with dynamic type
+var resultValue = resultsValueMethod.Invoke(
+ this, new[] { unpagedResultsValue, pagedResultsValue });</p>
+
+<p>[/sourcecode]</p>
+
+<p>Finally, we reset the Content to our ResultValue.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]</p>
+
+<p>// Push the new content and return the response
+response.Content = CreateObjectContent(resultValue, response.Content.Headers.ContentType);
+return response;
+[/sourcecode]</p>
+
+<p>So that???s what I came up with. You can get the full source code on??<a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/feature/inlinecount" target="_blank">GitHub</a>. You???ll want the <strong>feature/inlinecount</strong> branch.</p>
+
+<p>I???d be more than happy for someone to <strong>tear this apart and provide a better solution</strong>. Until then, it is what it is.??I???ll almost certainly cover this at my upcoming <a title="ASP.NET Web API event at HUNTUG" href="http://www.huntug.com/huntug/Meetings/Calendar/tabid/105/ctl/Details/Mid/463/ItemID/49/Default.aspx?selecteddate=4/10/2012" target="_blank">ASP.NET Web API talk</a> at <a title="HUNTUG" href="http://www.huntug.org/" target="_blank">HUNTUG</a> in Huntsville, AL on 4/10/2012. Come out and see me!</p>
+
+<p><del><strong>Update:</strong>??For whatever reason, this??<strong>breaks content negotiation to XML</strong>. If you issue requests without $inlinecount with an Accept header for XML, it&rsquo;s all groovy. Issue it with $inlinecount so that we intercept and add the Count, it??<strong>still comes out as JSON</strong>. Be aware.</del></p>
+
+<p><strong>Update:??</strong>XML Content Negotiation is fixed now. Silly me, forgot to use the ctor that preserves the MediaTypeHeaderValue. Other refactorings are also present in the latest code on??<a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/feature/inlinecount" target="_blank">GitHub</a>, some of which has been incorporated into this post. Also note Marcin&rsquo;s comment about the approach the Web API team is taking (still not slated for V1).</p>
+
+<p><strong>Another update:??</strong>As it currently stands, this only works in a self hosted environment. If you host your Web API in an MVC website, for example, the base.SendAsync(newRequest&hellip; results in a 404 and bad things happen due to lack of error handling (hey, I told you this was not very elegant!). Anyway, Chris tells me he can get past the 404 by copying more than just the method and Uri to the request; however, his IOC breaks after that. You&rsquo;ve been warned. ;)??<del>This has been fixed on??<a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/develop" target="_blank">the develop branch</a>, although??<strong>the general warning that this isn&rsquo;t elegant stands.??</strong>Proof of concept, experiment, hack; any of these terms are very reasonable.</del></p>
+
+<p><strong>And another:</strong> As Dante found, the &ldquo;this has been fixed&rdquo; part of the above update did eliminate ??the exception when web hosting, but it also destroyed the accuracy. I have reverted the source on GitHub, and this will again only work in a self hosted environment.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-05T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/20/announcement-asp-net-web-api-talk-at-huntug-4102012/" title="Previous Post: Announcement: ASP.NET Web API talk at HUNTUG 4/10/2012">&laquo; Announcement: ASP.NET Web API talk at HUNTUG 4/10/2012</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/19/reflections-on-the-501-developer-manifesto/" title="Next Post: Reflections on the 501 Developer Manifesto">Reflections on the 501 Developer Manifesto &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

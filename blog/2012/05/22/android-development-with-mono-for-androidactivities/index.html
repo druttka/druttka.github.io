@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Android Development with Mono For Androidâ€“Activities - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues.
+Continuing &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2012/05/22/android-development-with-mono-for-androidactivities/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Android Development With Mono for Androidâ€“Activities</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-22T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/22/android-development-with-mono-for-androidactivities/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em>
+Continuing on my journey into <a href="http://xamarin.com/monoforandroid" target="_blank">MonoDroid</a>, this post will take a quick look at activities. You may remember from <a title="MonoDroid 101???Installation and Hello World with Mono for??Android" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/" target="_blank">last time</a> that the project template gives us an Activity1.cs file with a click counter. We could launch this from the main launcher / apps list.</p>
+
+<p>But what if my app has a lot of possible screens in it, and I don&rsquo;t want them all cluttering the apps list? What if I want to launch one from another instead? Are there events or callbacks that let me know when I&rsquo;m being spun up or spun down?</p>
+
+<h3>What Is An Activity</h3>
+
+
+<p>This is perhaps the most succinct definition I???ve found.</p>
+
+<blockquote>An activity is a single, focused thing that the user can do. ??? <a href="http://developer.android.com/reference/android/app/Activity.html" target="_blank">Android Developer???s Reference</a></blockquote>
+
+
+<p>This one is a bit more complete.</p>
+
+<blockquote>An <code><a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a></code> is an application component that provides a screen with which users can interact in order to do something, such as dial the phone, take a photo, send an email, or view a map. Each activity is given a window in which to draw its user interface. ??? <a href="http://developer.android.com/guide/topics/fundamentals/activities.html" target="_blank">Android Developer???s Guide</a></blockquote>
+
+
+<p>The important thing to be aware of here is that your application may be comprised of many activities, but you won???t necessarily want to display all (or any!?) of them in the main launcher / app screen.</p>
+
+<h3>The [Activity] Attribute</h3>
+
+
+<p>Mono for Android makes it dead simple to include your Activity elements in the <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_blank">AndroidManifest.xml</a>. You might notice that this file isn???t even in your project by default. <a href="http://android.xamarin.com/Tutorials/Working_with_AndroidManifest.xml" target="_blank">mandroid.exe will generate it</a> based on custom attributes (or merge it if Properties\AndroidManifest.xml does exist).</p>
+
+<p><a href="http://docs.monodroid.net/index.aspx?link=T%3aAndroid.App.ActivityAttribute" target="_blank">ActivityAttribute</a> is such a custom attribute.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+[Activity(Label = &quot;AndroidApplication1&quot;, MainLauncher = true, Icon = &quot;@drawable/icon&quot;)]
+[/sourcecode]</p>
+
+<p>There are a lot of properties available here, but the ones I???ve used most so far have been</p>
+
+<ul>
+    <li>MainLauncher ??? specifies whether the user can launch this Activity from their Apps screen</li>
+    <li>Label ??? sets the text; this appears in the main launcher</li>
+    <li>Icon ??? which drawable resource should graphically represent the Activity</li>
+    <li>NoHistory ??? causes the Activity to be excluded from the history and finished if the user leaves it (i.e., there???s no going back)</li>
+</ul>
+
+
+<p>I imagine that I???ll be using LaunchMode and ScreenOrientation in the near future, but haven???t needed them quite yet.</p>
+
+<h3>The Activity Lifecycle</h3>
+
+
+<p>An Activity has <a href="http://developer.android.com/guide/topics/fundamentals/activities.html#Lifecycle" target="_blank">several lifecycle events</a>. That link has a great flowchart as well as a table with descriptions, possible next states, and recommendations on what to do when. No sense in copying it here ??? go check it out and come back.</p>
+
+<p>For those who learn better by seeing it in action and experimenting, you might write debug statements in each of the methods and experiment in the emulator. Or maybe I can do that for you =p</p>
+
+<p>Launching the activity from the main launcher results in OnCreate followed by OnStart and finally OnResume. Simply clicking the Back button to terminate the Activity results in OnPause, OnStop, and OnDestroy.</p>
+
+<p>I think that should all be pretty self-explanatory. What about Restart? Can we pause and resume without stopping and destroying ourselves?</p>
+
+<p>If you???re in the Activity and press the Home button to navigate away, you???ll get OnPause and OnStop. Going back to the main launcher and starting again, we get OnRestart, OnStart, and OnResume.</p>
+
+<p>In contrast, if you use the emulator???s End Call button to lock the screen, you???ll only get OnPause. You never navigated away in favor of another activity, you just put the to sleep. As you might expect, pressing Begin Call to wake up the device, you only get OnResume.</p>
+
+<h3>Launching Activities</h3>
+
+
+<p>The first and most obvious way for an Activity to be launched is from the main launcher / apps screen. We???ve already seen how this can be achieved simply by setting MainLauncher to true.</p>
+
+<p>An Activity can also launch another. From within an Activity, simply call StartActivity(typeof(YourSuperActivity)). It will become the current activity on the activity stack; the back button will return the user to the calling activity as long as NoHistory was false.</p>
+
+<p>There will be more complex scenarios to follow, but for now, we???re still just covering the basics.</p>
+
+<h3>Making A Splash</h3>
+
+
+<p>It should seem pretty clear now how we could make a splash screen.</p>
+
+<ul>
+    <li>Remove the initial application Activity from the main launcher</li>
+    <li>Create another activity that
+<ul>
+    <li>is started from the main launcher</li>
+    <li>is not part of the Activity history stack</li>
+    <li>has the full screen splash image</li>
+    <li>launches the initial application Activity</li>
+</ul>
+</li>
+</ul>
+
+
+<p>My new Splash activity had a couple of new properties on the Activity attribute.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+[Activity(MainLauncher=true, NoHistory=true, Theme=&quot;@style/Theme.Splash&quot;, Label=&quot;Foo&quot;, Icon=&quot;@drawable/icon&quot;)]
+[/sourcecode]</p>
+
+<p>Note that I???m specifying a theme here. I added it to Resources/Values/Styles.xml.</p>
+
+<p>[sourcecode language=&ldquo;xml&rdquo;]
+&lt;resources&gt;
+&lt;style??name=&quot;Theme.Splash&quot;??parent=&quot;android:Theme&quot;&gt;
+&lt;item??name=&quot;android:windowBackground&quot;&gt;@drawable/splash&lt;/item&gt;
+&lt;item??name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
+&lt;/style&gt;
+&lt;/resources&gt;
+[/sourcecode]</p>
+
+<p>Also note that the style references a splash image, so be sure to create or add one in Resources/Drawable. Eventually you???ll want to <a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank">support multiple sizes and densities</a>, but again, we???re still just covering basics.</p>
+
+<p>The guts of our OnCreate method can look something like this</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+base.OnCreate(bundle);</p>
+
+<p>// For demonstration purposes
+Thread.Sleep(2000);</p>
+
+<p>// Move along to the real Activity.
+// Since we are NoHistory, this one will be finished
+StartActivity(typeof(Activity1));
+[/sourcecode]</p>
+
+<p>Optionally, you could add these overrides in your Splash Activity for additional proof that it does get finished and destroyed.</p>
+
+<p>[sourcecode language=&ldquo;csharp&rdquo;]
+public override void Finish()
+{</p>
+
+<pre><code>System.Diagnostics.Debug.WriteLine(&amp;quot;Splash.Finish&amp;quot;);
+base.Finish();
+</code></pre>
+
+<p>}</p>
+
+<p>protected override void OnDestroy()
+{</p>
+
+<pre><code>System.Diagnostics.Debug.WriteLine(&amp;quot;Splash.OnDestroy&amp;quot;);
+base.OnDestroy();
+</code></pre>
+
+<p>}
+[/sourcecode]</p>
+
+<h3>Summary</h3>
+
+
+<p>Activities are a pretty substantial backbone of Android apps. Mono for Android makes it easy to get right down to business and avoid the ceremony of crafting the AndroidManifest.xml. Lifecycle callbacks allow you to perform setup, cleanup, and state preservation logic at critical points, and launching a new Activity can be as simple as calling StartActivity(type).</p>
+
+<p>I???m not sure yet what we???ll look at next time. A couple of the things I???ve been looking at and using in my CodeStock app/hack are the <a href="https://github.com/praeclarum/sqlite-net" target="_blank">sqlite-net</a> library, and this <a href="https://github.com/soundnRg/ActionBar" target="_blank">ActionBar widget</a>, so those are good candidates.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-22T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/05/22/android-development-with-mono-for-androidactivities/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/05/22/android-development-with-mono-for-androidactivities/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/21/teasercodestock-conference-app-for-android/" title="Previous Post: Teaserâ€“CodeStock Conference App for Android">&laquo; Teaserâ€“CodeStock Conference App for Android</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/06/19/my-codestock-talkscommitted-and-mind-the-gap-phonegap/" title="Next Post: My CodeStock Talksâ€“Committed and Mind the Gap (PhoneGap)">My CodeStock Talksâ€“Committed and Mind the Gap (PhoneGap) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
