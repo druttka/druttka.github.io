@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-03-30T19:48:17-07:00</updated>
+  <updated>2014-04-01T09:24:07-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Facebook?]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/01/facebook/"/>
+    <updated>2014-04-01T09:18:16-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/01/facebook</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with <a href="https://twitter.com/JoeyRobichaud">Joey</a>, and Joey said&hellip;</p>
+
+<!--more-->
+
+
+<blockquote><p>Hey, looks like {kid&rsquo;s name}&rsquo;s ballet class was pretty great!</p></blockquote>
+
+<p>And I said</p>
+
+<blockquote><p>Wat?</p></blockquote>
+
+<h2>My Current Facebook Policy</h2>
+
+<p>Only one friend, my wife, so I can enjoy posts and pics of her and my kid.</p>
+
+<h2>The Dilemma</h2>
+
+<p>I know Facebook is wrong. I know going back is a trap, but&hellip;</p>
+
+<p>People at work are having happy fun joke time and I&rsquo;m missing it.</p>
+
+<p>I&rsquo;m considering revocation of my policy, and jumping all the way back in.</p>
+
+<p><strong>Someone talk me down from this ledge.</strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Starting Multiple Projects At Once In Visual Studio]]></title>
@@ -1165,130 +1197,6 @@ public int Add(string input)
 <p>[gist]<a href="https://gist.github.com/druttka/5111493">https://gist.github.com/druttka/5111493</a>[/gist]</p>
 
 <p>I hope you enjoyed reading about this experience as much as I enjoyed going through the exercise. This is nothing groundbreaking but perhaps it will help SOLID click for someone. Also, I&rsquo;d be very interested in any comments about what I might have missed or mistaken, or links to your <a href="https://twitter.com/search?q=solidkata&amp;src=typd" target="_blank">#solidkata</a> exercises so that I can learn how others approach the task. Happy coding!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Did both ESRI and MapBox steal from Fitbit?]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/03/01/did-both-esri-and-mapbox-steal-from-fitbit/"/>
-    <updated>2013-03-01T00:00:00-08:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/03/01/did-both-esri-and-mapbox-steal-from-fitbit</id>
-    <content type="html"><![CDATA[<!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/01/did-both-esri-and-mapbox-steal-from-fitbit/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p><span style="color:#ff0000;font-size:xx-small;">Note / disclaimer: I work for <a href="http://www.3-gis.com" target="_blank">3-GIS</a>, and we work a lot with <a href="http://esri.com" target="_blank">ESRI</a>. This blog post does not necessarily represent the views of 3-GIS, ESRI, <a href="http://mapbox.com" target="_blank">MapBox</a>, <a href="http://fitbit.com" target="_blank">Fitbit</a>, or any other entity. These thoughts are my own and are hopefully unbiased. I&rsquo;m just a web developer and don&rsquo;t have a stake in this. I simply find the implications for web development and site design to be interesting.</span></p>
-
-<h3></h3>
-
-
-<h3>&#8220;ESRI, shame on you guys!&#8221;</h3>
-
-
-<p>The other day, I saw several tweets regarding ESRI&rsquo;s new <a href="http://developers.arcgis.com/en/" target="_blank">ArcGIS for Developers</a> website.</p>
-
-<blockquote class="twitter-tweet">shameless imitation by @<a href="https://twitter.com/esri">esri</a> (<a title="http://developers.arcgis.com/en" href="http://t.co/deffx3Mqi2">developers.arcgis.com/en</a>) of @<a href="https://twitter.com/mapbox">mapbox</a> design: does this foretell how they will approach open source code?
-
-â€” Dane Springmeyer (@springmeyer) <a href="https://twitter.com/springmeyer/status/306817393131417600">February 27, 2013</a></blockquote>
-
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/springmeyer">springmeyer</a> @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> Shocking! Die ESRI, shame on you guys! ESRI, SHAME ON YOU!
-
-â€” Ishan Chattopadhyaya (@ichattopadhyaya) <a href="https://twitter.com/ichattopadhyaya/status/306820474766258176">February 27, 2013</a></blockquote>
-
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/howardbutler">howardbutler</a> @<a href="https://twitter.com/springmeyer">springmeyer</a> @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> Esri is open&#8230; to the idea of appropriating your work.
-
-â€” Sean Gillies (@sgillies) <a href="https://twitter.com/sgillies/status/306821500181307393">February 27, 2013</a></blockquote>
-
-
-<p>James Fee even wrote a blog post about the <a href="http://spatiallyadjusted.com/2013/02/27/emulating-mapbox/" target="_blank">emulation of MapBox</a>. From his assessment of the situation:</p>
-
-<blockquote>I&#8217;d like to think there wasn&#8217;t malicious intent here, just that those who created it want to be like MapBox and <a href="http://developmentseed.org/">Developement Seed</a>. Still, when the 800lb (363kg) gorilla does things like this, you can&#8217;t but help call it a dick move.</blockquote>
-
-
-<p>I was on my phone at the time. Clicking through to both websites, all I thought was&hellip;</p>
-
-<h3></h3>
-
-
-<h3>All Bootstrap Everything</h3>
-
-
-<p>Upon investigation of the sources, it seems that not all of these sites are indeed using <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a> specifically. However, I think the style is evident. The Bootstrap style has become so ubiquitous on today&rsquo;s web that there are even <a href="http://bootswatch.com/" target="_blank">sites</a> dedicated to helping you un-Bootstrap your Bootstrap.</p>
-
-<blockquote class="twitter-tweet">Somewhere, x is being accused of copying y, but actually they&#8217;re both just using default typography and sample layouts from bootstrap&#8230;
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/306983506519666688">February 28, 2013</a></blockquote>
-
-
-<h3>The Simpsons Already Did It</h3>
-
-
-<p>If we follow the evolutionary chain of <a href="http://developers.arcgis.com/en/" target="_blank">ESRI</a> to <a href="http://mapbox.com" target="_blank">MapBox</a>, then surely we must follow MapBox&rsquo;s back to <a href="http://fitbit.com" target="_blank">Fitbit</a>. Note that all three share the design elements listed below, and note that you could probably find countless more sites that share the same.</p>
-
-<ul>
-    <li>a tall header</li>
-    <li>rounded buttons</li>
-    <li>pleasant typography</li>
-    <li>lots of scrolling down</li>
-    <li>a feeling reminiscent of a grid system (or actual use of a grid system)</li>
-    <li>columns of links at the bottom</li>
-</ul>
-
-
-<p>There was one tweet that pointed out the use of cartoon maps in circles.</p>
-
-<p>[caption id=&ldquo;&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;234&rdquo;]<a href="http://thedevstop.files.wordpress.com/2013/03/image3.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="MapBox's cartoony map icon" alt="MapBox's cartoony map icon" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb3.png" width="234" height="227" border="0" /></a> MapBox&rsquo;s cartoony map icon[/caption]</p>
-
-<p>[caption id=&ldquo;&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;241&rdquo;]<a href="http://thedevstop.files.wordpress.com/2013/03/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="ESRI's cartoony map icon" alt="ESRI's cartoony map icon" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb4.png" width="241" height="229" border="0" /></a> ESRI&rsquo;s cartoony map icon[/caption]</p>
-
-<p>I want to be clear that even the idea of &ldquo;cartoon&rdquo; icons in circles is not a groundbreaking design technique. Fitbit has that too (decision for color vs. silhouette notwithstanding); they just didn&rsquo;t need a map in their domain.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/03/image5.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="Fitbit's cartoony icons" alt="Fitbit's cartoony icons" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb5.png" width="478" height="142" border="0" /></a></p>
-
-<h3>Making It Your Own</h3>
-
-
-<blockquote class="twitter-tweet">I see too many differences to call the @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> thing a ripoff. Ooo, both use rounded buttons, nice font, tall header? Oh no!
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/307186225222139904">February 28, 2013</a></blockquote>
-
-
-<p>Here are a few of the obvious differences between the sites</p>
-
-<ul>
-    <li>MapBox uses ALLCAPS NAVIGATION, Mixed Case Navigation for ESRI</li>
-    <li>Social links are presented quite differently</li>
-    <li>MapBox has an introductory video, while ESRI has various text areas</li>
-    <li>Signup placement is raised for MapBox, inline for ESRI</li>
-    <li>MapBox colors their footer, ESRI does not</li>
-    <li>MapBox put their logo on the left, ESRI on the right</li>
-</ul>
-
-
-<p>Now admittedly any of these changes taken individually would be trivial, but when taken together, I find it unlikely that ESRI said, &ldquo;You know, MapBox is pretty. Let&rsquo;s steal their CSS!&rdquo; I think it is much more likely that ESRI said &ldquo;You know, on our new site, let&rsquo;s go with the prevalent patterns taking over the web today, and incorporate a tall scrolling site with rounded buttons.&rdquo;</p>
-
-<h3>Benefit of the Doubt</h3>
-
-
-<p>Hey internet, let&rsquo;s try to play nicely together. Like I said in the note/disclaimer, I have no dog in this fight. I&rsquo;m just a developer, currently developing for the web.</p>
-
-<p>I will give those pointing fingers some benefit of the doubt. Perhaps I missed design elements that truly were plagiarized, rather than just being common to today&rsquo;s web. Perhaps they really haven&rsquo;t seen so many other sites with Bootstrap qualities, and honestly thought MapBox&rsquo;s site design was novel.</p>
-
-<p>On the other hand, maybe we can extend a similar courtesy to ESRI and restrain ourselves from wishing death upon them. Â Perhaps they are just last in line to pick up on this style. I maintain that MapBox was certainly not the first. If accusation becomes our default response, what will we all have to do for our next site design?</p>
-
-<h3></h3>
-
-
-<h3></h3>
-
-
-<blockquote class="twitter-tweet">If &#8220;modern, rounded, scroll down a lot&#8221; has been trademarked, the entire internet has lost.
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/307187452836184064">February 28, 2013</a></blockquote>
-
 ]]></content>
   </entry>
   
