@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-01T09:31:50-07:00</updated>
+  <updated>2014-04-01T09:34:06-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -27,7 +27,7 @@
     <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/"/>
     <updated>2014-04-01T09:25:43-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines</id>
-    <content type="html"><![CDATA[<p>Looks like linklog is broken, or I&rsquo;m doing it wrong. Until I figure it out, <a href="http://blogs.technet.com/b/heyscriptingguy/archive/2014/03/30/understanding-streams-redirection-and-write-host-in-powershell.aspx">here is what I meant to link to</a>!</p>
+    <content type="html"><![CDATA[<p>Looks like linklog is broken, or I&rsquo;m doing it wrong. Until I figure it out, <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">here is what I meant to link to</a>!</p>
 ]]></content>
   </entry>
   
