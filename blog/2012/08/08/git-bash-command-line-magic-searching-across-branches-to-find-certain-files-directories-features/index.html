@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Git Bash Command Line Magic   Searching Across Branches To Find Certain Files, Directories, Features - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. So, these &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Git Bash Command Line Magic Searching Across Branches to Find Certain Files, Directories, Features</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-08T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
+
+<p>So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;)</p>
+
+<p>Today, we weren&rsquo;t sure where a certain bit of code was. Why we weren&rsquo;t sure isn&rsquo;t the point of this post, but we knew that the code had been written. We also knew, from some old conversation, a directory name. <strong>But the directory didn&rsquo;t exist, at least not in our branches.</strong></p>
+
+<p>So on what branch might it have been done? Reflecting now, we could have looked at our issue tracking system and found the associated commits that way. What we ended up doing was having some fun at the command line.</p>
+
+<p>Let&rsquo;s say the feature had to do with <strong>diagnosing widgets</strong>, and we knew the directory name was <strong>tools/widgetDiagnosis</strong>.</p>
+
+<h3>Option 1: Search by branch name</h3>
+
+
+<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+
+<p>git branch -a | grep -i diagnos</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>What does this do? </strong>Well,Â git branch -a lists all the branches both locally and remote, and then that&rsquo;s piped in as input to grep -i diagnos which does a case insensitive pattern match. This gives us output like /origin/feature/Widget-Diagnostics, or maybe it was /origin/feature/Diagnose-Widgets, but you can see now why I used &ldquo;diagnos&rdquo; as the search pattern. Distinct enough to avoid a lot of false positives, but loose enough to match variants of the word.Â <strong>
+</strong></p>
+
+<h3>Option Two: Search by path</h3>
+
+
+<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+
+<p>gitÂ log &mdash;all &mdash; tools/widgetDiagnosis</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>What does this do? </strong>I stole this one fromÂ <a title="How can I search Git branches for a file or directory?" href="http://stackoverflow.com/a/372970/368296" target="_blank">StackOverflow</a>.Â There are other answers there too in case you don&rsquo;t know the full exact path that you&rsquo;re looking for. At any rate, this gets the log for all the refs but only where the commit can explain how the file exists. Then get a branch name with</p>
+
+<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+
+<p>git branch &mdash;contains &lt;a commit hash from above&gt;</p>
+
+<p>[/sourcecode]</p>
+
+<p>In our case, the way we structure our branches and the way we format our commit messages, the log was enough to lead us to the correct branch.</p>
+
+<p>So there you have it. Again, might be very old news to some, but if this helps at least one person, this write-up was worth it.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-08T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/19/my-codestock-talks-committed-and-mind-the-gap-phonegap/" title="Previous Post: My CodeStock Talks   Committed and Mind the Gap (PhoneGap)">&laquo; My CodeStock Talks   Committed and Mind the Gap (PhoneGap)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/08/22/book-review-think-like-a-programmer-by-v-anton-spraul-no-starch-press/" title="Next Post: Book Review: Think Like a Programmer by V. Anton Spraul; No Starch Press">Book Review: Think Like a Programmer by V. Anton Spraul; No Starch Press &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

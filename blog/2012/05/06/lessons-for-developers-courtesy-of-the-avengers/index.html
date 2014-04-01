@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Lessons for Developers Courtesy of The Avengers - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. Note: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+  <li><a href="/atom.xml">Subscribe</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Lessons for Developers Courtesy of the Avengers</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><!-- more -->
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
+
+<p><span style="color:#f00;font-weight:bold;">Note: There may be mild spoilers ahead. I&rsquo;ll try to keep it vague and general, but if you&rsquo;re really worried, go see the movie before reading this post.</span></p>
+
+<p><span style="color:#000000;"><strong>&ldquo;If we can&rsquo;t protect the codebase, you can be damn sure we&rsquo;ll avenge it.&rdquo;</strong></span></p>
+
+<p><span style="color:#000000;">I, as many of you, saw The Avengers this weekend. I don&rsquo;t mean to review it here, but I found myself smiling at many situations thinking, &ldquo;Well, that&rsquo;s just like software development and team leadership.&rdquo; I guess thinking about code while at a blockbuster movie just strengthens the case that <a href="http://thedevstop.wordpress.com/2012/04/19/reflections-on-the-501-developer-manifesto/" target="_blank">I&rsquo;m not a 501</a> (not that there&rsquo;s anything wrong with that!).</span></p>
+
+<p><span style="color:#000000;">Here are some of the things I was able to remember and get down into my notes while the credits rolled. This post will be quickly thrown together. <strong>I expect that it will have some flaws and likely come out being quite ridiculous :)</strong></span></p>
+
+<h3>But It Usually Works&#8230;</h3>
+
+
+<p>Loki has this really great trick where he will tap your heart with a scepter, and you become his mindless minion. Come to find out that doesn&rsquo;t work so well if you&rsquo;re tapping an ARC reactor.</p>
+
+<p><strong>Test everything. </strong>This is nothing new, but something that bears repeating frequently. Works on my machine isn&rsquo;t enough. Works in my workflow isn&rsquo;t enough. Works for common, expected values is not enough. <strong>Include tests like tap_scepter_on_arc_reactor_results_in_mindless_minion.</strong> Preferably, you&rsquo;ll consider edge cases and add the tests before they&rsquo;re ever a problem. If not, at least add the test when you&rsquo;re fixing the bug.</p>
+
+<h3>Performance Problems</h3>
+
+
+<p>I&rsquo;m stretching a little bit here because the context of this quip was quite different than what I&rsquo;m discussing. I won&rsquo;t spoil the joke here, so let&rsquo;s just talk about code.</p>
+
+<p><a href="http://www.codinghorror.com/blog/2011/06/performance-is-a-feature.html" target="_blank">Treat performance as a feature</a>. Half-second delays actually matter. <strong>Set standards for yourself, and then measure and work toward them from day one</strong>. If you notice problems later on, know how to use tools like <a href="http://memprofiler.com/" target="_blank">.NET Memory Profiler</a> and <a href="http://www.iis.net/community/default.aspx?tabid=34&amp;g=6&amp;i=1466" target="_blank">WCAT</a> to accurately measure and analyze the problem.</p>
+
+<p>We do need to be careful not to take this too far. Premature optimization, complicating matters for trivial gain (or sometimes no gain at all), can be just as bad (or worse). That is not an excuse to turn a blind eye to performance.</p>
+
+<h3>Work From Points of Truth</h3>
+
+
+<p>Sometimes you dive at your opponent, sure you&rsquo;ve got him right where you want him, and he&rsquo;s just not there. You end up diving through thin air into a trap, then falling hopelessly from the sky.</p>
+
+<p>Don&rsquo;t do that. I&rsquo;ve been planning a separate post on this point alone, but it hasn&rsquo;t materialized. Too many times I&rsquo;ve seen developers chase a problem for hours only to realize they&rsquo;ve been attacking an illusion. <strong>Always remember to ask yourself &ldquo;why&rdquo; until you get to a root cause, and prove every assumption you&rsquo;re making</strong>.</p>
+
+<h3>Skip the Spinning Rims</h3>
+
+
+<p>When JARVIS tells Tony that the Mark 7 isn&rsquo;t ready for deployment, Tony tells him to skip the spinning rims. Time is up, it&rsquo;s time to roll out!</p>
+
+<p>Oh, if we&rsquo;d all think this way, what wonders we might see. I&rsquo;ve known a lot of great ideas die without ever seeing the light of day because they just weren&rsquo;t perfect enough. <strong>&ldquo;DEPLOY!&rdquo;</strong> says Iron Man. If there&rsquo;s a need to fill, <strong>get something out there</strong>. It doesn&rsquo;t need to have every flashy affordance you can imagine right away. <strong>You can enhance, tweak, and iterate later.</strong></p>
+
+<h3>Team Cohesion</h3>
+
+
+<p>As Coulson dies, he tells Fury that the Avengers Initiative never would have worked anyway because they had nothing to &hellip; then he dies. I can think of several ways to finish the sentence, but the point is that team cohesion doesn&rsquo;t just happen.</p>
+
+<p>I&rsquo;ve worked on products I was excited about, and I&rsquo;ve worked on products that I felt were going down the tubes. I&rsquo;ve contributed to the core of products from their beginnings, and I&rsquo;ve worked on products that were decades old before I touched them. I&rsquo;ve led teams in both situations.</p>
+
+<p>In my experience, <strong>teams of happy, excited developers who can be proud of their accomplishments tend to create more compelling results</strong>. This isn&rsquo;t to say that the unhappy, bored developers won&rsquo;t get their jobs done. I&rsquo;ve trudged through plenty of uninspiring projects. Just keep in mind that getting the job done is kind of like the bare minimum, and the resulting product probably won&rsquo;t be wearing much flair.</p>
+
+<p><strong>Also, a sense of ownership goes a long way.Â </strong>It&rsquo;s hard to get motivated about a product you just don&rsquo;t care about. On the other hand, if you feel like it&rsquo;s your baby&hellip;well, you take care of it like it&rsquo;s your baby.</p>
+
+<h3>Why Should I Take Orders From You?</h3>
+
+
+<p>When Captain America tells some of the city&rsquo;s finest to evacuate people, create a perimeter, etc., one asks &ldquo;Why should I take orders from you?&rdquo; Just then, Captain executes a brilliant defense and counter-attack against an incoming swarm of hostiles. He doesn&rsquo;t need to give any more answer than that  &ndash;  the officer turns and starts delegating the very orders he received.</p>
+
+<p><strong>More competent leaders are more likely to be followed, as are leaders who get down in the trenches and fight beside you</strong>. If you&rsquo;re leading a team of developers, you need to stay on top of new technologies  &ndash;  especially those that your team shows interest in. Buried under paperwork and meetings? At least find time to go through some &ldquo;Hello World&rdquo; tutorials and gain a basic vocabulary for discussions.</p>
+
+<p><strong>Good leaders also know how to delegate</strong>. As implied above, added responsibilities will start to siphon off your time from taking deep dives into every new technology. You can, however, learn the levels of your team and trust them to properly evaluate new options. You can also use your own power to keep the hostiles off their backs and give them time to do a good job.</p>
+
+<h3>Hulk&#8230;Smash!</h3>
+
+
+<p>As a laundry list of orders gets delivered to each member of the team, it ends with, &ldquo;and Hulk? &hellip; Smash!&rdquo;</p>
+
+<p>Good leaders know that each team members will have their own unique strengths and weaknesses. Some have a great eye for detail, some just hack in a blind rage. <strong>Know what each member of your team is capable of, and enable them to succeed by tailoring tasks to their strengths.</strong></p>
+
+<p>We can also take from this the lesson to <strong>communicate on the audience&rsquo;s level</strong>. I learned this as a tutor and have had to carry it through my career as I mentor, consult, or give presentations. This doesn&rsquo;t just apply to teaching or presenting &ndash; this should be in the back of your mind during any team communication.</p>
+
+<h3>Go To Lunch</h3>
+
+
+<p>If you wait until the very end of the credits, you&rsquo;ll see The Avengers sitting around a table grabbing a meal.</p>
+
+<p><a href="http://www.joelonsoftware.com/items/2011/04/28.html" target="_blank">Some say it&rsquo;s awesome to have lunch with your team every day</a>. I don&rsquo;t go that far, but I do think <strong>it&rsquo;s important to get to know your team away from the code</strong>. You may not want to hang out with them every weekend, but at least find out if they prefer sports or sci-fi, Star Wars or Star Trek, etc. <strong>You&rsquo;ll be spending too much time with these people to have it be strictly business</strong>, and you&rsquo;ll enjoy your work a lot more if you can have pleasant conversation during downtime.</p>
+
+<h3>Take A Day</h3>
+
+
+<p>Speaking of downtime&hellip;</p>
+
+<p>When it&rsquo;s all over, Stark suggests that they not come in tomorrow, take a day, relax, go get some Shawarma&hellip;</p>
+
+<p>Yes! This! When that emergency or crunch does come and your team kills themselves to get it taken care of, <strong>reward the effort with some well deserved recovery time!Â </strong>There really isn&rsquo;t much else to say here. If you agree, I&rsquo;m preaching to the choir. If you don&rsquo;t, I doubt anything I&rsquo;d say in this kind of thrown-together, brief post will change your mind.</p>
+
+<h3>TL;DR, Summary</h3>
+
+
+<p>Comic book movies are getting better. Development and team leadership is fun. Sometimes messages overlap.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T00:00:00-07:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/19/reflections-on-the-501-developer-manifesto/" title="Previous Post: Reflections on the 501 Developer Manifesto">&laquo; Reflections on the 501 Developer Manifesto</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/17/monodroid-101-installation-and-hello-world-with-mono-for-android/" title="Next Post: MonoDroid 101   Installation and Hello World with Mono for Android">MonoDroid 101   Installation and Hello World with Mono for Android &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects At Once In Visual Studio</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at work: Moving to GitHub Pages</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
