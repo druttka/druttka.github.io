@@ -101,12 +101,14 @@
         
          | <a href="#disqus_thread">Comments</a>
         
+        
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
+<div class="entry-content">
+<p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
 
 <p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
 
@@ -166,6 +168,7 @@ cd ..
 <p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
 
 <p><strong>Update:</strong> I created a <a href="https://gist.github.com/druttka/9927637"><code>new_draft</code></a> task that works much like the <code>new_page</code> task, but it puts the file in the configured <code>drafts_dir</code>. I have used it to quickly create empty stubs of things I want to cover soon, and pushed that to my private repo. This new platform and tool chain might just be what gets me blogging regularly again, but only time will tell.</p>
+
 </div>
 
 

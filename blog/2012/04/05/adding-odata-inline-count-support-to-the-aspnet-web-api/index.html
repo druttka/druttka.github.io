@@ -99,12 +99,14 @@
 
 <time datetime="2012-04-05T00:00:00-07:00" pubdate data-updated="true"></time>
         
+        
       </p>
     
   </header>
 
 
-<div class="entry-content"><!-- more -->
+<div class="entry-content">
+<!-- more -->
 
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
@@ -264,6 +266,7 @@ return response;
 <p><strong>Another update:Â </strong>As it currently stands, this only works in a self hosted environment. If you host your Web API in an MVC website, for example, the base.SendAsync(newRequest&hellip; results in a 404 and bad things happen due to lack of error handling (hey, I told you this was not very elegant!). Anyway, Chris tells me he can get past the 404 by copying more than just the method and Uri to the request; however, his IOC breaks after that. You&rsquo;ve been warned. ;)Â <del>This has been fixed onÂ <a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/develop" target="_blank">the develop branch</a>, althoughÂ <strong>the general warning that this isn&rsquo;t elegant stands.Â </strong>Proof of concept, experiment, hack; any of these terms are very reasonable.</del></p>
 
 <p><strong>And another:</strong> As Dante found, the &ldquo;this has been fixed&rdquo; part of the above update did eliminate Â the exception when web hosting, but it also destroyed the accuracy. I have reverted the source on GitHub, and this will again only work in a self hosted environment.</p>
+
 </div>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-01T21:01:19-07:00</updated>
+  <updated>2014-04-01T21:57:23-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -86,8 +86,7 @@ cd ..
     <link href="http://www.davidruttka.com/blog/2014/04/01/git-for-visual-studio-developers/"/>
     <updated>2014-04-01T10:57:33-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/git-for-visual-studio-developers</id>
-    <content type="html"><![CDATA[<p>A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free &ldquo;all-day&rdquo; jump start course that I&rsquo;ll link to instead.
-<a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start</a></p>
+    <content type="html"><![CDATA[<p>A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free &ldquo;all-day&rdquo; jump start course that I&rsquo;ll <a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">link</a> to instead.</p>
 ]]></content>
   </entry>
   
@@ -96,7 +95,8 @@ cd ..
     <link href="http://www.davidruttka.com/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/"/>
     <updated>2014-04-01T09:27:10-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host</id>
-    <content type="html"><![CDATA[<p>Looks like linklog might be broken, or I&rsquo;m doing it wrong. Until I figure it out, <a href="http://blogs.technet.com/b/heyscriptingguy/archive/2014/03/30/understanding-streams-redirection-and-write-host-in-powershell.aspx">here is what I meant to link to</a>!</p>
+    <content type="html"><![CDATA[<blockquote><p>I was reminded of this lesson when discussing the infamous Write-Host cmdlet with some colleagues. We all know that you&rsquo;re not supposed to use Write-Host. Windows PowerShell MVP, Don Jones, says that Write-Host kills puppies. Windows PowerShell inventor, Jeffrey Snover, says that Write-Host is harmful. But they both agree that it&rsquo;s fine to use it under very limited conditions.
+<a href="http://blogs.technet.com/b/heyscriptingguy/archive/2014/03/30/understanding-streams-redirection-and-write-host-in-powershell.aspx">link</a></p></blockquote>
 ]]></content>
   </entry>
   
@@ -105,7 +105,7 @@ cd ..
     <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/"/>
     <updated>2014-04-01T09:25:43-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines</id>
-    <content type="html"><![CDATA[<p>Looks like linklog is broken, or I&rsquo;m doing it wrong. Until I figure it out, <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">here is what I meant to link to</a>!</p>
+    <content type="html"><![CDATA[<p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
 ]]></content>
   </entry>
   
