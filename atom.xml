@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-01T18:22:01-07:00</updated>
+  <updated>2014-04-01T19:51:27-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress rake tasks for scheduling posts and pulling source]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/"/>
+    <updated>2014-04-01T19:13:02-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source</id>
+    <content type="html"><![CDATA[<p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
+
+<p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
+
+<!-- more -->
+
+
+<h2>Source vs. Master</h2>
+
+<p>If you&rsquo;ve paid attention to what&rsquo;s going on with Octopress, you know that what gets deployed to GitHub Pages is the <strong>master</strong> branch of your <strong>_deploy</strong> directory. The raw, ungenerated material (markdown, themes, layouts, etc.) stick around in the <strong>source</strong> branch which you can push, well, wherever. I push mine to a private repo.</p>
+
+<p>If I&rsquo;m going to be working on posts from multiple machines, I find myself doing a lot of this&hellip;</p>
+
+<pre><code>git pull private source
+cd _deploy
+git pull origin master  
+cd ..
+</code></pre>
+
+<p><strong>I would rather just do this</strong></p>
+
+<pre><code>rake pull
+</code></pre>
+
+<p>Spoiler alert: Now I can =) I created an <a href="https://gist.github.com/druttka/9926932">Octopress rake gist</a> if you want to add this to your own Rakefile.</p>
+
+<h2>Drafts and Scheduling</h2>
+
+<p>Two of the things I missed from WordPress</p>
+
+<ul>
+<li>working on drafts</li>
+<li>marking posts as &ldquo;done&rdquo;, but for a future date</li>
+</ul>
+
+
+<p>I know that Octopress has <code>published: false</code> to support drafts, but I&rsquo;d rather have a <code>_drafts</code> directory. This keeps them isolated so it&rsquo;s easier to see what&rsquo;s a draft and prevents mistakes around the <code>published</code> flag.</p>
+
+<p>When a draft is done, I can <code>mv it.markdown ../_posts/YYYY-MM-DD-it.markdown</code> to include it immediately.</p>
+
+<p><strong>I would rather </strong> <code>mv it.markdown YYYY-MM-DD-it.markdown</code> <strong>and have it included when we reach that date.</strong></p>
+
+<p>Spoiler alert again: Now I can =) At any point, I (or any automated worker process) can just</p>
+
+<pre><code>rake post_drafts &amp;&amp; rake generate &amp;&amp; rake deploy
+</code></pre>
+
+<p><em>Yes, for now I called it post_drafts even though it doesn&rsquo;t include the generate or deploy. I&rsquo;m still undecided on what I want to do here, and my philosophy is don&rsquo;t go pushing things live unless you&rsquo;re sure that&rsquo;s what you wanted.</em></p>
+
+<p>So the <code>post_drafts</code> task spins through <code>_drafts</code>, and any files matching YYYY-MM-DD-title.markdown <strong>where YYYY-MM-DD is today or earlier</strong> get moved to _posts. Files not matching the format, or where the date is still in the future, are left alone.</p>
+
+<p>I also created an <a href="https://gist.github.com/druttka/9927030">Octopress rake post_drafts gist</a>. <strong>Do remember to define drafts_dir, as that&rsquo;s not something in the default Rakefile!</strong></p>
+
+<h2>Am I doing it wrong?</h2>
+
+<p>This was a fun excercise for me. It eased a couple of my pain points and gave me an excuse to hack on Ruby and Rake for a few minutes. Maybe I&rsquo;ll look into that automated worker to promote scheduled drafts without any human intervention, so things go live even if I&rsquo;m on vacation.</p>
+
+<p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git for Windows, .NET, Visual Studio Developers]]></title>
@@ -858,28 +924,6 @@ Remember also we only request one parent with the child, not both. So this is TW
 
 
 <p>This post is not my best moment, but consider it an easy win to build momentum. Hopefully the next one will be a bit more substantial <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style:none;" alt="Winking smile" src="http://thedevstop.files.wordpress.com/2013/05/wlemoticon-winkingsmile1.png" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[++]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/05/10/plusplus/"/>
-    <updated>2013-05-10T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/05/10/plusplus</id>
-    <content type="html"><![CDATA[<!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/05/10/1014/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>In Spring 2003, I was looking around for what would be my first professional job after getting my degree. One interview stands out not only because it&rsquo;s where I ended up but also because I gave what might be the most terrible answer of my career.</p>
-
-<p>Most of my coursework was in C++, so most of the technical questions were on syntax and defining terms like polymorphism. Somewhere along the way, one of the interviewers asked me what ++ does. I looked at him, thought for a moment, and said something to the effect of, &ldquo;I don&rsquo;t know. I don&rsquo;t think I&rsquo;ve ever seen that before!&rdquo;</p>
-
-<p>I&rsquo;ve come up with all kinds of explanations for this. I had been up late the previous night watching news of the Iraq invasion. I had gotten up early because the office was an hour from campus. Previous questions might have put my mind on some strange track where an increment operator wouldn&rsquo;t apply. Maybe it was all just an extremely vivid nightmare that I&rsquo;ve mistaken for reality!</p>
-
-<p>I&rsquo;ve certainly had other moments where I&rsquo;ve looked back and realized that I could have done better, but it&rsquo;ll be hard for anything to knock this one off the top spot.</p>
-
-<p>What&rsquo;s your most treasured goof?</p>
 ]]></content>
   </entry>
   

@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hello Octopress! - David Ruttka</title>
+  <title>Octopress rake tasks for scheduling posts and pulling source - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Like I said, here we go.
-">
+  <meta name="description" content="Earlier today I posted a link about how to sync Octopress across multiple machines. That was very helpful because when I took the trivial approach &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Hello Octopress!</h1>
+      <h1 class="entry-title">Octopress Rake Tasks for Scheduling Posts and Pulling Source</h1>
     
     
       <p class="meta">
@@ -98,7 +97,7 @@
   
 
 
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-04-01T19:13:02-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -107,7 +106,64 @@
   </header>
 
 
-<div class="entry-content"><p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
+<div class="entry-content"><p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
+
+<p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
+
+<!-- more -->
+
+
+<h2>Source vs. Master</h2>
+
+<p>If you&rsquo;ve paid attention to what&rsquo;s going on with Octopress, you know that what gets deployed to GitHub Pages is the <strong>master</strong> branch of your <strong>_deploy</strong> directory. The raw, ungenerated material (markdown, themes, layouts, etc.) stick around in the <strong>source</strong> branch which you can push, well, wherever. I push mine to a private repo.</p>
+
+<p>If I&rsquo;m going to be working on posts from multiple machines, I find myself doing a lot of this&hellip;</p>
+
+<pre><code>git pull private source
+cd _deploy
+git pull origin master  
+cd ..
+</code></pre>
+
+<p><strong>I would rather just do this</strong></p>
+
+<pre><code>rake pull
+</code></pre>
+
+<p>Spoiler alert: Now I can =) I created an <a href="https://gist.github.com/druttka/9926932">Octopress rake gist</a> if you want to add this to your own Rakefile.</p>
+
+<h2>Drafts and Scheduling</h2>
+
+<p>Two of the things I missed from WordPress</p>
+
+<ul>
+<li>working on drafts</li>
+<li>marking posts as &ldquo;done&rdquo;, but for a future date</li>
+</ul>
+
+
+<p>I know that Octopress has <code>published: false</code> to support drafts, but I&rsquo;d rather have a <code>_drafts</code> directory. This keeps them isolated so it&rsquo;s easier to see what&rsquo;s a draft and prevents mistakes around the <code>published</code> flag.</p>
+
+<p>When a draft is done, I can <code>mv it.markdown ../_posts/YYYY-MM-DD-it.markdown</code> to include it immediately.</p>
+
+<p><strong>I would rather </strong> <code>mv it.markdown YYYY-MM-DD-it.markdown</code> <strong>and have it included when we reach that date.</strong></p>
+
+<p>Spoiler alert again: Now I can =) At any point, I (or any automated worker process) can just</p>
+
+<pre><code>rake post_drafts &amp;&amp; rake generate &amp;&amp; rake deploy
+</code></pre>
+
+<p><em>Yes, for now I called it post_drafts even though it doesn&rsquo;t include the generate or deploy. I&rsquo;m still undecided on what I want to do here, and my philosophy is don&rsquo;t go pushing things live unless you&rsquo;re sure that&rsquo;s what you wanted.</em></p>
+
+<p>So the <code>post_drafts</code> task spins through <code>_drafts</code>, and any files matching YYYY-MM-DD-title.markdown <strong>where YYYY-MM-DD is today or earlier</strong> get moved to _posts. Files not matching the format, or where the date is still in the future, are left alone.</p>
+
+<p>I also created an <a href="https://gist.github.com/druttka/9927030">Octopress rake post_drafts gist</a>. <strong>Do remember to define drafts_dir, as that&rsquo;s not something in the default Rakefile!</strong></p>
+
+<h2>Am I doing it wrong?</h2>
+
+<p>This was a fun excercise for me. It eased a couple of my pain points and gave me an excuse to hack on Ruby and Rake for a few minutes. Maybe I&rsquo;ll look into that automated worker to promote scheduled drafts without any human intervention, so things go live even if I&rsquo;m on vacation.</p>
+
+<p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
 </div>
 
 
@@ -130,7 +186,7 @@
   
 
 
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-04-01T19:13:02-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
       
 
 
@@ -138,7 +194,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -151,10 +207,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/" title="Previous Post: Dev at work: Moving to GitHub Pages">&laquo; Dev at work: Moving to GitHub Pages</a>
+        <a class="basic-alignment left" href="/blog/2014/04/01/git-for-visual-studio-developers/" title="Previous Post: Git for Windows, .NET, Visual Studio Developers">&laquo; Git for Windows, .NET, Visual Studio Developers</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" title="Next Post: Moving from WordPress to GitHub Pages using Jekyll via Octopress">Moving from WordPress to GitHub Pages using Jekyll via Octopress &raquo;</a>
       
     </p>
   </footer>
@@ -220,8 +274,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/29/hello-octopress/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/29/hello-octopress/';
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/';
         var disqus_script = 'embed.js';
       
     (function () {

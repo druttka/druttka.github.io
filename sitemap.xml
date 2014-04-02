@@ -269,16 +269,22 @@
         <lastmod>2014-04-01T18:18:43-07:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/
+        </loc>
+        <lastmod>2014-04-01T19:50:30-07:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.davidruttka.com/about/</loc>
         <lastmod>2014-03-30T18:32:00-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/blog/archives/</loc>
-        <lastmod>2014-04-01T18:18:43-07:00</lastmod>
+        <lastmod>2014-04-01T19:50:30-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/</loc>
-        <lastmod>2014-04-01T18:21:30-07:00</lastmod>
+        <lastmod>2014-04-01T19:50:30-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/robots.txt</loc>
