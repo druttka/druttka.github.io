@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-01T21:57:23-07:00</updated>
+  <updated>2014-04-04T09:04:45-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -14,7 +14,26 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Octopress rake tasks for scheduling posts and pulling source]]></title>
+    <title type="html"><![CDATA[Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/"/>
+    <updated>2014-04-04T08:36:53-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute</id>
+    <content type="html"><![CDATA[<p>File under &ldquo;Learn something new every day.&rdquo;</p>
+
+<p>Long story short, we have enabled CORS in our API, but today I learned that <a href="http://www.aaron-powell.com/posts/2013-11-28-accessing-location-header-in-cors-response.html">not all headers are included</a>.</p>
+
+<p>Particularly, like Aaron, we needed to ensure that the Location header came back when a POST request created a new resource. Our solution is a bit different than his. We&rsquo;re already using the <a href="http://msdn.microsoft.com/en-us/library/system.web.http.cors.enablecorsattribute(v=vs.118%29.aspx">EnableCorsAttribute</a>, so Rob pointed out that we can just do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>EnableCorsAttribute("*", "*", "*", "location");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Like the other constructor arguments, that last can be a comma separated list. Looks legit!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Rake Tasks for Scheduling Posts and Pulling Source]]></title>
     <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/"/>
     <updated>2014-04-01T19:13:02-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source</id>
@@ -91,7 +110,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[A great explanation of PowerShell streams and Write-Host]]></title>
+    <title type="html"><![CDATA[A Great Explanation of PowerShell Streams and Write-Host]]></title>
     <link href="http://www.davidruttka.com/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/"/>
     <updated>2014-04-01T09:27:10-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host</id>
@@ -101,7 +120,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[This was helpful. Octopress from all your machines!]]></title>
+    <title type="html"><![CDATA[This Was Helpful. Octopress From All Your Machines!]]></title>
     <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/"/>
     <updated>2014-04-01T09:25:43-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines</id>
@@ -142,7 +161,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Starting Multiple Projects At Once In Visual Studio]]></title>
+    <title type="html"><![CDATA[Starting Multiple Projects at Once in Visual Studio]]></title>
     <link href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/"/>
     <updated>2014-03-30T08:30:32-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio</id>
@@ -264,7 +283,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Moving from WordPress to GitHub Pages using Jekyll via Octopress]]></title>
+    <title type="html"><![CDATA[Moving From WordPress to GitHub Pages Using Jekyll via Octopress]]></title>
     <link href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/"/>
     <updated>2014-03-29T21:03:18-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress</id>
@@ -327,7 +346,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Dev at work: Moving to GitHub Pages]]></title>
+    <title type="html"><![CDATA[Dev at Work: Moving to GitHub Pages]]></title>
     <link href="http://www.davidruttka.com/blog/2014/03/29/dev-at-work-moving-to-github-pages/"/>
     <updated>2014-03-29T00:00:00-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/29/dev-at-work-moving-to-github-pages</id>
@@ -350,7 +369,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How to run your ASP.NET Web Application when you start debugging instead of launching the page / view you're editing]]></title>
+    <title type="html"><![CDATA[How to Run Your ASP.NET Web Application When You Start Debugging Instead of Launching the Page / View You're Editing]]></title>
     <link href="http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/"/>
     <updated>2014-03-28T00:00:00-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing</id>
@@ -367,7 +386,7 @@ cd ..
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ScriptBundle subdirectories no longer work in Microsoft.Web.Optimization 1.1.0 when optimizations are off]]></title>
+    <title type="html"><![CDATA[ScriptBundle Subdirectories No Longer Work in Microsoft.Web.Optimization 1.1.0 When Optimizations Are Off]]></title>
     <link href="http://www.davidruttka.com/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoftweboptimization-110-when-optimizations-are-off/"/>
     <updated>2013-10-27T00:00:00-07:00</updated>
     <id>http://www.davidruttka.com/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoftweboptimization-110-when-optimizations-are-off</id>
@@ -441,7 +460,7 @@ BundleTable.EnableOptimizations = true;
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How can I preselect an option element in a select box?]]></title>
+    <title type="html"><![CDATA[How Can I Preselect an Option Element in a Select Box?]]></title>
     <link href="http://www.davidruttka.com/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/"/>
     <updated>2013-10-24T00:00:00-07:00</updated>
     <id>http://www.davidruttka.com/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box</id>
@@ -462,7 +481,7 @@ BundleTable.EnableOptimizations = true;
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Where did Attribute Routing go when updating from Web API 5.0.0  pre to Web API 2?]]></title>
+    <title type="html"><![CDATA[Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2?]]></title>
     <link href="http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/"/>
     <updated>2013-10-23T00:00:00-07:00</updated>
     <id>http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2</id>
@@ -891,41 +910,6 @@ Remember also we only request one parent with the child, not both. So this is TW
 <p><strong>Update</strong></p>
 
 <p>What I left out is that (long story short) I doodled these characters on our whiteboards. If I remember correctly, Subtopdecor came first. After I misheard &ldquo;Subtopdecor,&rdquo; Chris said it sounded like the name of an evil robot. My first sketch of Subtopdecor was somewhat leaner and meaner, but along the way he filled out and got a little more neutral. I prefer the original interpretation, but for some reason I can no longer draw it successfully. For Externalias, the doodle came first, quite randomly. It was only later that I misheard &ldquo;Externalias&rdquo; and we applied the name. They have been spotted at venues as grand as the McWane Science Center in Birmingham.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Easy Wins]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/05/28/easy-wins/"/>
-    <updated>2013-05-28T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/05/28/easy-wins</id>
-    <content type="html"><![CDATA[<!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/05/28/easy-wins/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>Last night, <a href="http://twitter.com/derekmorrison">Derek</a> mentioned that he wanted to start writing again, and I realized that I&rsquo;ve been pretty slack about it too. I thought that maybe we could be accountability partners.</p>
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/derekmorrison">derekmorrison</a> let&#8217;s dare each other to write something.You go first.
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/339216966424358912">May 28, 2013</a></blockquote>
-
-
-<p>Then I realized that my most common excuse not to write anything is that I don&rsquo;t know what to write about, so I asked him to spot me a few ideas. His response seemed a bit meta.</p>
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/druttka">druttka</a> A good one I need would be how to develop a habit of blogging regularly. :)
-
-â€” Derek Morrison (@derekmorrison) <a href="https://twitter.com/derekmorrison/status/339220530899083264">May 28, 2013</a></blockquote>
-
-
-<p>I don&rsquo;t have a full answer to Derek&rsquo;s question about how to develop a habit of blogging regularly, but I think it might be as simple as making a commitment. This might be &ldquo;n posts per week&rdquo; or &ldquo;n hours of honest effort to write something,&rdquo; but whatever it is, we need to stick to it.</p>
-
-<p>Like I mention above, this usually breaks down when I get stuck on what to write about. Derek might not have intended it, but I think the solution is in <a href="http://doingthedishes.com/2013/05/28/sending-to-statsd-with-udpclient-in-dotnet.html">his latest post</a>:</p>
-
-<blockquote>Not our best moment, but we&#8217;ll take the easy wins wherever we can. :)</blockquote>
-
-
-<p>This post is not my best moment, but consider it an easy win to build momentum. Hopefully the next one will be a bit more substantial <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style:none;" alt="Winking smile" src="http://thedevstop.files.wordpress.com/2013/05/wlemoticon-winkingsmile1.png" /></p>
 ]]></content>
   </entry>
   

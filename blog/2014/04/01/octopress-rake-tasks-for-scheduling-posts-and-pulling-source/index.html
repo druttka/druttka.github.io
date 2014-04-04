@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress rake tasks for scheduling posts and pulling source - David Ruttka</title>
+  <title>Octopress Rake Tasks for Scheduling Posts and Pulling Source - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
@@ -18,16 +18,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">
-  <link href="/favicon.png?v=2" rel="icon">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source">
+  <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
@@ -67,10 +68,8 @@
 </form>
   
 <ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-  <li><a href="/atom.xml">Subscribe</a></li>
 </ul>
 
 </nav>
@@ -99,16 +98,15 @@
 
 <time datetime="2014-04-01T19:13:02-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
         
-         | <a href="#disqus_thread">Comments</a>
-        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://www.davidruttka.com">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content">
-<p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
+<div class="entry-content"><p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
 
 <p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
 
@@ -168,7 +166,6 @@ cd ..
 <p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
 
 <p><strong>Update:</strong> I created a <a href="https://gist.github.com/druttka/9927637"><code>new_draft</code></a> task that works much like the <code>new_page</code> task, but it puts the file in the configured <code>drafts_dir</code>. I have used it to quickly create empty stubs of things I want to cover soon, and pushed that to my private repo. This new platform and tool chain might just be what gets me blogging regularly again, but only time will tell.</p>
-
 </div>
 
 
@@ -199,7 +196,7 @@ cd ..
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -214,6 +211,8 @@ cd ..
       
         <a class="basic-alignment left" href="/blog/2014/04/01/git-for-visual-studio-developers/" title="Previous Post: Git for Windows, .NET, Visual Studio Developers">&laquo; Git for Windows, .NET, Visual Studio Developers</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/" title="Next Post: Exposing additional headers in CORS responses using the EnableCorsAttribute">Exposing additional headers in CORS responses using the EnableCorsAttribute &raquo;</a>
       
     </p>
   </footer>
@@ -234,7 +233,11 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">Octopress rake tasks for scheduling posts and pulling source</a>
+        <a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">Octopress Rake Tasks for Scheduling Posts and Pulling Source</a>
       </li>
     
       <li class="post">
@@ -242,15 +245,11 @@ cd ..
       </li>
     
       <li class="post">
-        <a href="/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/">A great explanation of PowerShell streams and Write-Host</a>
+        <a href="/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/">A Great Explanation of PowerShell Streams and Write-Host</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">This was helpful. Octopress from all your machines!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/01/facebook/">Facebook?</a>
+        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">This Was Helpful. Octopress From All Your Machines!</a>
       </li>
     
   </ul>
@@ -285,7 +284,7 @@ cd ..
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -296,7 +295,7 @@ cd ..
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
@@ -318,7 +317,7 @@ cd ..
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
