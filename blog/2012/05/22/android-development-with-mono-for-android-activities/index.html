@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. Continuing &hellip;">
+  <meta name="description" content="Continuing on my journey into MonoDroid, this post will take a quick look at activities. You may remember from last time that the project template &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/22/android-development-with-mono-for-androidactivities/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>Continuing on my journey into <a href="http://xamarin.com/monoforandroid" target="_blank">MonoDroid</a>, this post will take a quick look at activities. You may remember from <a title="MonoDroid 101 - Installation and Hello World with Mono forÂ Android" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/" target="_blank">last time</a> that the project template gives us an Activity1.cs file with a click counter. We could launch this from the main launcher / apps list.</p>
+<div class="entry-content"><p>Continuing on my journey into <a href="http://xamarin.com/monoforandroid" target="_blank">MonoDroid</a>, this post will take a quick look at activities. You may remember from <a title="MonoDroid 101 - Installation and Hello World with Mono forÂ Android" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/" target="_blank">last time</a> that the project template gives us an Activity1.cs file with a click counter. We could launch this from the main launcher / apps list.</p>
 
 <p>But what if my app has a lot of possible screens in it, and I don&rsquo;t want them all cluttering the apps list? What if I want to launch one from another instead? Are there events or callbacks that let me know when I&rsquo;m being spun up or spun down?</p>
 
@@ -134,9 +129,10 @@
 
 <p><a href="http://docs.monodroid.net/index.aspx?link=T%3aAndroid.App.ActivityAttribute" target="_blank">ActivityAttribute</a> is such a custom attribute.</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-[Activity(Label = &quot;AndroidApplication1&quot;, MainLauncher = true, Icon = &quot;@drawable/icon&quot;)]
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Activity(Label = &quot;AndroidApplication1&quot;, MainLauncher = true, Icon = &quot;@drawable/icon&quot;)]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>There are a lot of properties available here, but the ones I&rsquo;ve used most so far have been</p>
 
@@ -194,57 +190,79 @@
 
 <p>My new Splash activity had a couple of new properties on the Activity attribute.</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-[Activity(MainLauncher=true, NoHistory=true, Theme=&quot;@style/Theme.Splash&quot;, Label=&quot;Foo&quot;, Icon=&quot;@drawable/icon&quot;)]
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Activity(MainLauncher=true, NoHistory=true, Theme=&quot;@style/Theme.Splash&quot;, Label=&quot;Foo&quot;, Icon=&quot;@drawable/icon&quot;)]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Note that I&rsquo;m specifying a theme here. I added it to Resources/Values/Styles.xml.</p>
 
-<p>[sourcecode language=&ldquo;xml&rdquo;]
-&lt;resources&gt;
-&lt;styleÂ name=&quot;Theme.Splash&quot;Â parent=&quot;android:Theme&quot;&gt;
-&lt;itemÂ name=&quot;android:windowBackground&quot;&gt;@drawable/splash&lt;/item&gt;
-&lt;itemÂ name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
-&lt;/style&gt;
-&lt;/resources&gt;
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;resources&gt;</span>
+</span><span class='line'><span class="nt">&lt;styleÂ</span> <span class="na">name=</span><span class="s">&quot;Theme.Splash&quot;</span><span class="err">Â</span> <span class="na">parent=</span><span class="s">&quot;android:Theme&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;itemÂ</span> <span class="na">name=</span><span class="s">&quot;android:windowBackground&quot;</span><span class="nt">&gt;</span>@drawable/splash<span class="nt">&lt;/item&gt;</span>
+</span><span class='line'><span class="nt">&lt;itemÂ</span> <span class="na">name=</span><span class="s">&quot;android:windowNoTitle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+</span><span class='line'><span class="nt">&lt;/style&gt;</span>
+</span><span class='line'><span class="nt">&lt;/resources&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Also note that the style references a splash image, so be sure to create or add one in Resources/Drawable. Eventually you&rsquo;ll want to <a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank">support multiple sizes and densities</a>, but again, we&rsquo;re still just covering basics.</p>
 
 <p>The guts of our OnCreate method can look something like this</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-base.OnCreate(bundle);</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">base</span><span class="p">.</span><span class="n">OnCreate</span><span class="p">(</span><span class="n">bundle</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// For demonstration purposes</span>
+</span><span class='line'><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">2000</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Move along to the real Activity.</span>
+</span><span class='line'><span class="c1">// Since we are NoHistory, this one will be finished</span>
+</span><span class='line'><span class="n">StartActivity</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Activity1</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>// For demonstration purposes
-Thread.Sleep(2000);</p>
-
-<p>// Move along to the real Activity.
-// Since we are NoHistory, this one will be finished
-StartActivity(typeof(Activity1));
-[/sourcecode]</p>
 
 <p>Optionally, you could add these overrides in your Splash Activity for additional proof that it does get finished and destroyed.</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-public override void Finish()
-{</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Finish</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">Diagnostics</span><span class="p">.</span><span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Splash.Finish&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">base</span><span class="p">.</span><span class="n">Finish</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnDestroy</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">Diagnostics</span><span class="p">.</span><span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Splash.OnDestroy&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">base</span><span class="p">.</span><span class="n">OnDestroy</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>System.Diagnostics.Debug.WriteLine(&amp;quot;Splash.Finish&amp;quot;);
-base.Finish();
-</code></pre>
 
-<p>}</p>
 
-<p>protected override void OnDestroy()
-{</p>
-
-<pre><code>System.Diagnostics.Debug.WriteLine(&amp;quot;Splash.OnDestroy&amp;quot;);
-base.OnDestroy();
-</code></pre>
-
-<p>}
-[/sourcecode]</p>
 
 <h3>Summary</h3>
 
@@ -252,6 +270,8 @@ base.OnDestroy();
 <p>Activities are a pretty substantial backbone of Android apps. Mono for Android makes it easy to get right down to business and avoid the ceremony of crafting the AndroidManifest.xml. Lifecycle callbacks allow you to perform setup, cleanup, and state preservation logic at critical points, and launching a new Activity can be as simple as calling StartActivity(type).</p>
 
 <p>I&rsquo;m not sure yet what we&rsquo;ll look at next time. A couple of the things I&rsquo;ve been looking at and using in my CodeStock app/hack are the <a href="https://github.com/praeclarum/sqlite-net" target="_blank">sqlite-net</a> library, and this <a href="https://github.com/soundnRg/ActionBar" target="_blank">ActionBar widget</a>, so those are good candidates.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/22/android-development-with-mono-for-androidactivities/">The DevStop</a>.</em></p>
 </div>
 
 

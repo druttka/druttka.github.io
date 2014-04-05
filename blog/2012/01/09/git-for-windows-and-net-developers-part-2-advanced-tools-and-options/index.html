@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. If you &hellip;">
+  <meta name="description" content="If you followed my last post, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now? posh-git You could constantly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>If you followed <a title="Git for Windows - How To Install Git for .NET Developers" href="http://wp.me/p1cpn1-75" target="_blank">my last post</a>, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now?</p>
+<div class="entry-content"><p>If you followed <a title="Git for Windows - How To Install Git for .NET Developers" href="http://wp.me/p1cpn1-75" target="_blank">my last post</a>, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now?</p>
 
 <h2>posh-git</h2>
 
@@ -123,11 +118,14 @@
 
 <p>This magic comes from <a href="https://github.com/dahlbyk/posh-git" target="_blank">posh-git</a>, and here&rsquo;s the way I got it installed. These are just about the same instructions as on the github page linked above, but I make a few assumptions. For example, you&rsquo;re using a decent version of Powershell and you added Git to your path as instructed in my last post.</p>
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]
-git clone <a href="https://github.com/dahlbyk/posh-git.git">https://github.com/dahlbyk/posh-git.git</a>
-Set-ExecutionPolicy RemoteSigned
-.\posh-git\install.ps1
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/dahlbyk/posh-git.git
+</span><span class='line'>Set-ExecutionPolicy RemoteSigned
+</span><span class='line'>.<span class="se">\p</span>osh-git<span class="se">\i</span>nstall.ps1
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>What does this do?</p>
 
@@ -169,11 +167,14 @@ Set-ExecutionPolicy RemoteSigned
 
 <p>Now, from the command line</p>
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]
-git clone &mdash;recursive <a href="https://github.com/nvie/gitflow.git">https://github.com/nvie/gitflow.git</a>
-cd gitflow
-contrib\msysgit-install.cmd
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone --recursive https://github.com/nvie/gitflow.git
+</span><span class='line'><span class="nb">cd </span>gitflow
+</span><span class='line'>contrib<span class="se">\m</span>sysgit-install.cmd
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>So what does this do?</p>
 
@@ -195,6 +196,8 @@ contrib\msysgit-install.cmd
 <p>Alright&hellip;if you&rsquo;re already familiar with Git but not with gitflow, check this out.</p>
 
 <p><a href="http://thedevstop.files.wordpress.com/2012/01/image7.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb7.png" alt="image" width="616" height="420" border="0" /></a></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">The DevStop</a>.</em></p>
 </div>
 
 

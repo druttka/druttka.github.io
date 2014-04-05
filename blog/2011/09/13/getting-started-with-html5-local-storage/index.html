@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. Recently I &hellip;">
+  <meta name="description" content="Recently I posted about getting started with HTML5&rsquo;s offline app support. Now let&rsquo;s look at local storage. This will allow you to store &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,31 +103,31 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/09/13/getting-started-with-html5-local-storage/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>Recently I posted about <a title="HTML5 Offline Apps" href="http://thedevstop.wordpress.com/2011/08/07/getting-started-with-html5-offline-app/" target="_blank">getting started with HTML5&rsquo;s offline app support</a>. Now let&rsquo;s look at local storage. This will allow you to store app data locally until it can be posted, which could be very powerful in conjunction with offline support. Even while the user is online, it can be used to periodically auto-save the work in progress to be restored in case of a crash.</p>
+<div class="entry-content"><p>Recently I posted about <a title="HTML5 Offline Apps" href="http://thedevstop.wordpress.com/2011/08/07/getting-started-with-html5-offline-app/" target="_blank">getting started with HTML5&rsquo;s offline app support</a>. Now let&rsquo;s look at local storage. This will allow you to store app data locally until it can be posted, which could be very powerful in conjunction with offline support. Even while the user is online, it can be used to periodically auto-save the work in progress to be restored in case of a crash.</p>
 
 <h2>Fundamentals</h2>
 
 
 <p>Let&rsquo;s take a look at the Storage interface as defined by <a title="Web Storage on W3.org" href="http://www.w3.org/TR/webstorage/" target="_blank">w3.org</a>.</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-interface Storage {</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kr">interface</span> <span class="nx">Storage</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">length</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">DOMString</span><span class="o">?</span> <span class="nx">key</span><span class="p">(</span><span class="k">in</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">getter</span> <span class="nx">DOMString</span> <span class="nx">getItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">setter</span> <span class="nx">creator</span> <span class="k">void</span> <span class="nx">setItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">,</span> <span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">value</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">deleter</span> <span class="k">void</span> <span class="nx">removeItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">void</span> <span class="nx">clear</span><span class="p">();</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>readonly attribute unsigned long length;
-DOMString? key(in unsigned long index);
-getter DOMString getItem(in DOMString key);
-setter creator void setItem(in DOMString key, in DOMString value);
-deleter void removeItem(in DOMString key);
-void clear();
-</code></pre>
-
-<p>};
-[/sourcecode]</p>
 
 <p>It&rsquo;s basically just another key-value store, but the slick thing is that the browser will hold onto it even if you reboot. Below is a shot of what Chrome&rsquo;s Developer Tools might show after using the demo app I&rsquo;m about to walkthrough with you.</p>
 
@@ -154,36 +154,54 @@ void clear();
 
 <p>The first thing I put in the jQuery ready function was a check as to whether the browser supports localStorage. If not, I fade out the functional divs and show a banner.</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-// This will change the view if localStorage isn&rsquo;t available. It
-// returns true or false
-function verifyLocalStorage()
-{</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This will change the view if localStorage isn&#39;t available. It</span>
+</span><span class='line'><span class="c1">// returns true or false</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">verifyLocalStorage</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.section&#39;</span><span class="p">).</span><span class="nx">fadeOut</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#not-supported&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Notify the user if local storage isn&#39;t supported</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">verifyLocalStorage</span><span class="p">()</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>if (!window.localStorage)
-{
-    $('.section').fadeOut();
-    $('#not-supported').show();
-    return false;
-}
-
-return true;
-</code></pre>
-
-<p>}</p>
-
-<p>// Set it all up
-$(function(){</p>
-
-<pre><code>// Notify the user if local storage isn't supported
-if (verifyLocalStorage() === false)
-    return;
-
-// ...
-</code></pre>
-
-<p>});
-[/sourcecode]</p>
 
 <p>The UI looks like this if the check fails:</p>
 
@@ -197,75 +215,126 @@ if (verifyLocalStorage() === false)
 
 <p>Next, I set up an empty tasks array and a function to add a single task to the view, to the array, and update localStorage. Then in the jQuery ready function, I fetch local storage and reuse the same addTask method to restore the previous data. Note that I use JSON.stringify and JSON.parse to handle the array. If you don&rsquo;t do this, the object serializes to localStorage as [object Object] and you&rsquo;re toast. Also, note that I fallback to the JSON string for an empty object if there&rsquo;s nothing in localStorage; otherwise an exception would be thrown.</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-// In memory tasks store
-tasks = [];</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// In memory tasks store</span>
+</span><span class='line'><span class="nx">tasks</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// This adds a task</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">addTask</span><span class="p">(</span><span class="nx">task</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// To the view</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;#task-list&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">task</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// To memory</span>
+</span><span class='line'>    <span class="nx">tasks</span><span class="p">[</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="nx">task</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// In storage</span>
+</span><span class='line'>    <span class="nx">localStorage</span><span class="p">[</span><span class="s1">&#39;tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">tasks</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Get the last stored tasks and restore them to the UI.</span>
+</span><span class='line'>    <span class="c1">// Default to an empty array</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">oldTasks</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;[]&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">oldTasks</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">addTask</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>// This adds a task
-function addTask(task)
-{</p>
 
-<pre><code>// To the view
-$('&amp;lt;li&amp;gt;')
-    .appendTo('#task-list')
-    .text(task.name);
 
-// To memory
-tasks[tasks.length] = task;
-
-// In storage
-localStorage['tasks'] = JSON.stringify(tasks);
-</code></pre>
-
-<p>}</p>
-
-<p>// Set it all up
-$(function(){</p>
-
-<pre><code>//...
-
-// Get the last stored tasks and restore them to the UI.
-// Default to an empty array
-var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-$.each(oldTasks, function(i, e) {
-    addTask(e);
-});
-
-//...
-</code></pre>
-
-<p>});
-[/sourcecode]</p>
 
 <h2>Adding To The List</h2>
 
 
 <p>Adding to the list is fairly simple. I just capture the form submission which handles the user&rsquo;s click or keypress, push the input into a new object, and call the same addTask method.</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-$(function(){</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Set up a handler for submission</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;:submit&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Add the new task</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">newTask</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="p">};</span>
+</span><span class='line'>        <span class="nx">addTask</span><span class="p">(</span><span class="nx">newTask</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Clear the input</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Don&#39;t post</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>// ...
 
-// Set up a handler for submission
-$(':submit').click(function(){
 
-    // Add the new task
-    var newTask = { 'name' : $('#task-name').val() };
-    addTask(newTask);
-
-    // Clear the input
-    $('#task-name').val('');
-
-    // Don't post
-    return false;
-});
-
-// ...
-</code></pre>
-
-<p>});
-[/sourcecode]</p>
 
 <h2>Clearing The Data</h2>
 
@@ -276,44 +345,69 @@ $(':submit').click(function(){
 
 <p>Here&rsquo;s the code to capture the link click and blow away all of the localStorage for our site.</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-// This will get rid of all the tasks
-function clearAll()
-{</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This will get rid of all the tasks</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">clearAll</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// From memory</span>
+</span><span class='line'>    <span class="nx">tasks</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// From the view</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-list&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// In storage</span>
+</span><span class='line'>    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Setup a handler for Clear All</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#clear&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nx">clearAll</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>// From memory
-tasks = [];
 
-// From the view
-$('#task-list').empty();
 
-// In storage
-localStorage.clear();
-</code></pre>
-
-<p>}</p>
-
-<p>// Set it all up
-$(function(){</p>
-
-<pre><code>// ...
-
-// Setup a handler for Clear All
-$('#clear').click(function(){
-    clearAll();
-    return false;
-});
-
-// ...
-</code></pre>
-
-<p>});
-[/sourcecode]</p>
 
 <h2>Live Demo</h2>
 
 
 <p>You can see all of this live and completed on <a title="Local Storage Todo Sample - jsfiddle" href="http://jsfiddle.net/xKnAs/5/" target="_blank">jsfiddle</a>.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/09/13/getting-started-with-html5-local-storage/">The DevStop</a>.</em></p>
 </div>
 
 

@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. Just a &hellip;">
+  <meta name="description" content="Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,33 +103,41 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients, Modernizr, using polyfills, etc.  &ndash;  but today I want to highlight a specific fallback that has saved my designs.</p>
+<div class="entry-content"><p>Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients, Modernizr, using polyfills, etc.  &ndash;  but today I want to highlight a specific fallback that has saved my designs.</p>
 
 <p align="center"><a title="CSS3 Pie" href="http://css3pie.com" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="CSS3 PIE" src="http://thedevstop.files.wordpress.com/2012/01/image16.png" alt="CSS3 PIE" width="547" height="183" border="0" /></a></p>
 
 
 <p><strong>Sometimes I pronounce &ldquo;IE&rdquo; as if I&rsquo;m falling from a precipice: &ldquo;aiiyeeeeeee!!!&rdquo;</strong> Why? Well, consider this style which applies a linear gradient:</p>
 
-<p>[sourcecode language=&ldquo;css&rdquo;]
-.selector {
-background: #233331;
-background-image: -webkit-gradient(linear, left top, left bottom, from(#4d6f6b), to(#233331));
-/<em> Saf4+, Chrome </em>/
-background-image: -webkit-linear-gradient(#4d6f6b, #233331);
-/<em> Chrome 10+, Saf5.1</em>/
-background-image: -moz-linear-gradient(#4d6f6b, #233331);
-/<em> FF3.6 </em>/
-background-image: -ms-linear-gradient(#4d6f6b, #233331);
-/<em> IE10 </em>/
-background-image: -o-linear-gradient(#4d6f6b, #233331);
-/<em> Opera 11.10</em>/
-background-image: linear-gradient(#4d6f6b, #233331); }
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.selector</span> <span class="p">{</span>
+</span><span class='line'><span class="k">background</span><span class="o">:</span> <span class="m">#233331</span><span class="p">;</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#233331</span><span class="p">));</span>
+</span><span class='line'><span class="c">/* Saf4+, Chrome */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* Chrome 10+, Saf5.1*/</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* FF3.6 */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* IE10 */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* Opera 11.10*/</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>This is all fun and games until you test in Internet Explorer &lt; 9. There, you just get solid block of #233331. Now, as this is the second stop anyway, it&rsquo;s not the end of the world. It&rsquo;s nicer, though, to hold onto that gradient that you had decided upon! Enter <a href="http://css3pie.com" title="CSS3 PIE" target="_blank">CSS3 PIE</a>.</p>
 
@@ -158,11 +166,14 @@ background-image: linear-gradient(#4d6f6b, #233331); }
 
 <p>Just add this at the bottom of your linear gradient definitions:</p>
 
-<p>[sourcecode language=&ldquo;css&rdquo;]
--pie-background: linear-gradient(#4d6f6b, #233331);
-/<em>PIE</em>/
-behavior: url(/Scripts/PIE.htc);
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">-pie-background</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nf">#4d6f6b</span><span class="o">,</span> <span class="nf">#233331</span><span class="o">);</span>
+</span><span class='line'><span class="c">/*PIE*/</span>
+</span><span class='line'><span class="nt">behavior</span><span class="o">:</span> <span class="nt">url</span><span class="o">(/</span><span class="nt">Scripts</span><span class="o">/</span><span class="nt">PIE</span><span class="nc">.htc</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Should be obvious, but make sure you have the correct location to the .htc file. You can download everything you need from the <a title="CSS3 PIE on Github" href="https://github.com/lojjic/PIE/downloads" target="_blank">project site on Github</a>.</p>
 
@@ -171,12 +182,18 @@ behavior: url(/Scripts/PIE.htc);
 
 <p>I do this conditionally using <a title="yepnope" href="http://yepnopejs.com/" target="_blank">yepnope.js</a>, but how you load it is up to you. The point is that CSS3 PIE can&rsquo;t do any of it&rsquo;s work if you don&rsquo;t load it :&ndash;).<strong></strong> Note that the script below also assumes that you&rsquo;ve loaded <a title="Modernizr" href="http://www.modernizr.com/" target="_blank">Modernizr</a> for the test condition. (Note: Modernizr now incorporates yepnope and uses it in <a title="Modernizr documentation" href="http://www.modernizr.com/docs/" target="_blank">.load</a>, but I&rsquo;m using an older build of Modernizr here).</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-yepnope({
-test: Modernizr.cssgradients,
-nope: &lsquo;/Scripts/PIE.js&rsquo;
-});
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">yepnope</span><span class="p">({</span>
+</span><span class='line'><span class="nx">test</span><span class="o">:</span> <span class="nx">Modernizr</span><span class="p">.</span><span class="nx">cssgradients</span><span class="p">,</span>
+</span><span class='line'><span class="nx">nope</span><span class="o">:</span> <span class="s1">&#39;/Scripts/PIE.js&#39;</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <h2>What about &lt;noscript&gt;?</h2>
 
@@ -189,6 +206,8 @@ nope: &lsquo;/Scripts/PIE.js&rsquo;
 
 
 <p>CSS3 PIE eases some of the pain caused by those who cling to (or at times are forced to use) old versions of IE. The project is well documented, and you should be able to quickly apply any of the <a title="CSS3 PIE - Instructions for supported features" href="http://css3pie.com/documentation/supported-css3-features/" target="_blank">detailed instructions</a> for each of the supported features. Give it a shot and let me know what you think!</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/">The DevStop</a>.</em></p>
 </div>
 
 

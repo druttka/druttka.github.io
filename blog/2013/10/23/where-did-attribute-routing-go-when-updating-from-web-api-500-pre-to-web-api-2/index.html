@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. This is &hellip;">
+  <meta name="description" content="This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
+<div class="entry-content"><p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
 
 <p><b>tl;dr  &ndash;  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
 
@@ -118,40 +113,55 @@
 
 <p>Let&rsquo;s say we want this X to get wired up as GET /api. It actually gets wired as a POST, and if you try to GET, it throws 405 Method Not Allowed.</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-[RoutePrefix(&quot;api&quot;)]
-public class ValuesController : ApiController
-{
-  [Route(&quot;&quot;)]
-  public int X()
-  {</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>return 42;
-</code></pre>
-
-<p>  }
-}
-[/sourcecode]</p>
 
 <p>In reality, I&rsquo;d just rename this from X to Get, but this is a contrived example! Let&rsquo;s pretend someone put a note on the work item that the implementation method must be named X. We can turn the world right-side-up again by stacking the Http* method attribute. The following works as GET /api, and attempting to POST throws 405.</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]
-[RoutePrefix(&quot;api&quot;)]
-public class ValuesController : ApiController
-{
-  [Route(&quot;&quot;)]
-  [HttpGet]
-  public int X()
-  {</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
+</span><span class='line'><span class="na">  [HttpGet]</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>return 42;
-</code></pre>
-
-<p>  }
-}
-[/sourcecode]</p>
 
 <p>Hope this saves someone a few minutes sometime.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a>.</em></p>
 </div>
 
 

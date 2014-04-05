@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. The bad &hellip;">
+  <meta name="description" content="The bad news is, I&rsquo;m not much of an artist. The good news is, if I draw this in Paint .NET, it&rsquo;s about the same as if I draw it on the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/01/the-many-adventures-of-externalias/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p><strong>The bad news is</strong>, I&rsquo;m not much of an artist.</p>
+<div class="entry-content"><p><strong>The bad news is</strong>, I&rsquo;m not much of an artist.</p>
 
 <p><strong>The good news is</strong>, if I draw this in Paint .NET, it&rsquo;s about the same as if I draw it on the whiteboard and take a picture.</p>
 
@@ -144,11 +139,17 @@
 
 <p>Navigate back to the code file in which the problem is occurring. Above all the usings, add</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]extern alias {theAliasYouJustMadeUp};[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">extern</span> <span class="k">alias</span> <span class="p">{</span><span class="n">theAliasYouJustMadeUp</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>And change the using to</p>
 
-<p>[sourcecode language=&ldquo;csharp&rdquo;]using {theAliasYouJustMadeUp}::{whatYouReallyReallyWant}[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="err">{</span><span class="nn">theAliasYouJustMadeUp</span><span class="p">}::{</span><span class="n">whatYouReallyReallyWant</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><a href="http://thedevstop.files.wordpress.com/2013/07/image5.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb5.png" width="244" height="159" border="0" /></a></p>
 
@@ -165,6 +166,8 @@
 <p><strong>Update</strong></p>
 
 <p>What I left out is that (long story short) I doodled these characters on our whiteboards. If I remember correctly, Subtopdecor came first. After I misheard &ldquo;Subtopdecor,&rdquo; Chris said it sounded like the name of an evil robot. My first sketch of Subtopdecor was somewhat leaner and meaner, but along the way he filled out and got a little more neutral. I prefer the original interpretation, but for some reason I can no longer draw it successfully. For Externalias, the doodle came first, quite randomly. It was only later that I misheard &ldquo;Externalias&rdquo; and we applied the name. They have been spotted at venues as grand as the McWane Science Center in Birmingham.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/01/the-many-adventures-of-externalias/">The DevStop</a>.</em></p>
 </div>
 
 

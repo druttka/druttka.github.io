@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. &hellip;">
+  <meta name="description" content="Integrating asfac into a real production codebase brought some necessary enhancements to our attention. The following updates have now been pushed to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/14/updates-pushed-to-asfac-master/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>Integrating <a href="https://github.com/thedevstop/asfac" target="_blank">asfac</a> into a real production codebase brought some necessary enhancements to our attention. The following updates have now been pushed to <a href="https://github.com/thedevstop/asfac/" target="_blank">master</a>.</p>
+<div class="entry-content"><p>Integrating <a href="https://github.com/thedevstop/asfac" target="_blank">asfac</a> into a real production codebase brought some necessary enhancements to our attention. The following updates have now been pushed to <a href="https://github.com/thedevstop/asfac/" target="_blank">master</a>.</p>
 
 <h3></h3>
 
@@ -121,30 +116,50 @@
 
 <p>Suppose you have an IDoWhatever interface, and you have some concrete implementations like DoWhateverToFoos and DoWhateverToBars. They both implement IDoWhatever, but the former is to be used for Foos while the latter is for Bars.</p>
 
-<p>You can now use the Class object or any instance of the Class as the registration scope. In particular, this came in handy when we had command handlers for various command classes.
-[sourcecode language=&ldquo;javascript&rdquo;]
-// Standard
-factory.register(FooCommandHandler, IHandleCommands, FooCommand);
-var handler:IHandleCommands = factory.resolve(IHandleCommands, FooCommand);</p>
+<p>You can now use the Class object or any instance of the Class as the registration scope. In particular, this came in handy when we had command handlers for various command classes.</p>
 
-<p>// Fluent
-factory.inScope(FooCommand).register(FooCommandHandler).asType(IHandleCommands);
-var handler:IHandleCommands = factory.fromScope(FooCommand).resolve(IHandleCommands);
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Standard</span>
+</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">FooCommandHandler</span><span class="p">,</span> <span class="nx">IHandleCommands</span><span class="p">,</span> <span class="nx">FooCommand</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">handler</span><span class="o">:</span><span class="nx">IHandleCommands</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">,</span> <span class="nx">FooCommand</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Fluent</span>
+</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="nx">FooCommand</span><span class="p">).</span><span class="nx">register</span><span class="p">(</span><span class="nx">FooCommandHandler</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">handler</span><span class="o">:</span><span class="nx">IHandleCommands</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="nx">FooCommand</span><span class="p">).</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <h3>Resolve with Fallback Scope</h3>
 
 
-<p>We also had some cases where a class wasn&rsquo;t registered in the specific scope being requested, but it was registered in the default scope. For example, a default command handler doing some logging might not find the registered ILogger in its own scope. It is now possible to specify to asfac that you&rsquo;d like to take a look in the default scope in the case where a resolution cannot be performed from the specified scope.
-[sourcecode language=&ldquo;javascript&rdquo;]
-// Standard
-factory.register(ConsoleLogger, ILogger);
-var logger:ILogger = factory.resolve(ILogger, &quot;SomeScope&quot;, true);</p>
+<p>We also had some cases where a class wasn&rsquo;t registered in the specific scope being requested, but it was registered in the default scope. For example, a default command handler doing some logging might not find the registered ILogger in its own scope. It is now possible to specify to asfac that you&rsquo;d like to take a look in the default scope in the case where a resolution cannot be performed from the specified scope.</p>
 
-<p>// Fluent
-factory.register(ConsoleLogger).asType(ILogger);
-var logger:ILogger = factory.fromScope(&quot;SomeScope&quot;).resolveWithFallback(ILogger);
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Standard</span>
+</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">ConsoleLogger</span><span class="p">,</span> <span class="nx">ILogger</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">logger</span><span class="o">:</span><span class="nx">ILogger</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">,</span> <span class="s2">&quot;SomeScope&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Fluent</span>
+</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">ConsoleLogger</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">logger</span><span class="o">:</span><span class="nx">ILogger</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="s2">&quot;SomeScope&quot;</span><span class="p">).</span><span class="nx">resolveWithFallback</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <h3></h3>
 
@@ -156,21 +171,29 @@ var logger:ILogger = factory.fromScope(&quot;SomeScope&quot;).resolveWithFallbac
 
 <p>Consider this code:</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-factory.inScope(&lsquo;foo&rsquo;).register(Bar).asType(IBaz);
-factory.register(Widget).asType(ISprocket);
-[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">).</span><span class="nx">register</span><span class="p">(</span><span class="nx">Bar</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IBaz</span><span class="p">);</span>
+</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Widget</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ISprocket</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>We found that Widget was actually registered in scope â€˜foo&#8217;, and we expected it to be in the default scope. We hope asfac users agree. If you did indeed want to register many things into a common scope, you can do it like this:</p>
 
-<p>[sourcecode language=&ldquo;javascript&rdquo;]
-var scopedRegistrar:IRegister = factory.inScope(&lsquo;scope&rsquo;);
-scopedRegistrar.register(Bar).asType(IBaz);
-scopedRegistrar.register(Widget).asType(ISprocket);</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scopedRegistrar</span><span class="o">:</span><span class="nx">IRegister</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="s1">&#39;scope&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">scopedRegistrar</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Bar</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IBaz</span><span class="p">);</span>
+</span><span class='line'><span class="nx">scopedRegistrar</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Widget</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ISprocket</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">scopedResolver</span><span class="o">:</span><span class="nx">IResolve</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="s1">&#39;scope&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// you get it...</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>var scopedResolver:IResolve = factory.fromScope(&lsquo;scope&rsquo;);
-// you get it&hellip;
-[/sourcecode]</p>
 
 <p>If you&rsquo;re using asfac, please let us know what you think. If you run into any problems, please log an issue on <a href="https://github.com/thedevstop/asfac/issues" target="_blank">github</a>. Thanks!</p>
 
@@ -183,6 +206,8 @@ scopedRegistrar.register(Widget).asType(ISprocket);</p>
 
 â€” Adobe Flash Platform (@AdobeFlash) <a href="https://twitter.com/AdobeFlash/status/302477835187154944">February 15, 2013</a></blockquote>
 
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/14/updates-pushed-to-asfac-master/">The DevStop</a>.</em></p>
 </div>
 
 

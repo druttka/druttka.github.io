@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="">
+  <meta name="description" content="Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -106,12 +106,113 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients, Modernizr, using polyfills, etc.  &ndash;  but today I want to highlight a specific fallback that has saved my designs.</p>
+
+<p align="center"><a title="CSS3 Pie" href="http://css3pie.com" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="CSS3 PIE" src="http://thedevstop.files.wordpress.com/2012/01/image16.png" alt="CSS3 PIE" width="547" height="183" border="0" /></a></p>
+
+
+<p><strong>Sometimes I pronounce &ldquo;IE&rdquo; as if I&rsquo;m falling from a precipice: &ldquo;aiiyeeeeeee!!!&rdquo;</strong> Why? Well, consider this style which applies a linear gradient:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.selector</span> <span class="p">{</span>
+</span><span class='line'><span class="k">background</span><span class="o">:</span> <span class="m">#233331</span><span class="p">;</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#233331</span><span class="p">));</span>
+</span><span class='line'><span class="c">/* Saf4+, Chrome */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* Chrome 10+, Saf5.1*/</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* FF3.6 */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* IE10 */</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
+</span><span class='line'><span class="c">/* Opera 11.10*/</span>
+</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is all fun and games until you test in Internet Explorer &lt; 9. There, you just get solid block of #233331. Now, as this is the second stop anyway, it&rsquo;s not the end of the world. It&rsquo;s nicer, though, to hold onto that gradient that you had decided upon! Enter <a href="http://css3pie.com" title="CSS3 PIE" target="_blank">CSS3 PIE</a>.</p>
+
+<h2>Easy as (CSS3) Pie</h2>
+
+
+<p>I couldn&rsquo;t decide on the cheesy &ldquo;easy as pie&rdquo; reference or a much more obscure but only slightly less cheesy Twin Peaks quote.</p>
+
+<p>Anyway, let&rsquo;s solve our IE problem. Note that this isn&rsquo;t just for CSS Gradients; CSS3 Pie can help you fill the gap for a variety of <a title="About CSS3 Pie" href="http://css3pie.com/about/" target="_blank">features</a>:</p>
+
+<ul>
+<ul>
+    <li>border-radius</li>
+    <li>box-shadow</li>
+    <li>border-image</li>
+    <li>multiple background images</li>
+    <li>linear-gradient as background image</li>
+</ul>
+</ul>
+
+
+<p>Enabling support for linear gradients is just a matter of telling PIE to take care of it. How?</p>
+
+<h3>Add PIE Behavior to the Style</h3>
+
+
+<p>Just add this at the bottom of your linear gradient definitions:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">-pie-background</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nf">#4d6f6b</span><span class="o">,</span> <span class="nf">#233331</span><span class="o">);</span>
+</span><span class='line'><span class="c">/*PIE*/</span>
+</span><span class='line'><span class="nt">behavior</span><span class="o">:</span> <span class="nt">url</span><span class="o">(/</span><span class="nt">Scripts</span><span class="o">/</span><span class="nt">PIE</span><span class="nc">.htc</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Should be obvious, but make sure you have the correct location to the .htc file. You can download everything you need from the <a title="CSS3 PIE on Github" href="https://github.com/lojjic/PIE/downloads" target="_blank">project site on Github</a>.</p>
+
+<h3>Load the CSS3 PIE script</h3>
+
+
+<p>I do this conditionally using <a title="yepnope" href="http://yepnopejs.com/" target="_blank">yepnope.js</a>, but how you load it is up to you. The point is that CSS3 PIE can&rsquo;t do any of it&rsquo;s work if you don&rsquo;t load it :&ndash;).<strong></strong> Note that the script below also assumes that you&rsquo;ve loaded <a title="Modernizr" href="http://www.modernizr.com/" target="_blank">Modernizr</a> for the test condition. (Note: Modernizr now incorporates yepnope and uses it in <a title="Modernizr documentation" href="http://www.modernizr.com/docs/" target="_blank">.load</a>, but I&rsquo;m using an older build of Modernizr here).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">yepnope</span><span class="p">({</span>
+</span><span class='line'><span class="nx">test</span><span class="o">:</span> <span class="nx">Modernizr</span><span class="p">.</span><span class="nx">cssgradients</span><span class="p">,</span>
+</span><span class='line'><span class="nx">nope</span><span class="o">:</span> <span class="s1">&#39;/Scripts/PIE.js&#39;</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>What about &lt;noscript&gt;?</h2>
+
+
+<p>I am a huge fan of doing everything possible to <a href="http://christianheilmann.com/2011/12/06/that-javascript-not-available-case/" target="_blank" title="Christian Heilmann on requiring JavaScript">avoid delivering a broken interface to a user</a>, no matter how far into the past they are stuck. However, as this is just style and not functionality, I&rsquo;d mark it as an exception. People who are in the intersection of legacy browsers and disabled JavaScript simply will not benefit from this.</p>
+
+<p>So, could you use an image fallback? Sure. You could also <a href="http://designfestival.com/a-farewell-to-css3-gradients/" target="_blank" title="Alex Walker on SVG gradients">get rid of the CSS completely</a> and use SVG. Both are valid options worth considering, and I plan to take a closer look at all the pros and cons soon. I encourage everyone to do the same and use whatever is most appropriate for the constraints and use cases of the project.</p>
+
+<h2>Conclusion</h2>
+
+
+<p>CSS3 PIE eases some of the pain caused by those who cling to (or at times are forced to use) old versions of IE. The project is well documented, and you should be able to quickly apply any of the <a title="CSS3 PIE - Instructions for supported features" href="http://css3pie.com/documentation/supported-css3-features/" target="_blank">detailed instructions</a> for each of the supported features. Give it a shot and let me know what you think!</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/01/26/css-gradients-in-ie6-ie7-ie8-using-css3-pie-to-fill-the-gap-in-legacy-browsers/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -145,12 +246,103 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>If you followed <a title="Git for Windows - How To Install Git for .NET Developers" href="http://wp.me/p1cpn1-75" target="_blank">my last post</a>, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now?</p>
+
+<h2>posh-git</h2>
+
+
+<p>You could constantly type <strong>git branch</strong> to see which one you&rsquo;re on, and <strong>git status</strong> to see how many adds / mods / deletes you have, like this:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb4.png" alt="image" width="634" height="366" border="0" /></a></p>
+
+<p>Alternatively, <strong>you could just see those bits of information in your prompt</strong>:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image5.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb5.png" alt="image" width="626" height="411" border="0" /></a></p>
+
+<p>This magic comes from <a href="https://github.com/dahlbyk/posh-git" target="_blank">posh-git</a>, and here&rsquo;s the way I got it installed. These are just about the same instructions as on the github page linked above, but I make a few assumptions. For example, you&rsquo;re using a decent version of Powershell and you added Git to your path as instructed in my last post.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/dahlbyk/posh-git.git
+</span><span class='line'>Set-ExecutionPolicy RemoteSigned
+</span><span class='line'>.<span class="se">\p</span>osh-git<span class="se">\i</span>nstall.ps1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What does this do?</p>
+
+<ol>
+    <li>First we get the code. We&#8217;ll talk more about <strong>git clone</strong> later.</li>
+    <li>Next we <strong>set an execution policy</strong>. This might already be set. You could use Get-ExecutionPolicy to find out, but a set is quicker than a check plus a set.</li>
+    <li>Finally we <strong>run the install script</strong> that is in the directory that <strong>git clone</strong> created.</li>
+</ol>
+
+
+<p>If you still have that &ldquo;demo&rdquo; dir/repo we created last time, you can cd into it, change some files, and see the fruits of our labor!</p>
+
+<h2>.gitignore</h2>
+
+
+<p>If you&rsquo;ve been using TFS, SVN, Fortress, or Visual SourceSafe, you&rsquo;ve probably become accustomed to Visual Studio deciding what goes into source control and what doesn&rsquo;t. Add a file to the project? That&rsquo;s included. Build? Those binaries are not.</p>
+
+<p>Git is file system based, which means if it&rsquo;s a file, it&rsquo;s included. How can we prevent junk from getting into our repository? <strong>Tell Git to ignore what doesn&rsquo;t belong!</strong></p>
+
+<p>I can&rsquo;t take credit for the most awesome .gitignore file I&rsquo;ve seen. That belongs to <a href="http://mahdi.mp/a-gitignore-file-for-net-developers/" target="_blank">Madhi Taghizadeh</a>, and you can <a href="https://raw.github.com/gist/1119793/f9af455954e2db67bb1074e5ad729aac46a91cb8/.gitignore" target="_blank">get it here</a>.</p>
+
+<p>Note that I&rsquo;ve been using <a href="http://blog.davidebbo.com/2011/08/easy-way-to-set-up-nuget-to-restore.html" target="_blank">this handy dandy trick</a> to <strong>make projects automatically restore NuGet packages before each build</strong>. If you do this as well, you probably want to <strong>kill the two negations at the bottom of the file </strong>that tell Git to include NuGet package DLLs.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb6.png" alt="image" width="583" height="491" border="0" /></a></p>
+
+<h2>gitflow</h2>
+
+
+<p><strong>You may not fully appreciate this one until we talk about branching, merging, and the strategies surrounding this topic</strong>, but let&rsquo;s get it setup anyway. You can wait and do this later (after you&rsquo;ve seen why you&rsquo;ll want it), or you can <strong>trust me and get this out of the way</strong>Â <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/01/wlemoticon-winkingsmile.png" alt="Winking smile" /></p>
+
+<p>First, we needÂ to collect two dependencies that <a title="gitflow" href="https://github.com/nvie/gitflow" target="_blank">gitflow</a> utilizes.</p>
+
+<ul>
+    <li>Navigate to <a href="http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm">http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm</a></li>
+    <li>Get the Binaries zip and copy the <strong>getopt.exe</strong>file to your git\bin</li>
+    <li>Get the Dependencies zip and copy the <strong>libintl32.dll</strong> to your git\bin</li>
+</ul>
+
+
+<p>Now, from the command line</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone --recursive https://github.com/nvie/gitflow.git
+</span><span class='line'><span class="nb">cd </span>gitflow
+</span><span class='line'>contrib<span class="se">\m</span>sysgit-install.cmd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what does this do?</p>
+
+<ol>
+    <li>First, get some code again. <strong>Do not forget the &#8211;recursive flag!</strong></li>
+    <li>Change to the gitflow directory that <strong>git clone</strong> just created</li>
+    <li>Run the installation</li>
+</ol>
+
+
+<h2>What&#8217;s Next?</h2>
+
+
+<p><span style="color:#000000;">Like I said, <strong>what gitflow does and why you&rsquo;ll want it will come into play later</strong>, as we explore some of the more popular branching strategies in the Git universe. In the next post, we&rsquo;ll learn how Git differs from SVN, TFS (or heaven forbid Visual SourceSafe), and take a look at the strategy upon which gitflow was based.</span></p>
+
+<h2>Sneak Peek</h2>
+
+
+<p>Alright&hellip;if you&rsquo;re already familiar with Git but not with gitflow, check this out.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image7.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb7.png" alt="image" width="616" height="420" border="0" /></a></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -184,12 +376,107 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
+
+<p>Then <a href="http://haacked.com/archive/2011/12/07/hello-github.aspx" target="_blank">Phil Haack moved to Github</a>, and I realized that <strong>a lot of .NET Developers were still completely oblivious</strong> to the existence of Git (or any DVCS), so I thought about it again.</p>
+
+<p>Then <a href="http://haacked.com/archive/2011/12/19/get-git-for-windows.aspx" target="_blank">Phil Haack got you guys up to speed</a>, so I went back to <strong>assuming it&rsquo;s all been said</strong>.</p>
+
+<p>Over the past few days, I&rsquo;ve realized that there are bits and pieces spread around the internet, but I haven&rsquo;t seen anyone do comprehensive posts that put it all together the way I like it. I was able to share some<strong> tricks, tips, and tools </strong>with several different people this week that have inspired me to take a crack at this, so here it comes.</p>
+
+<p><img src="http://farm1.staticflickr.com/35/73410200_7208ad1676.jpg" alt="" /></p>
+
+<p><span style="font-size:xx-small;">Image used under Creative Commons Attribution License: </span><a href="http://www.flickr.com/photos/selago/73410200"><span style="font-size:xx-small;"><a href="http://www.flickr.com/photos/selago/73410200">http://www.flickr.com/photos/selago/73410200</a></span></a></p>
+
+<h2>Spoon-feeding</h2>
+
+
+<p>I am using this image and this terminology for two reasons. The first is that I am going to try to spoon-feed this to you so that you&rsquo;ll be <strong>up and running quickly and smoothly</strong>. The other is  &ndash;  I&rsquo;ve had this discussion several times recently  &ndash;  I hope we can start to <strong>turn the .NET community away from a certain horrible stereotype </strong>(but that&rsquo;s for another post).</p>
+
+<p><strong>Note:</strong> what I&rsquo;m sharing will obviously be my own preferred way of working with Git. You can (and should) use this only as a starting point. Then. continue to explore, evaluate, and <strong>think for yourself </strong>about how it can work best for you.</p>
+
+<p><strong>Also note:</strong>Â this post will<strong> only cover the installation</strong> of Git and the basic tools I use alongside of it. <strong>There will be follow-ups</strong> to cover more advanced tools, what Git is, how it differs from centralized source control like TFS and SVN, best practices, branching strategies, etc.</p>
+
+<h2>Step 1: Console2</h2>
+
+
+<p>Scott Hanselman put together <a href="http://www.hanselman.com/blog/Console2ABetterWindowsCommandPrompt.aspx" target="_blank">a great post about configuring Console2</a> to take your command line to the next level. I recommend that you read it (I think I applied every setting he mentioned), but <strong>here are the settings I find most important</strong>:</p>
+
+<ul>
+    <li>Kill menu bar, status bar, and toolbar</li>
+    <li>Drop the alpha to 40</li>
+    <li>Set Ctrl+V for paste</li>
+    <li>Three tab types
+<ul>
+    <li>Ctrl+F1 opens a Console tab (default)</li>
+    <li>Ctrl+F2 opens a Git bash (we&#8217;ll add this in a bit)</li>
+    <li>Ctrl+F3 opens a Powershell tab (see Hanselman&#8217;s post above)</li>
+</ul>
+</li>
+</ul>
+
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb.png" alt="image" width="599" height="359" border="0" /></a></p>
+
+<p>Beautiful  &ndash;  notice that <strong>the transparency will allow you to read instructions</strong> while executing the commands you&rsquo;re reading about. Keep this in mind when you get to step 4.</p>
+
+<p>One more thing to be aware of  &ndash; Â I often go ahead and run this app as an Administrator, especially when I&rsquo;m engaging in tasks that are patently &ldquo;setup.&rdquo; Keep in mind that <strong>some of what we do from the command line might require elevation</strong>.</p>
+
+<h2>Step 2: msysgit</h2>
+
+
+<p><strong>This can&rsquo;t be easier.</strong> Go get the <a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">full installer for official Git for Windows from Google Code</a> and run it. You should be able to take all the defaults except for one thing:Â <strong>add Git to your path</strong> by choosing the middle option on this screen.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb1.png" alt="image" width="517" height="402" border="0" /></a></p>
+
+<h2>Step 3: Console Tab for Git Bash</h2>
+
+
+<p>Back in Console2, <strong>add a new tab type for the Git Bash</strong>. I use the same icon and shell that the Git Bash shortcut on your desktop or start menu would use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">icon</span> <span class="o">=</span> C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\e</span>tc<span class="se">\g</span>it.ico
+</span><span class='line'><span class="nv">shell</span> <span class="o">=</span> C:<span class="se">\W</span>indows<span class="se">\S</span>ysWOW64<span class="se">\c</span>md.exe /c <span class="s2">&quot;&quot;</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\b</span>in<span class="se">\s</span>h.exe<span class="s2">&quot; --login -i&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I also set a startup dir. All my git repositories will live here. We&rsquo;ll get to those later. I set the same startup dir for my Powershell tab, but this is entirely up to you (you could use Ctrl+F4 to use a GitPowershell tab that launches powershell with that startup dir!)</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image2.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb2.png" alt="image" width="517" height="530" border="0" /></a></p>
+
+<h2>Step 4: Verify the Install</h2>
+
+
+<p>So, Ctrl+F2 (or F3, or whatever tab type your Git Bash is). From the Git Bash run the following commands; I&rsquo;ve added <span style="color:#ff0000;">(verbose commentary)</span>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir demo
+</span><span class='line'><span class="nb">cd </span>demo
+</span><span class='line'>git init
+</span><span class='line'>touch foo.txt
+</span><span class='line'>git add .
+</span><span class='line'>git commit  - m <span class="s2">&quot;Just foo&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/untitled/" rel="attachment wp-att-459"><img title="git-verify-install" src="http://thedevstop.files.wordpress.com/2012/01/untitled.png?w=300" alt="verify git install" width="517" /></a></p>
+
+<p>Easy peasy; you&rsquo;re now using Git!</p>
+
+<h2>What&#8217;s Next?</h2>
+
+
+<p>There are some additional tools and options that I&rsquo;ll introduce in the next post, and then we&rsquo;ll begin learning what Git really is and why you should care.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/01/06/git-for-windows-and-net-developers-how-to-install-git/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -223,12 +510,15 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>The 15min split videos from my talk on Continuous Integration at Agile Birmingham are uploaded to YouTubeÂ and added to <a title="David Ruttka's Presentation on Continuous Integration" href="http://www.youtube.com/playlist?list=PL97E929EC6F3A9B25&amp;feature=view_all" target="_blank">this playlist</a>Â for convenience. Here are the slides as a <a title="Continuous Integration.pdf on Dropbox" href="http://dl.dropbox.com/u/3881007/Continuous%20Integration.pdf" target="_blank">PDF </a>(no notes) and as a <a title="Continuous Integration.pptx on Dropbox" href="http://dl.dropbox.com/u/3881007/Continuous%20Integration.pptx" target="_blank">PPTX </a>(with notes). The notes should be useful, as the ancient Handycam I used to record this makes it a bit difficult to read the text of the demo commands. They are all there in the notes &mdash; if you spot any missing just holler at me and I&rsquo;ll fill in the gaps.</p>
+
+<p>I&rsquo;m putting the video and slides under the <a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>, so free feel to reuse or build upon the work under those terms.</p>
+
+<p><a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license"><img style="border-width:0;" src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png" alt="Creative Commons License" /></a></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/12/07/resources-from-my-continuous-integration-presentation/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/12/07/resources-from-my-continuous-integration-presentation/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -262,12 +552,11 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>If you take a look at the <a title="About The DevStop" href="http://thedevstop.wordpress.com/about/">About page</a>, you&rsquo;ll see a couple of new faces. Welcome <a title="mccow002's profile on StackOverflow" href="http://stackoverflow.com/users/807851/mccow002" target="_blank">Chris</a> and <a title="Patrick Hallisey's profile on StackOverflow" href="http://stackoverflow.com/users/596349/patrick-hallisey" target="_blank">Patrick</a> to our gang of authors. I&rsquo;ll let them take care of their own introductions, and I&rsquo;m looking forward to their contributions.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/12/07/devstop-updates/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/12/07/devstop-updates/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -301,12 +590,17 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>It&rsquo;s been a while since my last post, but as many of you know, Arkham City came out =pÂ (warning: there is some language in <a title="Penny Arcade - Priority Override" href="http://penny-arcade.com/comic/2011/10/21" target="_blank">this comic</a>, but it&rsquo;s so incredibly accurate).</p>
+
+<p>Anyway, here&rsquo;s a <a title="Commited To Good Commits - Slides" href="http://dl.dropbox.com/u/3881007/Committed-To-Good-Commits.pdf" target="_blank">PDF</a> of the slides from my Committed to Good Commits talk at TechMixer University on 9/27/2011. This deck is primarily composed of bullets, but that might actually be for the best this time since I didn&rsquo;t get a recording. Through the power of bullets, you might stand some chance of knowing what I covered.</p>
+
+<p>This topic is near and dear to my heart, so I&rsquo;d be glad to give this talk again or expound on any of the points here in the comments. Just let me know!</p>
+
+<p>Also, with any luck, I&rsquo;ll actually get the video and slides from my continuous integration talk up by this weekend. Stay tuned.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/11/15/slides-from-techmixer-university/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/11/15/slides-from-techmixer-university/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -340,12 +634,14 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>I&#8217;ll be speaking at a couple of upcoming events. </p>
+
+
+<p> <p>On September 27, I&rsquo;ll be presenting at TechBirmingham&rsquo;s <a title="TechMixer University" href="http://www.techbirmingham.com/university/" target="_blank">TechMixer University</a>. The topic is best practices for source control  &ndash;  not just a laundry list of rules, but the reasons behind them. I might also compare and contrast a few branching strategies, but I&rsquo;m still working on some of the timing. See the <a title="TechMixer University 2011 Speaker Schedule" href="http://www.techbirmingham.com/techmixer-university-2011-speaker-schedule/" target="_blank">full speaker schedule</a> or <a title="TechMixer University Registration" href="http://www.eventbrite.com/event/1885093365" target="_blank">register now</a>!</p> <p>On October 4, I&rsquo;ll be speaking about Continuous Integration at <a title="Agile Birmingham" href="http://www.scrumalliance.org/user_groups/58" target="_blank">Agile Birmingham</a>. For many people, CI just means setting up a rolling build, but I think there&rsquo;s much more to it than that. I&rsquo;ll attempt to highlight all aspects of CI and present a path for going from zero to hero. This event will be at Jack Henry and Associates at 6PM. <a title="Register for Agile Birmingham" href="https://www.eventbrite.com/event/1830909299" target="_blank">More information and registration</a> are up on Eventbrite. </p> <p>I&rsquo;m honored to be speaking at these events, and I hope to see some familiar faces in each audience. Let me know if there are any specific points you think I should cover in either talk!</p></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/09/25/upcoming-speaking-engagements/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/09/25/upcoming-speaking-engagements/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -379,12 +675,313 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>Recently I posted about <a title="HTML5 Offline Apps" href="http://thedevstop.wordpress.com/2011/08/07/getting-started-with-html5-offline-app/" target="_blank">getting started with HTML5&rsquo;s offline app support</a>. Now let&rsquo;s look at local storage. This will allow you to store app data locally until it can be posted, which could be very powerful in conjunction with offline support. Even while the user is online, it can be used to periodically auto-save the work in progress to be restored in case of a crash.</p>
+
+<h2>Fundamentals</h2>
+
+
+<p>Let&rsquo;s take a look at the Storage interface as defined by <a title="Web Storage on W3.org" href="http://www.w3.org/TR/webstorage/" target="_blank">w3.org</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kr">interface</span> <span class="nx">Storage</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">length</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">DOMString</span><span class="o">?</span> <span class="nx">key</span><span class="p">(</span><span class="k">in</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">index</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">getter</span> <span class="nx">DOMString</span> <span class="nx">getItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">setter</span> <span class="nx">creator</span> <span class="k">void</span> <span class="nx">setItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">,</span> <span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">value</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">deleter</span> <span class="k">void</span> <span class="nx">removeItem</span><span class="p">(</span><span class="k">in</span> <span class="nx">DOMString</span> <span class="nx">key</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">void</span> <span class="nx">clear</span><span class="p">();</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s basically just another key-value store, but the slick thing is that the browser will hold onto it even if you reboot. Below is a shot of what Chrome&rsquo;s Developer Tools might show after using the demo app I&rsquo;m about to walkthrough with you.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image16.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb16.png" alt="image" width="649" height="176" border="0" /></a></p>
+
+<h2>Lifetime and Scope</h2>
+
+
+<p>According to the current version of the spec, localStorage is specific to an origin. You can see this in the screenshot above where our demo data is housed under fiddle.jshell.net. It &ldquo;should&rdquo; only expire due to a request from the user or for security reasons. Furthermore, security exceptions are thrown if the script attempting to access the storage isn&rsquo;t from the same origin.</p>
+
+<h2>Example Fiddle</h2>
+
+
+<p>When I first started coding, the quintessential example was &ldquo;Hello World!&rdquo; Then, it seemed that Twitter clones were becoming the next big thing in beginner tutorials. Today, it seems that Todo Apps are quickly forging ahead.</p>
+
+<p><strong>Note:</strong> Several of my decisions in this demo app were made for the sake of focusing on the localStorage aspect, throwing it up quickly on jsfiddle, and <strong>keeping other concepts out of the way</strong>. For example, I didn&rsquo;t use backbone or Modernizr because many of you might be unfamiliar with them and wouldn&rsquo;t know what you were looking at. Similarly, I didn&rsquo;t spend a lot of time thinking through architectural decisions, clean code, etc. Take this for what it&rsquo;s worth: <strong>an example</strong>.</p>
+
+<p>Alright, let&rsquo;s show where we&rsquo;re going. For the sake of this example, we can add tasks. We can clear them, but we can&rsquo;t remove them. If we refresh the page, navigate away and come back, restart the browser, or even reboot, the latest list of tasks should still be there. Here&rsquo;s what the UI looks like:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image17.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb17.png" alt="image" width="486" height="135" border="0" /></a></p>
+
+<h2>Checking Browser Support</h2>
+
+
+<p>The first thing I put in the jQuery ready function was a check as to whether the browser supports localStorage. If not, I fade out the functional divs and show a banner.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This will change the view if localStorage isn&#39;t available. It</span>
+</span><span class='line'><span class="c1">// returns true or false</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">verifyLocalStorage</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.section&#39;</span><span class="p">).</span><span class="nx">fadeOut</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#not-supported&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Notify the user if local storage isn&#39;t supported</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">verifyLocalStorage</span><span class="p">()</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The UI looks like this if the check fails:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image18.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb18.png" alt="image" width="561" height="43" border="0" /></a></p>
+
+<h2></h2>
+
+
+<h2>Restoring The Data</h2>
+
+
+<p>Next, I set up an empty tasks array and a function to add a single task to the view, to the array, and update localStorage. Then in the jQuery ready function, I fetch local storage and reuse the same addTask method to restore the previous data. Note that I use JSON.stringify and JSON.parse to handle the array. If you don&rsquo;t do this, the object serializes to localStorage as [object Object] and you&rsquo;re toast. Also, note that I fallback to the JSON string for an empty object if there&rsquo;s nothing in localStorage; otherwise an exception would be thrown.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// In memory tasks store</span>
+</span><span class='line'><span class="nx">tasks</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// This adds a task</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">addTask</span><span class="p">(</span><span class="nx">task</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// To the view</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;#task-list&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">task</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// To memory</span>
+</span><span class='line'>    <span class="nx">tasks</span><span class="p">[</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="nx">task</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// In storage</span>
+</span><span class='line'>    <span class="nx">localStorage</span><span class="p">[</span><span class="s1">&#39;tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">tasks</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Get the last stored tasks and restore them to the UI.</span>
+</span><span class='line'>    <span class="c1">// Default to an empty array</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">oldTasks</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;[]&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">oldTasks</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">addTask</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>Adding To The List</h2>
+
+
+<p>Adding to the list is fairly simple. I just capture the form submission which handles the user&rsquo;s click or keypress, push the input into a new object, and call the same addTask method.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Set up a handler for submission</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;:submit&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Add the new task</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">newTask</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="p">};</span>
+</span><span class='line'>        <span class="nx">addTask</span><span class="p">(</span><span class="nx">newTask</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Clear the input</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-name&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Don&#39;t post</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>Clearing The Data</h2>
+
+
+<p>For the sake of this example, let&rsquo;s look at the method that clears all of the localStorage for the active origin. Note that in our case, since we only have one key (â€˜tasks&#8217;), this is functionally equivalent to localStorage.removeItem(â€˜tasks&#8217;). If you wanted to remove a single item, you could write logic similar to addTask to remove it from the view and the array, then update local storage.</p>
+
+<p><strong>Note</strong>: My use of localStorage.clear() instead of calling .removeItem(â€˜tasks&#8217;) or pushing an updated array into the â€˜tasks&#8217; item is another one of those decisions I made just for the sake of the example.</p>
+
+<p>Here&rsquo;s the code to capture the link click and blow away all of the localStorage for our site.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// This will get rid of all the tasks</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">clearAll</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// From memory</span>
+</span><span class='line'>    <span class="nx">tasks</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// From the view</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#task-list&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// In storage</span>
+</span><span class='line'>    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set it all up</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Setup a handler for Clear All</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#clear&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nx">clearAll</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h2>Live Demo</h2>
+
+
+<p>You can see all of this live and completed on <a title="Local Storage Todo Sample - jsfiddle" href="http://jsfiddle.net/xKnAs/5/" target="_blank">jsfiddle</a>.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/09/13/getting-started-with-html5-local-storage/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/09/13/getting-started-with-html5-local-storage/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -418,12 +1015,104 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>I had a bit of an issue today with an area in my MVC3 application. I added it with the standard tooling, but when I tried to navigate to it, I got some 404s and some 500s that the View couldn&rsquo;t be found. It was looking for the View in the main application&rsquo;s Views, not in my Area!</p>
+
+<p>Well, there isn&rsquo;t anything new under the sun and I found an <a href="http://stackoverflow.com/questions/5128009/mvc-3-area-route-not-working/6656959#6656959" title="c# - MVC3 Area not working" target="_blank">answer on StackOverflow</a>. I wasn&rsquo;t quite satisfied with throwing that snippet in all of my actions, so I thought, &ldquo;Why not an ActionFilter!?&rdquo;</p>
+
+<p>And so a new <a href="https://github.com/druttka/ASP.NET-MVC3-Snippets" title="ASP.NET MVC3 Snippets on Github" target="_blank">Github repository of ASP.NET MVC3 goodies</a> was born! I am sure I&rsquo;ll throw a lot more goodies in here, but for now, I give you <a href="https://github.com/druttka/ASP.NET-MVC3-Snippets/blob/master/AreaAttribute.cs" title="AreaAttribute.cs on Github" target="_blank">AreaAttribute.cs</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'><span class="c1">/// Signals that a Controller or Action belongs in the given Area when the MVC Framework</span>
+</span><span class='line'><span class="c1">/// might miss it despite area registration</span>
+</span><span class='line'><span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;remarks&gt;Based on http://stackoverflow.com/questions/5128009/mvc-3-area-route-not-working&lt;/remarks&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;example&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;![CDATA[</span>
+</span><span class='line'><span class="c1">///     [Area(&quot;MyArea&quot;)]</span>
+</span><span class='line'><span class="c1">///     public class MyAreaController : Controller</span>
+</span><span class='line'><span class="c1">///     {</span>
+</span><span class='line'><span class="c1">///         // ...</span>
+</span><span class='line'><span class="c1">///     }</span>
+</span><span class='line'><span class="c1">/// ]]&gt;</span>
+</span><span class='line'><span class="c1">/// &lt;/example&gt;</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">AreaAttribute</span> <span class="p">:</span> <span class="n">ActionFilterAttribute</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">readonly</span> <span class="kt">string</span> <span class="n">_areaName</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">DataTokenKey</span> <span class="p">=</span> <span class="s">&quot;area&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'>  <span class="c1">/// Constructs a new AreaAttribute with the given areaName</span>
+</span><span class='line'>  <span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'>  <span class="c1">/// &lt;param name=&quot;areaName&quot;&gt;The target area&lt;/param&gt;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">AreaAttribute</span><span class="p">(</span><span class="kt">string</span> <span class="n">areaName</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">_areaName</span> <span class="p">=</span> <span class="n">areaName</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">/// &lt;summary&gt;</span>
+</span><span class='line'>  <span class="c1">/// Forces us into the target area if MVC Framework hasn&#39;t already figured it out</span>
+</span><span class='line'>  <span class="c1">/// &lt;/summary&gt;</span>
+</span><span class='line'>  <span class="c1">/// &lt;param name=&quot;filterContext&quot;&gt;The executing context&lt;/param&gt;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnActionExecuting</span><span class="p">(</span><span class="n">ActionExecutingContext</span> <span class="n">filterContext</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">base</span><span class="p">.</span><span class="n">OnActionExecuting</span><span class="p">(</span><span class="n">filterContext</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kt">var</span> <span class="n">controllerContext</span> <span class="p">=</span> <span class="n">filterContext</span><span class="p">.</span><span class="n">Controller</span><span class="p">.</span><span class="n">ControllerContext</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(!</span><span class="n">controllerContext</span><span class="p">.</span><span class="n">RouteData</span><span class="p">.</span><span class="n">DataTokens</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">DataTokenKey</span><span class="p">))</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">controllerContext</span><span class="p">.</span><span class="n">RouteData</span><span class="p">.</span><span class="n">DataTokens</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">DataTokenKey</span><span class="p">,</span> <span class="n">_areaName</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/30/forcing-mvc3-into-an-area/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/08/30/forcing-mvc3-into-an-area/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -457,12 +1146,14 @@
   </header>
 
 
-  <div class="entry-content"></div>
+  <div class="entry-content"><p>While looking into options for hosting, virtual private servers, etc., I remembered hearing about <a href="http://appharbor.com" target="_blank">AppHarbor</a> and decided to check it out. Note that this is all based on <a href="http://git-scm.org" target="_blank">Git</a>, so if you aren&#8217;t <strong>familiar with Git (protip: you should be)</strong>, you might to start there. Watch this space for an upcoming series introducing Git to those coming from the TFS/SVN world; in the meantime you can check out <a href="http://git-scm.com/documentation" target="_blank">the documentation</a> or this <a href="http://tekpub.com/view/git/1" target="_blank">TekPub production</a>.</p>
+
+
+<p> <p>Note: devstoprocks is just used in these screenshots as a sample. It doesn&rsquo;t really exist, or if it does, it&rsquo;s not ours.</p> <h2></h2> <h2>Registration</h2> <p>When you first arrive, you&rsquo;ll want to look for this button near the bottom right of your browser:</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image10.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="Get Started Now" border="0" alt="Get Started Now" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb10.png" width="202" height="81"></a></p> <p>You&rsquo;ll be prompted to fill out a <strong>truly minimal amount of registration</strong> information: email, username, and password. After taking action on the confirmation email, you&rsquo;ll be ready to get started.</p> <h2>Creating your first app</h2> <p>As is often the case, the hardest part is <strong>coming up with a name</strong>. In fact, that&rsquo;s <strong>the only part</strong>.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image11.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new application" border="0" alt="new application" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb11.png" width="225" height="153"></a></p> <h2>Pushing the app</h2> <p>AppHarbor will create a .git repository that you&rsquo;ll want to commit to, and it&rsquo;s not too difficult to see where it is.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image12.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="repository url" border="0" alt="repository url" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb12.png" width="497" height="121"></a></p> <p>Even if you&rsquo;ve never used Git before, I think their instructions are pretty easy to follow. Since they&rsquo;re on your app&rsquo;s dashboard at this point, I&rsquo;m not going to fully duplicate them here. The basic idea is</p> <ol> <li>Create your solution</li> <li>git init so that the .sln is in the root</li> <li>Add a remote to the repository AppHarbor created for you</li> <li>git push it up</li></ol> <h2>Test Driven &hellip; Deployment!</h2> <p>This is where it gets really interesting. In the image below you&rsquo;ll see a table of builds. <strong>Every time I git push to my AppHarbor remote, it triggers a build</strong>. </p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image13.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="builds" border="0" alt="builds" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb13.png" width="915" height="217"></a></p> <h3>What&rsquo;s going on here?</h3> <ol> <li>This is where you can see the time that the build was deployed. </li> <li>Note that this build is &ldquo;active&rdquo;. That&rsquo;s what&rsquo;s out on your site right now. It may not necessarily be the latest build.</li> <li>You can see the details for any build. This is particularly useful when the build fails. You&rsquo;ll get full details of what errors occurred in the build <strong>or your unit tests!</strong></li> <li>You can always restore a previous version of the app providing that it was a successful build.</li></ol> <h3>Failure is not an option</h3> <p>Note that I said, &ldquo;<strong>providing that it was a successful build</strong>.&rdquo; If the build failed  &ndash;  even if it was just a broken unit test  &ndash;  the build is disqualified. To my knowledge, this is not just a default; there is seriously <strong>no way to deploy a build of degraded quality</strong>. This is of course <strong>predicated on the condition that your tests are properly reporting your build quality</strong>.</p> <h3>&ldquo;The old version was better&rdquo;</h3> <p>Even if your build succeeds and all the tests pass, there&rsquo;s no accounting for taste. If you or your [collaborators, customers, managers, stakeholders, &hellip;] don&rsquo;t like the fluorescent magenta that just got added to the css, <strong>you can always go back to a previous version</strong> <strong>with a single click </strong>(see point 4 above).</p> <h3>What&rsquo;s that about WatiN?</h3> <p>I had stepped away for about an hour and a half, and then I decided to check on automated browser testing with WatiN. I haven&rsquo;t had much luck with that, and the recommendation seems to be to <strong>put those tests in a separate project</strong>, make a secondary .sln file that doesn&rsquo;t include that project, and push that one to AppHarbor. I&rsquo;ve seen that recommendation <a href="http://support.appharbor.com/discussions/problems/139-ui-automation-testing-before-deployment" target="_blank">here</a> and <a href="http://support.appharbor.com/discussions/problems/570-watinspecflow-testing" target="_blank">here</a>. I&rsquo;d be interested to know if anyone has any other ideas.</p> <h3></h3> <h3></h3> <h3></h3> <h2>Using your own domain</h2> <p>AppHarbor will set up a URL for you right away, but it will be something like <a href="http://project-777.apphub.com.">http://project-777.apphub.com.</a> Do you think Facebook and Twitter would have taken off with an URL like that? I don&rsquo;t either, and it seems that the guys behind AppHarbor feel the same way.</p> <p>When you&rsquo;re looking at your app, you might notice a lot of settings to the right-hand side of the secondary bar. Let&rsquo;s take a look at hostnames.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image14.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="hostnames" border="0" alt="hostnames" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb14.png" width="595" height="51"></a></p> <p>You&rsquo;ll be told what IP to use in your A record. AppHarbor won&rsquo;t update it for you, but they will bind the hostname you provide to your app. That&rsquo;s it. You&rsquo;re good to go.</p> <h2><a href="http://thedevstop.files.wordpress.com/2011/08/image15.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new hostname" border="0" alt="new hostname" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb15.png" width="476" height="275"></a></h2> <h2></h2> <h2></h2> <h2>Would you pay FREE DOLLARS?!</h2> <p>Your first <strong>server is</strong> <strong>free</strong>, and AppHarbor will also give you a 20MB SQL Server or MySQL <strong>database for free</strong>. As your app scales, you can always pay to add additional servers, upgrade to a 10GB database, etc., but there&rsquo;s no reason not to give this a spin and <strong>get started today</strong>.</p> <h2>Summary</h2> <p>AppHarbor could very well be a revolutionary deployment and hosting solution and is at least a fun toy to try out. It&rsquo;s insanely satisfying to git push from the command line, read output telling you that a build was queued, and then watch it in the web dashboard. </p> <p>It took me much longer to draft this post than it did to do everything I&rsquo;ve done with AppHarbor. It took me literally five minutes to register, create the app, and deploy it three times to experiment with unit tests. Granted it was a skeleton app with one test, but the point of this exercise was to evaluate AppHarbor and not to spin up a new project.</p> <p>You can learn more at <a href="http://appharbor.com" target="_blank">AppHarbor.com</a> and <a href="http://twitter.com/appharbor" target="_blank">@appharbor</a>.</p></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/09/sailing-into-appharbor/">The DevStop</a>.</em></p>
+</div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2011/08/09/sailing-into-appharbor/">Read on &rarr;</a>
-    </footer>
   
 
 

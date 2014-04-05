@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. I planned &hellip;">
+  <meta name="description" content="I planned to do a series on Git for a while. Then I thought maybe it had all been said already, so what&rsquo;s the point? Then Phil Haack moved to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
+<div class="entry-content"><p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
 
 <p>Then <a href="http://haacked.com/archive/2011/12/07/hello-github.aspx" target="_blank">Phil Haack moved to Github</a>, and I realized that <strong>a lot of .NET Developers were still completely oblivious</strong> to the existence of Git (or any DVCS), so I thought about it again.</p>
 
@@ -166,12 +161,12 @@
 
 <p>Back in Console2, <strong>add a new tab type for the Git Bash</strong>. I use the same icon and shell that the Git Bash shortcut on your desktop or start menu would use:</p>
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">icon</span> <span class="o">=</span> C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\e</span>tc<span class="se">\g</span>it.ico
+</span><span class='line'><span class="nv">shell</span> <span class="o">=</span> C:<span class="se">\W</span>indows<span class="se">\S</span>ysWOW64<span class="se">\c</span>md.exe /c <span class="s2">&quot;&quot;</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\b</span>in<span class="se">\s</span>h.exe<span class="s2">&quot; --login -i&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>icon = C:\Program Files (x86)\Git\etc\git.ico
-shell = C:\Windows\SysWOW64\cmd.exe /c &quot;&quot;C:\Program Files (x86)\Git\bin\sh.exe&quot; &mdash;login -i&quot;</p>
-
-<p>[/sourcecode]</p>
 
 <p>Note that I also set a startup dir. All my git repositories will live here. We&rsquo;ll get to those later. I set the same startup dir for my Powershell tab, but this is entirely up to you (you could use Ctrl+F4 to use a GitPowershell tab that launches powershell with that startup dir!)</p>
 
@@ -182,16 +177,20 @@ shell = C:\Windows\SysWOW64\cmd.exe /c &quot;&quot;C:\Program Files (x86)\Git\bi
 
 <p>So, Ctrl+F2 (or F3, or whatever tab type your Git Bash is). From the Git Bash run the following commands; I&rsquo;ve added <span style="color:#ff0000;">(verbose commentary)</span>.</p>
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir demo
+</span><span class='line'><span class="nb">cd </span>demo
+</span><span class='line'>git init
+</span><span class='line'>touch foo.txt
+</span><span class='line'>git add .
+</span><span class='line'>git commit  - m <span class="s2">&quot;Just foo&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>mkdir demo
-cd demo
-git init
-touch foo.txt
-git add .
-git commit  &ndash; m &ldquo;Just foo&rdquo;</p>
-
-<p>[/sourcecode]</p>
 
 <p><a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/untitled/" rel="attachment wp-att-459"><img title="git-verify-install" src="http://thedevstop.files.wordpress.com/2012/01/untitled.png?w=300" alt="verify git install" width="517" /></a></p>
 
@@ -201,6 +200,8 @@ git commit  &ndash; m &ldquo;Just foo&rdquo;</p>
 
 
 <p>There are some additional tools and options that I&rsquo;ll introduce in the next post, and then we&rsquo;ll begin learning what Git really is and why you should care.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">The DevStop</a>.</em></p>
 </div>
 
 

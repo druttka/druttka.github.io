@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This post originally appeared on The DevStop and has been migrated here via a quick and dirty script. Please forgive any encoding issues. So, these &hellip;">
+  <meta name="description" content="So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;) Today, we weren&rsquo;t sure where a certain bit of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,12 +103,7 @@
   </header>
 
 
-<div class="entry-content"><!-- more -->
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">The DevStop</a> and has been migrated here via a quick and dirty script. Please forgive any encoding issues.</em></p>
-
-<p>So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;)</p>
+<div class="entry-content"><p>So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;)</p>
 
 <p>Today, we weren&rsquo;t sure where a certain bit of code was. Why we weren&rsquo;t sure isn&rsquo;t the point of this post, but we knew that the code had been written. We also knew, from some old conversation, a directory name. <strong>But the directory didn&rsquo;t exist, at least not in our branches.</strong></p>
 
@@ -119,11 +114,12 @@
 <h3>Option 1: Search by branch name</h3>
 
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
 
-<p>git branch -a | grep -i diagnos</p>
 
-<p>[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch -a | grep -i diagnos
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>What does this do? </strong>Well,Â git branch -a lists all the branches both locally and remote, and then that&rsquo;s piped in as input to grep -i diagnos which does a case insensitive pattern match. This gives us output like /origin/feature/Widget-Diagnostics, or maybe it was /origin/feature/Diagnose-Widgets, but you can see now why I used &ldquo;diagnos&rdquo; as the search pattern. Distinct enough to avoid a lot of false positives, but loose enough to match variants of the word.Â <strong>
 </strong></p>
@@ -131,23 +127,25 @@
 <h3>Option Two: Search by path</h3>
 
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
 
-<p>gitÂ log &mdash;all &mdash; tools/widgetDiagnosis</p>
 
-<p>[/sourcecode]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gitÂ log --all -- tools/widgetDiagnosis
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>What does this do? </strong>I stole this one fromÂ <a title="How can I search Git branches for a file or directory?" href="http://stackoverflow.com/a/372970/368296" target="_blank">StackOverflow</a>.Â There are other answers there too in case you don&rsquo;t know the full exact path that you&rsquo;re looking for. At any rate, this gets the log for all the refs but only where the commit can explain how the file exists. Then get a branch name with</p>
 
-<p>[sourcecode language=&ldquo;bash&rdquo;]</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch --contains &lt;a commit <span class="nb">hash </span>from above&gt;
+</span></code></pre></td></tr></table></div></figure>
 
-<p>git branch &mdash;contains &lt;a commit hash from above&gt;</p>
-
-<p>[/sourcecode]</p>
 
 <p>In our case, the way we structure our branches and the way we format our commit messages, the log was enough to lead us to the correct branch.</p>
 
 <p>So there you have it. Again, might be very old news to some, but if this helps at least one person, this write-up was worth it.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">The DevStop</a>.</em></p>
 </div>
 
 
