@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-04T21:46:04-07:00</updated>
+  <updated>2014-04-04T21:51:38-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -40,9 +40,6 @@
     <content type="html"><![CDATA[<p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
 
 <p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
-
-<!-- more -->
-
 
 <h2>Source vs. Master</h2>
 
@@ -135,9 +132,6 @@ cd ..
     <id>http://www.davidruttka.com/blog/2014/04/01/facebook</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with <a href="https://twitter.com/JoeyRobichaud">Joey</a>, and Joey said&hellip;</p>
 
-<!--more-->
-
-
 <blockquote><p>Hey, looks like {kid&rsquo;s name}&rsquo;s ballet class was pretty great!</p></blockquote>
 
 <p>And I said</p>
@@ -165,7 +159,7 @@ cd ..
     <link href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/"/>
     <updated>2014-03-30T08:30:32-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio</id>
-    <content type="html"><![CDATA[<p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. <!-- more --> Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
+    <content type="html"><![CDATA[<p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
 
 <p><img src="http://www.davidruttka.com/images/multiple-startup-projects.png"></p>
 
@@ -190,9 +184,6 @@ cd ..
     <updated>2014-03-29T21:31:06-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages</id>
     <content type="html"><![CDATA[<p><em><a href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
-
-<!-- more -->
-
 
 <h2>Installing Octopress</h2>
 
