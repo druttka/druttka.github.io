@@ -9,7 +9,8 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients &hellip;">
+  <meta name="description" content="Well, Joey asked for it, so here it is. This post originally appeared on The DevStop.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier%21/">Comic Sans for Github It&#8217;s Like April Fools&#8217; Day, Only Way Earlier!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-27T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well, <a title="Consolas for Github" href="http://thedevstop.wordpress.com/consolas-for-github" target="_blank">Joey asked for it</a>, so <a title="Comic Sans for Github" href="http://userscripts.org/scripts/show/124254" target="_blank">here it is</a>.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/comic-sans-for-github1.png"><img class="size-full wp-image-546 aligncenter" title="This really isn't good for anyone..." src="http://thedevstop.files.wordpress.com/2012/01/comic-sans-for-github1.png" alt="git-flow by nvie on github, but presented in Comic Sans" width="567" height="373" /></a></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1119,47 +1160,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/08/09/sailing-into-appharbor/">Sailing Into AppHarbor</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-09T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While looking into options for hosting, virtual private servers, etc., I remembered hearing about <a href="http://appharbor.com" target="_blank">AppHarbor</a> and decided to check it out. Note that this is all based on <a href="http://git-scm.org" target="_blank">Git</a>, so if you aren&#8217;t <strong>familiar with Git (protip: you should be)</strong>, you might to start there. Watch this space for an upcoming series introducing Git to those coming from the TFS/SVN world; in the meantime you can check out <a href="http://git-scm.com/documentation" target="_blank">the documentation</a> or this <a href="http://tekpub.com/view/git/1" target="_blank">TekPub production</a>.</p>
-
-
-<p> <p>Note: devstoprocks is just used in these screenshots as a sample. It doesn&rsquo;t really exist, or if it does, it&rsquo;s not ours.</p> <h2></h2> <h2>Registration</h2> <p>When you first arrive, you&rsquo;ll want to look for this button near the bottom right of your browser:</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image10.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="Get Started Now" border="0" alt="Get Started Now" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb10.png" width="202" height="81"></a></p> <p>You&rsquo;ll be prompted to fill out a <strong>truly minimal amount of registration</strong> information: email, username, and password. After taking action on the confirmation email, you&rsquo;ll be ready to get started.</p> <h2>Creating your first app</h2> <p>As is often the case, the hardest part is <strong>coming up with a name</strong>. In fact, that&rsquo;s <strong>the only part</strong>.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image11.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new application" border="0" alt="new application" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb11.png" width="225" height="153"></a></p> <h2>Pushing the app</h2> <p>AppHarbor will create a .git repository that you&rsquo;ll want to commit to, and it&rsquo;s not too difficult to see where it is.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image12.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="repository url" border="0" alt="repository url" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb12.png" width="497" height="121"></a></p> <p>Even if you&rsquo;ve never used Git before, I think their instructions are pretty easy to follow. Since they&rsquo;re on your app&rsquo;s dashboard at this point, I&rsquo;m not going to fully duplicate them here. The basic idea is</p> <ol> <li>Create your solution</li> <li>git init so that the .sln is in the root</li> <li>Add a remote to the repository AppHarbor created for you</li> <li>git push it up</li></ol> <h2>Test Driven &hellip; Deployment!</h2> <p>This is where it gets really interesting. In the image below you&rsquo;ll see a table of builds. <strong>Every time I git push to my AppHarbor remote, it triggers a build</strong>. </p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image13.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="builds" border="0" alt="builds" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb13.png" width="915" height="217"></a></p> <h3>What&rsquo;s going on here?</h3> <ol> <li>This is where you can see the time that the build was deployed. </li> <li>Note that this build is &ldquo;active&rdquo;. That&rsquo;s what&rsquo;s out on your site right now. It may not necessarily be the latest build.</li> <li>You can see the details for any build. This is particularly useful when the build fails. You&rsquo;ll get full details of what errors occurred in the build <strong>or your unit tests!</strong></li> <li>You can always restore a previous version of the app providing that it was a successful build.</li></ol> <h3>Failure is not an option</h3> <p>Note that I said, &ldquo;<strong>providing that it was a successful build</strong>.&rdquo; If the build failed  &ndash;  even if it was just a broken unit test  &ndash;  the build is disqualified. To my knowledge, this is not just a default; there is seriously <strong>no way to deploy a build of degraded quality</strong>. This is of course <strong>predicated on the condition that your tests are properly reporting your build quality</strong>.</p> <h3>&ldquo;The old version was better&rdquo;</h3> <p>Even if your build succeeds and all the tests pass, there&rsquo;s no accounting for taste. If you or your [collaborators, customers, managers, stakeholders, &hellip;] don&rsquo;t like the fluorescent magenta that just got added to the css, <strong>you can always go back to a previous version</strong> <strong>with a single click </strong>(see point 4 above).</p> <h3>What&rsquo;s that about WatiN?</h3> <p>I had stepped away for about an hour and a half, and then I decided to check on automated browser testing with WatiN. I haven&rsquo;t had much luck with that, and the recommendation seems to be to <strong>put those tests in a separate project</strong>, make a secondary .sln file that doesn&rsquo;t include that project, and push that one to AppHarbor. I&rsquo;ve seen that recommendation <a href="http://support.appharbor.com/discussions/problems/139-ui-automation-testing-before-deployment" target="_blank">here</a> and <a href="http://support.appharbor.com/discussions/problems/570-watinspecflow-testing" target="_blank">here</a>. I&rsquo;d be interested to know if anyone has any other ideas.</p> <h3></h3> <h3></h3> <h3></h3> <h2>Using your own domain</h2> <p>AppHarbor will set up a URL for you right away, but it will be something like <a href="http://project-777.apphub.com.">http://project-777.apphub.com.</a> Do you think Facebook and Twitter would have taken off with an URL like that? I don&rsquo;t either, and it seems that the guys behind AppHarbor feel the same way.</p> <p>When you&rsquo;re looking at your app, you might notice a lot of settings to the right-hand side of the secondary bar. Let&rsquo;s take a look at hostnames.</p> <p><a href="http://thedevstop.files.wordpress.com/2011/08/image14.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="hostnames" border="0" alt="hostnames" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb14.png" width="595" height="51"></a></p> <p>You&rsquo;ll be told what IP to use in your A record. AppHarbor won&rsquo;t update it for you, but they will bind the hostname you provide to your app. That&rsquo;s it. You&rsquo;re good to go.</p> <h2><a href="http://thedevstop.files.wordpress.com/2011/08/image15.png"><img style="background-image:none;border-bottom:0;border-left:0;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;border-top:0;margin-right:auto;border-right:0;padding-top:0;" title="new hostname" border="0" alt="new hostname" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb15.png" width="476" height="275"></a></h2> <h2></h2> <h2></h2> <h2>Would you pay FREE DOLLARS?!</h2> <p>Your first <strong>server is</strong> <strong>free</strong>, and AppHarbor will also give you a 20MB SQL Server or MySQL <strong>database for free</strong>. As your app scales, you can always pay to add additional servers, upgrade to a 10GB database, etc., but there&rsquo;s no reason not to give this a spin and <strong>get started today</strong>.</p> <h2>Summary</h2> <p>AppHarbor could very well be a revolutionary deployment and hosting solution and is at least a fun toy to try out. It&rsquo;s insanely satisfying to git push from the command line, read output telling you that a build was queued, and then watch it in the web dashboard. </p> <p>It took me much longer to draft this post than it did to do everything I&rsquo;ve done with AppHarbor. It took me literally five minutes to register, create the app, and deploy it three times to experiment with unit tests. Granted it was a skeleton app with one test, but the point of this exercise was to evaluate AppHarbor and not to spin up a new project.</p> <p>You can learn more at <a href="http://appharbor.com" target="_blank">AppHarbor.com</a> and <a href="http://twitter.com/appharbor" target="_blank">@appharbor</a>.</p></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/09/sailing-into-appharbor/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1177,6 +1177,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Updating Octopress to Override the Canonical Rel Link</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute</a>
       </li>
     
@@ -1190,10 +1194,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/">A Great Explanation of PowerShell Streams and Write-Host</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">This Was Helpful. Octopress From All Your Machines!</a>
       </li>
     
   </ul>
