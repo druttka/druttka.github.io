@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Moving From WordPress to GitHub Pages Using Jekyll via Octopress - David Ruttka</title>
+  <title>Fixing the External-url (Linklog) Feature in Octopress - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Note: I&rsquo;m going to assume you know what git and GitHub are if you&rsquo;re considering using GitHub Pages. GitHub Pages I had said that I &hellip;">
+  <meta name="description" content="The Linklog Feature Another quick edit that I made to in the theme was to handle the external-url for linklog posts, as described in the Octopress &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -81,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Moving From WordPress to GitHub Pages Using Jekyll via Octopress</h1>
+      <h1 class="entry-title">Fixing the External-url (Linklog) Feature in Octopress</h1>
     
     
       <p class="meta">
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2014-03-29T21:03:18-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-04-08T20:41:44-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
         
          | <a href="#disqus_thread"
 			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
@@ -108,49 +108,19 @@
   </header>
 
 
-<div class="entry-content"><p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
+<div class="entry-content"><h2>The Linklog Feature</h2>
 
-<h2>GitHub Pages</h2>
+<p>Another quick edit that I made to in the theme was to handle the <code>external-url</code> for linklog posts, as described in the <a href="http://octopress.org/docs/blogging/linklog/">Octopress docs</a>.</p>
 
-<p>I <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">had said</a> that I wouldn&rsquo;t reproduce this part, since the <a href="http://pages.github.com/">existing documentation</a> is so dead simple. But here goes.</p>
+<p>I found that this feature wasn&rsquo;t working for me. I couldn&rsquo;t find anyplace that attempted to use <code>external-url</code>, so I just kind of decided on a place that works for me and put it there.</p>
 
-<ul>
-<li>Have a <a href="https://github.com">GitHub</a> account. You probably already do, and that&rsquo;s even better!</li>
-<li>Create a <a href="https://github.com/new">new repo</a> named {yourgithubusername}.github.io. So for me, it was &ldquo;druttka.github.io&rdquo;.</li>
-<li>Put an index.html file in that repo. If you&rsquo;re not sure what to put in it, &ldquo;David Ruttka is the greatest blogger ever.&rdquo; is more original than &ldquo;Hello World!&rdquo;</li>
-<li>Navigate to {yourusername}.github.io. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.</li>
-</ul>
+<h2>Show Me The Code</h2>
 
+<p>You can check out the <a href="https://github.com/imathis/octopress/pull/1538">pull request</a> or the <a href="https://github.com/druttka/octopress/commit/4d0f3a051c5c6e365a737c977c843a444cb59023">commit</a> it contains. I cleaned up the unintentional whitespace changes in the follow-up commit.</p>
 
-<h2>CNAME for the win</h2>
+<p>Basically, I just added a capture for <code>entryhref</code>, using the <code>external_url</code> if present. Later, after the line that handles adding the Comments link as appropriate, I added a line that adds the Permalink as appropriate.</p>
 
-<p>You&rsquo;d probably prefer that people visit www.yourfancytendollardomainname.com, not yourgithubusername.github.io. There are <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">a few ways to set this up</a>, but I went with CNAME.</p>
-
-<ul>
-<li>Go manage your domain.</li>
-<li>Set the naked domain (@) and the www. subdomain (www.) to be a CNAME to {yourgithubusername}.github.io.</li>
-<li>Back in your *.github.io repo, add a CNAME file.
-
-<ul>
-<li>In that file, put a single line. The single line should be www.yourfancytendollardomainname.com.</li>
-</ul>
-</li>
-<li>Navigate to www.yourfancytendollardomainname.com. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.
-
-<ul>
-<li>GitHub Pages is nice enough to send traffic to whatever is in that CNAME file in your repo, regardless of whether the visitor tried to come in on the naked domain, the www subdomain, or github.io.</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Octopress for another win that puts the previous win to shame</h2>
-
-<p>This is a little more involved than I want to write up right now. I will either update this post or create a new one later.</p>
-
-<p><em>Update: I created a <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
-
-<p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
+<p>I&rsquo;m still finding my way around Octopress and am definitely open to thoughts if I&rsquo;m going about this stuff the wrong way. Let me know.</p>
 </div>
 
 
@@ -173,7 +143,7 @@
   
 
 
-<time datetime="2014-03-29T21:03:18-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-04-08T20:41:44-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
       
 
 
@@ -181,7 +151,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -194,10 +164,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/29/hello-octopress/" title="Previous Post: Hello Octopress!">&laquo; Hello Octopress!</a>
+        <a class="basic-alignment left" href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/" title="Previous Post: Updating Octopress to override the canonical rel link">&laquo; Updating Octopress to override the canonical rel link</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/29/setting-up-octopress-for-github-pages/" title="Next Post: Setting Up Octopress for GitHub Pages">Setting Up Octopress for GitHub Pages &raquo;</a>
       
     </p>
   </footer>
@@ -263,8 +231,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/';
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/';
         var disqus_script = 'embed.js';
       
     (function () {
