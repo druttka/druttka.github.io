@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The Linklog Feature Another quick edit that I made to in the theme was to handle the external-url for linklog posts, as described in the Octopress &hellip;">
+  <meta name="description" content="The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Principles of Debugging: A Postmortem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
+
+<blockquote><blockquote><blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote></blockquote></blockquote>
+
+<h2>Wont-Fix</h2>
+
+<p>There&rsquo;s one part of this story that I will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+
+<h2>A Problem Is Reported</h2>
+
+<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
+
+<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
+
+<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
+
+<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -577,133 +639,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T21:31:06-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
-
-<h2>Installing Octopress</h2>
-
-<p>As with GitHub Pages, the <a href="http://octopress.org/docs/setup/">official documentation</a> is super solid, here. I&rsquo;m going to attempt to give a more terse set of steps that I took, but do refer back to the docs if you need more information.</p>
-
-<ul>
-<li>I already had Git and Ruby installed, so I got a free pass on that.</li>
-<li>Clone the repo <code>git clone git://github.com/imathis/octopress.git octopress</code></li>
-<li>cd into it <code>cd octopress</code></li>
-<li><code>gem install bundler</code></li>
-<li><code>bundle install</code>.</li>
-<li><code>rake install</code>, and I actually <strong>did hit a snag here</strong>
-
-<blockquote><p>You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</p></blockquote></li>
-<li>All I had to do was update the Gemfile to reference 10.0.3 and <code>rake install</code> again.</li>
-</ul>
-
-
-<h2>Configuration</h2>
-
-<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
-
-<p>Now, you probably also have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
-
-<ul>
-<li>url</li>
-<li>title</li>
-<li>subtitle</li>
-<li>author</li>
-<li>twitter_user</li>
-</ul>
-
-
-<p>More information in the official docs for <a href="http://octopress.org/docs/configuring/">Configuration</a> and <a href="http://octopress.org/docs/deploying/github/">Deployment</a>.</p>
-
-<h2>Themes</h2>
-
-<p>I went to <a href="http://octopressthemes.com/">Octopress Themes</a> and got a free one. I went the submodule route. Assuming you chose classic light, you&rsquo;d do something like this.</p>
-
-<ul>
-<li>From the directory where you cloned Octopress, <code>git submodule add git://github.com/octothemes/classic-light.git .themes/light</code></li>
-<li><code>git add .themes</code> and commit</li>
-<li><code>rake install[light]</code> will apply it</li>
-<li><code>rake generate</code> and <code>rake preview</code> will let you see how it looks on localhost:4000</li>
-<li><code>rake install[classic]</code>, with the following <code>rake generate</code>, will put things back if you don&rsquo;t like it</li>
-</ul>
-
-
-<p>FWIW, at the time of this writing, I&rsquo;m using <a href="https://github.com/octothemes/forest">forest</a>.</p>
-
-<h2>Hello, Octopress</h2>
-
-<p><code>rake new_post["Hello Octopress"]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
-
-<p><code>rake generate</code>, and then <code>rake preview</code>.</p>
-
-<h2>That&rsquo;s great for posts, what about pages</h2>
-
-<p>You might have guessed it, but <code>rake new_page["About"]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
-
-<p>Don&rsquo;t forget to update your navigation to include your new page! You&rsquo;ll find it in <code>source/_includes/custom/navigation.html</code>, at which point you&rsquo;re just adding a link.</p>
-
-<p><em>I removed the date, and turned off the sharing and footnote options for my About page. I just think it looks cleaner that way.</em></p>
-
-<h2>It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
-
-<p>When you like what you&rsquo;re seeing in <code>rake preview</code>, <code>rake deploy</code>. Given that you&rsquo;ve already gone through the delay setting up the repo and CNAME, it&rsquo;ll be live ridiculously fast.</p>
-
-<p><em>Heads up! Remember when you put CNAME and an index.html in your repo before? I had to navigate into <code>_deploy</code>, and do a <code>git pull</code> resolving some conflicts before <code>rake deploy</code> could push successfully.</em></p>
-
-<p><em>Heads up again! That CNAME that was in the root of your repo should now be in <code>source</code>. This will ensure it sticks around each time you <code>rake generate</code>.</em></p>
-
-<h2>Images</h2>
-
-<p>One thing I found while doing my <a href="/about">About</a> page was including images. The idea is as follows</p>
-
-<ul>
-<li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="/images/the_image.jpg"&gt;</code>
-
-<ul>
-<li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -717,6 +652,10 @@ cd ..
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Principles of Debugging: A Postmortem</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Fixing the External-url (Linklog) Feature in Octopress</a>
@@ -734,10 +673,6 @@ cd ..
         <a href="/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">Octopress Rake Tasks for Scheduling Posts and Pulling Source</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/04/01/git-for-visual-studio-developers/">Git for Windows, .NET, Visual Studio Developers</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -748,17 +683,14 @@ cd ..
   
 </aside>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Blog -->
+<!-- Leaderboard -->
 <ins class="adsbygoogle"
-style="display:inline-block;width:728px;height:90px"
+  style="display:inline-block;width:728px;height:90px"
   data-ad-client="ca-pub-3583325619262902"
-  data-ad-slot="1743899670"></ins>
+  data-ad-slot="4757424877"></ins>
 <script>
- (adsbygoogle = window.adsbygoogle || []).push({});
+  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-
-
 
     </div>
   </div>
