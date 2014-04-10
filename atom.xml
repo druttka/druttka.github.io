@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-10T08:11:25-07:00</updated>
+  <updated>2014-04-10T16:41:07-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.davidruttka.com/blog/2014/04/10/another-take-on-our-debugging-adventure/"/>
     <updated>2014-04-10T08:07:15-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/10/another-take-on-our-debugging-adventure</id>
-    <content type="html"><![CDATA[<blockquote><blockquote><blockquote><p>By implicitly trusting Fiddler&rsquo;s JSON viewer, we assumed the problem was incorrect data coming from our server. &ndash; <a href="http://willi.am/blog/2014/04/08/a-lesson-in-debugging-verify-your-tools/">Will</a></p></blockquote></blockquote></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>By implicitly trusting Fiddler&rsquo;s JSON viewer, we assumed the problem was incorrect data coming from our server. &ndash; <a href="http://willi.am/blog/2014/04/08/a-lesson-in-debugging-verify-your-tools/">Will</a></p></blockquote>
 ]]></content>
   </entry>
   
@@ -29,7 +29,7 @@
     <id>http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem</id>
     <content type="html"><![CDATA[<p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
 
-<blockquote><blockquote><blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote></blockquote></blockquote>
+<blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote>
 
 <h2>Wont-Fix</h2>
 
