@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-10T16:41:07-07:00</updated>
+  <updated>2014-04-11T15:50:32-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Communication Protip: Be Specific]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific/"/>
+    <updated>2014-04-11T15:37:22-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific</id>
+    <content type="html"><![CDATA[<p>The other day, I says to <a href="http://msarchet.com">Michael</a>, I says</p>
+
+<blockquote><p>We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo; in the universal human sense.</p></blockquote>
+
+<p>Today, I sucked again, and I am able to see exactly where I went wrong.</p>
+
+<h2>Be Specific</h2>
+
+<p>If you have multiple environments being used for development purposes, don&rsquo;t talk about making updates to &ldquo;dev.&rdquo; This is going to confuse people about whether you meant <code>hacky-dev-builds.fancycloud.net</code> or <code>slightly-more-stable-dev.yourdomain.com.</code></p>
+
+<p>Refer to the environment by something more unique like the URI, and don&rsquo;t leave room for doubt about exactly what changes you made.</p>
+
+<p>Don&rsquo;t do this:</p>
+
+<blockquote><p>I just deployed the latest bits to dev.</p></blockquote>
+
+<p>Do this instead:</p>
+
+<blockquote><p>I just deployed to endpoint.host.tld. The changes included in this deployment since the last deployment are X, Y, and Z. [Actions people would need to take because of these changes]?.</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Another Take on Our Debugging Adventure]]></title>
@@ -128,6 +155,110 @@
 <ul>
 <li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
 <li>We narrowed the issue down to &ldquo;the response pipeline,&rdquo; but didn&rsquo;t consider what the tools used to view the output might do after the response was delivered.</li>
+<li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
+<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Violating All the Principles of Debugging: A Postmortem]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/"/>
+    <updated>2014-04-08T21:00:19-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem</id>
+    <content type="html"><![CDATA[<p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
+
+<h2>Wont-Fix</h2>
+
+<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+
+<h2>A Problem Is Reported</h2>
+
+<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
+
+<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
+
+<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
+
+<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
+
+<h2>The Plot Thickens</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
+
+<p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
+
+<p>Also traced through the read model updaters to ensure no strange mutations occur there.</p>
+
+<p>Queried the read model store directly. Data is correct at rest. It&rsquo;s got to be in the query side or API itself.</p>
+
+<p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
+
+<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
+
+<p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
+
+<p><strong>It&rsquo;s correct in the XML.</strong></p>
+
+<h2>Wat</h2>
+
+<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
+
+<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
+
+<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
+
+<p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
+
+<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
+
+<h2>Lunch</h2>
+
+<p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
+
+<p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
+
+<h2>Frayed Ends of Sanity</h2>
+
+<p><em>EXT. Outdoor tables at local cafe.</em></p>
+
+<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
+
+<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
+
+<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
+
+<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
+
+<h2>Derp</h2>
+
+<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
+
+<p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
+
+<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
+
+<h2>Debug It!</h2>
+
+<p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
+
+<h3>What Went Well</h3>
+
+<ul>
+<li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
+<li>We eliminated the command side, event bus, and read models very quickly. This let us isolate the problem to the response pipeline.</li>
+<li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
+</ul>
+
+
+<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
+
+<ul>
+<li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
+<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
 <li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
 <li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
 </ul>
@@ -640,217 +771,6 @@ cd ..
 
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/">The DevStop</a>.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2?]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/"/>
-    <updated>2013-10-23T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2</id>
-    <content type="html"><![CDATA[<p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
-
-<p><b>tl;dr  &ndash;  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
-
-<p>I updated a project from the Web API prerelease to the official Web API 2 a few nights ago, and it broke my build. The HttpGet and HttpPost attributes take no arguments, so [HttpGet(&ldquo;someroute&rdquo;)] and [HttpPost(&ldquo;otherRoute&rdquo;)] were no longer valid.</p>
-
-<p>Now, you just use [Route(&ldquo;theRoute&rdquo;)], and it will take it&rsquo;s best guess about which HTTP Method to use. It&rsquo;s usually right (especially if you use the preexisting conventions). I felt the need to find a contrived example where it chooses wrong to confirm how to make it right.</p>
-
-<p>Let&rsquo;s say we want this X to get wired up as GET /api. It actually gets wired as a POST, and if you try to GET, it throws 405 Method Not Allowed.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In reality, I&rsquo;d just rename this from X to Get, but this is a contrived example! Let&rsquo;s pretend someone put a note on the work item that the implementation method must be named X. We can turn the world right-side-up again by stacking the Http* method attribute. The following works as GET /api, and attempting to POST throws 405.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'><span class="na">  [HttpGet]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Hope this saves someone a few minutes sometime.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a>.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MSBuild String Manipulation Chaos]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/07/24/msbuild-string-manipulation-chaos/"/>
-    <updated>2013-07-24T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/07/24/msbuild-string-manipulation-chaos</id>
-    <content type="html"><![CDATA[<p>The other day, I was trying to split a string and then get the various parts of it from within an MSBuild project, but it went totally nuts on me. When I tried to access the item at a given index of the split result, I&rsquo;d get nonsense including semicolons that weren&rsquo;t there in the first place! <strong>Why are semicolons suddenly appearing in the result of a String Split when there were none in the original string?</strong></p>
-
-<p>Once I realized I should take this to the command line and break it down, it made a lot more sense and was quickly resolved (isn&rsquo;t that usually the case?). I&rsquo;m posting this so that maybe someone else will find it useful later.</p>
-
-<h3>The Goal</h3>
-
-
-<p>Imagine that you have a property that you want to split, and then rejoin all or some of the parts later. A build number seems like a good general example here. You&rsquo;ve got access to String.Split here, so it seems a natural solution.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split[0]).$(Split[1]).$(Split[2]).$(Split[3])&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I expected Split[0] to be 8, Split[1] to be 67, etc. What really happened was:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>8.67.5309.9001
-</span><span class='line'>8.;.6.7
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>Huh?</h3>
-
-
-<p>Where did that semicolon come from, and why do I get 6 and 7 instead of 67? I&rsquo;ll admit I hacked and searched on this for way too long before turning to the old standby of &ldquo;echo something out,&rdquo; but once I did&hellip;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I got some very informative output&hellip;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>8.67.5309.9001
-</span><span class='line'>8;67;5309;9001
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>The Property Is A String</h3>
-
-
-<p>What is happening here is that the property that I&rsquo;m creating is a string, not an array. It gets rejoined automatically, with semicolons as the delimiters. What I ended up doing was immediately capturing the chunks as separate properties.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Major&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[0])<span class="nt">&lt;/Major&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Minor&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[1])<span class="nt">&lt;/Minor&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Build&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[2])<span class="nt">&lt;/Build&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;PowerLevel&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[3])<span class="nt">&lt;/PowerLevel&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">Condition=</span><span class="s">&quot;$(PowerLevel)&gt;9000&quot;</span> <span class="na">text=</span><span class="s">&quot;IT&#39;S OVER 9000!&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>IT<span class="err">&#39;</span>S OVER 9000!
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I&rsquo;ve heard that there are some extensions out there that will split and assign to multiple properties a bit more fluidly, but this worked in a pinch. I&rsquo;d be interested in hearing about other ways people have attacked this problem.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/24/msbuild-string-manipulation-chaos/">The DevStop</a>.</em></p>
 ]]></content>
   </entry>
   

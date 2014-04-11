@@ -9,8 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="By implicitly trusting Fiddler&rsquo;s JSON viewer, we assumed the problem was incorrect data coming from our server. &ndash; Will
-">
+  <meta name="description" content="The other day, I says to Michael, I says We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +78,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-11T15:37:22-07:00" pubdate data-updated="true">Apr 11<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/11/communication-protip-be-specific/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day, I says to <a href="http://msarchet.com">Michael</a>, I says</p>
+
+<blockquote><p>We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo; in the universal human sense.</p></blockquote>
+
+<p>Today, I sucked again, and I am able to see exactly where I went wrong.</p>
+
+<h2>Be Specific</h2>
+
+<p>If you have multiple environments being used for development purposes, don&rsquo;t talk about making updates to &ldquo;dev.&rdquo; This is going to confuse people about whether you meant <code>hacky-dev-builds.fancycloud.net</code> or <code>slightly-more-stable-dev.yourdomain.com.</code></p>
+
+<p>Refer to the environment by something more unique like the URI, and don&rsquo;t leave room for doubt about exactly what changes you made.</p>
+
+<p>Don&rsquo;t do this:</p>
+
+<blockquote><p>I just deployed the latest bits to dev.</p></blockquote>
+
+<p>Do this instead:</p>
+
+<blockquote><p>I just deployed to endpoint.host.tld. The changes included in this deployment since the last deployment are X, Y, and Z. [Actions people would need to take because of these changes]?.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -175,6 +233,142 @@
     <footer>
       <a rel="full-article" href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Read on &rarr;</a>
     </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-08T21:00:19-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
+
+<h2>Wont-Fix</h2>
+
+<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+
+<h2>A Problem Is Reported</h2>
+
+<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
+
+<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
+
+<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
+
+<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
+
+<h2>The Plot Thickens</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
+
+<p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
+
+<p>Also traced through the read model updaters to ensure no strange mutations occur there.</p>
+
+<p>Queried the read model store directly. Data is correct at rest. It&rsquo;s got to be in the query side or API itself.</p>
+
+<p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
+
+<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
+
+<p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
+
+<p><strong>It&rsquo;s correct in the XML.</strong></p>
+
+<h2>Wat</h2>
+
+<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
+
+<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
+
+<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
+
+<p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
+
+<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
+
+<h2>Lunch</h2>
+
+<p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
+
+<p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
+
+<h2>Frayed Ends of Sanity</h2>
+
+<p><em>EXT. Outdoor tables at local cafe.</em></p>
+
+<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
+
+<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
+
+<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
+
+<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
+
+<h2>Derp</h2>
+
+<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
+
+<p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
+
+<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
+
+<h2>Debug It!</h2>
+
+<p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
+
+<h3>What Went Well</h3>
+
+<ul>
+<li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
+<li>We eliminated the command side, event bus, and read models very quickly. This let us isolate the problem to the response pipeline.</li>
+<li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
+</ul>
+
+
+<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
+
+<ul>
+<li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
+<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
+<li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
+<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
+</ul>
+
+</div>
+  
   
 
 
@@ -523,105 +717,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">This Was Helpful. Octopress From All Your Machines!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-01T09:25:43-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-        
-        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">Permalink</a>
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/01/facebook/">Facebook?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-01T09:18:16-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/01/facebook/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/01/facebook/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with <a href="https://twitter.com/JoeyRobichaud">Joey</a>, and Joey said&hellip;</p>
-
-<blockquote><p>Hey, looks like {kid&rsquo;s name}&rsquo;s ballet class was pretty great!</p></blockquote>
-
-<p>And I said</p>
-
-<blockquote><p>Wat?</p></blockquote>
-
-<h2>My Current Facebook Policy</h2>
-
-<p>Only one friend, my wife, so I can enjoy posts and pics of her and my kid.</p>
-
-<h2>The Dilemma</h2>
-
-<p>I know Facebook is wrong. I know going back is a trap, but&hellip;</p>
-
-<p>People at work are having happy fun joke time and I&rsquo;m missing it.</p>
-
-<p>I&rsquo;m considering revocation of my policy, and jumping all the way back in.</p>
-
-<p><strong>Someone talk me down from this ledge.</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -637,6 +732,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/10/another-take-on-our-debugging-adventure/">Another Take on Our Debugging Adventure</a>
       </li>
     
@@ -645,15 +744,11 @@ cd ..
       </li>
     
       <li class="post">
+        <a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Fixing the External-url (Linklog) Feature in Octopress</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Updating Octopress to Override the Canonical Rel Link</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute</a>
       </li>
     
   </ul>

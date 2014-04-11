@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Principles of Debugging: A Postmortem - David Ruttka</title>
+  <title>Violating All the Principles of Debugging: A Postmortem - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -81,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Principles of Debugging: A Postmortem</h1>
+      <h1 class="entry-title">Violating All the Principles of Debugging: A Postmortem</h1>
     
     
       <p class="meta">
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
+<time datetime="2014-04-08T21:00:19-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
         
          | <a href="#disqus_thread"
 			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
@@ -110,11 +110,9 @@
 
 <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
 
-<blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote>
-
 <h2>Wont-Fix</h2>
 
-<p>There&rsquo;s one part of this story that I will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
 
 <h2>A Problem Is Reported</h2>
 
@@ -126,12 +124,9 @@
 
 <p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
 
-<!-- more -->
-
-
 <h2>The Plot Thickens</h2>
 
-<p><em>INT. The same developer&rsquo;s desk. After standup. A second developer joins to pair.</em></p>
+<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
 
 <p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
 
@@ -141,7 +136,7 @@
 
 <p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
 
-<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two. We record each id->mutatedId pairing to look for deeper patterns.</p>
+<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
 
 <p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
 
@@ -149,17 +144,17 @@
 
 <h2>Wat</h2>
 
-<p><em>INT. Kitchenette. Coffee. Sanity beginning to slip.</em></p>
+<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
 
 <h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
 
 <p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
 
-<p>The third developer quickly confirms what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
+<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
 
 <p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
 
-<p>For the sake of reduction, we go to File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see <strong>the correct values displayed in the browser</strong>. What&rsquo;s different about the new project? Do we have a different version of the json serializer package? A different version of our web api framework package? What else is our the pipeline, but only for json and not for xml?</p>
+<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
 
 <h2>Lunch</h2>
 
@@ -171,25 +166,21 @@
 
 <p><em>EXT. Outdoor tables at local cafe.</em></p>
 
-<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline.</p>
+<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
 
-<p><em>EXT. Indoor tables at a different, local cafe.</em></p>
+<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
 
-<p>We start mutating the ids in the data store itself and then querying them through the API, attempt to establish a predictable pattern.</p>
+<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
 
-<p>We try smaller numbers and find that id = 7 stays 7, even though it&rsquo;s odd. But we know this isn&rsquo;t an overflow issue because many higher, even numbers remain correct.</p>
-
-<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect alongside the id the API returned. They all match. None are wrong. This was in LinqPad, using C#, and the .NET HttpWebRequest.</p>
-
-<p>But even as LinqPad is showing the right ids, Fiddler is showing the wrong ids&hellip;</p>
+<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
 
 <h2>Derp</h2>
 
-<p>The raw tab of Fiddler always had the correct id. It was only the json tab that displayed incorrect ids. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
+<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
 
 <p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
 
-<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed too much at once, including what we used to view the output.</p>
+<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
 
 <h2>Debug It!</h2>
 
@@ -208,7 +199,7 @@
 
 <ul>
 <li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
-<li>We narrowed the issue down to &ldquo;the response pipeline,&rdquo; but didn&rsquo;t consider what the tools used to view the output might do after the response was delivered.</li>
+<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
 <li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
 <li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
 </ul>
@@ -235,7 +226,7 @@
   
 
 
-<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
+<time datetime="2014-04-08T21:00:19-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
       
 
 
@@ -243,7 +234,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -256,10 +247,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/" title="Previous Post: Violating All The Principles of Debugging: A Postmortem">&laquo; Violating All The Principles of Debugging: A Postmortem</a>
+        <a class="basic-alignment left" href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/" title="Previous Post: Fixing the external-url (linklog) feature in Octopress">&laquo; Fixing the external-url (linklog) feature in Octopress</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/04/10/another-take-on-our-debugging-adventure/" title="Next Post: Another take on our debugging adventure">Another take on our debugging adventure &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/04/09/principles-of-debugging-a-postmortem/" title="Next Post: Principles of Debugging: A Postmortem">Principles of Debugging: A Postmortem &raquo;</a>
       
     </p>
   </footer>
@@ -325,8 +316,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/';
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/';
         var disqus_script = 'embed.js';
       
     (function () {
