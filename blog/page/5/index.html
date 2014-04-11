@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Note: There may be mild spoilers ahead. I&rsquo;ll try to keep it vague and general, but if you&rsquo;re really worried, go see the movie before &hellip;">
+  <meta name="description" content="I think we can all agree that developing mobile apps is a hot topic these days. One of the concerns I hear most often is having to deal with multiple &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,121 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/05/17/monodroid-101-installation-and-hello-world-with-mono-for-android/">MonoDroid 101 Installation and Hello World With Mono for Android</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-17T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I think we can all agree that developing mobile apps is a hot topic these days. One of the concerns I hear most often is having to deal with multiple languages, frameworks, and platforms. Everyone understandably wants to have a common toolset, write code once and reuse it as much code as they can, etc.</p>
+
+<p>There are several ways to achieve this. One way is to forget native apps completely and just have a <a href="http://mediaqueri.es/" target="_blank">responsive website</a>. Going this route will cost you a few things such as native device functionality (GPS, camera, accelerometer, etc.) and monetization (marketplace / app store presence).</p>
+
+<p>Another, which I&rsquo;ll be speaking about at <a href="http://codestock.org/" target="_blank">CodeStock 2012</a> (and probably should have blogged about before), is <a href="http://phonegap.com/" target="_blank">PhoneGap</a>. With this option, we leverage our standard web development toolset (HTML, JavaScript, CSS) and bridge the gap with some native libraries. Now we&rsquo;re closer to a write-once scenario but we can still take advantage of the things we lost above.</p>
+
+<p>What I want to look at in this post is <a href="http://xamarin.com/monoforandroid" target="_blank">Mono for Android</a>, or <a href="http://stackoverflow.com/questions/tagged/monodroid" target="_blank">MonoDroid</a>, from <a href="http://xamarin.com/" target="_blank">Xamarin</a>. There&rsquo;s also <a href="http://xamarin.com/monotouch/" target="_blank">MonoTouch</a> for creating iOS apps, but that&rsquo;ll be for later. These offerings allow developers to apply their existing C# and .NET skills to these platforms and share the code between them! The Mono for Android offering also provides the choice of using MonoDevelop or Visual Studio.</p>
+
+<h3>Installation (Windows)</h3>
+
+
+<p>This is so simple, there&rsquo;s not a whole lot to say. Head over to the trial download page, answer a few questions, and get the bits.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/trial-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="trial download page" src="http://thedevstop.files.wordpress.com/2012/05/trial-highlight_thumb1.png" alt="Download Mono For Android" width="644" height="333" border="0" /></a></p>
+
+<p>When the download completes, setup.exe will take care of everything for you. Relax as it discovers, downloads, and installs all the dependencies and configures them for you. Days before I got this, I manually got the Android SDK and got the emulator running for other reasons. This installer would have done all that for me, and it does more. Look at all these AVDs! The bottom one is the only one I had made myself.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/avds1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="AVD Manager" src="http://thedevstop.files.wordpress.com/2012/05/avds_thumb1.png" alt="AVD Manager" width="644" height="252" border="0" /></a></p>
+
+<p>When it&rsquo;s all done, you can launch MonoDevelop or open Visual Studio (integration via a plugin).</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/launch1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="You're Ready!" src="http://thedevstop.files.wordpress.com/2012/05/launch_thumb1.png" alt="You're Ready!" width="554" height="484" border="0" /></a></p>
+
+<h2></h2>
+
+
+<h3>Looking at MonoDevelop</h3>
+
+
+<p>I&rsquo;m choosing to go the MonoDevelop route in this post for two reasons. First, I haven&rsquo;t used MonoDevelop before and I figure I should see what all the good buzz is about. Second, some readers just might not have Visual Studio, but everyone who has come this far will have MonoDevelop. If you want a complete getting started guide for Visual Studio, you could check out <a href="http://docs.xamarin.com/android/getting_started/hello_world" target="_blank">Xamarin&rsquo;s documentation</a>. Alternatively, if someone asks me specifically to post about it, I will.</p>
+
+<p>When you open MonoDevelop, you get a Start Page. The concept should be pretty familiar. Go ahead and start a new solution.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/start-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="MonoDevelop Start Page" src="http://thedevstop.files.wordpress.com/2012/05/start-highlight_thumb1.png" alt="MonoDevelop Start Page" width="644" height="403" border="0" /></a></p>
+
+<p>You can choose from a variety of Mono for Android project templates. Let&rsquo;s go for the gold and target API 15 or higher (&ldquo;Ice Cream Sandwich&rdquo;).</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="project template choices" src="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight_thumb1.png" alt="project template choices" width="644" height="398" border="0" /></a></p>
+
+<h3></h3>
+
+
+<h3>Hello MonoDroid</h3>
+
+
+<p>The project should be created with a structure like this.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/code1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="project template" src="http://thedevstop.files.wordpress.com/2012/05/code_thumb1.png" alt="project template" width="644" height="366" border="0" /></a></p>
+
+<p>I&rsquo;ll go into the details of what makes up the project in my next post. For tonight, let&rsquo;s just hit F5 and confirm that we&rsquo;ve got everything in place. When you hit F5, you&rsquo;ll need to start an emulator. Since we&rsquo;re using an Ice Cream Sandwich (API Level 15+), start that virtual device and then click OK.</p>
+
+<p><span style="color:#ff0000;font-size:small;"><strong><a href="http://thedevstop.files.wordpress.com/2012/05/emulator1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="AVD selection" src="http://thedevstop.files.wordpress.com/2012/05/emulator_thumb1.png" alt="AVD selection" width="576" height="484" border="0" /></a></strong></span></p>
+
+<p><span style="color:#ff0000;font-size:small;"><strong>Note:</strong> When I installed, I already had an AVD targeting 4.0.3 (API Level 15) and it was named Droid. You can see it hanging out in an earlier screenshot. I think the Mono for Android installer saw this and skipped creating MonoForAndroid_API_15 for me. I deleted Droid and created it in hopes of making this screenshot consistent. After I get a chance to confirm this on a clean install, I&rsquo;ll update the post if necessary. In the meantime, if you don&rsquo;t see a Level 15, go to Start &gt;&gt; AVD Manager and create one (it&rsquo;s easy!)</span></p>
+
+<p>The emulator will launch, and you can watch the installation progress in MonoDevelop.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/status1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="MonoDevelop deployment status" src="http://thedevstop.files.wordpress.com/2012/05/status_thumb1.png" alt="MonoDevelop deployment status" width="644" height="280" border="0" /></a></p>
+
+<p><span style="color:#ff0000;font-size:small;"><strong>Heads up: </strong>I&rsquo;ve worked with four different AVDs on two different machines (with and without Mono). Android Virtual Devices take a long time the first time. It will get better.</span></p>
+
+<p>Once it&rsquo;s all complete, the sample click-counter app will be running in your emulator.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/app1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="application running in emulator" src="http://thedevstop.files.wordpress.com/2012/05/app_thumb1.png" alt="application running in emulator" width="644" height="417" border="0" /></a></p>
+
+<p>If you click the back button, the app will close, but you can still find it in the app list. I called my project IceCream, and you&rsquo;ll see IceCream in the lower left of the list. Your name may vary <img class="wlEmoticon wlEmoticon-smile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/05/wlemoticon-smile.png" alt="Smile" /></p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/applist1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="emulator app list" src="http://thedevstop.files.wordpress.com/2012/05/applist_thumb1.png" alt="emulator app list" width="644" height="417" border="0" /></a></p>
+
+<h3></h3>
+
+
+<h3>Summary</h3>
+
+
+<p>It&rsquo;s oddly satisfying to see apps written in C# with .NET get deployed and executed on Android, and I&rsquo;m pretty excited about diving in deeper and seeing how far we can take it. Next time, we&rsquo;ll take a closer look at what all these files are and the concepts they represent.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1192,50 +1307,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2011/12/07/resources-from-my-continuous-integration-presentation/">Resources From My Continuous Integration Presentation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-07T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The 15min split videos from my talk on Continuous Integration at Agile Birmingham are uploaded to YouTubeÂ and added to <a title="David Ruttka's Presentation on Continuous Integration" href="http://www.youtube.com/playlist?list=PL97E929EC6F3A9B25&amp;feature=view_all" target="_blank">this playlist</a>Â for convenience. Here are the slides as a <a title="Continuous Integration.pdf on Dropbox" href="http://dl.dropbox.com/u/3881007/Continuous%20Integration.pdf" target="_blank">PDF </a>(no notes) and as a <a title="Continuous Integration.pptx on Dropbox" href="http://dl.dropbox.com/u/3881007/Continuous%20Integration.pptx" target="_blank">PPTX </a>(with notes). The notes should be useful, as the ancient Handycam I used to record this makes it a bit difficult to read the text of the demo commands. They are all there in the notes &mdash; if you spot any missing just holler at me and I&rsquo;ll fill in the gaps.</p>
-
-<p>I&rsquo;m putting the video and slides under the <a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>, so free feel to reuse or build upon the work under those terms.</p>
-
-<p><a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="license"><img style="border-width:0;" src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png" alt="Creative Commons License" /></a></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/12/07/resources-from-my-continuous-integration-presentation/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1253,6 +1324,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/11/async-slash-await-sugar-in-es7/">Async/await Sugar in ES7</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a>
       </li>
     
@@ -1266,10 +1341,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Fixing the External-url (Linklog) Feature in Octopress</a>
       </li>
     
   </ul>

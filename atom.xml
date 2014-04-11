@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-11T15:50:32-07:00</updated>
+  <updated>2014-04-11T15:53:45-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Async/await Sugar in ES7]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7/"/>
+    <updated>2014-04-11T15:51:34-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7</id>
+    <content type="html"><![CDATA[<p>Holy cow. <code>async/await</code> sugar on top of generators <a href="http://www.joezimjs.com/javascript/synchronizing-asynchronous-javascript-es7/">coming in ES7</a>?!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Communication Protip: Be Specific]]></title>
@@ -749,28 +758,6 @@ cd ..
 <p>I lost a fair bit of time the other day thinking that I had mistyped something setting up my ScriptBundle or a similar mistake. Even after I saw the 404s in Fiddler, I blamed myself and kept looking for my own error. Then I realized that the package version was different and took this wild guess =) Hope this helps save someone from similar trouble until the problem is resolved.</p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/">The DevStop</a>.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How Can I Preselect an Option Element in a Select Box?]]></title>
-    <link href="http://www.davidruttka.com/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/"/>
-    <updated>2013-10-24T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box</id>
-    <content type="html"><![CDATA[<p>I have some friends trying to wire up some pages. Several pages link to a destination page that has a select box, and they want to have a given option preselected based on where the user is coming from. After several emails, I decided a quick screencast might explain it more quickly and clearly. So here it is, my <a href="https://vimeo.com/77758879">first public* screencast</a>.</p>
-
-
-<p></p>
-
-<iframe src="//player.vimeo.com/video/77758879" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-
-<p> <p><a href="http://vimeo.com/77758879">Preselect an option in a select</a> from <a href="http://vimeo.com/user22107932">David Ruttka</a> on <a href="https://vimeo.com">Vimeo</a>.</p></p>
-
-<p>* A few jobs back, I did several internal training videos for new hires. They had great names loaded with all kinds of puns. I&#8217;m pretty sure <a href="http://twitter.com/joeyrobichaud">Joey</a> still has them.</p>
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/">The DevStop</a>.</em></p>
 ]]></content>
   </entry>
   

@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>How to Run Your ASP.NET Web Application When You Start Debugging Instead of Launching the Page / View You're Editing - David Ruttka</title>
+  <title>Async/await Sugar in ES7 - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I sent Michael on a wild goose chase because I wasn&#8217;t paying attention to a project setting. A project setting that I&#8217;ve used multiple &hellip;">
+  <meta name="description" content="Holy cow. async/await sugar on top of generators coming in ES7?!
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -81,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">How to Run Your ASP.NET Web Application When You Start Debugging Instead of Launching the Page / View You're Editing</h1>
+      <h1 class="entry-title">Async/await Sugar in ES7</h1>
     
     
       <p class="meta">
@@ -97,7 +98,7 @@
   
 
 
-<time datetime="2014-03-28T00:00:00-07:00" pubdate data-updated="true"></time>
+<time datetime="2014-04-11T15:51:34-07:00" pubdate data-updated="true">Apr 11<span>th</span>, 2014</time>
         
         
       </p>
@@ -105,12 +106,7 @@
   </header>
 
 
-<div class="entry-content"><p>I sent <a href="http://twitter.com/msarchet" target="_blank">Michael</a> on a wild goose chase because I wasn&#8217;t paying attention to a project setting. A project setting that I&#8217;ve used multiple times, including this week. An incredibly simple project setting that will change your life. </p>
-
-
-<p> <p><a href="http://thedevstop.files.wordpress.com/2014/03/image.png" target="_blank"><img title="image" style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" border="0" alt="Web project settings" src="http://thedevstop.files.wordpress.com/2014/03/image.png"></a><br></p> <p>Project Properties &gt; Web &gt; Start Action. Above, I chose Specific Page but left it blank so that it navigates to the root and starts the app. Current Page is the default, which I recall all too painfully from F5-ing ASP.NET MVC views a couple of years ago. There&rsquo;s also a &ldquo;Don&rsquo;t open a page&rdquo; option down there at the bottom, which is my new favorite setting when working on Web API projects. <a href="http://twitter.com/itsananderson" target="_blank">Will</a> and I used this option earlier this week, and there was much rejoicing.</p> <p>On a side note, if you&rsquo;re working on single page apps and want the magic of Scripts.Render without pulling in the entirety of MVC, check out Michael&rsquo;s <a href="https://github.com/msarchet/Bundler" target="_blank">Bundler</a>. I&rsquo;m using it, and it is super groovy. He&rsquo;s got a couple of blog posts introducing it <a href="http://msarchet.com/using-the-asp-dot-net-bundling-pipeline-with-owin/" target="_blank">here</a> and <a href="http://www.comingsoon.net/" target="_blank">here</a>.</p> <p>Just remember that if you consume it, his code will not work at all unless you actually execute it.</p></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">The DevStop</a>.</em></p>
+<div class="entry-content"><p>Holy cow. <code>async/await</code> sugar on top of generators <a href="http://www.joezimjs.com/javascript/synchronizing-asynchronous-javascript-es7/">coming in ES7</a>?!</p>
 </div>
 
 
@@ -133,7 +129,7 @@
   
 
 
-<time datetime="2014-03-28T00:00:00-07:00" pubdate data-updated="true"></time>
+<time datetime="2014-04-11T15:51:34-07:00" pubdate data-updated="true">Apr 11<span>th</span>, 2014</time>
       
 
 
@@ -141,7 +137,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -154,10 +150,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoftweboptimization-110-when-optimizations-are-off/" title="Previous Post: ScriptBundle subdirectories no longer work in Microsoft.Web.Optimization 1.1.0 when optimizations are off">&laquo; ScriptBundle subdirectories no longer work in Microsoft.Web.Optimization 1.1.0 when optimizations are off</a>
+        <a class="basic-alignment left" href="/blog/2014/04/11/communication-protip-be-specific/" title="Previous Post: Communication protip: Be specific">&laquo; Communication protip: Be specific</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/" title="Next Post: Dev at work: Moving to GitHub Pages">Dev at work: Moving to GitHub Pages &raquo;</a>
       
     </p>
   </footer>
