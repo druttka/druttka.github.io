@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I planned to do a series on Git for a while. Then I thought maybe it had all been said already, so what&rsquo;s the point? Then Phil Haack moved to &hellip;">
+  <meta name="description" content="If you followed my last post, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now? posh-git You could constantly &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,138 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">Git for Windows and .NET Developers Part 2 Advanced Tools and Options</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-09T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you followed <a title="Git for Windows - How To Install Git for .NET Developers" href="http://wp.me/p1cpn1-75" target="_blank">my last post</a>, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now?</p>
+
+<h2>posh-git</h2>
+
+
+<p>You could constantly type <strong>git branch</strong> to see which one you&rsquo;re on, and <strong>git status</strong> to see how many adds / mods / deletes you have, like this:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb4.png" alt="image" width="634" height="366" border="0" /></a></p>
+
+<p>Alternatively, <strong>you could just see those bits of information in your prompt</strong>:</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image5.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb5.png" alt="image" width="626" height="411" border="0" /></a></p>
+
+<p>This magic comes from <a href="https://github.com/dahlbyk/posh-git" target="_blank">posh-git</a>, and here&rsquo;s the way I got it installed. These are just about the same instructions as on the github page linked above, but I make a few assumptions. For example, you&rsquo;re using a decent version of Powershell and you added Git to your path as instructed in my last post.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/dahlbyk/posh-git.git
+</span><span class='line'>Set-ExecutionPolicy RemoteSigned
+</span><span class='line'>.<span class="se">\p</span>osh-git<span class="se">\i</span>nstall.ps1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What does this do?</p>
+
+<ol>
+    <li>First we get the code. We&#8217;ll talk more about <strong>git clone</strong> later.</li>
+    <li>Next we <strong>set an execution policy</strong>. This might already be set. You could use Get-ExecutionPolicy to find out, but a set is quicker than a check plus a set.</li>
+    <li>Finally we <strong>run the install script</strong> that is in the directory that <strong>git clone</strong> created.</li>
+</ol>
+
+
+<p>If you still have that &ldquo;demo&rdquo; dir/repo we created last time, you can cd into it, change some files, and see the fruits of our labor!</p>
+
+<h2>.gitignore</h2>
+
+
+<p>If you&rsquo;ve been using TFS, SVN, Fortress, or Visual SourceSafe, you&rsquo;ve probably become accustomed to Visual Studio deciding what goes into source control and what doesn&rsquo;t. Add a file to the project? That&rsquo;s included. Build? Those binaries are not.</p>
+
+<p>Git is file system based, which means if it&rsquo;s a file, it&rsquo;s included. How can we prevent junk from getting into our repository? <strong>Tell Git to ignore what doesn&rsquo;t belong!</strong></p>
+
+<p>I can&rsquo;t take credit for the most awesome .gitignore file I&rsquo;ve seen. That belongs to <a href="http://mahdi.mp/a-gitignore-file-for-net-developers/" target="_blank">Madhi Taghizadeh</a>, and you can <a href="https://raw.github.com/gist/1119793/f9af455954e2db67bb1074e5ad729aac46a91cb8/.gitignore" target="_blank">get it here</a>.</p>
+
+<p>Note that I&rsquo;ve been using <a href="http://blog.davidebbo.com/2011/08/easy-way-to-set-up-nuget-to-restore.html" target="_blank">this handy dandy trick</a> to <strong>make projects automatically restore NuGet packages before each build</strong>. If you do this as well, you probably want to <strong>kill the two negations at the bottom of the file </strong>that tell Git to include NuGet package DLLs.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb6.png" alt="image" width="583" height="491" border="0" /></a></p>
+
+<h2>gitflow</h2>
+
+
+<p><strong>You may not fully appreciate this one until we talk about branching, merging, and the strategies surrounding this topic</strong>, but let&rsquo;s get it setup anyway. You can wait and do this later (after you&rsquo;ve seen why you&rsquo;ll want it), or you can <strong>trust me and get this out of the way</strong>Â <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/01/wlemoticon-winkingsmile.png" alt="Winking smile" /></p>
+
+<p>First, we needÂ to collect two dependencies that <a title="gitflow" href="https://github.com/nvie/gitflow" target="_blank">gitflow</a> utilizes.</p>
+
+<ul>
+    <li>Navigate to <a href="http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm">http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm</a></li>
+    <li>Get the Binaries zip and copy the <strong>getopt.exe</strong>file to your git\bin</li>
+    <li>Get the Dependencies zip and copy the <strong>libintl32.dll</strong> to your git\bin</li>
+</ul>
+
+
+<p>Now, from the command line</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone --recursive https://github.com/nvie/gitflow.git
+</span><span class='line'><span class="nb">cd </span>gitflow
+</span><span class='line'>contrib<span class="se">\m</span>sysgit-install.cmd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what does this do?</p>
+
+<ol>
+    <li>First, get some code again. <strong>Do not forget the &#8211;recursive flag!</strong></li>
+    <li>Change to the gitflow directory that <strong>git clone</strong> just created</li>
+    <li>Run the installation</li>
+</ol>
+
+
+<h2>What&#8217;s Next?</h2>
+
+
+<p><span style="color:#000000;">Like I said, <strong>what gitflow does and why you&rsquo;ll want it will come into play later</strong>, as we explore some of the more popular branching strategies in the Git universe. In the next post, we&rsquo;ll learn how Git differs from SVN, TFS (or heaven forbid Visual SourceSafe), and take a look at the strategy upon which gitflow was based.</span></p>
+
+<h2>Sneak Peek</h2>
+
+
+<p>Alright&hellip;if you&rsquo;re already familiar with Git but not with gitflow, check this out.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image7.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb7.png" alt="image" width="616" height="420" border="0" /></a></p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1019,116 +1151,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2011/08/05/getting-started-with-syntaxhighlighter/">Getting Started With SyntaxHighlighter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-05T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Is it just me, or did it get far too quiet around here after we finished our <a href="http://givecampbirmingham.org" target="_blank">GiveCamp</a> recaps?</p>
-
-<p>Before I start writing any new posts, I need to work out syntax highlighting so that any code posted here looks good and is easily accessible. I throw a lot of snippets at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a>, but their editor takes care of the cosmetic stuff for me via toolbar buttons, ` characters, and four space indentations.</p>
-
-<p>Getting code to look right in blog posts is probably <span style="text-decoration:line-through;">old</span> ancient news for anyone who has been blogging for a while, but it&rsquo;s not something that I&rsquo;ve had to do before. This post is dedicated to all my fellow newbs.</p>
-
-<p>It turns out that a JavaScript solution called <a href="http://alexgorbatchev.com/SyntaxHighlighter/" target="_blank">SyntaxHighlighter</a> makes presenting code on the interwebs a wonderful dose of auto-magic! I should have known that Googling the topic would promptly direct me to <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">Hanselman&rsquo;s take on it</a>. I&rsquo;ve installed the <a href="http://precode.codeplex.com/" target="_blank">recommended WLW plugin</a>, but I also experimented with the <a href="http://en.support.wordpress.com/code/posting-source-code/" target="_blank">integration</a> in the <a href="http://wordpress.com" target="_blank">WordPress</a> editor.</p>
-
-<h3>WordPress Editor</h3>
-
-
-<p>When we started this thing, WordPress seemed to be the easiest, quickest, and cheapest option to get the wheels turning. What I found tonight is that the editor in wp-admin supports SyntaxHighlighter directly. Pop over to the HTML tab and make sure your code is wrapped like this:</p>
-
-<p><strong>[</strong><strong>sourcecode language=&ldquo;csharp&rdquo;]
-public string Foo(){
-return &ldquo;Bar&rdquo;;
-}
-[</strong><strong>/sourcecode]</strong></p>
-
-<p>The language value can be any one of the <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/" target="_blank">supported brushes</a> for the syntax highlighting. The result:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">string</span> <span class="nf">Foo</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="k">return</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>PreCode Plugin for Windows Live Writer</h3>
-
-
-<p>Well, all that switching between the Visual and HTML tabs can be a bit tedious, not to mention managing the indentation. Then there&rsquo;s the camp that says you should never use the online web editor if you can use a dedicated app like Live Writer instead. Let&rsquo;s take a look at one of the WLW plugin options.</p>
-
-<p><a href="http://precode.codeplex.com/" target="_blank">PreCode</a> is the plugin recommended on <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">the post</a> I found from Scott Hanselman. The installation process is exactly what you&rsquo;d expect, so I&rsquo;m not going to detail it here. I will briefly cover the workflow and some of the options.</p>
-
-<p>Once again, I&rsquo;m new to the blogging thing, so this is probably well known to most of you. The plugins are accessed from the Insert toolbar.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2011/08/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb4.png" alt="image" width="629" height="111" border="0" /></a></p>
-
-<p>When you click it, you&rsquo;ll get a full editor dedicated solely to the purpose of editing and formatting your code snippet.</p>
-
-<p align="center"><a href="http://thedevstop.files.wordpress.com/2011/08/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb6.png" alt="image" width="636" height="520" border="0" /></a></p>
-
-
-<p align="left">Throw some in there. I will be wrapping my code in PRE tags rather than SCRIPT tags, but you can <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">check the documentation</a> to read up on the differences, advantages, and disadvantages.</p>
-
-
-<p align="left">You can flip a lot of other bits here: your highlighter class, whether to display the toolbar (for viewing source, copying to clipboard), etc. Also, <strong>don&#8217;t overlook the indentation management buttons</strong>! I experimented with some very broken indentation. I can&#8217;t say &#8220;Fix Indentation&#8221; always did the perfect thing, but it always came up with something decent.</p>
-
-
-<p align="left">Clicking &#8220;OK&#8221; with the options you see in the screenshot above result in what you see below.</p>
-
-
-
-
-<pre class="brush: csharp;">public string Foo()
-{
-    return "Bar";
-}</pre>
-
-
-<h3>Summary</h3>
-
-
-<p>SyntaxHighlighter and the PreCode plugin for WLW have robbed me of one of the last excuses I had left to delay blogging. There are <a href="http://alexgorbatchev.com/SyntaxHighlighter/integration.html" target="_blank">many other integration options</a> as well as support for your <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">directly handcrafted efforts</a>. Here&rsquo;s to beautiful code on the internet.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/05/getting-started-with-syntaxhighlighter/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -1146,6 +1168,10 @@ return &ldquo;Bar&rdquo;;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/14/little-wonders-uri-dot-getleftpart/">Little Wonders: Uri.GetLeftPart</a>
       </li>
     
@@ -1159,10 +1185,6 @@ return &ldquo;Bar&rdquo;;
     
       <li class="post">
         <a href="/blog/2014/04/10/another-take-on-our-debugging-adventure/">Another Take on Our Debugging Adventure</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Principles of Debugging: A Postmortem</a>
       </li>
     
   </ul>

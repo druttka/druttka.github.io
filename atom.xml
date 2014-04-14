@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-14T15:40:46-07:00</updated>
+  <updated>2014-04-14T15:48:28-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Little Wonders: Alt+Space, E, P]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/14/little-wonders-alt-plus-space/"/>
+    <updated>2014-04-14T15:41:38-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/14/little-wonders-alt-plus-space</id>
+    <content type="html"><![CDATA[<blockquote><p>This is why we pair! &ndash; Me, many times</p></blockquote>
+
+<p>Another one. These things are so simple, but they&rsquo;re only useful if you know they exist. I&rsquo;ve been planning a post that covers my thoughts on pairing, but (spoiler alert!) this kind of little stuff is one of the great benefits.</p>
+
+<p>I had to reimage a machine, so my console hotkeys are not all the same as they used to be. I usually remap <code>Ctrl+V</code> to paste, since that is consistent with most apps in the Windows ecosystem. Until I do so, it&rsquo;s <code>Right Click &gt; Edit &gt; Paste</code>.</p>
+
+<p>I was telling Patrick how I love to stay at the keyboard and eschew the mouse as much as possible, and he pointed out that I could just do <code>Alt+Enter, E, P</code>. This isn&rsquo;t quite as short as the <code>Ctrl+V</code> remapping, but it works out of the box. I like it!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Little Wonders: Uri.GetLeftPart]]></title>
@@ -681,20 +696,6 @@ cd ..
 <p></p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">The DevStop</a>.</em></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to Run Your ASP.NET Web Application When You Start Debugging Instead of Launching the Page / View You're Editing]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/"/>
-    <updated>2014-03-28T00:00:00-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/03/28/how-to-run-your-aspnet-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing</id>
-    <content type="html"><![CDATA[<p>I sent <a href="http://twitter.com/msarchet" target="_blank">Michael</a> on a wild goose chase because I wasn&#8217;t paying attention to a project setting. A project setting that I&#8217;ve used multiple times, including this week. An incredibly simple project setting that will change your life. </p>
-
-
-<p> <p><a href="http://thedevstop.files.wordpress.com/2014/03/image.png" target="_blank"><img title="image" style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" border="0" alt="Web project settings" src="http://thedevstop.files.wordpress.com/2014/03/image.png"></a><br></p> <p>Project Properties &gt; Web &gt; Start Action. Above, I chose Specific Page but left it blank so that it navigates to the root and starts the app. Current Page is the default, which I recall all too painfully from F5-ing ASP.NET MVC views a couple of years ago. There&rsquo;s also a &ldquo;Don&rsquo;t open a page&rdquo; option down there at the bottom, which is my new favorite setting when working on Web API projects. <a href="http://twitter.com/itsananderson" target="_blank">Will</a> and I used this option earlier this week, and there was much rejoicing.</p> <p>On a side note, if you&rsquo;re working on single page apps and want the magic of Scripts.Render without pulling in the entirety of MVC, check out Michael&rsquo;s <a href="https://github.com/msarchet/Bundler" target="_blank">Bundler</a>. I&rsquo;m using it, and it is super groovy. He&rsquo;s got a couple of blog posts introducing it <a href="http://msarchet.com/using-the-asp-dot-net-bundling-pipeline-with-owin/" target="_blank">here</a> and <a href="http://www.comingsoon.net/" target="_blank">here</a>.</p> <p>Just remember that if you consume it, his code will not work at all unless you actually execute it.</p></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">The DevStop</a>.</em></p>
 ]]></content>
   </entry>
   
