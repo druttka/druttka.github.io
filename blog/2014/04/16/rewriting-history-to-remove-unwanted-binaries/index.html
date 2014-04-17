@@ -195,7 +195,7 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
 
 <p><strong>Congrats!</strong> Now before you push your fancy, newly migrated to Git repo, it&rsquo;ll be a lot lighter without all those unnecessary binaries. You could certainly consider applying this procedure to all kinds of other directories where you&rsquo;ve been putting garbage into source control.</p>
 
-<p>* Read: I probably don&rsquo;t fully understand this enough myself to explain it.</p>
+<p>* Read: I probably don&rsquo;t fully understand this enough myself to explain it. (I think I understand working tree vs. index well enough, but not how it applies in the context of rewriting history. In that case, it seems only the index matters anyway, so maybe &mdash;cached is the way to go there. Regardless&hellip;this works.)</p>
 
 <p>** Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
 
