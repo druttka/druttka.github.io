@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Earlier today I posted a link about how to sync Octopress across multiple machines. That was very helpful because when I took the trivial approach &hellip;">
+  <meta name="description" content="File under &ldquo;Learn something new every day.&rdquo; Long story short, we have enabled CORS in our API, but today I learned that not all headers &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-04T08:36:53-07:00" pubdate data-updated="true">Apr 4<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>File under &ldquo;Learn something new every day.&rdquo;</p>
+
+<p>Long story short, we have enabled CORS in our API, but today I learned that <a href="http://www.aaron-powell.com/posts/2013-11-28-accessing-location-header-in-cors-response.html">not all headers are included</a>.</p>
+
+<p>Particularly, like Aaron, we needed to ensure that the Location header came back when a POST request created a new resource. Our solution is a bit different than his. We&rsquo;re already using the <a href="http://msdn.microsoft.com/en-us/library/system.web.http.cors.enablecorsattribute(v=vs.118%29.aspx">EnableCorsAttribute</a>, so Rob pointed out that we can just do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>EnableCorsAttribute("*", "*", "*", "location");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Like the other constructor arguments, that last can be a comma separated list. Looks legit!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -659,55 +710,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/">Dev at Work: Moving to GitHub Pages</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I finally created a repo on <a href="http://pages.github.com/" target="_blank">GitHub Pages</a>. I didn&rsquo;t have time to put much there, but I do plan to start relocating to <a href="http://www.davidruttka.com" target="_blank">my own property</a>, so to speak.</p>
-
-<p>Seems like it only took about five minutes. The documentation for getting set up was crazy simple, so I am not going to reproduce that information here.</p>
-
-<p>And to think, I could have been playing Candy Crush!</p>
-
-<blockquote class="twitter-tweet" lang="en"><p>Just had the first &quot;Oh that&#039;s right, I uninstalled Candy Crush. What better thing could fill this 5min?&quot; moment. <a href="https://twitter.com/search?q=%23BreakingBadHabits&amp;src=hash">#BreakingBadHabits</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/450034379671076865">March 29, 2014</a></blockquote>
-
-
-<p></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -725,6 +727,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a>
       </li>
     
@@ -738,10 +744,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/10/another-take-on-our-debugging-adventure/">Another Take on Our Debugging Adventure</a>
       </li>
     
   </ul>
