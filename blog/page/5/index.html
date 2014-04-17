@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Just a quick post to share the resources from my CodeStock 2012 talks. The conference was a blast, but I don&rsquo;t have time to do a full recap &hellip;">
+  <meta name="description" content="So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;) Today, we weren&rsquo;t sure where a certain bit of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,86 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">Git Bash Command Line Magic Searching Across Branches to Find Certain Files, Directories, Features</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-08T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;)</p>
+
+<p>Today, we weren&rsquo;t sure where a certain bit of code was. Why we weren&rsquo;t sure isn&rsquo;t the point of this post, but we knew that the code had been written. We also knew, from some old conversation, a directory name. <strong>But the directory didn&rsquo;t exist, at least not in our branches.</strong></p>
+
+<p>So on what branch might it have been done? Reflecting now, we could have looked at our issue tracking system and found the associated commits that way. What we ended up doing was having some fun at the command line.</p>
+
+<p>Let&rsquo;s say the feature had to do with <strong>diagnosing widgets</strong>, and we knew the directory name was <strong>tools/widgetDiagnosis</strong>.</p>
+
+<h3>Option 1: Search by branch name</h3>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch -a | grep -i diagnos
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>What does this do? </strong>Well,Â git branch -a lists all the branches both locally and remote, and then that&rsquo;s piped in as input to grep -i diagnos which does a case insensitive pattern match. This gives us output like /origin/feature/Widget-Diagnostics, or maybe it was /origin/feature/Diagnose-Widgets, but you can see now why I used &ldquo;diagnos&rdquo; as the search pattern. Distinct enough to avoid a lot of false positives, but loose enough to match variants of the word.Â <strong>
+</strong></p>
+
+<h3>Option Two: Search by path</h3>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gitÂ log --all -- tools/widgetDiagnosis
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>What does this do? </strong>I stole this one fromÂ <a title="How can I search Git branches for a file or directory?" href="http://stackoverflow.com/a/372970/368296" target="_blank">StackOverflow</a>.Â There are other answers there too in case you don&rsquo;t know the full exact path that you&rsquo;re looking for. At any rate, this gets the log for all the refs but only where the commit can explain how the file exists. Then get a branch name with</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch --contains &lt;a commit <span class="nb">hash </span>from above&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In our case, the way we structure our branches and the way we format our commit messages, the log was enough to lead us to the correct branch.</p>
+
+<p>So there you have it. Again, might be very old news to some, but if this helps at least one person, this write-up was worth it.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1166,48 +1246,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier%21/">Comic Sans for Github It&#8217;s Like April Fools&#8217; Day, Only Way Earlier!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-27T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Well, <a title="Consolas for Github" href="http://thedevstop.wordpress.com/consolas-for-github" target="_blank">Joey asked for it</a>, so <a title="Comic Sans for Github" href="http://userscripts.org/scripts/show/124254" target="_blank">here it is</a>.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/comic-sans-for-github1.png"><img class="size-full wp-image-546 aligncenter" title="This really isn't good for anyone..." src="http://thedevstop.files.wordpress.com/2012/01/comic-sans-for-github1.png" alt="git-flow by nvie on github, but presented in Comic Sans" width="567" height="373" /></a></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1225,6 +1263,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
       </li>
     
@@ -1238,10 +1280,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/11/async-slash-await-sugar-in-es7/">Async/await Sugar in ES7</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a>
       </li>
     
   </ul>

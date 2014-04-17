@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-17T08:57:47-07:00</updated>
+  <updated>2014-04-17T09:24:24-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Normalizing Line Endings in a Git Repo]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/"/>
+    <updated>2014-04-17T09:22:28-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/17/normalizing-line-endings-in-a-git-repo</id>
+    <content type="html"><![CDATA[<blockquote><p>The best way to do this is wipe out your working tree (all the files except the .git directory) and then restore them. Make sure you&rsquo;ve committed any work before you do this, or it will be lost. <a href="https://help.github.com/articles/dealing-with-line-endings#re-normalizing-a-repository">link</a>.</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rewriting History to Remove Unwanted Binaries]]></title>
@@ -788,15 +797,6 @@ cd ..
 <p><em>Update: I created a <a href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
 
 <p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello Octopress!]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/"/>
-    <updated>2014-03-29T19:20:29-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/03/29/hello-octopress</id>
-    <content type="html"><![CDATA[<p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
 ]]></content>
   </entry>
   

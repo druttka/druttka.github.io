@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one &hellip;">
+  <meta name="description" content="The best way to do this is wipe out your working tree (all the files except the .git directory) and then restore them. Make sure you&rsquo;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="https://help.github.com/articles/dealing-with-line-endings#re-normalizing-a-repository">Normalizing Line Endings in a Git Repo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-17T09:22:28-07:00" pubdate data-updated="true">Apr 17<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Comments</a>
+        
+        <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Permalink</a>
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>The best way to do this is wipe out your working tree (all the files except the .git directory) and then restore them. Make sure you&rsquo;ve committed any work before you do this, or it will be lost. <a href="https://help.github.com/articles/dealing-with-line-endings#re-normalizing-a-repository">link</a>.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -712,71 +753,6 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Updating Octopress to Override the Canonical Rel Link</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-06T15:53:10-07:00" pubdate data-updated="true">Apr 6<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>As I&rsquo;ve continued iterating on the PowerShell script that I&rsquo;m using to migrate my old WordPress posts, I decided to point the <a href="https://support.google.com/webmasters/answer/139066?hl=en">canonical link</a> to the old location. I might choose not to do this once I have a full migration story (redirection of the old permalinks, etc.), but as long as the original location is still up I figure those posts should keep any link juice they have.</p>
-
-<p>So, I can now do this in the yaml on top of a post</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">canonical</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://thedevstop.wordpress.com/whatever</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And the generated post will come out with that in the canonical link, instead of the url for the www.davidruttka.com clone.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;canonical&quot;</span> <span class="na">href=</span><span class="s">&quot;http://thedevstop.wordpress.com/whatever&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>All it took was a quick edit to the existing <code>capture</code> in the <code>head.html</code> include. The change is the <code>if page.canonical</code> block, and the full line ends up looking like this:</p>
-
-<div><script src='https://gist.github.com/10012638.js'></script>
-<noscript><pre><code>{% capture canonical %}{% if page.canonical %}{{ page.canonical }}{% else %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endif %}{% endcapture %}</code></pre></noscript></div>
-
-
-<p>I&rsquo;ve opened an <a href="https://github.com/imathis/octopress/issues/1536">issue</a> to discuss whether this is something anyone else would ever use. If it is, it should be a simple enough thing to incorporate. I&rsquo;ve also sent a <a href="https://github.com/imathis/octopress/pull/1537">pull request</a> for the issue, but derped something up and they didn&rsquo;t get associated.</p>
-
-<p>Later tonight, or tomorrow, I&rsquo;ll also share what I did to fix the linklog, <code>external_url</code> feature for my instance.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -792,6 +768,10 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
       </li>
     
@@ -805,10 +785,6 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
     
       <li class="post">
         <a href="/blog/2014/04/11/async-slash-await-sugar-in-es7/">Async/await Sugar in ES7</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a>
       </li>
     
   </ul>
