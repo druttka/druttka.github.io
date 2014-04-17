@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-16T21:31:16-07:00</updated>
+  <updated>2014-04-16T21:36:07-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -108,6 +108,8 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
 <p>* Read: I probably don&rsquo;t fully understand this enough myself to explain it.</p>
 
 <p>** Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
+
+<p>*** More thanks to <a href="http://joshuarogers.net">Josh</a> for responding quite quickly to my call for his favorite way to find subdirectories that used to exist but got deleted. I ended up going a different way, and just looking for everything that was ever added, whether it exists or not. And using PowerShell. He says he&rsquo;s considering blogging his solution <a href="http://www.comingsoon.net">soon</a>!!</p>
 ]]></content>
   </entry>
   
