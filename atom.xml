@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-16T21:46:31-07:00</updated>
+  <updated>2014-04-17T08:57:47-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -66,6 +66,17 @@
 
 <p><strong>From the packages directory</strong></p>
 
+<p><strong>Update: I like this better.</strong></p>
+
+<pre><code>git log --diff-filter=A --summary . `
+    |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)?(/lib/.*)' } `
+    |% { $($matches[1]) } `
+    | select -unique | sort `
+    |% { "git filter-branch --index-filter -f ""git rm -rf --ignore-unmatch $_"" HEAD" }
+</code></pre>
+
+<p><strong>Original PowerShell snippet</strong></p>
+
 <pre><code>git log --diff-filter=A --summary . `
     |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)' } `
     |% { [System.IO.Path]::GetDirectoryName($($matches[1])).Replace('\', '/') } `
@@ -75,14 +86,22 @@
 
 <h3>Breakdown</h3>
 
-<p>Hint: This is PowerShell.</p>
+<p>The new one does this&hellip;</p>
 
 <ul>
-<li>The first dumps all of the adds that happened in the current directory (<code>packages</code>)</li>
-<li>The second line filters out blank lines, and matches the regex of created files, capturing the path as a group</li>
-<li>The third line gets the directory name of the added file. Since <code>Path.GetDirectoryName</code> flips / to \, we flip it back.</li>
+<li>The first line dumps all of the adds that happened in the current directory (<code>packages</code>)</li>
+<li>The second line filters out blank lines, and matches the regex of created files, capturing the path as a group.</li>
+<li>The third line pulls out the matched path</li>
 <li>dlls, pdbs, nupkgs themselves, who knows what else might have been added, but our <code>filter-branch + rm</code> above is going <code>-rf</code> on it anyway. Dedupe them, and sort just for convenience.</li>
 <li>Write the command we want to execute to the output stream. <strong>This doesn&rsquo;t execute it, it just outputs what you want to execute.</strong></li>
+</ul>
+
+
+<p>The original one was a bit different&hellip;</p>
+
+<ul>
+<li>The regex was not lazy and it ended up doing <code>packages/name.version</code> as well as <code>packages/name.version/lib</code>, and <code>packages/name.version/ref</code>, and other directories that didn&rsquo;t get deduped. The new regex hacks around a bit to stop at <code>name.version</code>.</li>
+<li>The <code>Path.GetDirectoryName</code> and <code>Replace</code> shenanigans were, well, wat? I already have the path matched so just use it.</li>
 </ul>
 
 
