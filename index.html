@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The best way to do this is wipe out your working tree (all the files except the .git directory) and then restore them. Make sure you&rsquo;ve &hellip;">
+  <meta name="description" content="I still plan on writing some posts about how we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,126 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-24T21:03:27-07:00" pubdate data-updated="true">Apr 24<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/24/why-git-makes-things-better/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I still plan on writing some posts about <em>how</em> we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over the first couple of days that we were officially on Git, and express <em>why</em> I&rsquo;ve wanted to do this for so long.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>I&#39;ve used <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> at other jobs. Today is the first day we&#39;re officially on it at current job. Live is so good today. // <a href="https://twitter.com/msarchet">@msarchet</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459074019635896320">April 23, 2014</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h2>Collaboration</h2>
+
+<p><a href="http://msarchet.com">Michael</a> and I have been pairing through a story. We&rsquo;re also realizing that we think a lot alike, and I end up saying things that he&rsquo;s already doing. We got to that point where there were some rote, trivial things to finish up, and there was a bit of a cut line where it could be done in parallel.</p>
+
+<p><strong>So we did it in parallel.</strong></p>
+
+<p>He pushed the branch, I went back to my desk, and we each committed separately. Then we pushed and merged together on the branch. And it was good. And it was easy. <strong>And I honestly think it would have taken us two or three times longer if we were still on TFVC</strong>.</p>
+
+<h2>Resolving Blockers Amidst Feature Work</h2>
+
+<p>During the <strong>same day</strong>, we were notified of an issue that was blocking test. It&rsquo;s an issue we knew about, but were planning to do in the next day or two because we didn&rsquo;t realize anyone was using it yet. As Michael and I discussed it, <a href="http://willi.am">Will</a> came over; he had been discussing the same with <a href="http://codeofmatt.com">Matt</a>.</p>
+
+<p><strong>Divide and conquer, we sure did!!</strong> We pushed a branch. Michael finished up the raw fix that was already in progress, I updated some of our end to end tests to account for it, and Will updated a client library that consumes the API in question. We all pushed that up on a branch. And it was good. And it was easy. And it was mind-blowingly fast.</p>
+
+<p><strong>But wait, there&rsquo;s more!</strong> That feature work&hellip;we were still evolving that past what we had done earlier in the day. We were in the middle of that when we became aware of the blocker. We were able to effortlessly switch back to <code>master</code>, make a branch for the fix, and when we were done roll right back into the feature work. No shelvesets or conflicts. No multiple workspaces. No muss, no fuss, just sheer productivity and ass kicking.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>So I just saw an IM sent to me with a reaction gif regarding our move to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> and our super productive pairing day. <a href="http://t.co/jQGvMcqHNp">http://t.co/jQGvMcqHNp</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459177091905236992">April 24, 2014</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h2>Revisionist History</h2>
+
+<p>So, carrying on from the above, that bug fix work saw some feedback in code review. Little stuff like missing header comments or <code>using</code> statement arrangement. Or a <code>csproj</code> file not getting committed because Visual Studio doesn&rsquo;t always save those <em>sigh</em>.</p>
+
+<p>What could have easily been three commits was seven. So we just, you know, made it three instead of seven by doing an <a href="http://www.git-scm.com/book/en/Git-Branching-Rebasing">interactive rebase</a> to reorder and squash the &ldquo;Oops&rdquo; commits into the author&rsquo;s real commit. Since we were on a branch and <strong>communicating with each other</strong>, the three of us were ok with doing this even though commits had been pushed previously. Then we rebased and merged that result back onto master, and it looked like we were amazing devs that never forget header comments, <code>using</code> statement arrangements, or to save our <code>csproj</code>.</p>
+
+<p><em>I&rsquo;m joking about the benefit of looking perfect. The real benefit here is that it keeps our history looking cleaner, and in the case of the <code>csproj</code> change, ensures each commit is actually buildable.</em></p>
+
+<h2>Time Travel</h2>
+
+<p>As all this is going on, we have a situation where we want to deploy to a new environment. We want to include everything that was done at the end of the last sprint (about ten days ago), plus <strong>only a subset</strong> of what we&rsquo;ve done since then.
+We aren&rsquo;t all fancy schmancy with feature toggles right now, so we actually need some of the source changes and not others. I cannot even imagine doing this on a centralized version control. With Git, we&rsquo;re just going to</p>
+
+<pre><code>git checkout temp
+</code></pre>
+
+<p>And then <strong>either</strong></p>
+
+<pre><code>git reset --hard &lt;sha from end of last sprint&gt;
+git cherry-pick &lt;sha we want&gt;
+</code></pre>
+
+<p><em>repeating the cherry-pick for each one we want</em></p>
+
+<p><strong>Or</strong></p>
+
+<pre><code>git rebase -i &lt;sha from end of last sprint&gt;
+</code></pre>
+
+<p><em>only picking the ones we want to keep</em>.</p>
+
+<p>Either way, it&rsquo;s ridiculously easy. Then we build and deploy from that branch, and master keeps rolling on into the future. Git <strong>is</strong> the future. Get on it.</p>
+
+<h2>Git Fever. It&rsquo;s Catching!</h2>
+
+<p>I was really excited when <a href="https://twitter.com/robjoh">Rob</a> came over and asked why one of our others projects couldn&rsquo;t be moved. My response? I&rsquo;ll have it moved in the next hour or two. And then I did it! This is how much I love Git, and it appears I&rsquo;m not alone. Now that we&rsquo;re there, <strong>people want more of it</strong>.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>Just migrated some more shared source from a TF proj to Git. Because someone WANTED Git. That&#39;s two migrations this week. It is happening!</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459488856794869760">April 25, 2014</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h2>Optimize for happiness</h2>
+
+<p>I&rsquo;ve been on teams moving to Git before. In the past, even the staunchest opponents have become avid evangelists after a few weeks. I think this is because Git doesn&rsquo;t just change your toolchain, but it changes your entire workflow for the better. It allows you to do incredibly powerful, useful things and to correct mistakes when they are made. It is <strong>built for speed and collaboration.</strong></p>
+
+<h3>To put it simply</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p>&quot;<a href="https://twitter.com/RitchieS">@RitchieS</a>: Everything&#39;s amazing, but nobody&#39;s happy.&quot; Well, actually, I&#39;m happy because we finally moved to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a>.</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459489030204186624">April 25, 2014</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -700,59 +820,6 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Fixing the External-url (Linklog) Feature in Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-08T20:41:44-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>The Linklog Feature</h2>
-
-<p>Another quick edit that I made to in the theme was to handle the <code>external-url</code> for linklog posts, as described in the <a href="http://octopress.org/docs/blogging/linklog/">Octopress docs</a>.</p>
-
-<p>I found that this feature wasn&rsquo;t working for me. I couldn&rsquo;t find anyplace that attempted to use <code>external-url</code>, so I just kind of decided on a place that works for me and put it there.</p>
-
-<h2>Show Me The Code</h2>
-
-<p>You can check out the <a href="https://github.com/imathis/octopress/pull/1538">pull request</a> or the <a href="https://github.com/druttka/octopress/commit/4d0f3a051c5c6e365a737c977c843a444cb59023">commit</a> it contains. I cleaned up the unintentional whitespace changes in the follow-up commit.</p>
-
-<p>Basically, I just added a capture for <code>entryhref</code>, using the <code>external_url</code> if present. Later, after the line that handles adding the Comments link as appropriate, I added a line that adds the Permalink as appropriate.</p>
-
-<p>I&rsquo;m still finding my way around Octopress and am definitely open to thoughts if I&rsquo;m going about this stuff the wrong way. Let me know.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -768,6 +835,10 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
       </li>
     
@@ -781,10 +852,6 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
     
       <li class="post">
         <a href="/blog/2014/04/14/little-wonders-uri-dot-getleftpart/">Little Wonders: Uri.GetLeftPart</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/11/async-slash-await-sugar-in-es7/">Async/await Sugar in ES7</a>
       </li>
     
   </ul>
