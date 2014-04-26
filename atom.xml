@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-25T22:07:58-07:00</updated>
+  <updated>2014-04-25T22:10:17-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -29,6 +29,18 @@
 
 <pre><code>[alias]
 qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/DefaultCollection/_git/$p $d; }; f"
+</code></pre>
+
+<h3>Usage</h3>
+
+<p>To clone <code>myproject</code> into <code>myproject</code>,</p>
+
+<pre><code>git qc-ds myproject
+</code></pre>
+
+<p>To clone <code>myproject</code> into <code>somedirectory</code>,</p>
+
+<pre><code>git qc-ds myproject somedirectory
 </code></pre>
 
 <h3>Breakdown</h3>

@@ -125,6 +125,18 @@
 qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/DefaultCollection/_git/$p $d; }; f"
 </code></pre>
 
+<h3>Usage</h3>
+
+<p>To clone <code>myproject</code> into <code>myproject</code>,</p>
+
+<pre><code>git qc-ds myproject
+</code></pre>
+
+<p>To clone <code>myproject</code> into <code>somedirectory</code>,</p>
+
+<pre><code>git qc-ds myproject somedirectory
+</code></pre>
+
 <h3>Breakdown</h3>
 
 <p>qc stands for quick clone.</p>
