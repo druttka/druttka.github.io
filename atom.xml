@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-04-24T21:57:14-07:00</updated>
+  <updated>2014-04-25T22:07:58-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Clone: The Quickening!]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/04/25/git-clone-the-quickening/"/>
+    <updated>2014-04-25T21:53:34-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/04/25/git-clone-the-quickening</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been using <a href="http://www.visualstudio.com/">Visual Studio Online</a> for a bit, so the example in this post will specifically show that, but the concept applies anywhere.</p>
+
+<p>If you have a project up there named foo, the <code>git clone</code> URI is something like</p>
+
+<pre><code>https://you.visualstudio.com/DefaultCollection/_git/foo
+</code></pre>
+
+<p>It&rsquo;s a real pain to type all that. So I did this in my <code>.gitconfig</code></p>
+
+<pre><code>[alias]
+qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/DefaultCollection/_git/$p $d; }; f"
+</code></pre>
+
+<h3>Breakdown</h3>
+
+<p>qc stands for quick clone.</p>
+
+<p>ds is an abbreviation of the <code>me</code> part of my VSO account. It&rsquo;s meaningful to me. Make yours whatever you want.</p>
+
+<p>The rest creates a function and executes it. The first argument is assigned to <code>p</code> (&ldquo;project&rdquo;). The second is optional and is assigned to <code>d</code> (&ldquo;directory&rdquo;). It defaults to <code>p</code> if not supplied. Then it&rsquo;s just filling in the blanks.</p>
+
+<h3>Caveat</h3>
+
+<p>This gets a little weirder if you have multiple repositories in a project, e.g. a second repo named bar inside of the foo project</p>
+
+<pre><code>https://you.visualstudio.com/DefaultCollection/foo/_git/bar
+</code></pre>
+
+<p>I know how I&rsquo;m going to tackle this, but I will leave it as an exercise for the reader.</p>
+
+<p>And of course, if you&rsquo;re on GitHub, BitBucket, or whatever&hellip;the repo URIs are usually pretty standard. Just :s it!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Why Git Makes Things Better]]></title>
@@ -742,101 +781,6 @@ cd ..
 
 
 <p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Setting Up Octopress for GitHub Pages]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/"/>
-    <updated>2014-03-29T21:31:06-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages</id>
-    <content type="html"><![CDATA[<p><em><a href="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
-
-<h2>Installing Octopress</h2>
-
-<p>As with GitHub Pages, the <a href="http://octopress.org/docs/setup/">official documentation</a> is super solid, here. I&rsquo;m going to attempt to give a more terse set of steps that I took, but do refer back to the docs if you need more information.</p>
-
-<ul>
-<li>I already had Git and Ruby installed, so I got a free pass on that.</li>
-<li>Clone the repo <code>git clone git://github.com/imathis/octopress.git octopress</code></li>
-<li>cd into it <code>cd octopress</code></li>
-<li><code>gem install bundler</code></li>
-<li><code>bundle install</code>.</li>
-<li><code>rake install</code>, and I actually <strong>did hit a snag here</strong>
-
-<blockquote><p>You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</p></blockquote></li>
-<li>All I had to do was update the Gemfile to reference 10.0.3 and <code>rake install</code> again.</li>
-</ul>
-
-
-<h2>Configuration</h2>
-
-<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
-
-<p>Now, you probably also have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
-
-<ul>
-<li>url</li>
-<li>title</li>
-<li>subtitle</li>
-<li>author</li>
-<li>twitter_user</li>
-</ul>
-
-
-<p>More information in the official docs for <a href="http://octopress.org/docs/configuring/">Configuration</a> and <a href="http://octopress.org/docs/deploying/github/">Deployment</a>.</p>
-
-<h2>Themes</h2>
-
-<p>I went to <a href="http://octopressthemes.com/">Octopress Themes</a> and got a free one. I went the submodule route. Assuming you chose classic light, you&rsquo;d do something like this.</p>
-
-<ul>
-<li>From the directory where you cloned Octopress, <code>git submodule add git://github.com/octothemes/classic-light.git .themes/light</code></li>
-<li><code>git add .themes</code> and commit</li>
-<li><code>rake install[light]</code> will apply it</li>
-<li><code>rake generate</code> and <code>rake preview</code> will let you see how it looks on localhost:4000</li>
-<li><code>rake install[classic]</code>, with the following <code>rake generate</code>, will put things back if you don&rsquo;t like it</li>
-</ul>
-
-
-<p>FWIW, at the time of this writing, I&rsquo;m using <a href="https://github.com/octothemes/forest">forest</a>.</p>
-
-<h2>Hello, Octopress</h2>
-
-<p><code>rake new_post["Hello Octopress"]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
-
-<p><code>rake generate</code>, and then <code>rake preview</code>.</p>
-
-<h2>That&rsquo;s great for posts, what about pages</h2>
-
-<p>You might have guessed it, but <code>rake new_page["About"]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
-
-<p>Don&rsquo;t forget to update your navigation to include your new page! You&rsquo;ll find it in <code>source/_includes/custom/navigation.html</code>, at which point you&rsquo;re just adding a link.</p>
-
-<p><em>I removed the date, and turned off the sharing and footnote options for my About page. I just think it looks cleaner that way.</em></p>
-
-<h2>It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
-
-<p>When you like what you&rsquo;re seeing in <code>rake preview</code>, <code>rake deploy</code>. Given that you&rsquo;ve already gone through the delay setting up the repo and CNAME, it&rsquo;ll be live ridiculously fast.</p>
-
-<p><em>Heads up! Remember when you put CNAME and an index.html in your repo before? I had to navigate into <code>_deploy</code>, and do a <code>git pull</code> resolving some conflicts before <code>rake deploy</code> could push successfully.</em></p>
-
-<p><em>Heads up again! That CNAME that was in the root of your repo should now be in <code>source</code>. This will ensure it sticks around each time you <code>rake generate</code>.</em></p>
-
-<h2>Images</h2>
-
-<p>One thing I found while doing my <a href="http://www.davidruttka.com/about">About</a> page was including images. The idea is as follows</p>
-
-<ul>
-<li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="http://www.davidruttka.com/images/the_image.jpg"&gt;</code>
-
-<ul>
-<li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
-</ul>
-</li>
-</ul>
-
 ]]></content>
   </entry>
   
