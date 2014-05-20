@@ -305,13 +305,13 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
 
 <p>If we&rsquo;re going to have a new project in VSO, and we&rsquo;re going to be creating a new repo based on the TFVC history, we might as well move up to the new templates and pretend those packages were never there.</p>
 
-<p>The naive approach would be to just do the <code>tf git</code> migration, then do a follow-up commit that deletes all the packages. They&rsquo;d still be in the history, the repo would still be oversized, and the index would still take the hit of having all those binaries hanging around.</p>
+<p>The naive approach would be to just do the <code>git tf</code> migration, then do a follow-up commit that deletes all the packages. They&rsquo;d still be in the history, the repo would still be oversized, and the index would still take the hit of having all those binaries hanging around.</p>
 
 <p>Here&rsquo;s a command that would do the trick for the <code>Newtonsoft.Json.6.0.1</code> package alone.</p>
 
 <p><strong>DANGER! WARNING! WE&rsquo;RE DOING THIS TO A NEW REPO, DURING MIGRATION, BEFORE IT BECOMES SHARED HISTORY. READ THE MANUAL AND CAVEATS BEFORE YOU DO THIS TO EXISTING, SHARED REPOS</strong> <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">read it here</a></p>
 
-<pre><code>git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/Newtonsoft.Json.6.0.1" HEAD
+<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/Newtonsoft.Json.6.0.1" HEAD
 </code></pre>
 
 <h3>Breakdown</h3>
@@ -322,12 +322,13 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
 <li><code>packages/Newtonsoft.Json.6.0.1</code> is the most self-explanatory part. This is the sub-directory we&rsquo;re going to pretend was never added.</li>
 <li><code>-rf</code> should be similarly self-explanatory for anyone with a bit of *nix background. Recursive. Force.</li>
 <li><code>--ignore-unmatch</code> sparked a bit of discussion between Michael and me. What it boils down to is that this instructs <code>git rm</code> to exit with a success code even if no files match the pattern. Otherwise it would exit as a failure if no files were matched and removed.</li>
-<li><code>git rm</code> says to remove the files. This will remove it from both the working tree AND the index. If you added <code>--cached</code>, it would only remove it from the index but leave it in the working tree. If you don&rsquo;t understand this, too bad, it&rsquo;s beyond the scope of this post* =)</li>
+<li><code>git rm</code> says to remove the files.</li>
+<li><code>--cached</code> removes it from the index but leaves the working tree alone.</li>
 <li>This is all wrapped in quotes because it&rsquo;s a parameter to <code>git filter branch</code></li>
 <li><code>git filter-branch</code> on the left is going to rewrite history for every commit</li>
 <li><code>--index-filter</code> is better explained in <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">the docs*</a></li>
 <li><code>HEAD</code> on the right side says we want to save the rewritten history in HEAD.</li>
-<li><code>-f</code> I will cover why we added this, but not just yet.</li>
+<li><code>-f</code> forces. I will cover why we added this, but not just yet.</li>
 </ul>
 
 
@@ -337,49 +338,28 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
 
 <p><strong>From the packages directory</strong></p>
 
-<p><strong>Update: I like this better.</strong></p>
-
 <pre><code>git log --diff-filter=A --summary . `
     |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)?(/lib/.*)' } `
     |% { $($matches[1]) } `
     | select -unique | sort `
-    |% { "git filter-branch --index-filter -f ""git rm -rf --ignore-unmatch $_"" HEAD" }
-</code></pre>
-
-<p><strong>Original PowerShell snippet</strong></p>
-
-<pre><code>git log --diff-filter=A --summary . `
-    |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)' } `
-    |% { [System.IO.Path]::GetDirectoryName($($matches[1])).Replace('\', '/') } `
-    | select -unique | sort `
-    |% { "git filter-branch --index-filter -f ""git rm -rf --ignore-unmatch $_"" HEAD" }
+    |% { "git filter-branch -f --index-filter ""git rm -rf --cached --ignore-unmatch $_"" HEAD" }
 </code></pre>
 
 <h3>Breakdown</h3>
 
-<p>The new one does this&hellip;</p>
-
-<ul>
+<ol>
 <li>The first line dumps all of the adds that happened in the current directory (<code>packages</code>)</li>
 <li>The second line filters out blank lines, and matches the regex of created files, capturing the path as a group.</li>
 <li>The third line pulls out the matched path</li>
 <li>dlls, pdbs, nupkgs themselves, who knows what else might have been added, but our <code>filter-branch + rm</code> above is going <code>-rf</code> on it anyway. Dedupe them, and sort just for convenience.</li>
 <li>Write the command we want to execute to the output stream. <strong>This doesn&rsquo;t execute it, it just outputs what you want to execute.</strong></li>
-</ul>
-
-
-<p>The original one was a bit different&hellip;</p>
-
-<ul>
-<li>The regex was not lazy and it ended up doing <code>packages/name.version</code> as well as <code>packages/name.version/lib</code>, and <code>packages/name.version/ref</code>, and other directories that didn&rsquo;t get deduped. The new regex hacks around a bit to stop at <code>name.version</code>.</li>
-<li>The <code>Path.GetDirectoryName</code> and <code>Replace</code> shenanigans were, well, wat? I already have the path matched so just use it.</li>
-</ul>
+</ol>
 
 
 <p>The output looks something like this</p>
 
-<pre><code>git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/bar" HEAD
-git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" HEAD
+<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/bar" HEAD
+git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/foo" HEAD
 </code></pre>
 
 <p>You <strong>could</strong> go so far as to not wrap that in quotes and dump it to the output stream. You <strong>could</strong> just execute it directly. But then, you wouldn&rsquo;t have accounted for the private packages, so you&rsquo;d want to have some kind of <code>$safePackages = ("x","y","z")</code> and add a <code>|?</code> to strip them. Your choice, but until we&rsquo;ve run this through its paces, I kind of like the safety of having the chance to review what&rsquo;s going to be done.</p>
@@ -395,11 +375,9 @@ git filter-branch --index-filter -f "git rm -rf --ignore-unmatch packages/foo" H
 
 <p><strong>Congrats!</strong> Now before you push your fancy, newly migrated to Git repo, it&rsquo;ll be a lot lighter without all those unnecessary binaries. You could certainly consider applying this procedure to all kinds of other directories where you&rsquo;ve been putting garbage into source control.</p>
 
-<p>* Read: I probably don&rsquo;t fully understand this enough myself to explain it. (I think I understand working tree vs. index well enough, but not how it applies in the context of rewriting history. In that case, it seems only the index matters anyway, so maybe &mdash;cached is the way to go there. Regardless&hellip;this works.)</p>
+<p>* Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
 
-<p>** Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
-
-<p>*** More thanks to <a href="http://joshuarogers.net">Josh</a> for responding quite quickly to my call for his favorite way to find subdirectories that used to exist but got deleted. I ended up going a different way, and just looking for everything that was ever added, whether it exists or not. And using PowerShell. He says he&rsquo;s considering blogging his solution <a href="http://www.comingsoon.net">soon</a>!!</p>
+<p>** More thanks to <a href="http://joshuarogers.net">Josh</a> for responding quite quickly to my call for his favorite way to find subdirectories that used to exist but got deleted. I ended up going a different way, and just looking for everything that was ever added, whether it exists or not. And using PowerShell. He says he&rsquo;s considering blogging his solution <a href="http://joshuarogers.net/find-all-directories-have-been-deleted-git">soon</a>!!</p>
 </div>
   
   
