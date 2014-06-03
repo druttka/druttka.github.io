@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Brian P. Hogan (@bphogan) asked for us to contribute videos to inspire his class about our industry. This was my submission. For more on the project &hellip;">
+  <meta name="description" content="I work remotely quite a bit, so I do a lot of screen sharing and remote meetings. My team uses Google Hangout a lot. We&rsquo;ve evaluated a few &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/01/17/how-to-make-google-hangout-screen-share-bigger-or-full-screen/">How to Make Google Hangout Screen Share Bigger or Full Screen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-17T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I work remotely quite a bit, so I do a lot of screen sharing and remote meetings. My team uses Google Hangout a lot. We&rsquo;ve evaluated a few other options, but Hangouts are good enough for now. The one thing that has troubled us is that there&rsquo;s a lot of chrome (no pun intended) around the video itself, so sometimes it&rsquo;s hard to see what&rsquo;s being shared.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/01/standard.png" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="standard" alt="standard" src="http://thedevstop.files.wordpress.com/2013/01/standard_thumb.png" width="644" height="364" border="0" /></a></p>
+
+<p>Look at all that wasted whitespace! Everyone&rsquo;s first thought, of course, is to just take the browser full screen.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/01/fullscreen.png" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="fullscreen" alt="fullscreen" src="http://thedevstop.files.wordpress.com/2013/01/fullscreen_thumb.png" width="644" height="364" border="0" /></a></p>
+
+<p>That doesn&rsquo;t gain us much. A couple of nights ago, I stumbled upon a rather unintuitive way to accomplish what we&rsquo;ve always dreamed of. Zoom <strong>out.</strong></p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/01/zoomed.png" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="zoomed" alt="zoomed" src="http://thedevstop.files.wordpress.com/2013/01/zoomed_thumb.png" width="644" height="364" border="0" /></a></p>
+
+<p>By zooming out in the browser, the sidebar and participant list shrink. The video grows to fill the remaining space.</p>
+
+<p>You might still have some bars on the left/right or top/bottom due to aspect ratios, but this is the same thing you&rsquo;d get watching a 4:3 show on a 16:9 TV or vice versa. The above screenshots are sharing a 1280x1024 monitor and viewing on a 1333x768. Here&rsquo;s what the opposite looks like.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/01/wide.png" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:block;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="wide" alt="wide" src="http://thedevstop.files.wordpress.com/2013/01/wide_thumb.png" width="644" height="484" border="0" /></a></p>
+
+<p>Hope this helps someone.</p>
+
+<p>Note: Going &ldquo;on air&rdquo; supposedly lets you take the video full screen. I haven&rsquo;t tried this, as many of our meetings involve confidential business information. If your discussion is less sensitive, you could always give that a go.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/01/17/how-to-make-google-hangout-screen-share-bigger-or-full-screen/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -984,218 +1044,6 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2012/04/05/adding-odata-inline-count-support-to-the-aspnet-web-api/">Adding OData Inline Count Support to the ASP.NET Web API</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-05T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Note</strong>: This post assumes that you&rsquo;re working against the NuGet bits as of 4/5/2012, in which OData support is limited to $top, $skip, $orderby, and $filter. I plan to go back and check whether the latest bits already have $inlinecount support now that the <a title="aspnetwebstack on CodePlex" href="http://aspnetwebstack.codeplex.com/" target="_blank">ASP.NET Web Stack has been open-sourced</a>.</p>
-
-<p><strong>Update:</strong> Moving older updates to the bottom of the post. Short version: this worked in theory, but absolutely has quirks as it is admittedly an experimental hack. It explodes if you use EF (initial testing did not). Use with caution. There&rsquo;s also a comment from Marcin Dobosz if you&rsquo;re interested in what the Web API team is looking at for OData support.</p>
-
-<p style="text-align:center;"><img class="aligncenter  wp-image-626" title="Surely this is fair use. Oh please let this be fair use." src="http://thedevstop.files.wordpress.com/2012/04/sesame-english-do-you-like-it-apple_count.jpg" alt="Surely this is fair use. Oh please let this be fair use." width="640" height="489" /></p>
-
-
-<p>As the note above implies, the <strong>ASP.NET Web API does not (or did not) support the <a title="$inlinecount documentation" href="http://www.odata.org/developers/protocols/uri-conventions#InlinecountSystemQueryOption" target="_blank">$inlinecount OData parameter</a></strong>. Many have <a title="ASP.NET Forums" href="http://forums.asp.net/t/1771116.aspx/2/10" target="_blank">pointed out</a> that this defeats much of the client-side paging advantages of OData. Indeed, a friend of mine has personally run up against this. He wants to show the user how many total pages are possible; he can say that page six should be &ldquo;skip 50 and take 10&rdquo; all day long, but <strong>without the total count, he cannot calculate the maximum page number</strong>.</p>
-
-<p>To demonstrate the problem, take a look at this Fiddler request. We ask for the total count of items, but <strong>the default ASP.NET Web API bits do not deliver the information</strong>!</p>
-
-<p style="text-align:center;"><img class="aligncenter size-full wp-image-624" title="The total count is not provided" src="http://thedevstop.files.wordpress.com/2012/04/nocount2.png" alt="The total count is not provided" width="640" height="386" /></p>
-
-
-<p>When we&rsquo;re done, <strong>we will have the count</strong>!</p>
-
-<p style="text-align:center;"><img class="aligncenter  wp-image-625" title="We have inserted the count!" src="http://thedevstop.files.wordpress.com/2012/04/hascount1.png" alt="We have inserted the count!" width="640" height="414" /></p>
-
-
-<p>Even if we apply a filter and a skip / take, we will know how many results we should plan to receive if we page through everything. Now we can divide that by the page size and know exactly how many pages the user can choose from.</p>
-
-<p>[Aside: The merits of pagination are not the topic of this post. While I tend to agree with Jeff Atwood that <a title="The End Of Pagination" href="http://www.codinghorror.com/blog/2012/03/the-end-of-pagination.html" target="_blank">paradigms are shifting</a>, many still prefer &ndash; or are bound by their customers &ndash; to provide a page list].</p>
-
-<p>One way around this was to simply make a second call to the server, parse out the $filter, and call Count(). This is not very elegant. While what I present below might not be the best possible approach, it does get us back down to a single call to the server which returns the $inlinecount as requested.</p>
-
-<p>Let&rsquo;s get to the code.</p>
-
-<p>I chose to implement this as a message handler, so the first and simplest thing to do is <strong>register a new InlineCountHandler</strong>. I was working in a self-hosted Web API project, so I did this while setting up the configuration:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">config</span><span class="p">.</span><span class="n">MessageHandlers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">InlineCountHandler</span><span class="p">());</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I had originally tried returning an anonymous type like this</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">new</span> <span class="p">{</span> <span class="n">Count</span> <span class="p">=</span> <span class="n">unpagedResults</span><span class="p">.</span><span class="n">Count</span><span class="p">(),</span> <span class="n">Results</span> <span class="p">=</span> <span class="n">pagedResults</span> <span class="p">}</span>
-</span><span class='line'><span class="c1">// also tried pagedResults.ToArray() and a variety of other things</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>but this kept resulting in a 504. I decided to just go ahead and make a type to wrap our result. Trial and error also showed that our Result property needed to be an array (i.e., do not pass along the IQueryable) and cannot be object[] (i.e., we need to specify the proper type).</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ResultValue</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'>    <span class="k">public</span> <span class="n">T</span><span class="p">[]</span> <span class="n">Results</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After that it was just a matter of capturing the base response and <strong>adding the count in an override of SendAsync</strong>. If $inlinecount isn&rsquo;t present and set to &ldquo;allpages&rdquo;, we just forward along the base response.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">privateÂ</span> <span class="n">boolÂ</span> <span class="nf">ShouldInlineCount</span><span class="p">(</span><span class="n">HttpRequestMessageÂ</span> <span class="n">request</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">varÂ</span> <span class="n">queryParamsÂ</span> <span class="p">=</span><span class="n">Â</span> <span class="n">request</span><span class="p">.</span><span class="n">RequestUri</span><span class="p">.</span><span class="n">ParseQueryString</span><span class="p">();</span>
-</span><span class='line'>    <span class="n">varÂ</span> <span class="n">inlinecountÂ</span> <span class="p">=</span><span class="n">Â</span> <span class="n">queryParams</span><span class="p">[</span><span class="s">&quot;$inlinecount&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">returnÂ</span> <span class="kt">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="n">inlinecount</span><span class="p">,</span><span class="n">Â</span> <span class="s">&quot;allpages&quot;</span><span class="p">,</span><span class="n">Â</span> <span class="k">true</span><span class="p">)</span><span class="n">Â</span> <span class="p">==</span><span class="n">Â</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Otherwise, we press on by adding a continuation to the base task. We are only going to bother working our magic if the response was a 200 OK and resulted in an ObjectContent of IQueryable&lt;&gt;.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">privateÂ</span> <span class="n">boolÂ</span> <span class="nf">ResponseIsValid</span><span class="p">(</span><span class="n">HttpResponseMessageÂ</span> <span class="n">response</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">//Â OnlyÂ doÂ workÂ ifÂ theÂ responseÂ isÂ OK</span>
-</span><span class='line'>    <span class="n">ifÂ</span> <span class="p">(</span><span class="n">responseÂ</span> <span class="p">==</span><span class="n">Â</span> <span class="n">nullÂ</span> <span class="p">||</span><span class="n">Â</span> <span class="n">response</span><span class="p">.</span><span class="n">StatusCodeÂ</span> <span class="p">!=</span><span class="n">Â</span> <span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">)</span><span class="n">Â</span> <span class="n">returnÂ</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//Â OnlyÂ doÂ workÂ ifÂ weÂ areÂ anÂ ObjectContent</span>
-</span><span class='line'>    <span class="n">returnÂ</span> <span class="n">response</span><span class="p">.</span><span class="n">ContentÂ</span> <span class="n">isÂ</span> <span class="n">ObjectContent</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Type</span> <span class="n">queriedType</span><span class="p">;</span>
-</span><span class='line'><span class="c1">//Â CanÂ weÂ findÂ theÂ underlyingÂ typeÂ ofÂ theÂ results?</span>
-</span><span class='line'><span class="n">ifÂ</span> <span class="p">(</span><span class="n">pagedResultsValueÂ</span> <span class="n">isÂ</span> <span class="n">IQueryable</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">queriedTypeÂ</span> <span class="p">=</span><span class="n">Â</span> <span class="p">((</span><span class="n">IQueryable</span><span class="p">)</span><span class="n">pagedResultsValue</span><span class="p">).</span><span class="n">ElementType</span><span class="p">;</span>
-</span><span class='line'><span class="k">else</span>
-</span><span class='line'>    <span class="n">returnÂ</span> <span class="n">response</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I haven&rsquo;t performance tested the following, but my theoretical understanding is we won&rsquo;t be issuing any additional network traffic &ndash; this will just resend the modified request inside our own pipeline. Additionally, the additional database call should be limited to a SELECT COUNT, so not too much additional chatter. <strong>At any rate, it works, which is step one.</strong></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// Reissue the request without a skip/take to get our count. This will preserve filtering which</span>
-</span><span class='line'><span class="c1">// could affect the count</span>
-</span><span class='line'><span class="kt">var</span> <span class="n">newRequest</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpRequestMessage</span><span class="p">(</span>
-</span><span class='line'> <span class="n">request</span><span class="p">.</span><span class="n">Method</span><span class="p">,</span>
-</span><span class='line'> <span class="n">request</span><span class="p">.</span><span class="n">RequestUri</span><span class="p">.</span><span class="n">AbsoluteUri</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;$skip=&quot;</span><span class="p">,</span> <span class="s">&quot;$_skip=&quot;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;$top=&quot;</span><span class="p">,</span> <span class="s">&quot;$_top=&quot;</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Get the result with no paging</span>
-</span><span class='line'><span class="kt">var</span> <span class="n">unpagedTaskResult</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">SendAsync</span><span class="p">(</span><span class="n">newRequest</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">).</span><span class="n">Result</span><span class="p">;</span>
-</span><span class='line'><span class="kt">var</span> <span class="n">unpagedResultsValue</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">GetValueFromObjectContent</span><span class="p">(</span><span class="n">unpagedTaskResult</span><span class="p">.</span><span class="n">Content</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We don&rsquo;t know what custom types our controllers might end up delivering as the T in IQueryable&lt;T&gt;, so <strong>we get to play with some generics and dynamic invocation</strong>.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">resultsValueMethod</span> <span class="p">=</span>
-</span><span class='line'> <span class="k">this</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&quot;CreateResultValue&quot;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span><span class="p">).</span><span class="n">MakeGenericMethod</span><span class="p">(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">queriedType</span> <span class="p">});</span>
-</span><span class='line'> <span class="c1">// Create the result value with dynamic type</span>
-</span><span class='line'><span class="kt">var</span> <span class="n">resultValue</span> <span class="p">=</span> <span class="n">resultsValueMethod</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span>
-</span><span class='line'> <span class="k">this</span><span class="p">,</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">unpagedResultsValue</span><span class="p">,</span> <span class="n">pagedResultsValue</span> <span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Finally, we reset the Content to our ResultValue.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="c1">// Push the new content and return the response</span>
-</span><span class='line'><span class="n">response</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="n">CreateObjectContent</span><span class="p">(</span><span class="n">resultValue</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">Content</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">ContentType</span><span class="p">);</span>
-</span><span class='line'><span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So that&rsquo;s what I came up with. You can get the full source code onÂ <a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/feature/inlinecount" target="_blank">GitHub</a>. You&rsquo;ll want the <strong>feature/inlinecount</strong> branch.</p>
-
-<p>I&rsquo;d be more than happy for someone to <strong>tear this apart and provide a better solution</strong>. Until then, it is what it is.Â I&rsquo;ll almost certainly cover this at my upcoming <a title="ASP.NET Web API event at HUNTUG" href="http://www.huntug.com/huntug/Meetings/Calendar/tabid/105/ctl/Details/Mid/463/ItemID/49/Default.aspx?selecteddate=4/10/2012" target="_blank">ASP.NET Web API talk</a> at <a title="HUNTUG" href="http://www.huntug.org/" target="_blank">HUNTUG</a> in Huntsville, AL on 4/10/2012. Come out and see me!</p>
-
-<p><del><strong>Update:</strong>Â For whatever reason, thisÂ <strong>breaks content negotiation to XML</strong>. If you issue requests without $inlinecount with an Accept header for XML, it&rsquo;s all groovy. Issue it with $inlinecount so that we intercept and add the Count, itÂ <strong>still comes out as JSON</strong>. Be aware.</del></p>
-
-<p><strong>Update:Â </strong>XML Content Negotiation is fixed now. Silly me, forgot to use the ctor that preserves the MediaTypeHeaderValue. Other refactorings are also present in the latest code onÂ <a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/feature/inlinecount" target="_blank">GitHub</a>, some of which has been incorporated into this post. Also note Marcin&rsquo;s comment about the approach the Web API team is taking (still not slated for V1).</p>
-
-<p><strong>Another update:Â </strong>As it currently stands, this only works in a self hosted environment. If you host your Web API in an MVC website, for example, the base.SendAsync(newRequest&hellip; results in a 404 and bad things happen due to lack of error handling (hey, I told you this was not very elegant!). Anyway, Chris tells me he can get past the 404 by copying more than just the method and Uri to the request; however, his IOC breaks after that. You&rsquo;ve been warned. ;)Â <del>This has been fixed onÂ <a title="web-api-samples on GitHub" href="https://github.com/druttka/web-api-samples/tree/develop" target="_blank">the develop branch</a>, althoughÂ <strong>the general warning that this isn&rsquo;t elegant stands.Â </strong>Proof of concept, experiment, hack; any of these terms are very reasonable.</del></p>
-
-<p><strong>And another:</strong> As Dante found, the &ldquo;this has been fixed&rdquo; part of the above update did eliminate Â the exception when web hosting, but it also destroyed the accuracy. I have reverted the source on GitHub, and this will again only work in a self hosted environment.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/04/05/adding-odata-inline-count-support-to-the-asp-net-web-api/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1213,6 +1061,10 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
       </li>
     
@@ -1226,10 +1078,6 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
     
       <li class="post">
         <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a>
       </li>
     
   </ul>

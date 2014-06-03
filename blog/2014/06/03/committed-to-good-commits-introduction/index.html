@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hello Octopress! - David Ruttka</title>
+  <title>Committed to Good Commits: Introduction - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Like I said, here we go.
-">
+  <meta name="description" content="A few years ago, I did a talk called Committed to Good Commits at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -82,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Hello Octopress!</h1>
+      <h1 class="entry-title">Committed to Good Commits: Introduction</h1>
     
     
       <p class="meta">
@@ -98,7 +97,7 @@
   
 
 
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-06-03T15:56:57-07:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
         
          | <a href="#disqus_thread"
 			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
@@ -109,7 +108,56 @@
   </header>
 
 
-<div class="entry-content"><p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
+<div class="entry-content"><p>A few years ago, I did a talk called <strong>Committed to Good Commits</strong> at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give the talk again. It gets kind of awkward. Not many people show up when there are other talks going on about <strong>the new shiny hotness</strong>, and those who do show up already agree with everything I say. We just end up nodding our heads and smiling at each other.</p>
+
+<p>For a while, I&rsquo;ve considered turning the talk into a blog post series. Today is the day!</p>
+
+<p>Like the talk, this series will try to be version control agnostic. While examples will be in Git, the concepts should apply equally well in TFS, SVN, SourceSafe, or what have you.</p>
+
+<p><strong>Much of this will be opinion, but these are practices and principles that have worked for me.</strong> That said, we will cover</p>
+
+<ol>
+<li>Commit Messages / Comments</li>
+<li>Work Item Association</li>
+<li>Atomic Changes</li>
+<li>Frequent Changes</li>
+<li>Validation</li>
+<li>Synchronization / Integration</li>
+<li>Team Signals</li>
+<li>Branching Strategies</li>
+</ol>
+
+
+<h3>No One Talks About This</h3>
+
+<blockquote><p>Along the same lines, a few weeks ago, a younger coworker noted to me in passing that he never learned anything about source control in any of his computer science classes. &ndash; <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Jeff Atwood</a></p></blockquote>
+
+<p>When I first gave this talk at TechMixer U in 2011, a college senior expressed a similar situation. The class had been exposed to CVS, but only the most basic operations. When I was in college, I used &ldquo;poor man&rsquo;s version control&rdquo; by putting the last good version on a floppy disk. Then I got wiser and kept n-number of &ldquo;last good&rdquo; versions in zip files with timestamps for names!</p>
+
+<h3>We Need To Talk About This</h3>
+
+<p>We can do better. While caring about version control and using it properly is ignored in schools and conferences, <strong>it is critical!</strong></p>
+
+<blockquote><p>Source control is the very bedrock of software engineering. <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Atwood again</a></p>
+
+<p>But if you don&rsquo;t have source control, you&rsquo;re going to stress out trying to get programmers to work together. <a href="http://www.joelonsoftware.com/articles/fog0000000043.html">Spolsky</a></p></blockquote>
+
+<h3>People Are Starting To Talk About This</h3>
+
+<p>The community is starting to ask a lot more about this, and care a lot more about this. I linked to these three questions when I gave the talk, but I&rsquo;m sure there are plenty more (plenty better?) examples by now.</p>
+
+<ol>
+<li><a href="http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits">http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits</a></li>
+<li><a href="http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch">http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch</a></li>
+<li><a href="http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project">http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project</a></li>
+</ol>
+
+
+<h3>It&rsquo;s Not Automatic</h3>
+
+<p>This stuff does take some discipline. For some people, it&rsquo;s only after dealing with a painful situation due to poor version control practices that they choose to care. For others, knowing that the pitfalls exist is enough to spark them toward preventative measures, and they care earlier. In either case, it&rsquo;s important to realize that bad things will happen even to the most careful developers, and that&rsquo;s ok. It&rsquo;s how we learn. I&rsquo;ve certainly been sloppy myself, but try to get better all the time.</p>
+
+<p>I&rsquo;m going to try not to preach much in this series. We&rsquo;re going to look at real issues, and some thought processes toward practices that can ease the pain points. It will then be up to each person / team to decide what processes are or are not appropriate for their workflows.</p>
 </div>
 
 
@@ -132,7 +180,7 @@
   
 
 
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+<time datetime="2014-06-03T15:56:57-07:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
       
 
 
@@ -140,7 +188,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -153,10 +201,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/29/dev-at-work-moving-to-github-pages/" title="Previous Post: Dev at work: Moving to GitHub Pages">&laquo; Dev at work: Moving to GitHub Pages</a>
+        <a class="basic-alignment left" href="/blog/2014/04/25/git-clone-the-quickening/" title="Previous Post: Git Clone: The Quickening!">&laquo; Git Clone: The Quickening!</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" title="Next Post: Moving from WordPress to GitHub Pages using Jekyll via Octopress">Moving from WordPress to GitHub Pages using Jekyll via Octopress &raquo;</a>
       
     </p>
   </footer>
@@ -222,8 +268,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/29/hello-octopress/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/29/hello-octopress/';
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/';
         var disqus_script = 'embed.js';
       
     (function () {

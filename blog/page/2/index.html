@@ -85,6 +85,68 @@
   <header>
     
       
+      <h1 class="entry-title"><a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Principles of Debugging: A Postmortem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
+
+<blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote>
+
+<h2>Wont-Fix</h2>
+
+<p>There&rsquo;s one part of this story that I will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+
+<h2>A Problem Is Reported</h2>
+
+<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
+
+<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
+
+<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
+
+<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      
       <h1 class="entry-title"><a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a></h1>
     
     
@@ -657,62 +719,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Starting Multiple Projects at Once in Visual Studio</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-30T08:30:32-07:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
-
-<p><img src="/images/multiple-startup-projects.png"></p>
-
-<p><code>Solution Properties &gt; Common Properties &gt; Startup Projects &gt; Multiple startup projects</code>.</p>
-
-<p>For each project in the solution, you can choose one of the following:</p>
-
-<ul>
-<li>Start</li>
-<li>Start without debugging</li>
-<li>None</li>
-</ul>
-
-
-<p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -730,6 +736,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
       </li>
     
@@ -743,10 +753,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a>
       </li>
     
   </ul>

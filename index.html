@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I&rsquo;ve been using Visual Studio Online for a bit, so the example in this post will specifically show that, but the concept applies anywhere. If &hellip;">
+  <meta name="description" content="A few years ago, I did a talk called Committed to Good Commits at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,96 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-03T15:56:57-07:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/03/committed-to-good-commits-introduction/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few years ago, I did a talk called <strong>Committed to Good Commits</strong> at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give the talk again. It gets kind of awkward. Not many people show up when there are other talks going on about <strong>the new shiny hotness</strong>, and those who do show up already agree with everything I say. We just end up nodding our heads and smiling at each other.</p>
+
+<p>For a while, I&rsquo;ve considered turning the talk into a blog post series. Today is the day!</p>
+
+<p>Like the talk, this series will try to be version control agnostic. While examples will be in Git, the concepts should apply equally well in TFS, SVN, SourceSafe, or what have you.</p>
+
+<p><strong>Much of this will be opinion, but these are practices and principles that have worked for me.</strong> That said, we will cover</p>
+
+<ol>
+<li>Commit Messages / Comments</li>
+<li>Work Item Association</li>
+<li>Atomic Changes</li>
+<li>Frequent Changes</li>
+<li>Validation</li>
+<li>Synchronization / Integration</li>
+<li>Team Signals</li>
+<li>Branching Strategies</li>
+</ol>
+
+
+<h3>No One Talks About This</h3>
+
+<blockquote><p>Along the same lines, a few weeks ago, a younger coworker noted to me in passing that he never learned anything about source control in any of his computer science classes. &ndash; <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Jeff Atwood</a></p></blockquote>
+
+<p>When I first gave this talk at TechMixer U in 2011, a college senior expressed a similar situation. The class had been exposed to CVS, but only the most basic operations. When I was in college, I used &ldquo;poor man&rsquo;s version control&rdquo; by putting the last good version on a floppy disk. Then I got wiser and kept n-number of &ldquo;last good&rdquo; versions in zip files with timestamps for names!</p>
+
+<h3>We Need To Talk About This</h3>
+
+<p>We can do better. While caring about version control and using it properly is ignored in schools and conferences, <strong>it is critical!</strong></p>
+
+<blockquote><p>Source control is the very bedrock of software engineering. <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Atwood again</a></p>
+
+<p>But if you don&rsquo;t have source control, you&rsquo;re going to stress out trying to get programmers to work together. <a href="http://www.joelonsoftware.com/articles/fog0000000043.html">Spolsky</a></p></blockquote>
+
+<h3>People Are Starting To Talk About This</h3>
+
+<p>The community is starting to ask a lot more about this, and care a lot more about this. I linked to these three questions when I gave the talk, but I&rsquo;m sure there are plenty more (plenty better?) examples by now.</p>
+
+<ol>
+<li><a href="http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits">http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits</a></li>
+<li><a href="http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch">http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch</a></li>
+<li><a href="http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project">http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project</a></li>
+</ol>
+
+
+<h3>It&rsquo;s Not Automatic</h3>
+
+<p>This stuff does take some discipline. For some people, it&rsquo;s only after dealing with a painful situation due to poor version control practices that they choose to care. For others, knowing that the pitfalls exist is enough to spark them toward preventative measures, and they care earlier. In either case, it&rsquo;s important to realize that bad things will happen even to the most careful developers, and that&rsquo;s ok. It&rsquo;s how we learn. I&rsquo;ve certainly been sloppy myself, but try to get better all the time.</p>
+
+<p>I&rsquo;m going to try not to preach much in this series. We&rsquo;re going to look at real issues, and some thought processes toward practices that can ease the pain points. It will then be up to each person / team to decide what processes are or are not appropriate for their workflows.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -616,68 +706,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Principles of Debugging: A Postmortem</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/09/principles-of-debugging-a-postmortem/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
-
-<blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote>
-
-<h2>Wont-Fix</h2>
-
-<p>There&rsquo;s one part of this story that I will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
-
-<h2>A Problem Is Reported</h2>
-
-<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
-
-<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
-
-<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
-
-<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/04/09/principles-of-debugging-a-postmortem/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -693,6 +721,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
       </li>
     
@@ -706,10 +738,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a>
       </li>
     
   </ul>
