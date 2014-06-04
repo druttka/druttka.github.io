@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Recently I was discussing my upcoming trip to speak at devLink and was asked why I do it. I figured that&rsquo;s a better topic than some of the &hellip;">
+  <meta name="description" content="The other day, I was trying to split a string and then get the various parts of it from within an MSBuild project, but it went totally nuts on me. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,179 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/07/24/msbuild-string-manipulation-chaos/">MSBuild String Manipulation Chaos</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-24T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day, I was trying to split a string and then get the various parts of it from within an MSBuild project, but it went totally nuts on me. When I tried to access the item at a given index of the split result, I&rsquo;d get nonsense including semicolons that weren&rsquo;t there in the first place! <strong>Why are semicolons suddenly appearing in the result of a String Split when there were none in the original string?</strong></p>
+
+<p>Once I realized I should take this to the command line and break it down, it made a lot more sense and was quickly resolved (isn&rsquo;t that usually the case?). I&rsquo;m posting this so that maybe someone else will find it useful later.</p>
+
+<h3>The Goal</h3>
+
+
+<p>Imagine that you have a property that you want to split, and then rejoin all or some of the parts later. A build number seems like a good general example here. You&rsquo;ve got access to String.Split here, so it seems a natural solution.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split[0]).$(Split[1]).$(Split[2]).$(Split[3])&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
+</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I expected Split[0] to be 8, Split[1] to be 67, etc. What really happened was:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
+</span><span class='line'>8.67.5309.9001
+</span><span class='line'>8.;.6.7
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>Huh?</h3>
+
+
+<p>Where did that semicolon come from, and why do I get 6 and 7 instead of 67? I&rsquo;ll admit I hacked and searched on this for way too long before turning to the old standby of &ldquo;echo something out,&rdquo; but once I did&hellip;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split)&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
+</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I got some very informative output&hellip;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
+</span><span class='line'>8.67.5309.9001
+</span><span class='line'>8;67;5309;9001
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>The Property Is A String</h3>
+
+
+<p>What is happening here is that the property that I&rsquo;m creating is a string, not an array. It gets rejoined automatically, with semicolons as the delimiters. What I ended up doing was immediately capturing the chunks as separate properties.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Major&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[0])<span class="nt">&lt;/Major&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Minor&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[1])<span class="nt">&lt;/Minor&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Build&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[2])<span class="nt">&lt;/Build&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;PowerLevel&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[3])<span class="nt">&lt;/PowerLevel&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">Condition=</span><span class="s">&quot;$(PowerLevel)&gt;9000&quot;</span> <span class="na">text=</span><span class="s">&quot;IT&#39;S OVER 9000!&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
+</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
+</span><span class='line'>IT<span class="err">&#39;</span>S OVER 9000!
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve heard that there are some extensions out there that will split and assign to multiple properties a bit more fluidly, but this worked in a pinch. I&rsquo;d be interested in hearing about other ways people have attacked this problem.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/24/msbuild-string-manipulation-chaos/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1238,156 +1411,6 @@ private void AssertEqual(object expected, object actual)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/03/01/did-both-esri-and-mapbox-steal-from-fitbit/">Did Both ESRI and MapBox Steal From Fitbit?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-01T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><span style="color:#ff0000;font-size:xx-small;">Note / disclaimer: I work for <a href="http://www.3-gis.com" target="_blank">3-GIS</a>, and we work a lot with <a href="http://esri.com" target="_blank">ESRI</a>. This blog post does not necessarily represent the views of 3-GIS, ESRI, <a href="http://mapbox.com" target="_blank">MapBox</a>, <a href="http://fitbit.com" target="_blank">Fitbit</a>, or any other entity. These thoughts are my own and are hopefully unbiased. I&rsquo;m just a web developer and don&rsquo;t have a stake in this. I simply find the implications for web development and site design to be interesting.</span></p>
-
-<h3></h3>
-
-
-<h3>&#8220;ESRI, shame on you guys!&#8221;</h3>
-
-
-<p>The other day, I saw several tweets regarding ESRI&rsquo;s new <a href="http://developers.arcgis.com/en/" target="_blank">ArcGIS for Developers</a> website.</p>
-
-<blockquote class="twitter-tweet">shameless imitation by @<a href="https://twitter.com/esri">esri</a> (<a title="http://developers.arcgis.com/en" href="http://t.co/deffx3Mqi2">developers.arcgis.com/en</a>) of @<a href="https://twitter.com/mapbox">mapbox</a> design: does this foretell how they will approach open source code?
-
-â€” Dane Springmeyer (@springmeyer) <a href="https://twitter.com/springmeyer/status/306817393131417600">February 27, 2013</a></blockquote>
-
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/springmeyer">springmeyer</a> @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> Shocking! Die ESRI, shame on you guys! ESRI, SHAME ON YOU!
-
-â€” Ishan Chattopadhyaya (@ichattopadhyaya) <a href="https://twitter.com/ichattopadhyaya/status/306820474766258176">February 27, 2013</a></blockquote>
-
-
-<blockquote class="twitter-tweet">@<a href="https://twitter.com/howardbutler">howardbutler</a> @<a href="https://twitter.com/springmeyer">springmeyer</a> @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> Esri is open&#8230; to the idea of appropriating your work.
-
-â€” Sean Gillies (@sgillies) <a href="https://twitter.com/sgillies/status/306821500181307393">February 27, 2013</a></blockquote>
-
-
-<p>James Fee even wrote a blog post about the <a href="http://spatiallyadjusted.com/2013/02/27/emulating-mapbox/" target="_blank">emulation of MapBox</a>. From his assessment of the situation:</p>
-
-<blockquote>I&#8217;d like to think there wasn&#8217;t malicious intent here, just that those who created it want to be like MapBox and <a href="http://developmentseed.org/">Developement Seed</a>. Still, when the 800lb (363kg) gorilla does things like this, you can&#8217;t but help call it a dick move.</blockquote>
-
-
-<p>I was on my phone at the time. Clicking through to both websites, all I thought was&hellip;</p>
-
-<h3></h3>
-
-
-<h3>All Bootstrap Everything</h3>
-
-
-<p>Upon investigation of the sources, it seems that not all of these sites are indeed using <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a> specifically. However, I think the style is evident. The Bootstrap style has become so ubiquitous on today&rsquo;s web that there are even <a href="http://bootswatch.com/" target="_blank">sites</a> dedicated to helping you un-Bootstrap your Bootstrap.</p>
-
-<blockquote class="twitter-tweet">Somewhere, x is being accused of copying y, but actually they&#8217;re both just using default typography and sample layouts from bootstrap&#8230;
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/306983506519666688">February 28, 2013</a></blockquote>
-
-
-<h3>The Simpsons Already Did It</h3>
-
-
-<p>If we follow the evolutionary chain of <a href="http://developers.arcgis.com/en/" target="_blank">ESRI</a> to <a href="http://mapbox.com" target="_blank">MapBox</a>, then surely we must follow MapBox&rsquo;s back to <a href="http://fitbit.com" target="_blank">Fitbit</a>. Note that all three share the design elements listed below, and note that you could probably find countless more sites that share the same.</p>
-
-<ul>
-    <li>a tall header</li>
-    <li>rounded buttons</li>
-    <li>pleasant typography</li>
-    <li>lots of scrolling down</li>
-    <li>a feeling reminiscent of a grid system (or actual use of a grid system)</li>
-    <li>columns of links at the bottom</li>
-</ul>
-
-
-<p>There was one tweet that pointed out the use of cartoon maps in circles.</p>
-
-<p>[caption id=&ldquo;&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;234&rdquo;]<a href="http://thedevstop.files.wordpress.com/2013/03/image3.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="MapBox's cartoony map icon" alt="MapBox's cartoony map icon" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb3.png" width="234" height="227" border="0" /></a> MapBox&rsquo;s cartoony map icon[/caption]</p>
-
-<p>[caption id=&ldquo;&rdquo; align=&ldquo;alignnone&rdquo; width=&ldquo;241&rdquo;]<a href="http://thedevstop.files.wordpress.com/2013/03/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="ESRI's cartoony map icon" alt="ESRI's cartoony map icon" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb4.png" width="241" height="229" border="0" /></a> ESRI&rsquo;s cartoony map icon[/caption]</p>
-
-<p>I want to be clear that even the idea of &ldquo;cartoon&rdquo; icons in circles is not a groundbreaking design technique. Fitbit has that too (decision for color vs. silhouette notwithstanding); they just didn&rsquo;t need a map in their domain.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/03/image5.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="Fitbit's cartoony icons" alt="Fitbit's cartoony icons" src="http://thedevstop.files.wordpress.com/2013/03/image_thumb5.png" width="478" height="142" border="0" /></a></p>
-
-<h3>Making It Your Own</h3>
-
-
-<blockquote class="twitter-tweet">I see too many differences to call the @<a href="https://twitter.com/esri">esri</a> @<a href="https://twitter.com/mapbox">mapbox</a> thing a ripoff. Ooo, both use rounded buttons, nice font, tall header? Oh no!
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/307186225222139904">February 28, 2013</a></blockquote>
-
-
-<p>Here are a few of the obvious differences between the sites</p>
-
-<ul>
-    <li>MapBox uses ALLCAPS NAVIGATION, Mixed Case Navigation for ESRI</li>
-    <li>Social links are presented quite differently</li>
-    <li>MapBox has an introductory video, while ESRI has various text areas</li>
-    <li>Signup placement is raised for MapBox, inline for ESRI</li>
-    <li>MapBox colors their footer, ESRI does not</li>
-    <li>MapBox put their logo on the left, ESRI on the right</li>
-</ul>
-
-
-<p>Now admittedly any of these changes taken individually would be trivial, but when taken together, I find it unlikely that ESRI said, &ldquo;You know, MapBox is pretty. Let&rsquo;s steal their CSS!&rdquo; I think it is much more likely that ESRI said &ldquo;You know, on our new site, let&rsquo;s go with the prevalent patterns taking over the web today, and incorporate a tall scrolling site with rounded buttons.&rdquo;</p>
-
-<h3>Benefit of the Doubt</h3>
-
-
-<p>Hey internet, let&rsquo;s try to play nicely together. Like I said in the note/disclaimer, I have no dog in this fight. I&rsquo;m just a developer, currently developing for the web.</p>
-
-<p>I will give those pointing fingers some benefit of the doubt. Perhaps I missed design elements that truly were plagiarized, rather than just being common to today&rsquo;s web. Perhaps they really haven&rsquo;t seen so many other sites with Bootstrap qualities, and honestly thought MapBox&rsquo;s site design was novel.</p>
-
-<p>On the other hand, maybe we can extend a similar courtesy to ESRI and restrain ourselves from wishing death upon them. Â Perhaps they are just last in line to pick up on this style. I maintain that MapBox was certainly not the first. If accusation becomes our default response, what will we all have to do for our next site design?</p>
-
-<h3></h3>
-
-
-<h3></h3>
-
-
-<blockquote class="twitter-tweet">If &#8220;modern, rounded, scroll down a lot&#8221; has been trademarked, the entire internet has lost.
-
-â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/307187452836184064">February 28, 2013</a></blockquote>
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/01/did-both-esri-and-mapbox-steal-from-fitbit/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1405,6 +1428,10 @@ private void AssertEqual(object expected, object actual)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
       </li>
     
@@ -1418,10 +1445,6 @@ private void AssertEqual(object expected, object actual)
     
       <li class="post">
         <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
       </li>
     
   </ul>

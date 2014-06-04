@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-06-03T16:23:18-07:00</updated>
+  <updated>2014-06-03T20:25:11-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Committed to Good Commits: Messages]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages/"/>
+    <updated>2014-06-04T16:26:51-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages</id>
+    <content type="html"><![CDATA[<p><em>This is part of a <a href="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction">series on good commits</a>.</em></p>
+
+<p>Imagine that you had a narrative view of your project&rsquo;s history, telling the story of its evolution and the intent behind each change. Imagine that our project had a Twitter timeline.</p>
+
+<p><strong>Now stop imagining, and start making better commit messages.</strong></p>
+
+<p>This is what many project histories look like:</p>
+
+<pre><code>Author    Date         Message
+---       ---          ---    
+druttka   6/13 10:58        
+jrob      6/13 10:52   did stuff. ps why don't ruttka add messages? 
+druttka   6/13 09:15        
+jrob      6/13 08:45   things are done.
+druttka   6/13 07:32        
+</code></pre>
+
+<p>What if it looked like this instead?!</p>
+
+<pre><code>Author    Date         Message    
+---       ---          ---    
+druttka   6/13 10:58   Fix serialization of foo  
+jrob      6/13 10:52   Add support for bar
+druttka   6/13 09:15   Support baz
+jrob      6/13 08:45   Add Foo to IBarProvider
+druttka   6/13 07:32   Reduce Wizzbang execution time
+</code></pre>
+
+<p>What if you could then see additional detail for the serialization fix? By looking at the expanded log statement, you might see more detailed information like</p>
+
+<pre><code>Fix serialization of foo
+
+Needed to zingify the wizzbangs
+</code></pre>
+
+<p><strong>Amazing!!</strong></p>
+
+<p>The applications for more explanitory messages are endless. Some examples include</p>
+
+<ul>
+<li>Code review. Get an idea of what the author <strong>intended</strong> before you see what they <strong>implemented</strong>.</li>
+<li>Diff debugging. Get an idea of what changed when, <strong>and why</strong>.</li>
+<li>Reviewing old fixes. A similar issue appears later, and you can go find when it was fixed before to see <strong>how</strong>.</li>
+<li>Communication. Maybe your team doesn&rsquo;t have a regular communication loop, and viewing the history is how you can stay up to date on changes you weren&rsquo;t directly involved in.</li>
+</ul>
+
+
+<h3>Common Excuses (and Counters)</h3>
+
+<p>I usually hear three reasons for missing or poor commit messages. Let&rsquo;s see what they are and try to remove the barriers.</p>
+
+<ol>
+<li>A person claims they don&rsquo;t know what to say. <strong>Just say what you did.</strong> Start with a brief synopsis on the first line. Be imperative, and include an issue number if appropriate. Something like &ldquo;Implement new logging mechanism&rdquo;. If there&rsquo;s more context to be given about why or how this change was made, that can be provided on following lines.</li>
+<li>A person just isn&rsquo;t in the habit. <strong>Enforce it.</strong> TFS has check-in policies. Git opens a text editor for you if you don&rsquo;t provide a message with -m, and aborts the commit if you leave the message empty.</li>
+<li>A person claims that it&rsquo;s a waste of time. <strong>That&rsquo;s quite relative.</strong> Compare that with the time you already spent investigating, planning, implementing, and (hopefully) testing the change itself. Also consider the time you&rsquo;ll save diffing revisions later, when you could just grep the log.</li>
+</ol>
+
+
+<p>Note: Will recently did a <a href="http://willi.am/blog/2014/05/06/git-for-devs-who-cant-commit-good/">post on good commits</a>, too. Read it.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Committed to Good Commits: Introduction]]></title>
@@ -27,7 +94,7 @@
 <p><strong>Much of this will be opinion, but these are practices and principles that have worked for me.</strong> That said, we will cover</p>
 
 <ol>
-<li>Commit Messages / Comments</li>
+<li><a href="http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages">Commit Messages / Comments</a></li>
 <li>Work Item Association</li>
 <li>Atomic Changes</li>
 <li>Frequent Changes</li>
@@ -776,35 +843,6 @@ cd ..
     <updated>2014-04-01T09:25:43-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines</id>
     <content type="html"><![CDATA[<p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Facebook?]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/01/facebook/"/>
-    <updated>2014-04-01T09:18:16-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/01/facebook</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with <a href="https://twitter.com/JoeyRobichaud">Joey</a>, and Joey said&hellip;</p>
-
-<blockquote><p>Hey, looks like {kid&rsquo;s name}&rsquo;s ballet class was pretty great!</p></blockquote>
-
-<p>And I said</p>
-
-<blockquote><p>Wat?</p></blockquote>
-
-<h2>My Current Facebook Policy</h2>
-
-<p>Only one friend, my wife, so I can enjoy posts and pics of her and my kid.</p>
-
-<h2>The Dilemma</h2>
-
-<p>I know Facebook is wrong. I know going back is a trap, but&hellip;</p>
-
-<p>People at work are having happy fun joke time and I&rsquo;m missing it.</p>
-
-<p>I&rsquo;m considering revocation of my policy, and jumping all the way back in.</p>
-
-<p><strong>Someone talk me down from this ledge.</strong></p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to Matt for reminding &hellip;">
+  <meta name="description" content="I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with Joey, and Joey said&hellip; Hey, looks like &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/01/facebook/">Facebook?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-01T09:18:16-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/01/facebook/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/01/facebook/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with <a href="https://twitter.com/JoeyRobichaud">Joey</a>, and Joey said&hellip;</p>
+
+<blockquote><p>Hey, looks like {kid&rsquo;s name}&rsquo;s ballet class was pretty great!</p></blockquote>
+
+<p>And I said</p>
+
+<blockquote><p>Wat?</p></blockquote>
+
+<h2>My Current Facebook Policy</h2>
+
+<p>Only one friend, my wife, so I can enjoy posts and pics of her and my kid.</p>
+
+<h2>The Dilemma</h2>
+
+<p>I know Facebook is wrong. I know going back is a trap, but&hellip;</p>
+
+<p>People at work are having happy fun joke time and I&rsquo;m missing it.</p>
+
+<p>I&rsquo;m considering revocation of my policy, and jumping all the way back in.</p>
+
+<p><strong>Someone talk me down from this ledge.</strong></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -732,179 +793,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/07/24/msbuild-string-manipulation-chaos/">MSBuild String Manipulation Chaos</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The other day, I was trying to split a string and then get the various parts of it from within an MSBuild project, but it went totally nuts on me. When I tried to access the item at a given index of the split result, I&rsquo;d get nonsense including semicolons that weren&rsquo;t there in the first place! <strong>Why are semicolons suddenly appearing in the result of a String Split when there were none in the original string?</strong></p>
-
-<p>Once I realized I should take this to the command line and break it down, it made a lot more sense and was quickly resolved (isn&rsquo;t that usually the case?). I&rsquo;m posting this so that maybe someone else will find it useful later.</p>
-
-<h3>The Goal</h3>
-
-
-<p>Imagine that you have a property that you want to split, and then rejoin all or some of the parts later. A build number seems like a good general example here. You&rsquo;ve got access to String.Split here, so it seems a natural solution.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split[0]).$(Split[1]).$(Split[2]).$(Split[3])&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I expected Split[0] to be 8, Split[1] to be 67, etc. What really happened was:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>8.67.5309.9001
-</span><span class='line'>8.;.6.7
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>Huh?</h3>
-
-
-<p>Where did that semicolon come from, and why do I get 6 and 7 instead of 67? I&rsquo;ll admit I hacked and searched on this for way too long before turning to the old standby of &ldquo;echo something out,&rdquo; but once I did&hellip;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Split&gt;</span>$(BuildNumber.Split(&#39;.&#39;))<span class="nt">&lt;/Split&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(BuildNumber)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">text=</span><span class="s">&quot;$(Split)&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I got some very informative output&hellip;</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>8.67.5309.9001
-</span><span class='line'>8;67;5309;9001
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>The Property Is A String</h3>
-
-
-<p>What is happening here is that the property that I&rsquo;m creating is a string, not an array. It gets rejoined automatically, with semicolons as the delimiters. What I ended up doing was immediately capturing the chunks as separate properties.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Project</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;PropertyGroup&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;BuildNumber&gt;</span>8.67.5309.9001<span class="nt">&lt;/BuildNumber&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Major&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[0])<span class="nt">&lt;/Major&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Minor&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[1])<span class="nt">&lt;/Minor&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Build&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[2])<span class="nt">&lt;/Build&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;PowerLevel&gt;</span>$(BuildNumber.Split(&#39;.&#39;)[3])<span class="nt">&lt;/PowerLevel&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/PropertyGroup&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;Dump&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;Message</span> <span class="na">Condition=</span><span class="s">&quot;$(PowerLevel)&gt;9000&quot;</span> <span class="na">text=</span><span class="s">&quot;IT&#39;S OVER 9000!&quot;</span> <span class="nt">/&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/Target&gt;</span>
-</span><span class='line'><span class="nt">&lt;/Project&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Dump:
-</span><span class='line'>IT<span class="err">&#39;</span>S OVER 9000!
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I&rsquo;ve heard that there are some extensions out there that will split and assign to multiple properties a bit more fluidly, but this worked in a pinch. I&rsquo;d be interested in hearing about other ways people have attacked this problem.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/24/msbuild-string-manipulation-chaos/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -922,6 +810,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
       </li>
     
@@ -935,10 +827,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
       </li>
     
   </ul>

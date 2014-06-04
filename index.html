@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="A few years ago, I did a talk called Committed to Good Commits at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give &hellip;">
+  <meta name="description" content="This is part of a series on good commits. Imagine that you had a narrative view of your project&rsquo;s history, telling the story of its evolution &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,105 @@
   <header>
     
       
+      <h1 class="entry-title"><a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-04T16:26:51-07:00" pubdate data-updated="true">Jun 4<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/04/committed-to-good-commits-messages/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>This is part of a <a href="/blog/2014/06/03/committed-to-good-commits-introduction">series on good commits</a>.</em></p>
+
+<p>Imagine that you had a narrative view of your project&rsquo;s history, telling the story of its evolution and the intent behind each change. Imagine that our project had a Twitter timeline.</p>
+
+<p><strong>Now stop imagining, and start making better commit messages.</strong></p>
+
+<p>This is what many project histories look like:</p>
+
+<pre><code>Author    Date         Message
+---       ---          ---    
+druttka   6/13 10:58        
+jrob      6/13 10:52   did stuff. ps why don't ruttka add messages? 
+druttka   6/13 09:15        
+jrob      6/13 08:45   things are done.
+druttka   6/13 07:32        
+</code></pre>
+
+<p>What if it looked like this instead?!</p>
+
+<pre><code>Author    Date         Message    
+---       ---          ---    
+druttka   6/13 10:58   Fix serialization of foo  
+jrob      6/13 10:52   Add support for bar
+druttka   6/13 09:15   Support baz
+jrob      6/13 08:45   Add Foo to IBarProvider
+druttka   6/13 07:32   Reduce Wizzbang execution time
+</code></pre>
+
+<p>What if you could then see additional detail for the serialization fix? By looking at the expanded log statement, you might see more detailed information like</p>
+
+<pre><code>Fix serialization of foo
+
+Needed to zingify the wizzbangs
+</code></pre>
+
+<p><strong>Amazing!!</strong></p>
+
+<p>The applications for more explanitory messages are endless. Some examples include</p>
+
+<ul>
+<li>Code review. Get an idea of what the author <strong>intended</strong> before you see what they <strong>implemented</strong>.</li>
+<li>Diff debugging. Get an idea of what changed when, <strong>and why</strong>.</li>
+<li>Reviewing old fixes. A similar issue appears later, and you can go find when it was fixed before to see <strong>how</strong>.</li>
+<li>Communication. Maybe your team doesn&rsquo;t have a regular communication loop, and viewing the history is how you can stay up to date on changes you weren&rsquo;t directly involved in.</li>
+</ul>
+
+
+<h3>Common Excuses (and Counters)</h3>
+
+<p>I usually hear three reasons for missing or poor commit messages. Let&rsquo;s see what they are and try to remove the barriers.</p>
+
+<ol>
+<li>A person claims they don&rsquo;t know what to say. <strong>Just say what you did.</strong> Start with a brief synopsis on the first line. Be imperative, and include an issue number if appropriate. Something like &ldquo;Implement new logging mechanism&rdquo;. If there&rsquo;s more context to be given about why or how this change was made, that can be provided on following lines.</li>
+<li>A person just isn&rsquo;t in the habit. <strong>Enforce it.</strong> TFS has check-in policies. Git opens a text editor for you if you don&rsquo;t provide a message with -m, and aborts the commit if you leave the message empty.</li>
+<li>A person claims that it&rsquo;s a waste of time. <strong>That&rsquo;s quite relative.</strong> Compare that with the time you already spent investigating, planning, implementing, and (hopefully) testing the change itself. Also consider the time you&rsquo;ll save diffing revisions later, when you could just grep the log.</li>
+</ol>
+
+
+<p>Note: Will recently did a <a href="http://willi.am/blog/2014/05/06/git-for-devs-who-cant-commit-good/">post on good commits</a>, too. Read it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      
       <h1 class="entry-title"><a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a></h1>
     
     
@@ -121,7 +220,7 @@
 <p><strong>Much of this will be opinion, but these are practices and principles that have worked for me.</strong> That said, we will cover</p>
 
 <ol>
-<li>Commit Messages / Comments</li>
+<li><a href="/blog/2014/06/04/committed-to-good-commits-messages">Commit Messages / Comments</a></li>
 <li>Work Item Association</li>
 <li>Atomic Changes</li>
 <li>Frequent Changes</li>
@@ -668,44 +767,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="http://willi.am/blog/2014/04/08/a-lesson-in-debugging-verify-your-tools/">Another Take on Our Debugging Adventure</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-10T08:07:15-07:00" pubdate data-updated="true">Apr 10<span>th</span>, 2014</time>
-        
-        <a href="/blog/2014/04/10/another-take-on-our-debugging-adventure/">Permalink</a>
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>By implicitly trusting Fiddler&rsquo;s JSON viewer, we assumed the problem was incorrect data coming from our server. &ndash; <a href="http://willi.am/blog/2014/04/08/a-lesson-in-debugging-verify-your-tools/">Will</a></p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -721,6 +782,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
       </li>
     
@@ -734,10 +799,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a>
       </li>
     
   </ul>
