@@ -9,7 +9,8 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I&rsquo;ve quit Facebook a few times. The last time was very successful until one day, I was working with Joey, and Joey said&hellip; Hey, looks like &hellip;">
+  <meta name="description" content="For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. Nice write up.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">This Was Helpful. Octopress From All Your Machines!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-01T09:25:43-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+        
+        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">Permalink</a>
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -697,102 +736,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/">Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-23T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
-
-<p><b>tl;dr  &ndash;  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
-
-<p>I updated a project from the Web API prerelease to the official Web API 2 a few nights ago, and it broke my build. The HttpGet and HttpPost attributes take no arguments, so [HttpGet(&ldquo;someroute&rdquo;)] and [HttpPost(&ldquo;otherRoute&rdquo;)] were no longer valid.</p>
-
-<p>Now, you just use [Route(&ldquo;theRoute&rdquo;)], and it will take it&rsquo;s best guess about which HTTP Method to use. It&rsquo;s usually right (especially if you use the preexisting conventions). I felt the need to find a contrived example where it chooses wrong to confirm how to make it right.</p>
-
-<p>Let&rsquo;s say we want this X to get wired up as GET /api. It actually gets wired as a POST, and if you try to GET, it throws 405 Method Not Allowed.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In reality, I&rsquo;d just rename this from X to Get, but this is a contrived example! Let&rsquo;s pretend someone put a note on the work item that the implementation method must be named X. We can turn the world right-side-up again by stacking the Http* method attribute. The following works as GET /api, and attempting to POST throws 405.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'><span class="na">  [HttpGet]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Hope this saves someone a few minutes sometime.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -810,6 +753,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/05/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
       </li>
     
@@ -823,10 +770,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/">Normalizing Line Endings in a Git Repo</a>
       </li>
     
   </ul>
