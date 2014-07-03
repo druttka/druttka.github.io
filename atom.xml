@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-07-03T15:57:07-07:00</updated>
+  <updated>2014-07-03T16:03:13-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -79,7 +79,7 @@
 <li>Automate all the things. If a task runner is watching your changes and constantly running tests, notifying you if they break, you can fix it before it becomes a bigger problem. gulp watch is your friend!</li>
 <li>Code review. Looking back over a unified diff helps catch a lot of those &ldquo;config oops&rdquo; moments, typos, and weird things that tooling does to &ldquo;help us&rdquo; .</li>
 <li>We&rsquo;re working on topic branches right now. If I push something awful, only the people working on that topic are affected (at least, that is, until the topic is merged). Note that this doesn&rsquo;t give us an exemption from validating our changes, but in case we forget&hellip;</li>
-<li>Automate even more things. <a href="http://msarchet.com">Michael</a> and I just finished setting up a process for our team that can run various validations whenever new code is pushed to any branch. We also ave a dashboard that gives us visibility of the status of each branch at a glance.</li>
+<li>Automate even more things. <a href="http://msarchet.com">Michael</a> and I just finished setting up a process for our team that can run various validations whenever new code is pushed to any branch. We also have a dashboard that gives us visibility of the status of each branch at a glance.</li>
 </ol>
 
 
