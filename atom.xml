@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-07-23T16:09:17-07:00</updated>
+  <updated>2014-07-23T16:12:08-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -54,9 +54,13 @@
 <p>The other part of my answer to the intern was a collection of things that fall under the &ldquo;continuing education&rdquo; heading.</p>
 
 <ol>
-<li>Find some books.</li>
-<li> You want some like Clean Code and Think Like A Programmer &ndash; general, conceptual, technology agnostic.</li>
-<li> You want some others that dive deep into the technology stack your using, like C# in Depth or JavaScript the Good Parts.</li>
+<li>Find some books.
+
+<ol>
+<li>You want some like Clean Code and Think Like A Programmer &ndash; general, conceptual, technology agnostic.</li>
+<li>You want some others that dive deep into the technology stack your using, like C# in Depth or JavaScript the Good Parts.</li>
+</ol>
+</li>
 <li>Subscribe to some blogs or podcasts that cover the things you&rsquo;re directly working with.</li>
 <li>Subscribe to more that cover areas you&rsquo;re interested in, but not yet working with. It helps to get your head around those concepts and the vocabulary.</li>
 <li>Subscribe to still more that cover areas you&rsquo;re not touching at all. See how the other half thinks, and reflect on whether what they&rsquo;re doing could apply to where you are.</li>
