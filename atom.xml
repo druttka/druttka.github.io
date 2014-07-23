@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-07-23T16:03:49-07:00</updated>
+  <updated>2014-07-23T16:06:56-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -30,7 +30,7 @@
 
 <h3>Learning On the Job, Apprenticeships, Mentoring</h3>
 
-<p>The truth is that once you leave the school setting, there&rsquo;s a world of crap you weren&rsquo;t taught. Like <a href="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/">how to use source control properly</a>. Like team specific conventions. Like navigating an existing codebase larger than you&rsquo;ve ever seen and fixing a bug without braking anything else. Like doing that when there are no docs, no tests, and none of the original authors hanging around to answer questions.</p>
+<p>The truth is that once you leave the school setting, there&rsquo;s a world of crap you weren&rsquo;t taught. Like <a href="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/">how to use source control properly</a>. Like team specific conventions. Like navigating an existing codebase larger than you&rsquo;ve ever seen and fixing a bug without breaking anything else. Like doing that when there are no docs, no tests, and none of the original authors hanging around to answer questions.</p>
 
 <p>So one part of my answer to the intern was a collection of things that fall under the &ldquo;experience&rdquo; heading.</p>
 
