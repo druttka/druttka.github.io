@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore &hellip;">
+  <meta name="description" content="I have some friends trying to wire up some pages. Several pages link to a destination page that has a select box, and they want to have a given &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/">How Can I Preselect an Option Element in a Select Box?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-24T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have some friends trying to wire up some pages. Several pages link to a destination page that has a select box, and they want to have a given option preselected based on where the user is coming from. After several emails, I decided a quick screencast might explain it more quickly and clearly. So here it is, my <a href="https://vimeo.com/77758879">first public* screencast</a>.</p>
+
+
+<p></p>
+
+<iframe src="//player.vimeo.com/video/77758879" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+
+<p> <p><a href="http://vimeo.com/77758879">Preselect an option in a select</a> from <a href="http://vimeo.com/user22107932">David Ruttka</a> on <a href="https://vimeo.com">Vimeo</a>.</p></p>
+
+<p>* A few jobs back, I did several internal training videos for new hires. They had great names loaded with all kinds of puns. I&#8217;m pretty sure <a href="http://twitter.com/joeyrobichaud">Joey</a> still has them.</p>
+
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -870,148 +921,6 @@ Remember also we only request one parent with the child, not both. So this is TW
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/03/14/updates-pushed-to-asfac-master/">Updates Pushed to Asfac Master</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-14T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Integrating <a href="https://github.com/thedevstop/asfac" target="_blank">asfac</a> into a real production codebase brought some necessary enhancements to our attention. The following updates have now been pushed to <a href="https://github.com/thedevstop/asfac/" target="_blank">master</a>.</p>
-
-<h3></h3>
-
-
-<h3></h3>
-
-
-<h3>Register and Resolve with Class Scope</h3>
-
-
-<p>Suppose you have an IDoWhatever interface, and you have some concrete implementations like DoWhateverToFoos and DoWhateverToBars. They both implement IDoWhatever, but the former is to be used for Foos while the latter is for Bars.</p>
-
-<p>You can now use the Class object or any instance of the Class as the registration scope. In particular, this came in handy when we had command handlers for various command classes.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Standard</span>
-</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">FooCommandHandler</span><span class="p">,</span> <span class="nx">IHandleCommands</span><span class="p">,</span> <span class="nx">FooCommand</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">handler</span><span class="o">:</span><span class="nx">IHandleCommands</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">,</span> <span class="nx">FooCommand</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Fluent</span>
-</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="nx">FooCommand</span><span class="p">).</span><span class="nx">register</span><span class="p">(</span><span class="nx">FooCommandHandler</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">handler</span><span class="o">:</span><span class="nx">IHandleCommands</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="nx">FooCommand</span><span class="p">).</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">IHandleCommands</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>Resolve with Fallback Scope</h3>
-
-
-<p>We also had some cases where a class wasn&rsquo;t registered in the specific scope being requested, but it was registered in the default scope. For example, a default command handler doing some logging might not find the registered ILogger in its own scope. It is now possible to specify to asfac that you&rsquo;d like to take a look in the default scope in the case where a resolution cannot be performed from the specified scope.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Standard</span>
-</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">ConsoleLogger</span><span class="p">,</span> <span class="nx">ILogger</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">logger</span><span class="o">:</span><span class="nx">ILogger</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">,</span> <span class="s2">&quot;SomeScope&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Fluent</span>
-</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">ConsoleLogger</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">);</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">logger</span><span class="o">:</span><span class="nx">ILogger</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="s2">&quot;SomeScope&quot;</span><span class="p">).</span><span class="nx">resolveWithFallback</span><span class="p">(</span><span class="nx">ILogger</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3></h3>
-
-
-<h3>Bug Fixes</h3>
-
-
-<p>We also found a few bugs that are now fixed (with accompanying tests, of course!). Basically these were all chalked up to scoped registration using the fluent syntax.</p>
-
-<p>Consider this code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">).</span><span class="nx">register</span><span class="p">(</span><span class="nx">Bar</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IBaz</span><span class="p">);</span>
-</span><span class='line'><span class="nx">factory</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Widget</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ISprocket</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We found that Widget was actually registered in scope â€˜foo&#8217;, and we expected it to be in the default scope. We hope asfac users agree. If you did indeed want to register many things into a common scope, you can do it like this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">scopedRegistrar</span><span class="o">:</span><span class="nx">IRegister</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">inScope</span><span class="p">(</span><span class="s1">&#39;scope&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">scopedRegistrar</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Bar</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">IBaz</span><span class="p">);</span>
-</span><span class='line'><span class="nx">scopedRegistrar</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="nx">Widget</span><span class="p">).</span><span class="nx">asType</span><span class="p">(</span><span class="nx">ISprocket</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">scopedResolver</span><span class="o">:</span><span class="nx">IResolve</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">fromScope</span><span class="p">(</span><span class="s1">&#39;scope&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// you get it...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you&rsquo;re using asfac, please let us know what you think. If you run into any problems, please log an issue on <a href="https://github.com/thedevstop/asfac/issues" target="_blank">github</a>. Thanks!</p>
-
-<h3>Thanks Adobe</h3>
-
-
-<p>Also, thanks to Adobe for tweeting about asfac. However, we want to clarify that the video embedded in <a href="https://thedevstop.wordpress.com/2013/01/28/the-story-of-asfac/" target="_blank">Joey&rsquo;s original asfac post</a> is not us creating asfac. It&rsquo;s Jon Skeet hacking out IOC concepts in C#.</p>
-
-<blockquote class="twitter-tweet">Learn how <a href="https://twitter.com/search/%23Asfac">#Asfac</a>, an <a href="https://twitter.com/search/%23IoC">#IoC</a> container, was created in this in-depth <a href="https://twitter.com/search/%23ActionScript">#ActionScript</a> video: <a title="http://bit.ly/SZGXo4" href="http://t.co/QkefPVkU">bit.ly/SZGXo4</a>
-
-â€” Adobe Flash Platform (@AdobeFlash) <a href="https://twitter.com/AdobeFlash/status/302477835187154944">February 15, 2013</a></blockquote>
-
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/14/updates-pushed-to-asfac-master/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1029,6 +938,10 @@ Remember also we only request one parent with the child, not both. So this is TW
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/03/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a>
       </li>
     
@@ -1042,10 +955,6 @@ Remember also we only request one parent with the child, not both. So this is TW
     
       <li class="post">
         <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a>
       </li>
     
   </ul>
