@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-07-23T17:18:57-07:00</updated>
+  <updated>2014-07-31T10:37:57-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[You Are Not in a Relationship With Your Tools]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/"/>
+    <updated>2014-07-31T08:35:58-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools</id>
+    <content type="html"><![CDATA[<p><em>Note: I haven&rsquo;t forgotten or abandoned the Committed series.</em></p>
+
+<p>Yesterday, I was beginning to prepare an internal talk, and I referred to some old materials I used when doing similar talks for previous teams. These talks go back years, and the concepts in them go back even further. Still, I see a lot of resistance to one of the ideas in particular.</p>
+
+<p><strong>tl;dr</strong> &ndash; Languages, platforms, libs, frameworks, and tools are not looking for a monogamous relationship. You don&rsquo;t need to marry one and use it exclusively, nor do you need to leave one to experiment with another. The more the merrier. If you really must crush on your tools, at least be poly-amorous.</p>
+
+<h3>Rewind: The Technology Council</h3>
+
+<p>I cannot make this up. I was once in a position where the grand plan was to create a sub-team of four(ish?) engineers called The Technology Council. To be fair, I can&rsquo;t remember if that was the official name, or just what those of us in the trenches started calling it.</p>
+
+<p>These engineers would not touch production code much any more. Their responsibility would be to create a white list of libraries and frameworks that the other developers would be allowed to reference. Removed from the actual problems, they&rsquo;d be able to see more clearly which tools would solve them. Of course, it goes without saying that once a single tool was chosen for Problem X, it would suit Problems Y and Z just fine.</p>
+
+<h3>Revolt</h3>
+
+<p>I expressed my displeasure with this idea. How could developers stay up to date or experiment with new approaches if they had to wait months for council approval? Then, when I eventually resigned, I was told I could be on the council if I&rsquo;d stay. Apparently there was some confusion, and it was believed that I just wanted to be one of the deciders.</p>
+
+<p>Before I left, I gave my team an internal talk called (prepare to facepalm) &ldquo;Enterprise Agility &ndash; Surviving the Waterfall and Staying Sane to Boot.&rdquo; Despite the title, I still stand behind most of the ideas in that talk, especially since they were heavily inspired by a (much better) talk I had just seen at CodeStock<sup>1</sup>.</p>
+
+<p>One of the slides in my talk was titled &ldquo;A Word About Golden Hammers.&rdquo; Here&rsquo;s one of the quotes I had in my notes.</p>
+
+<blockquote><p>What I am against is the thought that there is one solution to all problems, or that all problems can be solved by one solution.  Every problem is different.  The key, and the most important thing of all, is to understand not only what you&rsquo;re using (framework, libraries, etc), but why that&rsquo;s the right tool for the job. &ndash; <a href="http://blog.ircmaxell.com/2012/01/microphp-fallacy.html">Anthony Ferrara</a></p></blockquote>
+
+<h3>The New Hotness vs. Legacy Rot</h3>
+
+<p>Have you recently heard anyone mocking someone else&rsquo;s use of jQuery 1.6? Are you simultaneously locking into Angular so hard that you think your blog is a SPA? If so, you will be the jQuery 1.6 of five years from now<sup>2</sup>.</p>
+
+<p>jQuery solved some very real problems, and arguably still does. There was a time when if you didn&rsquo;t have a <code>$(function(){...})</code>, your reputation as a professional web developer would be in serious question!</p>
+
+<blockquote><p>Huh? &ndash;> This is really cool &ndash;> I use it everywhere &ndash;> Hmm, sometimes it&rsquo;s not so great. &ndash; <a href="http://mikehadlow.blogspot.co.uk/2012/06/when-should-i-use-orm.html">Mike Hadlow</a></p></blockquote>
+
+<p>Don&rsquo;t let <code>angular.module(...).run(...)</code> be your <code>$(function(){...})</code>.</p>
+
+<h3>More Than You Need</h3>
+
+<p>These days, people cast dispersions <code>$('#fancyDiv')</code>, touting the power and simplicity of <a href="http://vanilla-js.com/">vanilla.js</a>&rsquo;s <code>document.getElementById('fancyDiv')</code>.</p>
+
+<p>These people often simultaneously take a dependency on the entirety of Bootstrap because they want their buttons to be blue. What follows is a lot of headaches and tweaks trying to comply with Bootstrap&rsquo;s opinions.</p>
+
+<blockquote><p>I feel like there is always the &ldquo;one true way&rdquo;.  The way the tool wants me to do it. &hellip;  Need another way?  That&rsquo;s gonna be a lot of work. The &ldquo;one true way&rdquo; makes me feel like I am driving a slot car.  There is nowhere else to go. &ndash; <a href="http://elegantcode.com/2012/06/26/where-is-the-craft-in-cms/">Rob Maher</a></p></blockquote>
+
+<p>More ironically, what follows is a lot of headaches are tweaks trying to make things look less like Bootstrap and more like what the UI/UX folks really wanted. This becomes a lot harder than the couple of lines of less or sass that would have just made that button blue.</p>
+
+<h3>Weapon of Choice</h3>
+
+<p>Mastery of a single weapon or superpower will allow you to tackle a certain set of scenarios with grace and ease, but there&rsquo;s a reason that teams like The Avengers and Justice League exist. It&rsquo;s rare that any one skill or power will enable you to be the hero of all conflicts.</p>
+
+<p>Instead of a single weapon, what you could instead have is a utility belt. For your superpower, you could choose a curious mind and sharp, critical thinking. Then you could reason about which gadget will best get you out of each jam.</p>
+
+<blockquote><p>Always be yourself. Unless you can be Batman. Always be Batman. &ndash; unknown source, no less true</p></blockquote>
+
+<h3>Disillusionment</h3>
+
+<p>If you decide to start using X more than the Y you were using, you aren&rsquo;t &ldquo;leaving&rdquo; the former for the latter. At least, you don&rsquo;t need to do so. If you do so, no one cares.</p>
+
+<p>Please do tell us what you&rsquo;re learning and exploring in X. This is how we learn and grow. What I&rsquo;d like to see recognized more is that adopting X does not imply that Y gets thrown into the bin. Y&rsquo;s strengths are not removed by your new discovery of X. It could very well still have value in certain applications.</p>
+
+<h3>Wrapping This Up</h3>
+
+<p>The other day I was asked what tools and languages I&rsquo;m using right now to get my job done. I very honestly replied that I&rsquo;ve been working with a wide variety of things including but not limited to C#, node, PowerShell, and bash. The people I work with closely and I believe in familiarizing ourselves with many options, knowing their strengths and weaknesses, and utilizing the right tool for each task. We are building components that do their job and do it well, and then composing those to create the big picture solution. I hope this concept will become more mainstream in the industry. I hope I will never have to explain again why I know both PowerShell <strong>and</strong> Node, or why I&rsquo;ve started learning golang along with them.</p>
+
+<p>&mdash;</p>
+
+<p><small>
+<sup>1</sup> &ndash; Phil Japikse&rsquo;s talk was called <a href="http://www.skimedic.com/blog/page/Speaking.aspx">Lessons Learned: Being Agile in a Waterfall World</a> <br/>
+<sup>2</sup> &ndash; Or, at our accelerated rate of change, five weeks from now.
+</small></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Education and Experience]]></title>
@@ -966,15 +1040,6 @@ cd ..
 <p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
 
 <p><strong>Update:</strong> I created a <a href="https://gist.github.com/druttka/9927637"><code>new_draft</code></a> task that works much like the <code>new_page</code> task, but it puts the file in the configured <code>drafts_dir</code>. I have used it to quickly create empty stubs of things I want to cover soon, and pushed that to my private repo. This new platform and tool chain might just be what gets me blogging regularly again, but only time will tell.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Git for Windows, .NET, Visual Studio Developers]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/01/git-for-visual-studio-developers/"/>
-    <updated>2014-04-01T10:57:33-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/01/git-for-visual-studio-developers</id>
-    <content type="html"><![CDATA[<p>A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free &ldquo;all-day&rdquo; jump start course that I&rsquo;ll <a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">link</a> to instead.</p>
 ]]></content>
   </entry>
   

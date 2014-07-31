@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I have some friends trying to wire up some pages. Several pages link to a destination page that has a select box, and they want to have a given &hellip;">
+  <meta name="description" content="Just a heads up for now. I&rsquo;ll track down where to report this or to whom in the morning. Excuse any spelling, grammar, sloppiness of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoftweboptimization-110-when-optimizations-are-off/">ScriptBundle Subdirectories No Longer Work in Microsoft.Web.Optimization 1.1.0 When Optimizations Are Off</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-27T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Just a heads up for now. I&rsquo;ll track down where to report this or to whom in the morning. Excuse any spelling, grammar, sloppiness of screenshots, etc., I&rsquo;m doing this pretty quickly before heading out for the day.</p>
+
+<p><strong>tl;dr If you create ScriptBundles that recurse through subdirectories, and if you want to keep optimizations off for debug, stay on Microsoft.AspNet.Web.Optimization 1.0.0. If you go to 1.1.0, force EnableOptimizations=true, or your scripts from subdirectories won&rsquo;t come through.</strong></p>
+
+<p>I had the good fortune to do a File &gt; New Project a couple of days ago. When I did, I grabbed the bundling package</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Install-Package Microsoft.AspNet.Web.Optimization
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To keep this simple (i.e., to provide a <a href="http://blogs.msdn.com/b/oldnewthing/archive/2013/10/18/10457796.aspx" target="_blank">reduction</a>), I am including just two scripts here. Scripts/foo.js logs &ldquo;foo&rdquo;, and Scripts/subdir/bar.js logs &ldquo;bar&rdquo;.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb.png" width="244" height="144" border="0" /></a></p>
+
+<p>I create a simple, standard ScriptBundle that should pick these up.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">BundleTable</span><span class="p">.</span><span class="n">Bundles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">ScriptBundle</span><span class="p">(</span><span class="s">&quot;~/scripts/bundle&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="n">IncludeDirectory</span><span class="p">(</span><span class="s">&quot;~/Scripts&quot;</span><span class="p">,</span> <span class="s">&quot;*.js&quot;</span><span class="p">,</span> <span class="k">true</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When I include these on the Home/Index view using</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">@System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Optimization</span><span class="p">.</span><span class="n">Scripts</span><span class="p">.</span><span class="n">Render</span><span class="p">(</span><span class="s">&quot;~/scripts/bundle&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Only foo gets logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image1.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb1.png" width="244" height="164" border="0" /></a></p>
+
+<p>But if I downgrade to 1.0.0</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Uninstall-Package Microsoft.AspNet.Web.Optimization
+</span><span class='line'>Install-Package Microsoft.AspNet.Web.Optimization  - version 1.0.0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then they both get logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image2.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb2.png" width="244" height="221" border="0" /></a></p>
+
+<p>If we update back to the 1.1.0 package, we can look in Fiddler and see the problem.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image3.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb3.png" width="244" height="123" border="0" /></a></p>
+
+<p>Optimization is recognizing that there&rsquo;s a bar.js somewhere, but the bundle loses track of the fact that it&rsquo;s in a subdirectory. Of course, this is in debug mode where the optimizations are not enabled and the scripts are still delivered separately. Let&rsquo;s see if enabling the optimization to deliver the bundle itself will help us.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">BundleTable</span><span class="p">.</span><span class="n">EnableOptimizations</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now both statements are logged.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image4.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb4.png" width="244" height="125" border="0" /></a></p>
+
+<p>Of course, looking at the delivered bundle, we can see that the contents of both scripts are there. In other words, you wouldn&rsquo;t see this problem in Release or if you&rsquo;re explicitly forcing the optimizations into effect.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/10/image5.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb5.png" width="244" height="125" border="0" /></a></p>
+
+<p>I lost a fair bit of time the other day thinking that I had mistyped something setting up my ScriptBundle or a similar mistake. Even after I saw the 404s in Fiddler, I blamed myself and kept looking for my own error. Then I realized that the package version was different and took this wild guess =) Hope this helps save someone from similar trouble until the problem is resolved.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -878,49 +985,6 @@ Remember also we only request one parent with the child, not both. So this is TW
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/05/03/thoughts-on-transparent-compensation-policies/">Thoughts on Transparent Compensation Policies</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-03T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><font color="#ff0000" size="2">As always, this is just me and doesn&#8217;t reflect the opinions or beliefs of my employers, my family, my dog, my family&#8217;s dogs&#8230;you know the drill.</font></p>
-
-
-<p> <p>A few days ago, I noticed this come across Twitter.</p> <blockquote class="twitter-tweet"> <p>Curious: how would you feel if your salary (and everyone else&rsquo;s) was public knowledge?Would this solve or cause more problems?</p>â€” jim christopher (@beefarino) <a href="https://twitter.com/beefarino/status/329937227062845440">May 2, 2013</a></blockquote> <p>&nbsp;</p> <p>I started expressing my thoughts in response tweets, and then I got to a point where it was just too big for Twitter.</p> <h3>An Argument For Transparency</h3> <p>At the risk of appealing to authority with &ldquo;<a href="http://twitter.com/spolsky" target="_blank">Spolsky</a> says,&rdquo; I think he has some great points in his old post about <a href="http://www.joelonsoftware.com/articles/fog0000000038.html" target="_blank">Fog Creek Compensation</a>. </p> <p> <blockquote> <p>Many companies try to obfuscate the rules they use for determining compensation in hopes that they won&rsquo;t get caught paying some people too much and others too little.</p></blockquote> <p>Wait. &ldquo;Get caught&rdquo;? That makes it sound so criminal! Wide swings are understandable, aren&rsquo;t they? It&rsquo;s just business, isn&rsquo;t it? Everything is negotiable. A business has a fiscal responsibility to minimize its costs wherever it can, and that includes salaries!</p> <p>So the best hire you&rsquo;ve ever met comes in with no clue how to negotiate and hastily accepts a lowball offer. A smooth talker shows up and extracts twice the pay for questionable quality. The latter is told, &ldquo;Be sure not to speak of this to anyone  &ndash;  we can&rsquo;t to give this deal to all of our folks, but you&rsquo;re worth it!&rdquo; Everyone is happy until&hellip;</p> <p> <blockquote> <p>We feel that in the long run, this can only hurt us through negative morale, high turnover, and destructive office politics.</p></blockquote> <p>It doesn&rsquo;t matter what policy is in place to keep people quiet, teammates become friends and friends talk. The awkward moment comes when they think they&rsquo;re equally valuable to the business, so one talks money. The other says &ldquo;Ha, right. Maybe we&rsquo;ll make that much in a few more years!&rdquo; Then the first says, &ldquo;What? You&rsquo;re not making that now?&rdquo; The first feels guilty, and the second feels slighted. It&rsquo;s bad news all around<sup>1</sup>.</p> <p>Could it get worse? You bet! Imagine an entry level new hire with a big mouth lets his salary slip to the team. Imagine that it&rsquo;s higher than a few of the senior devs who stuck with the business through some really tough times. Imagine the resentment<sup>1</sup>, and realize that it&rsquo;s not just the victim who stews on this. The whole team feels it<sup>2</sup>.</p> <p> <blockquote> <p>This transparency policy is a good thing that forces Fog Creek management to keep things fair.</p></blockquote> <p>In the above situations, management believes that the &ldquo;don&rsquo;t tell!&rdquo; policy is actually being observed, so they continue with their shenanigans while developers seethe in angst. The developers try to address the situation, but they have to pull punches so as not to admit that the policy has been broken. Management takes it in stride and continues with their shenanigans. They ice the cake with the standard &ldquo;We just can&rsquo;t afford to give you a raise  &ndash;  you&rsquo;re already paid higher than many others so please don&rsquo;t discuss your salary around them!&rdquo; Rinse, repeat, resign<sup>4</sup>.</p> <h3>An Argument Against Transparency</h3> <p>Well, if you make it all public, you&rsquo;re basically inviting and expediting all the negative consequences above, aren&rsquo;t you? When you instruct your people to keep quiet, you&rsquo;ve at least got a chance. If levels and salaries are made known, you&rsquo;ve guaranteed the losing scenario!</p> <h3>Unless&hellip;</h3> <p>It&rsquo;s that third quote from Spolsky that does the trick. This time, I&rsquo;m adding emphasis and a footnote of my own.</p> <blockquote> <p>This transparency policy is a good thing that <strong>forces Fog Creek management to keep things fair<sup>5</sup></strong>.</p></blockquote> <p>Take a look at the &ldquo;Determining Levels&rdquo; section of <a href="http://www.joelonsoftware.com/articles/fog0000000038.html" target="_blank">that post</a> again. There are different facets (years of experience, education, enabling the team, skill, role) that give overlapping guidelines about what level a person could be in. This lets everyone understand why they&rsquo;ve been put in a certain level, and it provides guidelines on what they can do to push toward the next.</p> <p>In Spolsky&rsquo;s scheme, if I&rsquo;ve got 4 years of experience and a Bachelor&rsquo;s, should I be surprised that I&rsquo;m Level 11? If I want Level 12, I can wait a couple of years, or I can try to become an &ldquo;Enabler&rdquo; to get that boost. If I care more about the money than the title, I could strive for the &ldquo;Superstar adjustment.&rdquo; Now I&rsquo;m earning the salary of an &ldquo;11.5&rdquo;, but the whole team has agreed that I deserve it.</p> <p>Continuing in this scheme, if I look at Sally and she&rsquo;s a level 14, I know why. It&rsquo;s not because she negotiated better  &ndash;  it&rsquo;s because she&rsquo;s got 10 years, a PhD, and regularly offers up &ldquo;lofty thoughts&rdquo; about how the business can excel.</p> <p>Whether the scheme itself is perfect<sup>6</sup>, just having a scheme at all establishes a framework. I know what I&rsquo;m making. I know what Sally is making. She knows what I&rsquo;m making. The whole team knows what everyone is making, and we all know why. More importantly, we know that politics won&rsquo;t change it. Now we can all focus on getting things done. We can turn our attention to competing with our competitors instead of with ourselves. In doing so, we naturally grow in age, skill, and business strategy  &ndash;  all of which move us toward the next level.</p> <h3>So, what&rsquo;s my answer?</h3> <p>This post certainly makes it sound like transparency is the hands down winner in my mind, but I can still argue it either way. If you&rsquo;re building a new business, starting out transparent sounds like a great idea. For an existing business, transitioning into it will be much more complex. Like I told <a href="http://twitter.com/devspeed" target="_blank">Darin</a> and <a href="http://twitter.com/beefarino" target="_blank">Jim</a>, in my first response on Twitter,</p> <blockquote class="twitter-tweet"> <p>@<a href="https://twitter.com/devspeed">devspeed</a> @<a href="https://twitter.com/beefarino">beefarino</a> Feels like a cop out, but &ldquo;it depends.&rdquo; Is the management fair? Is the team honest with themselves about their levels?</p>â€” David Ruttka (@druttka) <a href="https://twitter.com/druttka/status/329971886555529217">May 2, 2013</a></blockquote> <p>&nbsp;</p> <p>If there is currently a labyrinth of arcane calculations and manipulations that no one understands, suddenly going transparent is going to bring a lot of disappointment. Even if it leads to a positive effort to put everyone where they should be, trust in management could already be broken if someone feels they&rsquo;ve been cheated.</p> <p>Looking at another scenario, let&rsquo;s pretend it&rsquo;s already completely fair when everything is unveiled. If the team has a surplus of immature or conceited folks, they could be upset with their relative position once the curtain is drawn. If Buck thinks he is heaven sent but suddenly realizes he&rsquo;s in the middle of the pack, Buck might start looking. Then again, it sounds like maybe this team is already toxic.</p> <p>So, Jim, I&rsquo;m going to bring this back to your original question, broken into three parts.</p> <ol> <li><strong>How would I feel if my salary was public knowledge?</strong> Meh.  <li><strong>(and everyone else&rsquo;s)?</strong> This is the complicated bit. I&rsquo;m really not sure that I&rsquo;d be interested enough to look at it. I think I&rsquo;m paid fairly and my family is happy, so what does it matter if Mickey or Minnie make more<sup>3</sup>? If I did look, I&rsquo;d like to think that I&rsquo;d reflect on it and come to humble acceptance in any case. I&rsquo;d hope that the rest of the team would do the same. I&rsquo;d be more concerned with the potential aftermath than with the transparency itself (i.e., don&rsquo;t care if salaries are public, do care whether the team self-destructs or grows to a new level of maturity).  <li>&nbsp;<strong>Would this solve or cause more problems? </strong>Let S be the number of problems solved and C be the number of problems caused. (S &gt; C) || (C &gt; S) will be true as for any S, C where S != C.</li></ol> <p>Obviously, my perspective is based on my experiences. I&rsquo;d love to hear what others think based on what they&rsquo;ve seen. Comments section below, after an uncommonly long set of footnotes.</p> <p><font color="#000000"><font size="2"><sup>1 </sup>Have I seen this happen firsthand, heard it from a coworker, heard it at a conference, or cut it from whole cloth? I will never tell ;&ndash;)</font></font></p> <p><font color="#000000"><font size="2"><sup>2 </sup>I suppose that part about the whole team feeling it depends on the team. I&rsquo;ve been lucky to have pretty much always been on fantastic teams where we all get along and sing kumbaya together at lunch. Alright, I made up the kumbaya thing, but really, brothers and sisters in arms and all that jazz.</font></font></p> <p><font color="#000000"><font size="2"><sup>3</sup> This doesn&rsquo;t necessarily mean that I&rsquo;d be disinterested in earning more myself. Having more to put into savings, investments, early retirement  &ndash;  nothing against that. But that&rsquo;s my situation. Mickey and Minnie&rsquo;s are, at best, nothing but objective data points for a discussion about my own earnings.</font></font></p> <p><font color="#000000"><font size="2"><sup>4 </sup>I&rsquo;m about to change jobs. It has absolutely nothing to do with this kind of situation. I want to make that abundantly clear.</font></font></p> <p><font color="#000000"><font size="2"><sup>5</sup> Remember from your logic classes that this doesn&rsquo;t mean an absence of the policy implies an absence of fairness. This is not the <strong>only </strong>way to keep things fair, it&rsquo;s just <strong>one </strong>way. </font></font></p> <p><font size="2"><font color="#000000"><sup>6</sup> I&rsquo;m not sure that I entirely agree with Spolsky&rsquo;s criteria, but to be fair, the post was from 2000. A lot has changed as people have greater access to training outside of a university setting. I&rsquo;ve seen a person with a Master&rsquo;s who could not solve problems more complex than untied shoelaces, and I&rsquo;ve seen a person with no degree whatsoever blow my mind.</font> </font></p></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/05/03/thoughts-on-transparent-compensation-policies/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -938,6 +1002,10 @@ Remember also we only request one parent with the child, not both. So this is TW
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
       </li>
     
@@ -951,10 +1019,6 @@ Remember also we only request one parent with the child, not both. So this is TW
     
       <li class="post">
         <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
       </li>
     
   </ul>

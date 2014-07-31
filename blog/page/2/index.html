@@ -9,8 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Holy cow. async/await sugar on top of generators coming in ES7?!
-">
+  <meta name="description" content="File another one under learning something new everyday. Patrick was asking me what the best way is to get the scheme + host + port of a Uri in .NET. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +78,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/14/little-wonders-uri-dot-getleftpart/">Little Wonders: Uri.GetLeftPart</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-14T15:23:29-07:00" pubdate data-updated="true">Apr 14<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/14/little-wonders-uri-dot-getleftpart/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/14/little-wonders-uri-dot-getleftpart/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>File another one under learning something new everyday. Patrick was asking me what the best way is to get the scheme + host + port of a Uri in .NET. We discussed a few ways that we&rsquo;ve done it in the past, but agreed that there must be a better way.</p>
+
+<p>Behold, <code>Uri.GetLeftPart</code>! This will give you everything up to and including the part you want.</p>
+
+<p>Given a <code>new Uri(http://somewhere.com:8080/this/is/path?andQuery#fragment)</code>, calling <code>GetLeftPart(UriPartial.Authority)</code> will give you back <code>http://somewhere.com:8080</code>. You can also use <code>Scheme</code>, <code>Path</code>, and <code>Query</code>. There&rsquo;s a table showing what comes back at each part in the <a href="http://msdn.microsoft.com/en-us/library/system.uri.getleftpart(v=vs.110).aspx">MSDN documentation</a>.</p>
+
+<p>It sure beats the string manipulations I&rsquo;ve done in the past!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -679,44 +725,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">Git for Windows, .NET, Visual Studio Developers</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-01T10:57:33-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-        
-        <a href="/blog/2014/04/01/git-for-visual-studio-developers/">Permalink</a>
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free &ldquo;all-day&rdquo; jump start course that I&rsquo;ll <a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">link</a> to instead.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -734,6 +742,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
       </li>
     
@@ -747,10 +759,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a>
       </li>
     
   </ul>
