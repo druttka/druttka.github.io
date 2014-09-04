@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Note: I haven&rsquo;t forgotten or abandoned the Committed series. Yesterday, I was beginning to prepare an internal talk, and I referred to some old &hellip;">
+  <meta name="description" content="I wanted to do something silly this morning, so here&rsquo;s my newest git alias. git config --global alias.pushit "!f() { git push; start http:// &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/09/04/git-pushit/">Git Pushit</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-04T13:48:05-07:00" pubdate data-updated="true">Sep 4<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/09/04/git-pushit/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/09/04/git-pushit/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wanted to do something silly this morning, so here&rsquo;s my newest git alias.</p>
+
+<pre><code>git config --global alias.pushit "!f() { git push; start http://druttka.github.io/pushit ; }; f"
+</code></pre>
+
+<p>This will do a git push and then open a browser. The browser will either play &ldquo;Push It&rdquo; by Salt-N-Pepa or &ldquo;Push It&rdquo; by Static-X.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -895,55 +941,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/14/little-wonders-alt-plus-space/">Little Wonders: Alt+Space, E, P</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-14T15:41:38-07:00" pubdate data-updated="true">Apr 14<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/14/little-wonders-alt-plus-space/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/14/little-wonders-alt-plus-space/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>This is why we pair! &ndash; Me, many times</p></blockquote>
-
-<p>Another one. These things are so simple, but they&rsquo;re only useful if you know they exist. I&rsquo;ve been planning a post that covers my thoughts on pairing, but (spoiler alert!) this kind of little stuff is one of the great benefits.</p>
-
-<p>I had to reimage a machine, so my console hotkeys are not all the same as they used to be. I usually remap <code>Ctrl+V</code> to paste, since that is consistent with most apps in the Windows ecosystem. Until I do so, it&rsquo;s <code>Right Click &gt; Edit &gt; Paste</code>.</p>
-
-<p>I was telling Patrick how I love to stay at the keyboard and eschew the mouse as much as possible, and he pointed out that I could just do <code>Alt+</code><del>Enter</del><code>Space*, E, P</code>. This isn&rsquo;t quite as short as the <code>Ctrl+V</code> remapping, but it works out of the box. I like it!</p>
-
-<p>* Thanks to <a href="http://msarchet.com">Michael</a> for noticing that I had this correct in the title, but typed the wrong content in the body.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -959,6 +956,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
       </li>
     
@@ -972,10 +973,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a>
       </li>
     
   </ul>

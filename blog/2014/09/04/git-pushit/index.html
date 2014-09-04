@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>This Was Helpful. Octopress From All Your Machines! - David Ruttka</title>
+  <title>Git Pushit - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. Nice write up.
-">
+  <meta name="description" content="I wanted to do something silly this morning, so here&rsquo;s my newest git alias. git config --global alias.pushit "!f() { git push; start http:// &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/09/04/git-pushit/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -82,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">This Was Helpful. Octopress From All Your Machines!</h1>
+      <h1 class="entry-title">Git Pushit</h1>
     
     
       <p class="meta">
@@ -98,7 +97,10 @@
   
 
 
-<time datetime="2014-04-01T09:25:43-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+<time datetime="2014-09-04T13:48:05-07:00" pubdate data-updated="true">Sep 4<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
         
         
       </p>
@@ -106,7 +108,12 @@
   </header>
 
 
-<div class="entry-content"><p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
+<div class="entry-content"><p>I wanted to do something silly this morning, so here&rsquo;s my newest git alias.</p>
+
+<pre><code>git config --global alias.pushit "!f() { git push; start http://druttka.github.io/pushit ; }; f"
+</code></pre>
+
+<p>This will do a git push and then open a browser. The browser will either play &ldquo;Push It&rdquo; by Salt-N-Pepa or &ldquo;Push It&rdquo; by Static-X.</p>
 </div>
 
 
@@ -129,7 +136,7 @@
   
 
 
-<time datetime="2014-04-01T09:25:43-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+<time datetime="2014-09-04T13:48:05-07:00" pubdate data-updated="true">Sep 4<span>th</span>, 2014</time>
       
 
 
@@ -137,7 +144,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/01/octopress-from-all-your-machines/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/09/04/git-pushit/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/09/04/git-pushit/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -150,14 +157,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/04/01/facebook/" title="Previous Post: Facebook?">&laquo; Facebook?</a>
+        <a class="basic-alignment left" href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/" title="Previous Post: You Are Not In A Relationship With Your Tools">&laquo; You Are Not In A Relationship With Your Tools</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/01/a-great-explanation-of-powershell-streams-and-write-host/" title="Next Post: A great explanation of PowerShell streams and Write-Host">A great explanation of PowerShell streams and Write-Host &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -207,6 +218,22 @@
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidruttka';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/09/04/git-pushit/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2014/09/04/git-pushit/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 

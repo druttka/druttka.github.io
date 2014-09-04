@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-07-31T10:37:57-07:00</updated>
+  <updated>2014-09-04T13:50:55-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Pushit]]></title>
+    <link href="http://www.davidruttka.com/blog/2014/09/04/git-pushit/"/>
+    <updated>2014-09-04T13:48:05-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2014/09/04/git-pushit</id>
+    <content type="html"><![CDATA[<p>I wanted to do something silly this morning, so here&rsquo;s my newest git alias.</p>
+
+<pre><code>git config --global alias.pushit "!f() { git push; start http://druttka.github.io/pushit ; }; f"
+</code></pre>
+
+<p>This will do a git push and then open a browser. The browser will either play &ldquo;Push It&rdquo; by Salt-N-Pepa or &ldquo;Push It&rdquo; by Static-X.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[You Are Not in a Relationship With Your Tools]]></title>
@@ -975,71 +989,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
 
 <p>Like the other constructor arguments, that last can be a comma separated list. Looks legit!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress Rake Tasks for Scheduling Posts and Pulling Source]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/"/>
-    <updated>2014-04-01T19:13:02-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source</id>
-    <content type="html"><![CDATA[<p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
-
-<p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
-
-<h2>Source vs. Master</h2>
-
-<p>If you&rsquo;ve paid attention to what&rsquo;s going on with Octopress, you know that what gets deployed to GitHub Pages is the <strong>master</strong> branch of your <strong>_deploy</strong> directory. The raw, ungenerated material (markdown, themes, layouts, etc.) stick around in the <strong>source</strong> branch which you can push, well, wherever. I push mine to a private repo.</p>
-
-<p>If I&rsquo;m going to be working on posts from multiple machines, I find myself doing a lot of this&hellip;</p>
-
-<pre><code>git pull private source
-cd _deploy
-git pull origin master  
-cd ..
-</code></pre>
-
-<p><strong>I would rather just do this</strong></p>
-
-<pre><code>rake pull
-</code></pre>
-
-<p>Spoiler alert: Now I can =) I created an <a href="https://gist.github.com/druttka/9926932">Octopress rake gist</a> if you want to add this to your own Rakefile.</p>
-
-<h2>Drafts and Scheduling</h2>
-
-<p>Two of the things I missed from WordPress</p>
-
-<ul>
-<li>working on drafts</li>
-<li>marking posts as &ldquo;done&rdquo;, but for a future date</li>
-</ul>
-
-
-<p>I know that Octopress has <code>published: false</code> to support drafts, but I&rsquo;d rather have a <code>_drafts</code> directory. This keeps them isolated so it&rsquo;s easier to see what&rsquo;s a draft and prevents mistakes around the <code>published</code> flag.</p>
-
-<p>When a draft is done, I can <code>mv it.markdown ../_posts/YYYY-MM-DD-it.markdown</code> to include it immediately.</p>
-
-<p><strong>I would rather </strong> <code>mv it.markdown YYYY-MM-DD-it.markdown</code> <strong>and have it included when we reach that date.</strong></p>
-
-<p>Spoiler alert again: Now I can =) At any point, I (or any automated worker process) can just</p>
-
-<pre><code>rake post_drafts &amp;&amp; rake generate &amp;&amp; rake deploy
-</code></pre>
-
-<p><em>Yes, for now I called it post_drafts even though it doesn&rsquo;t include the generate or deploy. I&rsquo;m still undecided on what I want to do here, and my philosophy is don&rsquo;t go pushing things live unless you&rsquo;re sure that&rsquo;s what you wanted.</em></p>
-
-<p>So the <code>post_drafts</code> task spins through <code>_drafts</code>, and any files matching YYYY-MM-DD-title.markdown <strong>where YYYY-MM-DD is today or earlier</strong> get moved to _posts. Files not matching the format, or where the date is still in the future, are left alone.</p>
-
-<p>I also created an <a href="https://gist.github.com/druttka/9927030">Octopress rake post_drafts gist</a>. <strong>Do remember to define drafts_dir, as that&rsquo;s not something in the default Rakefile!</strong></p>
-
-<h2>Am I doing it wrong?</h2>
-
-<p>This was a fun excercise for me. It eased a couple of my pain points and gave me an excuse to hack on Ruby and Rake for a few minutes. Maybe I&rsquo;ll look into that automated worker to promote scheduled drafts without any human intervention, so things go live even if I&rsquo;m on vacation.</p>
-
-<p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
-
-<p><strong>Update:</strong> I created a <a href="https://gist.github.com/druttka/9927637"><code>new_draft</code></a> task that works much like the <code>new_page</code> task, but it puts the file in the configured <code>drafts_dir</code>. I have used it to quickly create empty stubs of things I want to cover soon, and pushed that to my private repo. This new platform and tool chain might just be what gets me blogging regularly again, but only time will tell.</p>
 ]]></content>
   </entry>
   
