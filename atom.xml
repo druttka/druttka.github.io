@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-09-04T13:50:55-07:00</updated>
+  <updated>2014-09-04T13:57:25-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.davidruttka.com/blog/2014/09/04/git-pushit</id>
     <content type="html"><![CDATA[<p>I wanted to do something silly this morning, so here&rsquo;s my newest git alias.</p>
 
-<pre><code>git config --global alias.pushit "!f() { git push; start http://druttka.github.io/pushit ; }; f"
+<pre><code>git config --global alias.pushit '!f() { git push; start http://druttka.github.io/pushit ; }; f'
 </code></pre>
 
 <p>This will do a git push and then open a browser. The browser will either play &ldquo;Push It&rdquo; by Salt-N-Pepa or &ldquo;Push It&rdquo; by Static-X.</p>
