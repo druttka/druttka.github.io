@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="File under &ldquo;Learn something new every day.&rdquo; Long story short, we have enabled CORS in our API, but today I learned that not all headers &hellip;">
+  <meta name="description" content="As I&rsquo;ve continued iterating on the PowerShell script that I&rsquo;m using to migrate my old WordPress posts, I decided to point the canonical &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,71 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Updating Octopress to Override the Canonical Rel Link</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-06T15:53:10-07:00" pubdate data-updated="true">Apr 6<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As I&rsquo;ve continued iterating on the PowerShell script that I&rsquo;m using to migrate my old WordPress posts, I decided to point the <a href="https://support.google.com/webmasters/answer/139066?hl=en">canonical link</a> to the old location. I might choose not to do this once I have a full migration story (redirection of the old permalinks, etc.), but as long as the original location is still up I figure those posts should keep any link juice they have.</p>
+
+<p>So, I can now do this in the yaml on top of a post</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">canonical</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://thedevstop.wordpress.com/whatever</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the generated post will come out with that in the canonical link, instead of the url for the www.davidruttka.com clone.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;canonical&quot;</span> <span class="na">href=</span><span class="s">&quot;http://thedevstop.wordpress.com/whatever&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All it took was a quick edit to the existing <code>capture</code> in the <code>head.html</code> include. The change is the <code>if page.canonical</code> block, and the full line ends up looking like this:</p>
+
+<div><script src='https://gist.github.com/10012638.js'></script>
+<noscript><pre><code>{% capture canonical %}{% if page.canonical %}{{ page.canonical }}{% else %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endif %}{% endcapture %}</code></pre></noscript></div>
+
+
+<p>I&rsquo;ve opened an <a href="https://github.com/imathis/octopress/issues/1536">issue</a> to discuss whether this is something anyone else would ever use. If it is, it should be a simple enough thing to incorporate. I&rsquo;ve also sent a <a href="https://github.com/imathis/octopress/pull/1537">pull request</a> for the issue, but derped something up and they didn&rsquo;t get associated.</p>
+
+<p>Later tonight, or tomorrow, I&rsquo;ll also share what I did to fix the linklog, <code>external_url</code> feature for my instance.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -669,47 +734,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/03/29/hello-octopress/">Hello Octopress!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T19:20:29-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/03/29/hello-octopress/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/03/29/hello-octopress/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">Like I said</a>, here we go.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -727,6 +751,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/25/are-you-really-blocked/">Are You Really Blocked?</a>
       </li>
     
@@ -740,10 +768,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/03/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2015-02-25T10:39:55-08:00</updated>
+  <updated>2015-02-25T10:45:36-08:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[High Performance Developers]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/02/25/high-performance-developers/"/>
+    <updated>2015-02-25T09:42:28-08:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/02/25/high-performance-developers</id>
+    <content type="html"><![CDATA[<blockquote><p> It&rsquo;s really pretty simple. I can, during that time, pair up with 10 less experienced developers and show them how to find solutions in minutes for things that would have taken them hours or days. I can make myself available to answer their questions. I can intervene at the point where they&rsquo;d have thrown up their arms in frustration and despair and spent the rest of the day reading buzz feed and cracked. I can clear obstacles from their paths and help them get things done. I can get them excited about programming and enjoying their jobs.</p></blockquote>
+
+<p>If I were a high performing developer, but I did none of that, and just used those less experienced or less engaged developers as a prop to make the claim that I&rsquo;m in some kind of elite club of &ldquo;10x&rdquo;  people, the opportunity cost of my attitude would more than offset my skill from an industry perspective. If, instead, I help them up their game and overcome hurdles, then perhaps that 10x designation might actually mean something.</p>
+
+<p><a href="http://www.daedtech.com/10x-developer-reconsidered">link</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Are You Really Blocked?]]></title>
@@ -1019,39 +1032,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <p>Basically, I just added a capture for <code>entryhref</code>, using the <code>external_url</code> if present. Later, after the line that handles adding the Comments link as appropriate, I added a line that adds the Permalink as appropriate.</p>
 
 <p>I&rsquo;m still finding my way around Octopress and am definitely open to thoughts if I&rsquo;m going about this stuff the wrong way. Let me know.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Updating Octopress to Override the Canonical Rel Link]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link/"/>
-    <updated>2014-04-06T15:53:10-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/06/updating-octopress-to-override-the-canonical-rel-link</id>
-    <content type="html"><![CDATA[<p>As I&rsquo;ve continued iterating on the PowerShell script that I&rsquo;m using to migrate my old WordPress posts, I decided to point the <a href="https://support.google.com/webmasters/answer/139066?hl=en">canonical link</a> to the old location. I might choose not to do this once I have a full migration story (redirection of the old permalinks, etc.), but as long as the original location is still up I figure those posts should keep any link juice they have.</p>
-
-<p>So, I can now do this in the yaml on top of a post</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">canonical</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://thedevstop.wordpress.com/whatever</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And the generated post will come out with that in the canonical link, instead of the url for the www.davidruttka.com clone.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;canonical&quot;</span> <span class="na">href=</span><span class="s">&quot;http://thedevstop.wordpress.com/whatever&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>All it took was a quick edit to the existing <code>capture</code> in the <code>head.html</code> include. The change is the <code>if page.canonical</code> block, and the full line ends up looking like this:</p>
-
-<div><script src='https://gist.github.com/10012638.js'></script>
-<noscript><pre><code>{% capture canonical %}{% if page.canonical %}{{ page.canonical }}{% else %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endif %}{% endcapture %}</code></pre></noscript></div>
-
-
-<p>I&rsquo;ve opened an <a href="https://github.com/imathis/octopress/issues/1536">issue</a> to discuss whether this is something anyone else would ever use. If it is, it should be a simple enough thing to incorporate. I&rsquo;ve also sent a <a href="https://github.com/imathis/octopress/pull/1537">pull request</a> for the issue, but derped something up and they didn&rsquo;t get associated.</p>
-
-<p>Later tonight, or tomorrow, I&rsquo;ll also share what I did to fix the linklog, <code>external_url</code> feature for my instance.</p>
 ]]></content>
   </entry>
   

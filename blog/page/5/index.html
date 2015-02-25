@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Last night, Derek mentioned that he wanted to start writing again, and I realized that I&rsquo;ve been pretty slack about it too. I thought that &hellip;">
+  <meta name="description" content="The bad news is, I&rsquo;m not much of an artist. The good news is, if I draw this in Paint .NET, it&rsquo;s about the same as if I draw it on the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,108 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/07/01/the-many-adventures-of-externalias/">The Many Adventures of Externalias</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-01T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>The bad news is</strong>, I&rsquo;m not much of an artist.</p>
+
+<p><strong>The good news is</strong>, if I draw this in Paint .NET, it&rsquo;s about the same as if I draw it on the whiteboard and take a picture.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image.png"><img style="background-image:none;padding-top:0;padding-left:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb.png" width="244" height="229" border="0" /></a></p>
+
+<p>His name is Externalias. He has been described as &ldquo;a kind of Pac-Man thingy, but with one wing on his back, and antenna&hellip;and a lot more scary.&rdquo; His nemesis is Subtopdecor, but that&rsquo;s for another post. You may ask yourself, &ldquo;Why is Ruttka sharing this?&rdquo; I write to you today about Externalias because his origin story contains a useful answer, and despite the silliness (horror?) of the mascot, it&rsquo;s possible someone could benefit from hearing it.</p>
+
+<p>About two years ago, <a href="http://stackoverflow.com/users/807851/mccow002">my friend Chris</a> sat looking at red squiggly. It implied that he was not referencing a required assembly or was missing a using statement. He was definitely referencing it. We found that the using statement also griped that the namespace didn&rsquo;t even exist. As he manually typed the using statement from scratch, intellisense never showed the namespace that he needed to use for the desired type.</p>
+
+<p>I didn&rsquo;t know the answer at the time, but when it happened again last week, I recognized it and was able to fix it pretty quickly.</p>
+
+<p>Fast-forward to the present. Here is one way to get into a very similar situation for which the resolution is identical, but overly simplified and contrived for the purposes of illustration in a blog post. Click any of these images to embiggen.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image1.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb1.png" width="244" height="212" border="0" /></a></p>
+
+<p>I will not be going into how or why such a situation is ever created. What I will say that I&rsquo;ve seen it on multiple projects with multiple teams in multiple organizations, so it undoubtedly does happen.</p>
+
+<p>When you build, or rather when you try to build, it&rsquo;s not going to work.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image2.png"><img style="background-image:none;padding-top:0;padding-left:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb2.png" width="244" height="90" border="0" /></a></p>
+
+<p>The type &lsquo;Foo.Data.Bar&rsquo; exists in both &lsquo;c:\src\Externalias\Foo.Data\bin\Debug\Foo.Data.dll&rsquo; and &lsquo;c:\src\Externalias\Foo\bin\Debug\Foo.dll&rsquo;</p>
+
+<p>The error message describes the problem fairly well, but <a href="http://stackoverflow.com/a/5092871/368296">unlike other errors</a>, it doesn&rsquo;t recommend a solution.</p>
+
+<p>Now, back to that day a few years ago, when I popped into my friend&rsquo;s cube a little later, he had just found the answer: EXTERNALIAS! Of course, he had said <a href="http://msdn.microsoft.com/en-us/library/ms173212.aspx">extern alias</a>, but I was in the habit of hearing words mashed together (see also: Subtopdecor).</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image3.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb3.png" width="239" height="244" border="0" /></a></p>
+
+<p>Here&rsquo;s what you have to do. View the references of the project in which the problem is occurring, and choose one of the colliding assembles (doesn&rsquo;t really matter which). View the Properties for that reference, and note that it (like all the others, most likely) is only in the &ldquo;global&rdquo; alias. Add another, comma separated.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image6.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb6.png" width="139" height="244" border="0" /></a></p>
+
+<p>Navigate back to the code file in which the problem is occurring. Above all the usings, add</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">extern</span> <span class="k">alias</span> <span class="p">{</span><span class="n">theAliasYouJustMadeUp</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And change the using to</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">using</span> <span class="err">{</span><span class="nn">theAliasYouJustMadeUp</span><span class="p">}::{</span><span class="n">whatYouReallyReallyWant</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image5.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb5.png" width="244" height="159" border="0" /></a></p>
+
+<p>The build succeeds. For the curious, yes the global:: is implied but can be made explicit&hellip;</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2013/07/image7.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb7.png" width="244" height="192" border="0" /></a></p>
+
+<p><strong>Acknowledgments</strong></p>
+
+<p>Thanks, Chris, for being the first person I know to have encountered this. May you never encounter it again.</p>
+
+<p>Thanks, Externalias, for being the greatest doodle I&rsquo;ve ever created and preserving the memory of this solution in such a whimsical form. May your presence on developer whiteboards be ever increasing.</p>
+
+<p><strong>Update</strong></p>
+
+<p>What I left out is that (long story short) I doodled these characters on our whiteboards. If I remember correctly, Subtopdecor came first. After I misheard &ldquo;Subtopdecor,&rdquo; Chris said it sounded like the name of an evil robot. My first sketch of Subtopdecor was somewhat leaner and meaner, but along the way he filled out and got a little more neutral. I prefer the original interpretation, but for some reason I can no longer draw it successfully. For Externalias, the doodle came first, quite randomly. It was only later that I misheard &ldquo;Externalias&rdquo; and we applied the name. They have been spotted at venues as grand as the McWane Science Center in Birmingham.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/01/the-many-adventures-of-externalias/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1183,86 +1285,6 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">Git Bash Command Line Magic Searching Across Branches to Find Certain Files, Directories, Features</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-08T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So, these commands might be old news to some. Isn&rsquo;t gonna stop me from sharing :&ndash;)</p>
-
-<p>Today, we weren&rsquo;t sure where a certain bit of code was. Why we weren&rsquo;t sure isn&rsquo;t the point of this post, but we knew that the code had been written. We also knew, from some old conversation, a directory name. <strong>But the directory didn&rsquo;t exist, at least not in our branches.</strong></p>
-
-<p>So on what branch might it have been done? Reflecting now, we could have looked at our issue tracking system and found the associated commits that way. What we ended up doing was having some fun at the command line.</p>
-
-<p>Let&rsquo;s say the feature had to do with <strong>diagnosing widgets</strong>, and we knew the directory name was <strong>tools/widgetDiagnosis</strong>.</p>
-
-<h3>Option 1: Search by branch name</h3>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch -a | grep -i diagnos
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>What does this do? </strong>Well,Â git branch -a lists all the branches both locally and remote, and then that&rsquo;s piped in as input to grep -i diagnos which does a case insensitive pattern match. This gives us output like /origin/feature/Widget-Diagnostics, or maybe it was /origin/feature/Diagnose-Widgets, but you can see now why I used &ldquo;diagnos&rdquo; as the search pattern. Distinct enough to avoid a lot of false positives, but loose enough to match variants of the word.Â <strong>
-</strong></p>
-
-<h3>Option Two: Search by path</h3>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gitÂ log --all -- tools/widgetDiagnosis
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>What does this do? </strong>I stole this one fromÂ <a title="How can I search Git branches for a file or directory?" href="http://stackoverflow.com/a/372970/368296" target="_blank">StackOverflow</a>.Â There are other answers there too in case you don&rsquo;t know the full exact path that you&rsquo;re looking for. At any rate, this gets the log for all the refs but only where the commit can explain how the file exists. Then get a branch name with</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git branch --contains &lt;a commit <span class="nb">hash </span>from above&gt;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In our case, the way we structure our branches and the way we format our commit messages, the log was enough to lead us to the correct branch.</p>
-
-<p>So there you have it. Again, might be very old news to some, but if this helps at least one person, this write-up was worth it.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/08/08/git-bash-command-line-magic-searching-across-branches-to-find-certain-files-directories-features/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1280,6 +1302,10 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/25/are-you-really-blocked/">Are You Really Blocked?</a>
       </li>
     
@@ -1293,10 +1319,6 @@ You can check this out atÂ <a title="Think Like a Programmer" href="http://sho
     
       <li class="post">
         <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/03/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a>
       </li>
     
   </ul>
