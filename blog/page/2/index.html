@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This is why we pair! &ndash; Me, many times Another one. These things are so simple, but they&rsquo;re only useful if you know they exist. I&rsquo;ve &hellip;">
+  <meta name="description" content="We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,135 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Rewriting History to Remove Unwanted Binaries</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-16T20:41:38-07:00" pubdate data-updated="true">Apr 16<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one thing that we&rsquo;re cleaning up in the process.</p>
+
+<h2>These Aren&rsquo;t The Packages You&rsquo;re Looking For</h2>
+
+<p>We got into a bad situation where we were checking in our <code>packages</code> folder instead of letting NuGet restore handle it.</p>
+
+<ul>
+<li>Some of this was because we were using older build templates in VSO and NuGet restore wasn&rsquo;t working how we expected</li>
+<li>Some of this was because we have private packages that aren&rsquo;t on any feed that VSO can currently access</li>
+</ul>
+
+
+<h2>Rewriting History</h2>
+
+<p>If we&rsquo;re going to have a new project in VSO, and we&rsquo;re going to be creating a new repo based on the TFVC history, we might as well move up to the new templates and pretend those packages were never there.</p>
+
+<p>The naive approach would be to just do the <code>git tf</code> migration, then do a follow-up commit that deletes all the packages. They&rsquo;d still be in the history, the repo would still be oversized, and the index would still take the hit of having all those binaries hanging around.</p>
+
+<p>Here&rsquo;s a command that would do the trick for the <code>Newtonsoft.Json.6.0.1</code> package alone.</p>
+
+<p><strong>DANGER! WARNING! WE&rsquo;RE DOING THIS TO A NEW REPO, DURING MIGRATION, BEFORE IT BECOMES SHARED HISTORY. READ THE MANUAL AND CAVEATS BEFORE YOU DO THIS TO EXISTING, SHARED REPOS</strong> <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">read it here</a></p>
+
+<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/Newtonsoft.Json.6.0.1" HEAD
+</code></pre>
+
+<h3>Breakdown</h3>
+
+<p><strong>tl;dr this is going to roll through all of our commits, and for each one, remove the Newtonsoft.Json.6.0.1 directory and everything inside of it from both the working tree and index. It NEVER EXISTED.</strong></p>
+
+<ul>
+<li><code>packages/Newtonsoft.Json.6.0.1</code> is the most self-explanatory part. This is the sub-directory we&rsquo;re going to pretend was never added.</li>
+<li><code>-rf</code> should be similarly self-explanatory for anyone with a bit of *nix background. Recursive. Force.</li>
+<li><code>--ignore-unmatch</code> sparked a bit of discussion between Michael and me. What it boils down to is that this instructs <code>git rm</code> to exit with a success code even if no files match the pattern. Otherwise it would exit as a failure if no files were matched and removed.</li>
+<li><code>git rm</code> says to remove the files.</li>
+<li><code>--cached</code> removes it from the index but leaves the working tree alone.</li>
+<li>This is all wrapped in quotes because it&rsquo;s a parameter to <code>git filter branch</code></li>
+<li><code>git filter-branch</code> on the left is going to rewrite history for every commit</li>
+<li><code>--index-filter</code> is better explained in <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">the docs*</a></li>
+<li><code>HEAD</code> on the right side says we want to save the rewritten history in HEAD.</li>
+<li><code>-f</code> forces. I will cover why we added this, but not just yet.</li>
+</ul>
+
+
+<h2>But That&rsquo;s Just One Of Them</h2>
+
+<p>We want to do this for all the public packages, and we want to do it for none of our private ones. We&rsquo;ll need to get a list.</p>
+
+<p><strong>From the packages directory</strong></p>
+
+<pre><code>git log --diff-filter=A --summary . `
+    |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)?(/lib/.*)' } `
+    |% { $($matches[1]) } `
+    | select -unique | sort `
+    |% { "git filter-branch -f --index-filter ""git rm -rf --cached --ignore-unmatch $_"" HEAD" }
+</code></pre>
+
+<h3>Breakdown</h3>
+
+<ol>
+<li>The first line dumps all of the adds that happened in the current directory (<code>packages</code>)</li>
+<li>The second line filters out blank lines, and matches the regex of created files, capturing the path as a group.</li>
+<li>The third line pulls out the matched path</li>
+<li>dlls, pdbs, nupkgs themselves, who knows what else might have been added, but our <code>filter-branch + rm</code> above is going <code>-rf</code> on it anyway. Dedupe them, and sort just for convenience.</li>
+<li>Write the command we want to execute to the output stream. <strong>This doesn&rsquo;t execute it, it just outputs what you want to execute.</strong></li>
+</ol>
+
+
+<p>The output looks something like this</p>
+
+<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/bar" HEAD
+git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/foo" HEAD
+</code></pre>
+
+<p>You <strong>could</strong> go so far as to not wrap that in quotes and dump it to the output stream. You <strong>could</strong> just execute it directly. But then, you wouldn&rsquo;t have accounted for the private packages, so you&rsquo;d want to have some kind of <code>$safePackages = ("x","y","z")</code> and add a <code>|?</code> to strip them. Your choice, but until we&rsquo;ve run this through its paces, I kind of like the safety of having the chance to review what&rsquo;s going to be done.</p>
+
+<h2>The Final Stroke, And Why We -f It</h2>
+
+<p>Each <code>filter-branch</code> creates a <code>.git-rewrite</code> directory and a bunch of temporary history. While this exists, the next <code>filter-branch</code> will not execute and ask you to clean it up. We are going to be doing this a whole bunch of times and then clean it up after all of them are done, so we just <code>-f</code> through it.</p>
+
+<p>Then, at the end, you <strong>do</strong> want to clean it up and run a <code>gc</code>. How?</p>
+
+<pre><code>rm -rf .git/refs/original/ &amp;&amp; git reflog expire --all &amp;&amp;  git gc --aggressive --prune
+</code></pre>
+
+<p><strong>Congrats!</strong> Now before you push your fancy, newly migrated to Git repo, it&rsquo;ll be a lot lighter without all those unnecessary binaries. You could certainly consider applying this procedure to all kinds of other directories where you&rsquo;ve been putting garbage into source control.</p>
+
+<p>* Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
+
+<p>** More thanks to <a href="http://joshuarogers.net">Josh</a> for responding quite quickly to my call for his favorite way to find subdirectories that used to exist but got deleted. I ended up going a different way, and just looking for everything that was ever added, whether it exists or not. And using PowerShell. He says he&rsquo;s considering blogging his solution <a href="http://joshuarogers.net/find-all-directories-have-been-deleted-git">soon</a>!!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -626,57 +755,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-04T08:36:53-07:00" pubdate data-updated="true">Apr 4<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>File under &ldquo;Learn something new every day.&rdquo;</p>
-
-<p>Long story short, we have enabled CORS in our API, but today I learned that <a href="http://www.aaron-powell.com/posts/2013-11-28-accessing-location-header-in-cors-response.html">not all headers are included</a>.</p>
-
-<p>Particularly, like Aaron, we needed to ensure that the Location header came back when a POST request created a new resource. Our solution is a bit different than his. We&rsquo;re already using the <a href="http://msdn.microsoft.com/en-us/library/system.web.http.cors.enablecorsattribute(v=vs.118%29.aspx">EnableCorsAttribute</a>, so Rob pointed out that we can just do this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>EnableCorsAttribute("*", "*", "*", "location");</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Like the other constructor arguments, that last can be a comma separated list. Looks legit!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -694,6 +772,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/25/are-you-really-blocked/">Are You Really Blocked?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
       </li>
     
@@ -707,10 +789,6 @@
     
       <li class="post">
         <a href="/blog/2014/07/03/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/04/committed-to-good-commits-messages/">Committed to Good Commits: Messages</a>
       </li>
     
   </ul>
@@ -735,7 +813,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - David Ruttka -
+  Copyright &copy; 2015 - David Ruttka -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

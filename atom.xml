@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2014-09-04T13:57:25-07:00</updated>
+  <updated>2015-02-25T10:09:11-08:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,83 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Are You Really Blocked?]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/02/25/are-you-really-blocked/"/>
+    <updated>2015-02-25T09:19:18-08:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/02/25/are-you-really-blocked</id>
+    <content type="html"><![CDATA[<h3>Let&rsquo;s Talk About Cake</h3>
+
+<p>Imagine that you have been asked to make a pineapple upside down cake, as pictured below.</p>
+
+<p><img src="http://www.davidruttka.com/images/Pineapple-upside-down-cake.jpg" /></p>
+
+<p>Think about what needs to happen here. Prepare the batter, perhaps from a boxed cake mix. Slice up some pineapples, reserving some juice for the aforementioned batter. Bake it. Flip it upside down. Put cherries on top of the finished product.</p>
+
+<p>That&rsquo;s a lot of stuff to do. You&rsquo;ve got the pineapple. You&rsquo;ve got a proper pan and all the appropriate kitchen utensils. You&rsquo;ve got the oven. Cake mix? Check.</p>
+
+<p><strong>You do not yet have the cherries.</strong></p>
+
+<h3>BLOCKED</h3>
+
+<p>It would be incredibly inefficient (and probably a play at procrastination, if not laziness) to halt production of the cake because you don&rsquo;t have the cherries.</p>
+
+<ul>
+<li>You could start the cake and go buy the cherries while it baked.</li>
+<li>If you feel that&rsquo;s unsafe of the time in the oven is not enough to make the run, you could go get them right now.</li>
+<li>You could call your roommate who is currently at the grocery store and tell them to bring the cherries.</li>
+<li>You could go get the cherries after the baking is complete and the cake is cooling.</li>
+</ul>
+
+
+<p>In short, possession of the cherries is not a prerequisite to get started. However, in the course of my career, I&rsquo;ve seen these reactions:</p>
+
+<ul>
+<li>Use it as an excuse to be blocked. Go check Reddit until the cherry team delivers the cherries.</li>
+<li>Claim to be blocked in good faith. Defer this task until later, but pick up another in the meantime.</li>
+<li>Go ahead and make the cake. The cherries don&rsquo;t come until last, anyway<sup>1</sup>.</li>
+</ul>
+
+
+<h3>Push Through The Blockers</h3>
+
+<p>Everyone in Seattle knows about <a href="https://www.youtube.com/watch?v=GNBQEv11C4c">Marshawn Lynch&rsquo;s 60+ yard playoff run</a>, but I think this one is more relevant to the current discussion:</p>
+
+<iframe width="640" height="390" src="https://www.youtube.com/embed/nf2Lr8ucJw8" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Notice how the announcers call the play over. &ldquo;Lynch not gonna get anything.&rdquo; He could have thought the same thing, dropped, and gone to get some water. Instead, he found a way through the blockers and moved the ball &ndash; moved <strong>his team</strong> &ndash; forward.</p>
+
+<h3>This Is Not Cake Or Football</h3>
+
+<p>Correct! Which means you don&rsquo;t have to go to the grocery store or keep your legs moving through a wall of defenders. You have a vast array of resources and tools &mdash; both inside and outside your team &mdash; that allow you to clear a path.</p>
+
+<ul>
+<li>Service you depend on goes down? Fiddle it. Stub it. Introduce an early return of hardcoded data before the call is made.</li>
+<li>Error you&rsquo;ve never seen before? Go to Stack Overflow. Talk to your team.</li>
+<li>UX Design incomplete? Implement non-UX logic. Create independent views that put unstyled data on the screen. Add styles and navigation affordances later.</li>
+</ul>
+
+
+<p>We could go on.</p>
+
+<h3>When Truly Blocked</h3>
+
+<ul>
+<li>If there&rsquo;s a real blocker that cannot be worked around, pick up the next task you can handle.</li>
+<li>If there&rsquo;s a real blocker for every task that you know how to handle, then pick one up that drives you to learn something new.</li>
+<li>If there&rsquo;s a real blocker for every task across the entire project, your organization has bigger problems.</li>
+</ul>
+
+
+<p>The point is that there&rsquo;s usually a way to move your team forward. You might not always see the way, but that&rsquo;s what talking to your team if for =).
+<small></p>
+
+<p>1 &ndash; Software doesn&rsquo;t go stale or spoil as fast as cake. Use caution if attempting with real cake.
+</small></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git Pushit]]></title>
@@ -970,25 +1047,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <p>I&rsquo;ve opened an <a href="https://github.com/imathis/octopress/issues/1536">issue</a> to discuss whether this is something anyone else would ever use. If it is, it should be a simple enough thing to incorporate. I&rsquo;ve also sent a <a href="https://github.com/imathis/octopress/pull/1537">pull request</a> for the issue, but derped something up and they didn&rsquo;t get associated.</p>
 
 <p>Later tonight, or tomorrow, I&rsquo;ll also share what I did to fix the linklog, <code>external_url</code> feature for my instance.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Exposing Additional Headers in CORS Responses Using the EnableCorsAttribute]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/"/>
-    <updated>2014-04-04T08:36:53-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute</id>
-    <content type="html"><![CDATA[<p>File under &ldquo;Learn something new every day.&rdquo;</p>
-
-<p>Long story short, we have enabled CORS in our API, but today I learned that <a href="http://www.aaron-powell.com/posts/2013-11-28-accessing-location-header-in-cors-response.html">not all headers are included</a>.</p>
-
-<p>Particularly, like Aaron, we needed to ensure that the Location header came back when a POST request created a new resource. Our solution is a bit different than his. We&rsquo;re already using the <a href="http://msdn.microsoft.com/en-us/library/system.web.http.cors.enablecorsattribute(v=vs.118%29.aspx">EnableCorsAttribute</a>, so Rob pointed out that we can just do this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>EnableCorsAttribute("*", "*", "*", "location");</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Like the other constructor arguments, that last can be a comma separated list. Looks legit!</p>
 ]]></content>
   </entry>
   
