@@ -9,8 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Like I said, here we go.
-">
+  <meta name="description" content="Note: I&rsquo;m going to assume you know what git and GitHub are if you&rsquo;re considering using GitHub Pages. GitHub Pages I had said that I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +78,89 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Moving From WordPress to GitHub Pages Using Jekyll via Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-29T21:03:18-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>Note: I&rsquo;m going to assume you know what <a href="http://git-scm.org">git</a> and <a href="https://github.com">GitHub</a> are if you&rsquo;re considering using <a href="http://pages.github.com">GitHub Pages</a>.</em></p>
+
+<h2>GitHub Pages</h2>
+
+<p>I <a href="http://thedevstop.wordpress.com/2014/03/29/dev-at-work-moving-to-github-pages/">had said</a> that I wouldn&rsquo;t reproduce this part, since the <a href="http://pages.github.com/">existing documentation</a> is so dead simple. But here goes.</p>
+
+<ul>
+<li>Have a <a href="https://github.com">GitHub</a> account. You probably already do, and that&rsquo;s even better!</li>
+<li>Create a <a href="https://github.com/new">new repo</a> named {yourgithubusername}.github.io. So for me, it was &ldquo;druttka.github.io&rdquo;.</li>
+<li>Put an index.html file in that repo. If you&rsquo;re not sure what to put in it, &ldquo;David Ruttka is the greatest blogger ever.&rdquo; is more original than &ldquo;Hello World!&rdquo;</li>
+<li>Navigate to {yourusername}.github.io. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.</li>
+</ul>
+
+
+<h2>CNAME for the win</h2>
+
+<p>You&rsquo;d probably prefer that people visit www.yourfancytendollardomainname.com, not yourgithubusername.github.io. There are <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">a few ways to set this up</a>, but I went with CNAME.</p>
+
+<ul>
+<li>Go manage your domain.</li>
+<li>Set the naked domain (@) and the www. subdomain (www.) to be a CNAME to {yourgithubusername}.github.io.</li>
+<li>Back in your *.github.io repo, add a CNAME file.
+
+<ul>
+<li>In that file, put a single line. The single line should be www.yourfancytendollardomainname.com.</li>
+</ul>
+</li>
+<li>Navigate to www.yourfancytendollardomainname.com. Seriously, other than waiting 10 minutes for it to propagate, that&rsquo;s it. You&rsquo;re done.
+
+<ul>
+<li>GitHub Pages is nice enough to send traffic to whatever is in that CNAME file in your repo, regardless of whether the visitor tried to come in on the naked domain, the www subdomain, or github.io.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Octopress for another win that puts the previous win to shame</h2>
+
+<p>This is a little more involved than I want to write up right now. I will either update this post or create a new one later.</p>
+
+<p><em>Update: I created a <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages">new one</a>.</em></p>
+
+<p>In the meantime, you won&rsquo;t need to know <a href="https://www.ruby-lang.org/en/">Ruby</a>, but you will need to know what it is and <a href="https://www.ruby-lang.org/en/downloads/">how to install it</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -787,127 +869,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/07/06/off-topic-toddler-safety-on-united-airlines/">Off Topic: Toddler Safety on United Airlines</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-06T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I want to make any parents aware that when you book United, if you want to keep your toddler seated safely with a parent, you will likely have to pay a premium in addition to the cost of your ticket.</p>
-
-<p><span style="color:#ff0000;font-size:xx-small;">Of course, as always, this is my personal blog and does not necessarily reflect the opinions, thoughts, etc. of my employer, dog, etc.</span></p>
-
-<p>To help break down this situation, we need to look at a flight situation we had just two months ago. When we relocated in May, we checked the seat map and it looked much like it does for our upcoming flight:</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/07/image8.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border-width:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/07/image_thumb8.png" width="244" height="88" border="0" /></a></p>
-
-<p>What you&rsquo;re seeing is that there are a lot of seats left in the economy cabin, but they are all &ldquo;Economy Plus&rdquo; for a $64 a piece upcharge. There is also an alert when you hit the page:</p>
-
-<p>&ldquo;All seats available for complimentary assignment have been taken. More complimentary seat assignments may become available when you check in for your flight. If available at this time, you may choose to purchase a United First or Economy Plus seat.&rdquo;</p>
-
-<p>In May, observing this exact situation, we asked United if they could fix this for us since we have a 3yo. We requested only one parent, but their agent ^FM went above and beyond the call of duty to seat all three of us together at no extra charge.</p>
-
-<blockquote><img alt="" src="https://si0.twimg.com/profile_images/3396697286/667a8b79cfe9b07d5ea8a27175a0a994_normal.jpeg" />
-
-<small>7 May</small>
-
-{confirmation number redacted} We&#8217;d like our 3yo to sit with a parent, not a stranger. We&#8217;d also like to know if we can use our car seat on the flight. Thanks!
-
-<img alt="" src="https://si0.twimg.com/profile_images/2449279853/Twitter-profile-mobile_0005_6_normal.jpg" />
-
-<small>7 May</small>
-
-Your seats are 8C &amp; 7BC and 15DEF. Approved child safety seats may be used on the plane for more info see <a href="http://t.co/rtARBXLh2g">http://bit.ly/XI9nj4 </a>. ^FM
-
-<img alt="" src="https://si0.twimg.com/profile_images/3396697286/667a8b79cfe9b07d5ea8a27175a0a994_normal.jpeg" />
-
-<small>7 May</small>
-
-Thank you so much! We&#8217;ll look into whether our car seat is FAA approved - is there anywhere I could get seat dimensions (i.e., will it fit?)</blockquote>
-
-
-<p><strong>It is noteworthy that the assigned seats were &ldquo;Economy Plus&rdquo; seats.</strong> ^FM didn&rsquo;t magically free up the &ldquo;complimentary seats&rdquo; that were unavailable through the seat map on the United website. ^FM just made sure that our kid would have a responsible adult seated beside her.</p>
-
-<p><strong>It is also noteworthy that ^FM didn&rsquo;t even make an issue of this.</strong> <strong>The reply was just a notification that it was done</strong>. Because of their rapid and easy response to this situation, we chose to fly United again, but they have changed their tune. I asked them just as nicely&hellip;</p>
-
-<blockquote><img alt="" src="https://si0.twimg.com/profile_images/3396697286/667a8b79cfe9b07d5ea8a27175a0a994_normal.jpeg" />
-
-<small>3 Jul</small>
-
-For {dest&gt;arr redacted} flight on conf {conf# redacted}, can we please get our 3yo ({kid&#8217;s name redacted}) to sit with at least 1 parent (David or Brandy)? Thanks</blockquote>
-
-
-<p>&hellip; but all responses have been to the effect of &ldquo;Cough up the cash!&rdquo; This is just one of many.</p>
-
-<blockquote class="twitter-tweet"><a href="https://twitter.com/druttka">@druttka</a> You can purchase EconomyPlus seats for an additional fee or keep checking the flight for open seats. ^KP
-
-â€” United (@united) <a href="https://twitter.com/united/statuses/353297226983936001">July 5, 2013</a></blockquote>
-
-
-<p>Here is the final DM action from this morning, where<strong> apparently ^JP went and found ^FM (watch the signature change)</strong> to clarify what they had done last time. There is just one problem&hellip; In May, we got the same &ldquo;There are no complimentary seats left&rdquo; alert and were subsequently assigned Plus seats at no extra cost. Why the change in July?</p>
-
-<blockquote><img alt="" src="https://si0.twimg.com/profile_images/2449279853/Twitter-profile-mobile_0005_6_normal.jpg" />
-
-<small>43m</small>
-
-We have EconomyPlus seats available for purchase as advised for all three passengers. Otherwise seats will be assigned at the airport. ^JP</blockquote>
-
-
-<blockquote><img alt="" src="https://si0.twimg.com/profile_images/3396697286/667a8b79cfe9b07d5ea8a27175a0a994_normal.jpeg" />
-
-<small>38m</small>
-
-Remember also we only request one parent with the child, not both. So this is TWO SEAT ASSIGNMENTS. United is being unreasonable.
-
-<img alt="" src="https://si0.twimg.com/profile_images/2449279853/Twitter-profile-mobile_0005_6_normal.jpg" />
-
-<small>33m</small>
-
-(1/2) When customers are traveling with small children and seats are changed, we do our best to re-seat them together. At the time of
-
-<img alt="" src="https://si0.twimg.com/profile_images/2449279853/Twitter-profile-mobile_0005_6_normal.jpg" />
-
-<small>33m</small>
-
-(2/2) booking if complimentary seats are not available, you may continue to check or our airport co-workers will work with you. Thanks ^FM</blockquote>
-
-
-<p>So it looks like we will be paying United about $130 in upcharges. On this airline, <strong>keeping your toddler safely seated with a parent instead of with a stranger is considered a luxury upgrade</strong>. Parents, as you plan your travels, please consider this when you see United&rsquo;s ticket price and make sure you <strong>budget for the &ldquo;upgrade.&rdquo; </strong></p>
-
-<p>Please do share this.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/07/06/off-topic-toddler-safety-on-united-airlines/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -925,6 +886,10 @@ Remember also we only request one parent with the child, not both. So this is TW
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
@@ -938,10 +903,6 @@ Remember also we only request one parent with the child, not both. So this is TW
     
       <li class="post">
         <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
       </li>
     
   </ul>

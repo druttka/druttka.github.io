@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This is a super good read. It&rsquo;s really pretty simple. I can, during that time, pair up with 10 less experienced developers and show them how to &hellip;">
+  <meta name="description" content="This is part of a series on good commits. Ok, Mr. Anderson @druttka Dude. When you gonna finish your &quot;Committed to Good Commits&quot; series?& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-26T08:57:25-08:00" pubdate data-updated="true">Feb 26<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2015/02/26/committed-to-good-commits-work-item-association/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>This is part of a <a href="/blog/2014/06/03/committed-to-good-commits-introduction">series on good commits</a>.</em></p>
+
+<h3>Ok, Mr. Anderson</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/druttka">@druttka</a> Dude. When you gonna finish your &quot;Committed to Good Commits&quot; series?</p>&mdash; Will Anderson (@itsananderson) <a href="https://twitter.com/itsananderson/status/569385645547745280">February 22, 2015</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h3>Work Item Association</h3>
+
+<p>Another way to enhance your commits is to associate them to work items. This can help everyone on the team &ndash; present and future &ndash; understand what&rsquo;s going on with the project.</p>
+
+<h3>What Are You Doing?</h3>
+
+<p>One of the most common problems I see during code reviews is that reviewers do not have a proper context for what they&rsquo;re reviewing. Things devolve into something on par with copy editing with no feedback on the plot. At best, bad loops or off by one errors get caught, but there are no guarantees that the changes are covering all of the intended acceptance criteria.</p>
+
+<p>What if the author could give the reviewers a pointer to something that explained what they were trying to accomplish? Something that was already on record in a shared system? Something like a work item?</p>
+
+<h3>How Did We Fix That?</h3>
+
+<p>Another great advantage of associating commits to work items is to jog memories when the ghosts of crushed bugs come back to haunt the team.</p>
+
+<p>Have you ever come across a problem and thought, &ldquo;This seems familiar. We fixed something like this a while ago. I just can&rsquo;t remember how&hellip;&rdquo;</p>
+
+<p>Or, &ldquo;This is a regression of what we fixed a few weeks ago, but I don&rsquo;t remember exactly what we did to fix it.&rdquo;</p>
+
+<p>What if you could look at the old bug and know exactly which commits resolved the issue? What if you could just grep a git log for an issue number?</p>
+
+<h3>Test Case Generation</h3>
+
+<p>It can also help a test team understand what areas are at risk for regression if they know what code is changing. Put commit information on the bug when you resolve it so that they can review the changes.</p>
+
+<h3>Common Arguments</h3>
+
+<ol>
+<li>&ldquo;We don&rsquo;t use issue tracking.&rdquo;<sup>1</sup> In this case, you can use the extended commit message to provide a lot of details of what your change is attempting to do.</li>
+<li>&ldquo;I forgot!&rdquo; This, like many things in this series, is just a matter of habit. The team can hold each other accountable, or you can find a way to enforce it via policy.</li>
+<li>&ldquo;Takes too long!&rdquo; Again, like many things in this series, compare it to the time spent on the change itself and to the time that will be wasted later (looking things up, discussing the intent of the code review, etc.). Seconds on hours is blue on black<sup>2</sup>.</li>
+</ol>
+
+
+<h3>Thoughts?</h3>
+
+<p>What do you think? Is adding this extra information to the public record of your project history valuable? If not, why not? If so, what other benefits have I missed? What else can we do to make it more natural for our teams?</p>
+
+<p><small></p>
+
+<p>1: I will hold my tongue on asking, &ldquo;Why the hell not?!&rdquo;</p>
+
+<p>2: Remember that things can be automated. My teams have used server side hooks in the past so that if the message matched, for example, ^GEM:\d+, we&rsquo;d automatically associate to the Gemini issue. Think about what works best for your team.</p>
+
+<p></small></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -748,7 +841,7 @@ Needed to zingify the wizzbangs
 <ol>
 <li><a href="/blog/2014/06/04/committed-to-good-commits-messages">Commit Messages / Comments</a></li>
 <li><a href="/blog/2014/07/03/committed-to-good-commits-validation">Validation</a></li>
-<li>Work Item Association</li>
+<li><a href="/blog/2015/02/26/committed-to-good-commits-work-item-association">Work Item Association</a></li>
 <li>Atomic Changes</li>
 <li>Frequent Changes</li>
 <li>Synchronization / Integration</li>
@@ -877,59 +970,6 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-24T21:03:27-07:00" pubdate data-updated="true">Apr 24<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/24/why-git-makes-things-better/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I still plan on writing some posts about <em>how</em> we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over the first couple of days that we were officially on Git, and express <em>why</em> I&rsquo;ve wanted to do this for so long.</p>
-
-<blockquote class="twitter-tweet" lang="en"><p>I&#39;ve used <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> at other jobs. Today is the first day we&#39;re officially on it at current job. Live is so good today. // <a href="https://twitter.com/msarchet">@msarchet</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459074019635896320">April 23, 2014</a></blockquote>
-
-
-<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h2>Collaboration</h2>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/04/24/why-git-makes-things-better/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -945,6 +985,10 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
@@ -958,10 +1002,6 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
     
       <li class="post">
         <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
       </li>
     
   </ul>

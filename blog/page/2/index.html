@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The best way to do this is wipe out your working tree (all the files except the .git directory) and then restore them. Make sure you&rsquo;ve &hellip;">
+  <meta name="description" content="I still plan on writing some posts about how we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/24/why-git-makes-things-better/">Why Git Makes Things Better</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-24T21:03:27-07:00" pubdate data-updated="true">Apr 24<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/24/why-git-makes-things-better/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I still plan on writing some posts about <em>how</em> we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over the first couple of days that we were officially on Git, and express <em>why</em> I&rsquo;ve wanted to do this for so long.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p>I&#39;ve used <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> at other jobs. Today is the first day we&#39;re officially on it at current job. Live is so good today. // <a href="https://twitter.com/msarchet">@msarchet</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459074019635896320">April 23, 2014</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h2>Collaboration</h2>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/04/24/why-git-makes-things-better/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -678,59 +731,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Fixing the External-url (Linklog) Feature in Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-08T20:41:44-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>The Linklog Feature</h2>
-
-<p>Another quick edit that I made to in the theme was to handle the <code>external-url</code> for linklog posts, as described in the <a href="http://octopress.org/docs/blogging/linklog/">Octopress docs</a>.</p>
-
-<p>I found that this feature wasn&rsquo;t working for me. I couldn&rsquo;t find anyplace that attempted to use <code>external-url</code>, so I just kind of decided on a place that works for me and put it there.</p>
-
-<h2>Show Me The Code</h2>
-
-<p>You can check out the <a href="https://github.com/imathis/octopress/pull/1538">pull request</a> or the <a href="https://github.com/druttka/octopress/commit/4d0f3a051c5c6e365a737c977c843a444cb59023">commit</a> it contains. I cleaned up the unintentional whitespace changes in the follow-up commit.</p>
-
-<p>Basically, I just added a capture for <code>entryhref</code>, using the <code>external_url</code> if present. Later, after the line that handles adding the Comments link as appropriate, I added a line that adds the Permalink as appropriate.</p>
-
-<p>I&rsquo;m still finding my way around Octopress and am definitely open to thoughts if I&rsquo;m going about this stuff the wrong way. Let me know.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -748,6 +748,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
@@ -761,10 +765,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/23/education-and-experience/">Education and Experience</a>
       </li>
     
   </ul>

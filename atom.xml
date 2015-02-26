@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2015-02-25T10:48:32-08:00</updated>
+  <updated>2015-02-26T09:32:50-08:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Committed to Good Commits: Work Item Association]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/02/26/committed-to-good-commits-work-item-association/"/>
+    <updated>2015-02-26T08:57:25-08:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/02/26/committed-to-good-commits-work-item-association</id>
+    <content type="html"><![CDATA[<p><em>This is part of a <a href="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction">series on good commits</a>.</em></p>
+
+<h3>Ok, Mr. Anderson</h3>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/druttka">@druttka</a> Dude. When you gonna finish your &quot;Committed to Good Commits&quot; series?</p>&mdash; Will Anderson (@itsananderson) <a href="https://twitter.com/itsananderson/status/569385645547745280">February 22, 2015</a></blockquote>
+
+
+<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<h3>Work Item Association</h3>
+
+<p>Another way to enhance your commits is to associate them to work items. This can help everyone on the team &ndash; present and future &ndash; understand what&rsquo;s going on with the project.</p>
+
+<h3>What Are You Doing?</h3>
+
+<p>One of the most common problems I see during code reviews is that reviewers do not have a proper context for what they&rsquo;re reviewing. Things devolve into something on par with copy editing with no feedback on the plot. At best, bad loops or off by one errors get caught, but there are no guarantees that the changes are covering all of the intended acceptance criteria.</p>
+
+<p>What if the author could give the reviewers a pointer to something that explained what they were trying to accomplish? Something that was already on record in a shared system? Something like a work item?</p>
+
+<h3>How Did We Fix That?</h3>
+
+<p>Another great advantage of associating commits to work items is to jog memories when the ghosts of crushed bugs come back to haunt the team.</p>
+
+<p>Have you ever come across a problem and thought, &ldquo;This seems familiar. We fixed something like this a while ago. I just can&rsquo;t remember how&hellip;&rdquo;</p>
+
+<p>Or, &ldquo;This is a regression of what we fixed a few weeks ago, but I don&rsquo;t remember exactly what we did to fix it.&rdquo;</p>
+
+<p>What if you could look at the old bug and know exactly which commits resolved the issue? What if you could just grep a git log for an issue number?</p>
+
+<h3>Test Case Generation</h3>
+
+<p>It can also help a test team understand what areas are at risk for regression if they know what code is changing. Put commit information on the bug when you resolve it so that they can review the changes.</p>
+
+<h3>Common Arguments</h3>
+
+<ol>
+<li>&ldquo;We don&rsquo;t use issue tracking.&rdquo;<sup>1</sup> In this case, you can use the extended commit message to provide a lot of details of what your change is attempting to do.</li>
+<li>&ldquo;I forgot!&rdquo; This, like many things in this series, is just a matter of habit. The team can hold each other accountable, or you can find a way to enforce it via policy.</li>
+<li>&ldquo;Takes too long!&rdquo; Again, like many things in this series, compare it to the time spent on the change itself and to the time that will be wasted later (looking things up, discussing the intent of the code review, etc.). Seconds on hours is blue on black<sup>2</sup>.</li>
+</ol>
+
+
+<h3>Thoughts?</h3>
+
+<p>What do you think? Is adding this extra information to the public record of your project history valuable? If not, why not? If so, what other benefits have I missed? What else can we do to make it more natural for our teams?</p>
+
+<p><small></p>
+
+<p>1: I will hold my tongue on asking, &ldquo;Why the hell not?!&rdquo;</p>
+
+<p>2: Remember that things can be automated. My teams have used server side hooks in the past so that if the message matched, for example, ^GEM:\d+, we&rsquo;d automatically associate to the Gemini issue. Think about what works best for your team.</p>
+
+<p></small></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[High Performance Developers]]></title>
@@ -430,7 +491,7 @@ Needed to zingify the wizzbangs
 <ol>
 <li><a href="http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages">Commit Messages / Comments</a></li>
 <li><a href="http://www.davidruttka.com/blog/2014/07/03/committed-to-good-commits-validation">Validation</a></li>
-<li>Work Item Association</li>
+<li><a href="http://www.davidruttka.com/blog/2015/02/26/committed-to-good-commits-work-item-association">Work Item Association</a></li>
 <li>Atomic Changes</li>
 <li>Frequent Changes</li>
 <li>Synchronization / Integration</li>
@@ -1011,27 +1072,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Fixing the External-url (Linklog) Feature in Octopress]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress/"/>
-    <updated>2014-04-08T20:41:44-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/08/fixing-the-external-url-linklog-feature-in-octopress</id>
-    <content type="html"><![CDATA[<h2>The Linklog Feature</h2>
-
-<p>Another quick edit that I made to in the theme was to handle the <code>external-url</code> for linklog posts, as described in the <a href="http://octopress.org/docs/blogging/linklog/">Octopress docs</a>.</p>
-
-<p>I found that this feature wasn&rsquo;t working for me. I couldn&rsquo;t find anyplace that attempted to use <code>external-url</code>, so I just kind of decided on a place that works for me and put it there.</p>
-
-<h2>Show Me The Code</h2>
-
-<p>You can check out the <a href="https://github.com/imathis/octopress/pull/1538">pull request</a> or the <a href="https://github.com/druttka/octopress/commit/4d0f3a051c5c6e365a737c977c843a444cb59023">commit</a> it contains. I cleaned up the unintentional whitespace changes in the follow-up commit.</p>
-
-<p>Basically, I just added a capture for <code>entryhref</code>, using the <code>external_url</code> if present. Later, after the line that handles adding the Comments link as appropriate, I added a line that adds the Permalink as appropriate.</p>
-
-<p>I&rsquo;m still finding my way around Octopress and am definitely open to thoughts if I&rsquo;m going about this stuff the wrong way. Let me know.</p>
 ]]></content>
   </entry>
   
