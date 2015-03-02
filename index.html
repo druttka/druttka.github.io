@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This is part of a series on good commits. Ok, Mr. Anderson @druttka Dude. When you gonna finish your &quot;Committed to Good Commits&quot; series?& &hellip;">
+  <meta name="description" content="The other day, I saw my wife looking at a recipe book and writing in a notebook. She often looks at these books when making meal plans and grocery &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-02T08:42:06-08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2015</time>
+        
+         | <a href="/blog/2015/03/02/a-set-of-fresh-eyes/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2015/03/02/a-set-of-fresh-eyes/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day, I saw my wife looking at a recipe book and writing in a notebook. She often looks at these books when making meal plans and grocery lists, so I didn&rsquo;t think much of it.  Many minutes later, she was still writing. I looked closer and realized that she was copying the recipe by hand. &ldquo;You know you could just take a picture and email it to yourself, right?&rdquo; The look of realization spread over her face, and we had a laugh. It turns out that she had considered scanning it, but our scanner isn&rsquo;t a flatbed.</p>
+
+<p>It struck me as another great example of why team communication is so powerful. She had come up with a reasonable solution, but when it didn&rsquo;t work out, tunnel vision caused her to miss a working alternative. My teammates have often found me in a similar state and gotten me rolling again with a simple &ldquo;Why don&rsquo;t you just&hellip;?&rdquo;<sup>1</sup> I immediately see the light and can usually see exactly how my initial idea put me on a train of thought that made me miss it.<sup>2</sup></p>
+
+<p>Feel free to share some times you remember when a set of fresh eyes was all it took to solve a problem.<sup>3</sup></p>
+
+<hr />
+
+
+<p><small></p>
+
+<p>Footnotes:</p>
+
+<p>1: I&rsquo;d like to think that I return the favor from time to time.</p>
+
+<p>2: In addition, I usually facepalm myself.</p>
+
+<p>3: Pairing can make this process continuous, but that&rsquo;s for another post.</p>
+
+<p></small></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -887,89 +947,6 @@ Needed to zingify the wizzbangs
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-25T21:53:34-07:00" pubdate data-updated="true">Apr 25<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/25/git-clone-the-quickening/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/25/git-clone-the-quickening/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve been using <a href="http://www.visualstudio.com/">Visual Studio Online</a> for a bit, so the example in this post will specifically show that, but the concept applies anywhere.</p>
-
-<p>If you have a project up there named foo, the <code>git clone</code> URI is something like</p>
-
-<pre><code>https://you.visualstudio.com/DefaultCollection/_git/foo
-</code></pre>
-
-<p>It&rsquo;s a real pain to type all that. So I did this in my <code>.gitconfig</code></p>
-
-<pre><code>[alias]
-qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/DefaultCollection/_git/$p $d; }; f"
-</code></pre>
-
-<h3>Usage</h3>
-
-<p>To clone <code>myproject</code> into <code>myproject</code>,</p>
-
-<pre><code>git qc-ds myproject
-</code></pre>
-
-<p>To clone <code>myproject</code> into <code>somedirectory</code>,</p>
-
-<pre><code>git qc-ds myproject somedirectory
-</code></pre>
-
-<h3>Breakdown</h3>
-
-<p>qc stands for quick clone.</p>
-
-<p>ds is an abbreviation of the <code>me</code> part of my VSO account. It&rsquo;s meaningful to me. Make yours whatever you want.</p>
-
-<p>The rest creates a function and executes it. The first argument is assigned to <code>p</code> (&ldquo;project&rdquo;). The second is optional and is assigned to <code>d</code> (&ldquo;directory&rdquo;). It defaults to <code>p</code> if not supplied. Then it&rsquo;s just filling in the blanks.</p>
-
-<h3>Caveat</h3>
-
-<p>This gets a little weirder if you have multiple repositories in a project, e.g. a second repo named bar inside of the foo project</p>
-
-<pre><code>https://you.visualstudio.com/DefaultCollection/foo/_git/bar
-</code></pre>
-
-<p>I know how I&rsquo;m going to tackle this, but I will leave it as an exercise for the reader.</p>
-
-<p>And of course, if you&rsquo;re on GitHub, BitBucket, or whatever&hellip;the repo URIs are usually pretty standard. Just :s it!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -985,6 +962,10 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
       </li>
     
@@ -998,10 +979,6 @@ qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/Default
     
       <li class="post">
         <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
       </li>
     
   </ul>

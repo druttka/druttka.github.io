@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The Linklog Feature Another quick edit that I made to in the theme was to handle the external-url for linklog posts, as described in the Octopress &hellip;">
+  <meta name="description" content="The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,142 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-08T21:00:19-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
+
+<h2>Wont-Fix</h2>
+
+<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
+
+<h2>A Problem Is Reported</h2>
+
+<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
+
+<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
+
+<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
+
+<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
+
+<h2>The Plot Thickens</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
+
+<p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
+
+<p>Also traced through the read model updaters to ensure no strange mutations occur there.</p>
+
+<p>Queried the read model store directly. Data is correct at rest. It&rsquo;s got to be in the query side or API itself.</p>
+
+<p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
+
+<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
+
+<p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
+
+<p><strong>It&rsquo;s correct in the XML.</strong></p>
+
+<h2>Wat</h2>
+
+<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
+
+<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
+
+<p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
+
+<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
+
+<p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
+
+<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
+
+<h2>Lunch</h2>
+
+<p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
+
+<p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
+
+<h2>Frayed Ends of Sanity</h2>
+
+<p><em>EXT. Outdoor tables at local cafe.</em></p>
+
+<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
+
+<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
+
+<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
+
+<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
+
+<h2>Derp</h2>
+
+<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
+
+<p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
+
+<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
+
+<h2>Debug It!</h2>
+
+<p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
+
+<h3>What Went Well</h3>
+
+<ul>
+<li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
+<li>We eliminated the command side, event bus, and read models very quickly. This let us isolate the problem to the response pipeline.</li>
+<li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
+</ul>
+
+
+<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
+
+<ul>
+<li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
+<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
+<li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
+<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -577,133 +713,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/">Setting Up Octopress for GitHub Pages</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-29T21:31:06-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/03/29/setting-up-octopress-for-github-pages/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
-
-<h2>Installing Octopress</h2>
-
-<p>As with GitHub Pages, the <a href="http://octopress.org/docs/setup/">official documentation</a> is super solid, here. I&rsquo;m going to attempt to give a more terse set of steps that I took, but do refer back to the docs if you need more information.</p>
-
-<ul>
-<li>I already had Git and Ruby installed, so I got a free pass on that.</li>
-<li>Clone the repo <code>git clone git://github.com/imathis/octopress.git octopress</code></li>
-<li>cd into it <code>cd octopress</code></li>
-<li><code>gem install bundler</code></li>
-<li><code>bundle install</code>.</li>
-<li><code>rake install</code>, and I actually <strong>did hit a snag here</strong>
-
-<blockquote><p>You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</p></blockquote></li>
-<li>All I had to do was update the Gemfile to reference 10.0.3 and <code>rake install</code> again.</li>
-</ul>
-
-
-<h2>Configuration</h2>
-
-<p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
-
-<p>Now, you probably also have a better title in mind than &ldquo;My Octopress Site.&rdquo; This, and much more, is in <code>_config.yml</code>. I changed the following, and left the rest alone:</p>
-
-<ul>
-<li>url</li>
-<li>title</li>
-<li>subtitle</li>
-<li>author</li>
-<li>twitter_user</li>
-</ul>
-
-
-<p>More information in the official docs for <a href="http://octopress.org/docs/configuring/">Configuration</a> and <a href="http://octopress.org/docs/deploying/github/">Deployment</a>.</p>
-
-<h2>Themes</h2>
-
-<p>I went to <a href="http://octopressthemes.com/">Octopress Themes</a> and got a free one. I went the submodule route. Assuming you chose classic light, you&rsquo;d do something like this.</p>
-
-<ul>
-<li>From the directory where you cloned Octopress, <code>git submodule add git://github.com/octothemes/classic-light.git .themes/light</code></li>
-<li><code>git add .themes</code> and commit</li>
-<li><code>rake install[light]</code> will apply it</li>
-<li><code>rake generate</code> and <code>rake preview</code> will let you see how it looks on localhost:4000</li>
-<li><code>rake install[classic]</code>, with the following <code>rake generate</code>, will put things back if you don&rsquo;t like it</li>
-</ul>
-
-
-<p>FWIW, at the time of this writing, I&rsquo;m using <a href="https://github.com/octothemes/forest">forest</a>.</p>
-
-<h2>Hello, Octopress</h2>
-
-<p><code>rake new_post["Hello Octopress"]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
-
-<p><code>rake generate</code>, and then <code>rake preview</code>.</p>
-
-<h2>That&rsquo;s great for posts, what about pages</h2>
-
-<p>You might have guessed it, but <code>rake new_page["About"]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
-
-<p>Don&rsquo;t forget to update your navigation to include your new page! You&rsquo;ll find it in <code>source/_includes/custom/navigation.html</code>, at which point you&rsquo;re just adding a link.</p>
-
-<p><em>I removed the date, and turned off the sharing and footnote options for my About page. I just think it looks cleaner that way.</em></p>
-
-<h2>It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
-
-<p>When you like what you&rsquo;re seeing in <code>rake preview</code>, <code>rake deploy</code>. Given that you&rsquo;ve already gone through the delay setting up the repo and CNAME, it&rsquo;ll be live ridiculously fast.</p>
-
-<p><em>Heads up! Remember when you put CNAME and an index.html in your repo before? I had to navigate into <code>_deploy</code>, and do a <code>git pull</code> resolving some conflicts before <code>rake deploy</code> could push successfully.</em></p>
-
-<p><em>Heads up again! That CNAME that was in the root of your repo should now be in <code>source</code>. This will ensure it sticks around each time you <code>rake generate</code>.</em></p>
-
-<h2>Images</h2>
-
-<p>One thing I found while doing my <a href="/about">About</a> page was including images. The idea is as follows</p>
-
-<ul>
-<li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="/images/the_image.jpg"&gt;</code>
-
-<ul>
-<li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -721,6 +730,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
       </li>
     
@@ -734,10 +747,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
       </li>
     
   </ul>

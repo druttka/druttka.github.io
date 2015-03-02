@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I still plan on writing some posts about how we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over &hellip;">
+  <meta name="description" content="I&rsquo;ve been using Visual Studio Online for a bit, so the example in this post will specifically show that, but the concept applies anywhere. If &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,89 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/25/git-clone-the-quickening/">Git Clone: The Quickening!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-25T21:53:34-07:00" pubdate data-updated="true">Apr 25<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/25/git-clone-the-quickening/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/25/git-clone-the-quickening/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been using <a href="http://www.visualstudio.com/">Visual Studio Online</a> for a bit, so the example in this post will specifically show that, but the concept applies anywhere.</p>
+
+<p>If you have a project up there named foo, the <code>git clone</code> URI is something like</p>
+
+<pre><code>https://you.visualstudio.com/DefaultCollection/_git/foo
+</code></pre>
+
+<p>It&rsquo;s a real pain to type all that. So I did this in my <code>.gitconfig</code></p>
+
+<pre><code>[alias]
+qc-ds = "!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/DefaultCollection/_git/$p $d; }; f"
+</code></pre>
+
+<h3>Usage</h3>
+
+<p>To clone <code>myproject</code> into <code>myproject</code>,</p>
+
+<pre><code>git qc-ds myproject
+</code></pre>
+
+<p>To clone <code>myproject</code> into <code>somedirectory</code>,</p>
+
+<pre><code>git qc-ds myproject somedirectory
+</code></pre>
+
+<h3>Breakdown</h3>
+
+<p>qc stands for quick clone.</p>
+
+<p>ds is an abbreviation of the <code>me</code> part of my VSO account. It&rsquo;s meaningful to me. Make yours whatever you want.</p>
+
+<p>The rest creates a function and executes it. The first argument is assigned to <code>p</code> (&ldquo;project&rdquo;). The second is optional and is assigned to <code>d</code> (&ldquo;directory&rdquo;). It defaults to <code>p</code> if not supplied. Then it&rsquo;s just filling in the blanks.</p>
+
+<h3>Caveat</h3>
+
+<p>This gets a little weirder if you have multiple repositories in a project, e.g. a second repo named bar inside of the foo project</p>
+
+<pre><code>https://you.visualstudio.com/DefaultCollection/foo/_git/bar
+</code></pre>
+
+<p>I know how I&rsquo;m going to tackle this, but I will leave it as an exercise for the reader.</p>
+
+<p>And of course, if you&rsquo;re on GitHub, BitBucket, or whatever&hellip;the repo URIs are usually pretty standard. Just :s it!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -595,142 +678,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Violating All the Principles of Debugging: A Postmortem</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-08T21:00:19-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
-
-<h2>Wont-Fix</h2>
-
-<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
-
-<h2>A Problem Is Reported</h2>
-
-<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
-
-<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
-
-<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
-
-<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
-
-<h2>The Plot Thickens</h2>
-
-<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
-
-<p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
-
-<p>Also traced through the read model updaters to ensure no strange mutations occur there.</p>
-
-<p>Queried the read model store directly. Data is correct at rest. It&rsquo;s got to be in the query side or API itself.</p>
-
-<p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
-
-<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
-
-<p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
-
-<p><strong>It&rsquo;s correct in the XML.</strong></p>
-
-<h2>Wat</h2>
-
-<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
-
-<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
-
-<p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
-
-<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
-
-<p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
-
-<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
-
-<h2>Lunch</h2>
-
-<p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
-
-<p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
-
-<h2>Frayed Ends of Sanity</h2>
-
-<p><em>EXT. Outdoor tables at local cafe.</em></p>
-
-<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
-
-<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
-
-<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
-
-<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
-
-<h2>Derp</h2>
-
-<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
-
-<p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
-
-<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
-
-<h2>Debug It!</h2>
-
-<p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
-
-<h3>What Went Well</h3>
-
-<ul>
-<li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
-<li>We eliminated the command side, event bus, and read models very quickly. This let us isolate the problem to the response pipeline.</li>
-<li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
-</ul>
-
-
-<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
-
-<ul>
-<li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
-<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
-<li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
-<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -748,6 +695,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
       </li>
     
@@ -761,10 +712,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/31/you-are-not-in-a-relationship-with-your-tools/">You Are Not in a Relationship With Your Tools</a>
       </li>
     
   </ul>

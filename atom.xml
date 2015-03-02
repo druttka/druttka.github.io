@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2015-02-26T09:32:50-08:00</updated>
+  <updated>2015-03-02T08:44:46-08:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A Set of Fresh Eyes]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/03/02/a-set-of-fresh-eyes/"/>
+    <updated>2015-03-02T08:42:06-08:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/03/02/a-set-of-fresh-eyes</id>
+    <content type="html"><![CDATA[<p>The other day, I saw my wife looking at a recipe book and writing in a notebook. She often looks at these books when making meal plans and grocery lists, so I didn&rsquo;t think much of it.  Many minutes later, she was still writing. I looked closer and realized that she was copying the recipe by hand. &ldquo;You know you could just take a picture and email it to yourself, right?&rdquo; The look of realization spread over her face, and we had a laugh. It turns out that she had considered scanning it, but our scanner isn&rsquo;t a flatbed.</p>
+
+<p>It struck me as another great example of why team communication is so powerful. She had come up with a reasonable solution, but when it didn&rsquo;t work out, tunnel vision caused her to miss a working alternative. My teammates have often found me in a similar state and gotten me rolling again with a simple &ldquo;Why don&rsquo;t you just&hellip;?&rdquo;<sup>1</sup> I immediately see the light and can usually see exactly how my initial idea put me on a train of thought that made me miss it.<sup>2</sup></p>
+
+<p>Feel free to share some times you remember when a set of fresh eyes was all it took to solve a problem.<sup>3</sup></p>
+
+<hr />
+
+
+<p><small></p>
+
+<p>Footnotes:</p>
+
+<p>1: I&rsquo;d like to think that I return the favor from time to time.</p>
+
+<p>2: In addition, I usually facepalm myself.</p>
+
+<p>3: Pairing can make this process continuous, but that&rsquo;s for another post.</p>
+
+<p></small></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Committed to Good Commits: Work Item Association]]></title>
@@ -964,110 +992,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <ul>
 <li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
 <li>We narrowed the issue down to &ldquo;the response pipeline,&rdquo; but didn&rsquo;t consider what the tools used to view the output might do after the response was delivered.</li>
-<li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
-<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Violating All the Principles of Debugging: A Postmortem]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/"/>
-    <updated>2014-04-08T21:00:19-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem</id>
-    <content type="html"><![CDATA[<p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
-
-<h2>Wont-Fix</h2>
-
-<p>There&rsquo;s one part of this story that I just will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
-
-<h2>A Problem Is Reported</h2>
-
-<p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
-
-<p>An email is received reporting an issue where the ids of certain resources are intermittently being returned as two less than the true value. Or one less. Or one or two above. Always &ldquo;close&rdquo;, but often incorrect.</p>
-
-<p>There is a Fiddler .saz to prove it, and screenshots of that same Fiddler .saz.</p>
-
-<p>A fearless developer figures this must be something pretty silly, opens up the issue in the issue tracking system, and decides to take it on. There will be much weeping.</p>
-
-<h2>The Plot Thickens</h2>
-
-<p><em>INT. The same developer&rsquo;s desk. Plus another developer to pair.</em></p>
-
-<p>The developer has traced through the entire command side of the CQRS system and confirmed that the ID is not strangely mutated before publishing an event to the bus.</p>
-
-<p>Also traced through the read model updaters to ensure no strange mutations occur there.</p>
-
-<p>Queried the read model store directly. Data is correct at rest. It&rsquo;s got to be in the query side or API itself.</p>
-
-<p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
-
-<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two.</p>
-
-<p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
-
-<p><strong>It&rsquo;s correct in the XML.</strong></p>
-
-<h2>Wat</h2>
-
-<p><em>INT. Kitchenette. Coffee. Sanity beginning to fray.</em></p>
-
-<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
-
-<p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
-
-<p>The third developer runs through a lot of what we&rsquo;ve already done, just to make sure we didn&rsquo;t miss something silly.</p>
-
-<p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
-
-<p>File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see the correct values displayed in the browser. Do we have a different version of the json serializer package? A different version of our web api framework package? What else is in the pipeline for json and not for xml?</p>
-
-<h2>Lunch</h2>
-
-<p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
-
-<p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
-
-<h2>Frayed Ends of Sanity</h2>
-
-<p><em>EXT. Outdoor tables at local cafe.</em></p>
-
-<p>We create more reductions. The json serializer and message formatters seem fine, but we still aren&rsquo;t sure what else is in the pipeline. We start mutating the data store to different ids to attempt to establish a pattern.</p>
-
-<p>We find that id = 7 stays 7, even though it&rsquo;s odd. Just the big ones go off.</p>
-
-<p>We write a quick script to create 1000 resources with sequential ids starting with one of the large problem ids. Then we request each of them through our API and dump the id we expect, and the id the API gave us. They all match. None are wrong. This was in C#.</p>
-
-<p>But Fiddler is showing the wrong id, even when C# is showing the rig&mdash;&ndash;</p>
-
-<h2>Derp</h2>
-
-<p>The raw tab of Fiddler always had the correct id. It was the json tab that looked incorrect. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
-
-<p>We saw even/odd, but we didn&rsquo;t see that they were all, for example, multiples of four.</p>
-
-<p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed all the things at once, including what we used to view the output.</p>
-
-<h2>Debug It!</h2>
-
-<p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
-
-<h3>What Went Well</h3>
-
-<ul>
-<li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
-<li>We eliminated the command side, event bus, and read models very quickly. This let us isolate the problem to the response pipeline.</li>
-<li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
-</ul>
-
-
-<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
-
-<ul>
-<li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
-<li>We narrowed the issue down to &ldquo;the response pipeline&rdquo; and excluded tools used to view the output after the response was delivered.</li>
 <li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
 <li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
 </ul>
