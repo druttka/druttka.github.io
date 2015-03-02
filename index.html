@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The other day, I saw my wife looking at a recipe book and writing in a notebook. She often looks at these books when making meal plans and grocery &hellip;">
+  <meta name="description" content="A few years ago, I did a (very intro level) talk on PhoneGap. Recently, I&rsquo;ve been getting back into Cordova for serious business &mdash; wow, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-02T10:39:03-08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2015</time>
+        
+         | <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few years ago, I did a (very intro level) talk on PhoneGap. Recently, I&rsquo;ve been getting back into Cordova for <em>serious business</em> &mdash; wow, have we come a long way =)</p>
+
+<p>One of the things that caused me a bit of friction was that <code>cordova run windows</code> wasn&rsquo;t working how I expected. It kept trying to run the 8.0 target of the universal app instead of the 8.1 target.</p>
+
+<p>I was working around this by opening the .sln in Visual Studio and explicitly running the 8.1 project. I&rsquo;d prefer not to do this.</p>
+
+<p>Today I finally took a minute to search for a solution, and I found what I needed to do.</p>
+
+<blockquote><p>By default build command produces two packages: Windows 8.0 and Windows Phone 8.1. To upgrade Windows package version from 8.0 to 8.1 the following configuration setting must be added to configuration file (config.xml).
+<code>&lt;preference name='windows-target-version' value='8.1' /&gt;</code></p></blockquote>
+
+<p>Thanks, <a href="http://akvelon.com/company/news/16-akvelon/news/187-cordova-win81-wp81">Sergey</a>!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -857,96 +909,6 @@ Needed to zingify the wizzbangs
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/06/03/committed-to-good-commits-introduction/">Committed to Good Commits: Introduction</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-03T15:56:57-07:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
-        
-         | <a href="/blog/2014/06/03/committed-to-good-commits-introduction/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A few years ago, I did a talk called <strong>Committed to Good Commits</strong> at TechMixer University, CodeStock, and HUNTUG. I said I&rsquo;d probably never give the talk again. It gets kind of awkward. Not many people show up when there are other talks going on about <strong>the new shiny hotness</strong>, and those who do show up already agree with everything I say. We just end up nodding our heads and smiling at each other.</p>
-
-<p>For a while, I&rsquo;ve considered turning the talk into a blog post series. Today is the day!</p>
-
-<p>Like the talk, this series will try to be version control agnostic. While examples will be in Git, the concepts should apply equally well in TFS, SVN, SourceSafe, or what have you.</p>
-
-<p><strong>Much of this will be opinion, but these are practices and principles that have worked for me.</strong> That said, we will cover</p>
-
-<ol>
-<li><a href="/blog/2014/06/04/committed-to-good-commits-messages">Commit Messages / Comments</a></li>
-<li><a href="/blog/2014/07/03/committed-to-good-commits-validation">Validation</a></li>
-<li><a href="/blog/2015/02/26/committed-to-good-commits-work-item-association">Work Item Association</a></li>
-<li>Atomic Changes</li>
-<li>Frequent Changes</li>
-<li>Synchronization / Integration</li>
-<li>Team Signals</li>
-<li>Branching Strategies</li>
-</ol>
-
-
-<h3>No One Talks About This</h3>
-
-<blockquote><p>Along the same lines, a few weeks ago, a younger coworker noted to me in passing that he never learned anything about source control in any of his computer science classes. &ndash; <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Jeff Atwood</a></p></blockquote>
-
-<p>When I first gave this talk at TechMixer U in 2011, a college senior expressed a similar situation. The class had been exposed to CVS, but only the most basic operations. When I was in college, I used &ldquo;poor man&rsquo;s version control&rdquo; by putting the last good version on a floppy disk. Then I got wiser and kept n-number of &ldquo;last good&rdquo; versions in zip files with timestamps for names!</p>
-
-<h3>We Need To Talk About This</h3>
-
-<p>We can do better. While caring about version control and using it properly is ignored in schools and conferences, <strong>it is critical!</strong></p>
-
-<blockquote><p>Source control is the very bedrock of software engineering. <a href="http://blog.codinghorror.com/how-should-we-teach-computer-science/">Atwood again</a></p>
-
-<p>But if you don&rsquo;t have source control, you&rsquo;re going to stress out trying to get programmers to work together. <a href="http://www.joelonsoftware.com/articles/fog0000000043.html">Spolsky</a></p></blockquote>
-
-<h3>People Are Starting To Talk About This</h3>
-
-<p>The community is starting to ask a lot more about this, and care a lot more about this. I linked to these three questions when I gave the talk, but I&rsquo;m sure there are plenty more (plenty better?) examples by now.</p>
-
-<ol>
-<li><a href="http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits">http://programmers.stackexchange.com/questions/109523/how-do-i-convince-my-fellow-devs-to-want-to-add-comments-to-source-code-commits</a></li>
-<li><a href="http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch">http://programmers.stackexchange.com/questions/107884/to-branch-or-not-to-branch</a></li>
-<li><a href="http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project">http://programmers.stackexchange.com/questions/98580/whats-the-work-flow-with-2-people-on-a-project</a></li>
-</ol>
-
-
-<h3>It&rsquo;s Not Automatic</h3>
-
-<p>This stuff does take some discipline. For some people, it&rsquo;s only after dealing with a painful situation due to poor version control practices that they choose to care. For others, knowing that the pitfalls exist is enough to spark them toward preventative measures, and they care earlier. In either case, it&rsquo;s important to realize that bad things will happen even to the most careful developers, and that&rsquo;s ok. It&rsquo;s how we learn. I&rsquo;ve certainly been sloppy myself, but try to get better all the time.</p>
-
-<p>I&rsquo;m going to try not to preach much in this series. We&rsquo;re going to look at real issues, and some thought processes toward practices that can ease the pain points. It will then be up to each person / team to decide what processes are or are not appropriate for their workflows.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -962,6 +924,10 @@ Needed to zingify the wizzbangs
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
       </li>
     
@@ -975,10 +941,6 @@ Needed to zingify the wizzbangs
     
       <li class="post">
         <a href="/blog/2015/02/25/are-you-really-blocked/">Are You Really Blocked?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/04/git-pushit/">Git Pushit</a>
       </li>
     
   </ul>
