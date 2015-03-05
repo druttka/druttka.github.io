@@ -9,8 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="By implicitly trusting Fiddler&rsquo;s JSON viewer, we assumed the problem was incorrect data coming from our server. &ndash; Will
-">
+  <meta name="description" content="The other day, I says to Michael, I says We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +78,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-11T15:37:22-07:00" pubdate data-updated="true">Apr 11<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/11/communication-protip-be-specific/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day, I says to <a href="http://msarchet.com">Michael</a>, I says</p>
+
+<blockquote><p>We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo; in the universal human sense.</p></blockquote>
+
+<p>Today, I sucked again, and I am able to see exactly where I went wrong.</p>
+
+<h2>Be Specific</h2>
+
+<p>If you have multiple environments being used for development purposes, don&rsquo;t talk about making updates to &ldquo;dev.&rdquo; This is going to confuse people about whether you meant <code>hacky-dev-builds.fancycloud.net</code> or <code>slightly-more-stable-dev.yourdomain.com.</code></p>
+
+<p>Refer to the environment by something more unique like the URI, and don&rsquo;t leave room for doubt about exactly what changes you made.</p>
+
+<p>Don&rsquo;t do this:</p>
+
+<blockquote><p>I just deployed the latest bits to dev.</p></blockquote>
+
+<p>Do this instead:</p>
+
+<blockquote><p>I just deployed to endpoint.host.tld. The changes included in this deployment since the last deployment are X, Y, and Z. [Actions people would need to take because of these changes]?.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -659,44 +717,6 @@ cd ..
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">This Was Helpful. Octopress From All Your Machines!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-01T09:25:43-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-        
-        <a href="/blog/2014/04/01/octopress-from-all-your-machines/">Permalink</a>
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For me, the takeaway was to be careful what order you do installs and pulls to avoid merge conflicts. <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">Nice write up</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -714,6 +734,10 @@ cd ..
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
       </li>
     
@@ -727,10 +751,6 @@ cd ..
     
       <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
   </ul>

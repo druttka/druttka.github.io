@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="This is part of a series on good commits. Imagine that you had a narrative view of your project&rsquo;s history, telling the story of its evolution &hellip;">
+  <meta name="description" content="This is part of a series. The full list of posts can be found in the introduction. A note before I start. I heard through the grapevine that a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,122 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2014/07/03/committed-to-good-commits-validation/">Committed to Good Commits: Validation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-03T20:35:38-07:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2014</time>
+        
+         | <a href="/blog/2014/07/03/committed-to-good-commits-validation/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/07/03/committed-to-good-commits-validation/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>This is part of a series. The full list of posts can be found in the <a href="/blog/2014/06/03/committed-to-good-commits-introduction">introduction</a>.</em></p>
+
+<p>A note before I start. I heard through the grapevine that a previous post in this series gained some popularity, and that some people held the opinion that these things are too obvious to be posting about.</p>
+
+<blockquote><p>Why are you sharing this? People should already know this! &ndash; Derpicus, Elite Priest of Arrogancia</p></blockquote>
+
+<p>Like I said in <a href="/blog/2014/06/03/committed-to-good-commits-introduction">the introduction</a>, these things are unfortunately not that obvious to many people. If every person across every team that you&rsquo;ve ever worked on was on board with this stuff, you are either incredibly lucky or incredibly young. Until then, we should not feel that it is &ldquo;too obvious&rdquo; to discuss. Those with less exposure need to hear it. Perhaps even we who think we have a handle on proper use of source control still have more to learn from others even wiser than ourselves.</p>
+
+<p>Now, where were we&hellip;</p>
+
+<p>Oh, ya.</p>
+
+<h1>Validation</h1>
+
+<p>Usually, when I delivered this content as a talk, the &ldquo;Validation&rdquo; slide came later in the progression. I&rsquo;m switching it up a little for the blog post series because without proper validation, a lot of hard work can suddenly be all for naught.</p>
+
+<p><strong> Don&rsquo;t. Pollute. The. Stream. </strong></p>
+
+<p>Source control should be a safe place. Bad things are going to happen from time to time, but it should be the exception, not the rule. There are ways to be confident that you&rsquo;re going to keep things clean and happy for yourself and your team.</p>
+
+<p>Here are a few simple things that you can do before you push (or check-in, or whatever your source control calls putting your changes into a place where they&rsquo;ll directly affect your team).</p>
+
+<p>I consider this to be the minimum bar of respect and consideration for others on my team, and I feel bad if I realize I skip them<sup>1</sup>.</p>
+
+<ol>
+<li>Make sure you&rsquo;re at least syntactically sound (compile, or lint, or what have you)</li>
+<li>Confirm that the app can actually start running</li>
+<li>Run whatever tests you have against your changes<sup>2</sup></li>
+<li>Check status / diff to confirm that only the changes you intend to include are included
+
+<ol>
+<li>Do you have test / debug code that should be reverted?</li>
+<li>Do you have local config changes that should be reverted?</li>
+<li>Did your tooling do anything ridiculous when you weren&rsquo;t looking? (<em>cough cough</em> ReDerper<sup>3</sup> <em>cough</em>)</li>
+</ol>
+</li>
+</ol>
+
+
+<h2>Why?</h2>
+
+<p>Because no one wants to pull the latest changes and be blocked by a broken build, or by being unable to start, or by seeing work they did two weeks ago suddenly disappear because you resolved conflicts backwards.</p>
+
+<h2>Why not?</h2>
+
+<p>Some of the common points of resistance I&rsquo;ve heard&hellip;</p>
+
+<ol>
+<li>Not in the habit. Ok, make it habit. Put some form of accountability in place that encourages people to keep things clean. I&rsquo;ve heard of donating $1 each time you break it, or having to take over deployments until the next time someone breaks it. I&rsquo;ve heard of dashboards and sirens and traffic lights. I&rsquo;ve heard of going the other way and creating rewards for those who break it LEAST. Depending on your team culture, there&rsquo;s a lot you could do here.</li>
+<li>Too much time. We&rsquo;ll get to some specific ways to make all of this faster below, but even without those, think about the time you&rsquo;re going to lose if you just slam code into the repo without paying attention. Time determining which of the recent pushes introduced the problem. Time your coworkers lose unable to build while waiting for it to get fixed. Time chasing bugs that really just come down to a hacky line you put in for local testing and forgot to take out because you didn&rsquo;t diff.</li>
+</ol>
+
+
+<h2>Making This Easier</h2>
+
+<p>Here are some things that I&rsquo;ve found can reduce some of the friction around validation.</p>
+
+<ol>
+<li>Automate all the things. If a task runner is watching your changes and constantly running tests, notifying you if they break, you can fix it before it becomes a bigger problem. gulp watch is your friend!</li>
+<li>Code review. Looking back over a unified diff helps catch a lot of those &ldquo;config oops&rdquo; moments, typos, and weird things that tooling does to &ldquo;help us&rdquo; .</li>
+<li>We&rsquo;re working on topic branches right now. If I push something awful, only the people working on that topic are affected (at least, that is, until the topic is merged). Note that this doesn&rsquo;t give us an exemption from validating our changes, but in case we forget&hellip;</li>
+<li>Automate even more things. <a href="http://msarchet.com">Michael</a> and I just finished setting up a process for our team that can run various validations whenever new code is pushed to any branch. We also have a dashboard that gives us visibility of the status of each branch at a glance.</li>
+</ol>
+
+
+<h2>What else?</h2>
+
+<p>You tell me. I&rsquo;m sure there are a lot of things we could be doing even better.</p>
+
+<p>&mdash;</p>
+
+<p>[1] You should, too.</p>
+
+<p>[2] Be sure you&rsquo;re running integration/functional tests against an environment that actually, you know, has those changes.</p>
+
+<p>[3] Mostly kidding. ReSharper has some great features. It&rsquo;s just&hellip;sometimes&hellip;well, I think it might drink a little is all.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -708,65 +824,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/04/11/communication-protip-be-specific/">Communication Protip: Be Specific</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-11T15:37:22-07:00" pubdate data-updated="true">Apr 11<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/04/11/communication-protip-be-specific/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The other day, I says to <a href="http://msarchet.com">Michael</a>, I says</p>
-
-<blockquote><p>We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo; in the universal human sense.</p></blockquote>
-
-<p>Today, I sucked again, and I am able to see exactly where I went wrong.</p>
-
-<h2>Be Specific</h2>
-
-<p>If you have multiple environments being used for development purposes, don&rsquo;t talk about making updates to &ldquo;dev.&rdquo; This is going to confuse people about whether you meant <code>hacky-dev-builds.fancycloud.net</code> or <code>slightly-more-stable-dev.yourdomain.com.</code></p>
-
-<p>Refer to the environment by something more unique like the URI, and don&rsquo;t leave room for doubt about exactly what changes you made.</p>
-
-<p>Don&rsquo;t do this:</p>
-
-<blockquote><p>I just deployed the latest bits to dev.</p></blockquote>
-
-<p>Do this instead:</p>
-
-<blockquote><p>I just deployed to endpoint.host.tld. The changes included in this deployment since the last deployment are X, Y, and Z. [Actions people would need to take because of these changes]?.</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -784,6 +841,10 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
       </li>
     
@@ -797,10 +858,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     
       <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
   </ul>

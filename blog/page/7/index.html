@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The other day, I saw a lot of tweeting about a 501 Developer Manifesto. I had heard the &ldquo;501&rdquo; term before. When I originally heard it, it &hellip;">
+  <meta name="description" content="Note: There may be mild spoilers ahead. I&rsquo;ll try to keep it vague and general, but if you&rsquo;re really worried, go see the movie before &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,132 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/">Lessons for Developers Courtesy of the Avengers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><span style="color:#f00;font-weight:bold;">Note: There may be mild spoilers ahead. I&rsquo;ll try to keep it vague and general, but if you&rsquo;re really worried, go see the movie before reading this post.</span></p>
+
+<p><span style="color:#000000;"><strong>&ldquo;If we can&rsquo;t protect the codebase, you can be damn sure we&rsquo;ll avenge it.&rdquo;</strong></span></p>
+
+<p><span style="color:#000000;">I, as many of you, saw The Avengers this weekend. I don&rsquo;t mean to review it here, but I found myself smiling at many situations thinking, &ldquo;Well, that&rsquo;s just like software development and team leadership.&rdquo; I guess thinking about code while at a blockbuster movie just strengthens the case that <a href="http://thedevstop.wordpress.com/2012/04/19/reflections-on-the-501-developer-manifesto/" target="_blank">I&rsquo;m not a 501</a> (not that there&rsquo;s anything wrong with that!).</span></p>
+
+<p><span style="color:#000000;">Here are some of the things I was able to remember and get down into my notes while the credits rolled. This post will be quickly thrown together. <strong>I expect that it will have some flaws and likely come out being quite ridiculous :)</strong></span></p>
+
+<h3>But It Usually Works&#8230;</h3>
+
+
+<p>Loki has this really great trick where he will tap your heart with a scepter, and you become his mindless minion. Come to find out that doesn&rsquo;t work so well if you&rsquo;re tapping an ARC reactor.</p>
+
+<p><strong>Test everything. </strong>This is nothing new, but something that bears repeating frequently. Works on my machine isn&rsquo;t enough. Works in my workflow isn&rsquo;t enough. Works for common, expected values is not enough. <strong>Include tests like tap_scepter_on_arc_reactor_results_in_mindless_minion.</strong> Preferably, you&rsquo;ll consider edge cases and add the tests before they&rsquo;re ever a problem. If not, at least add the test when you&rsquo;re fixing the bug.</p>
+
+<h3>Performance Problems</h3>
+
+
+<p>I&rsquo;m stretching a little bit here because the context of this quip was quite different than what I&rsquo;m discussing. I won&rsquo;t spoil the joke here, so let&rsquo;s just talk about code.</p>
+
+<p><a href="http://www.codinghorror.com/blog/2011/06/performance-is-a-feature.html" target="_blank">Treat performance as a feature</a>. Half-second delays actually matter. <strong>Set standards for yourself, and then measure and work toward them from day one</strong>. If you notice problems later on, know how to use tools like <a href="http://memprofiler.com/" target="_blank">.NET Memory Profiler</a> and <a href="http://www.iis.net/community/default.aspx?tabid=34&amp;g=6&amp;i=1466" target="_blank">WCAT</a> to accurately measure and analyze the problem.</p>
+
+<p>We do need to be careful not to take this too far. Premature optimization, complicating matters for trivial gain (or sometimes no gain at all), can be just as bad (or worse). That is not an excuse to turn a blind eye to performance.</p>
+
+<h3>Work From Points of Truth</h3>
+
+
+<p>Sometimes you dive at your opponent, sure you&rsquo;ve got him right where you want him, and he&rsquo;s just not there. You end up diving through thin air into a trap, then falling hopelessly from the sky.</p>
+
+<p>Don&rsquo;t do that. I&rsquo;ve been planning a separate post on this point alone, but it hasn&rsquo;t materialized. Too many times I&rsquo;ve seen developers chase a problem for hours only to realize they&rsquo;ve been attacking an illusion. <strong>Always remember to ask yourself &ldquo;why&rdquo; until you get to a root cause, and prove every assumption you&rsquo;re making</strong>.</p>
+
+<h3>Skip the Spinning Rims</h3>
+
+
+<p>When JARVIS tells Tony that the Mark 7 isn&rsquo;t ready for deployment, Tony tells him to skip the spinning rims. Time is up, it&rsquo;s time to roll out!</p>
+
+<p>Oh, if we&rsquo;d all think this way, what wonders we might see. I&rsquo;ve known a lot of great ideas die without ever seeing the light of day because they just weren&rsquo;t perfect enough. <strong>&ldquo;DEPLOY!&rdquo;</strong> says Iron Man. If there&rsquo;s a need to fill, <strong>get something out there</strong>. It doesn&rsquo;t need to have every flashy affordance you can imagine right away. <strong>You can enhance, tweak, and iterate later.</strong></p>
+
+<h3>Team Cohesion</h3>
+
+
+<p>As Coulson dies, he tells Fury that the Avengers Initiative never would have worked anyway because they had nothing to &hellip; then he dies. I can think of several ways to finish the sentence, but the point is that team cohesion doesn&rsquo;t just happen.</p>
+
+<p>I&rsquo;ve worked on products I was excited about, and I&rsquo;ve worked on products that I felt were going down the tubes. I&rsquo;ve contributed to the core of products from their beginnings, and I&rsquo;ve worked on products that were decades old before I touched them. I&rsquo;ve led teams in both situations.</p>
+
+<p>In my experience, <strong>teams of happy, excited developers who can be proud of their accomplishments tend to create more compelling results</strong>. This isn&rsquo;t to say that the unhappy, bored developers won&rsquo;t get their jobs done. I&rsquo;ve trudged through plenty of uninspiring projects. Just keep in mind that getting the job done is kind of like the bare minimum, and the resulting product probably won&rsquo;t be wearing much flair.</p>
+
+<p><strong>Also, a sense of ownership goes a long way.Â </strong>It&rsquo;s hard to get motivated about a product you just don&rsquo;t care about. On the other hand, if you feel like it&rsquo;s your baby&hellip;well, you take care of it like it&rsquo;s your baby.</p>
+
+<h3>Why Should I Take Orders From You?</h3>
+
+
+<p>When Captain America tells some of the city&rsquo;s finest to evacuate people, create a perimeter, etc., one asks &ldquo;Why should I take orders from you?&rdquo; Just then, Captain executes a brilliant defense and counter-attack against an incoming swarm of hostiles. He doesn&rsquo;t need to give any more answer than that  &ndash;  the officer turns and starts delegating the very orders he received.</p>
+
+<p><strong>More competent leaders are more likely to be followed, as are leaders who get down in the trenches and fight beside you</strong>. If you&rsquo;re leading a team of developers, you need to stay on top of new technologies  &ndash;  especially those that your team shows interest in. Buried under paperwork and meetings? At least find time to go through some &ldquo;Hello World&rdquo; tutorials and gain a basic vocabulary for discussions.</p>
+
+<p><strong>Good leaders also know how to delegate</strong>. As implied above, added responsibilities will start to siphon off your time from taking deep dives into every new technology. You can, however, learn the levels of your team and trust them to properly evaluate new options. You can also use your own power to keep the hostiles off their backs and give them time to do a good job.</p>
+
+<h3>Hulk&#8230;Smash!</h3>
+
+
+<p>As a laundry list of orders gets delivered to each member of the team, it ends with, &ldquo;and Hulk? &hellip; Smash!&rdquo;</p>
+
+<p>Good leaders know that each team members will have their own unique strengths and weaknesses. Some have a great eye for detail, some just hack in a blind rage. <strong>Know what each member of your team is capable of, and enable them to succeed by tailoring tasks to their strengths.</strong></p>
+
+<p>We can also take from this the lesson to <strong>communicate on the audience&rsquo;s level</strong>. I learned this as a tutor and have had to carry it through my career as I mentor, consult, or give presentations. This doesn&rsquo;t just apply to teaching or presenting &ndash; this should be in the back of your mind during any team communication.</p>
+
+<h3>Go To Lunch</h3>
+
+
+<p>If you wait until the very end of the credits, you&rsquo;ll see The Avengers sitting around a table grabbing a meal.</p>
+
+<p><a href="http://www.joelonsoftware.com/items/2011/04/28.html" target="_blank">Some say it&rsquo;s awesome to have lunch with your team every day</a>. I don&rsquo;t go that far, but I do think <strong>it&rsquo;s important to get to know your team away from the code</strong>. You may not want to hang out with them every weekend, but at least find out if they prefer sports or sci-fi, Star Wars or Star Trek, etc. <strong>You&rsquo;ll be spending too much time with these people to have it be strictly business</strong>, and you&rsquo;ll enjoy your work a lot more if you can have pleasant conversation during downtime.</p>
+
+<h3>Take A Day</h3>
+
+
+<p>Speaking of downtime&hellip;</p>
+
+<p>When it&rsquo;s all over, Stark suggests that they not come in tomorrow, take a day, relax, go get some Shawarma&hellip;</p>
+
+<p>Yes! This! When that emergency or crunch does come and your team kills themselves to get it taken care of, <strong>reward the effort with some well deserved recovery time!Â </strong>There really isn&rsquo;t much else to say here. If you agree, I&rsquo;m preaching to the choir. If you don&rsquo;t, I doubt anything I&rsquo;d say in this kind of thrown-together, brief post will change your mind.</p>
+
+<h3>TL;DR, Summary</h3>
+
+
+<p>Comic book movies are getting better. Development and team leadership is fun. Sometimes messages overlap.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1110,46 +1236,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2011/12/07/devstop-updates/">DevStop Updates</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-07T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>If you take a look at the <a title="About The DevStop" href="http://thedevstop.wordpress.com/about/">About page</a>, you&rsquo;ll see a couple of new faces. Welcome <a title="mccow002's profile on StackOverflow" href="http://stackoverflow.com/users/807851/mccow002" target="_blank">Chris</a> and <a title="Patrick Hallisey's profile on StackOverflow" href="http://stackoverflow.com/users/596349/patrick-hallisey" target="_blank">Patrick</a> to our gang of authors. I&rsquo;ll let them take care of their own introductions, and I&rsquo;m looking forward to their contributions.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/12/07/devstop-updates/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -1167,6 +1253,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
       </li>
     
@@ -1180,10 +1270,6 @@
     
       <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
   </ul>

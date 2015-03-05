@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2015-03-03T09:50:45-08:00</updated>
+  <updated>2015-03-05T11:04:06-08:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[What You Think vs. What You Know]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/03/05/what-you-think-vs-what-you-know/"/>
+    <updated>2015-03-05T08:26:52-08:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/03/05/what-you-think-vs-what-you-know</id>
+    <content type="html"><![CDATA[<blockquote><p>Me: Have you checked the closet?<br/>
+5yo: No, I know it&rsquo;s not there.<br/>
+Me: But have you <strong>checked</strong> the closet?<br/>
+5yo: Nooooo. I <strong>know</strong> it isn&rsquo;t there.<br/>
+Me: I hear you, but I want to know if you&rsquo;ve <strong>actually looked</strong>.<br/>
+(wife comes back with the missing shirt)<br/>
+Me: Was it in the closet?<br/>
+Wife: Yep.</p></blockquote>
+
+<p>As a result, we had a good discussion about the differences between knowing and thinking. It boiled down to these points.</p>
+
+<ol>
+<li>You didn&rsquo;t know. You thought. There&rsquo;s a difference.</li>
+<li>Not knowing is OK. It&rsquo;s just one more thing you can learn.</li>
+<li>Indeed, smart people don&rsquo;t know everything. They know there&rsquo;s more to learn.</li>
+<li>Smart people consider helpful suggestions.</li>
+<li>Being adamant that you know when you don&rsquo;t really know can make problems harder to solve.</li>
+<li>Just because someone says they know doesn&rsquo;t mean that they know. Trust, but verify.</li>
+<li>Smart people test what they think until they know.</li>
+<li>Again, always, always remember that it&rsquo;s ok to be wrong.</li>
+</ol>
+
+
+<p><strong>Verbosity Ahead. You could stop reading here and be fine.</strong></p>
+
+<h3>Smart Doesn&rsquo;t Mean You Know Everything</h3>
+
+<p>My 5yo is incredibly smart, and there&rsquo;s no parental bias coloring that statement =) The problem is when her confidence transitions into a need to be the smartest person in the room. She often joins an ongoing conversation with, &ldquo;Well, actually, it&rsquo;s (fill in the blank).&rdquo; Sometimes, she&rsquo;s technically correct, but is missing the point. Other times, she has drawn an incorrect conclusion, but it&rsquo;s amusingly logical based on the data that she has. Then, there are the times when she&rsquo;s just making noise, trying to avoid looking like a person who doesn&rsquo;t know something. As the old saying goes, it&rsquo;s usually better to remain silent and appear ignorant than to speak up and remove all doubt.</p>
+
+<p>This isn&rsquo;t just my five year old. Many professionals (not excluding myself) do this because they confuse being vocal with looking smart, and they conflate being silent with appearing confused or uninformed. Sometimes we even chime in with something that isn&rsquo;t even relevant, but it&rsquo;s a data point that proves I Know Things<sup>tm</sup>!</p>
+
+<p>The other danger in thinking you know everything is that you lose the appetite to learn and improve. Knowing that you can&rsquo;t even know how much you don&rsquo;t know keeps you reading, keeps you experimenting, and keeps you pushing for even better ways to do things. Accepting that you&rsquo;ve learned all there is to learn keeps you stuck doing whatever you&rsquo;re doing. You may be the #1 ranked expert at frobbing the wizbangs, while everyone else has realized that wizbangs don&rsquo;t even need to be frobbed anymore.</p>
+
+<h3>Smart People Accept Help</h3>
+
+<p>Just as my 5yo wouldn&rsquo;t check the closet, many professionals refuse to accept a suggestion because they are sure that it&rsquo;s wrong. As time passes and it becomes the last possible thing to try, it turns out to be the solution.</p>
+
+<p>Consider that your team is probably trying to be helpful, so they probably have reason to believe that the idea is worth a shot. Why not consider what they&rsquo;re offering? In the worst case, you spend ten seconds opening a closet. In the best case, you have your shirt.</p>
+
+<p>My discussion with a 5yo put it a little something a little like this</p>
+
+<blockquote><p>Remember that we&rsquo;re trying to be helpful, not trying to waste your time or patronize<sup>1</sup>. Listen.</p></blockquote>
+
+<h3>Do Not Present Guesses As Facts</h3>
+
+<p>We hear a lot about how interrupting a dev is the worst thing you can do. Let&rsquo;s consider that there might be something worse. You could send them down an irrelevant path by presenting a wild guess as if it was a vetted root cause analysis.</p>
+
+<blockquote><p>Guess liberally, but be clear that you&rsquo;re guessing. Do not present your guesses as data. &ndash; @druttka</p></blockquote>
+
+<p>What if we took my kid&rsquo;s confident statement of knowing the shirt wasn&rsquo;t there at face value? The shirt would still be &ldquo;lost&rdquo;. We professionals often present our own guesses as facts. I can think of many times that a bug report came with a full analysis of when it started happening, why it was happening now, and what we needed to change to fix it. After a few hours of tunnel vision<sup>2</sup>, it was discovered that everything we &ldquo;knew&rdquo; was wrong. The timeline was off, the root cause didn&rsquo;t even exist, and the proposed change was impossible because the code to change didn&rsquo;t exist either.</p>
+
+<p>The tunnel vision could have been avoided, and time saved, if the briefing had included a simple, humble, &ldquo;I think&rdquo;. Then the ideas would have been considered as ideas instead of taken as facts.</p>
+
+<h3>Test Assumptions</h3>
+
+<p>This brings us to the fundamental truth that we should always test assumptions. We all know the old saying that goes with this one, but we often forget to put it into practice. I&rsquo;ve been trying to incorporate the following ideas into my thought process.</p>
+
+<p>First, I try to remember to say &ldquo;I think&rdquo; if I just think<sup>3</sup>. If I do have evidence or reasoning, I try to remember to say &ldquo;because (evidence or reasoning).&rdquo; This helps the other person take what I&rsquo;m saying for what it&rsquo;s worth, not as hard truth. I also ask them to confirm what I&rsquo;m saying, since I could be wrong.</p>
+
+<p>Second, I add a silent &ldquo;I think&rdquo; to what others tell me unless or until they say &ldquo;because (evidence or reasoning).&rdquo; Even when they present evidence or reasoning, I try to hold off on accepting it as truth until I can confirm it in the same way I&rsquo;d expect them to confirm anything I told them.</p>
+
+<p>Third, I&rsquo;m getting more liberal with asking &ldquo;How do we know that?&rdquo; It works well in combination with the point above because it prompts a person to voice their evidence or reasoning. Then we can vet it together. For example, if I sit down to pair with someone who has been investigating a problem, they might say, &ldquo;We know this is being called.&rdquo; I <strong>will</strong> usually be the kind of person who asks how we know it&rsquo;s called<sup>4</sup>. If the response is &ldquo;Because we see this text on a button changing,&rdquo; I <strong>will</strong> be the kind of person who asks &ldquo;Is that the only thing that changes the button text?&rdquo; I&rsquo;m aware that this could come across as annoying, but it&rsquo;s often followed by &ldquo;Oh&hellip;&rdquo;. The realization is not always directly related, but sending the train of thought down the right track is still a positive outcome.</p>
+
+<p>I guess the <strong>tl;dr</strong> on all of this is that problems can be more easily solved if we are careful to separate what we know from what we think. All the rest would flow naturally in a healthy, functioning team.</p>
+
+<hr />
+
+
+<p><small></p>
+
+<p>Footnotes</p>
+
+<ol>
+<li>If this is not the case, you might need a new team.</li>
+<li>I&rsquo;ve talked more about tunnel vision in problem solving <a href="http://www.davidruttka.com/blog/2015/03/02/a-set-of-fresh-eyes/">here</a> and <a href="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">here</a>. Will covers it <a href="http://willi.am/blog/2014/04/08/a-lesson-in-debugging-verify-your-tools/">here</a>.</li>
+<li>I was once given advice that &ldquo;I think&rdquo; is a bad thing to say. Lacks commitment, looks weak, etc. I have come to respectfully disagree.</li>
+<li>Did we log something? Set a breakpoint? Make a change and see it reflected on the next run?</li>
+</ol>
+
+
+<p></small></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[If It's Good for You, Good for You!]]></title>
@@ -935,33 +1024,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
     <updated>2014-04-11T15:51:34-07:00</updated>
     <id>http://www.davidruttka.com/blog/2014/04/11/async-slash-await-sugar-in-es7</id>
     <content type="html"><![CDATA[<p>Holy cow. <code>async/await</code> sugar on top of generators <a href="http://www.joezimjs.com/javascript/synchronizing-asynchronous-javascript-es7/">coming in ES7</a>?!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Communication Protip: Be Specific]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific/"/>
-    <updated>2014-04-11T15:37:22-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/11/communication-protip-be-specific</id>
-    <content type="html"><![CDATA[<p>The other day, I says to <a href="http://msarchet.com">Michael</a>, I says</p>
-
-<blockquote><p>We suck so much at communication. Not you and me. I mean, I am including myself, but I mean &lsquo;we&rsquo; in the universal human sense.</p></blockquote>
-
-<p>Today, I sucked again, and I am able to see exactly where I went wrong.</p>
-
-<h2>Be Specific</h2>
-
-<p>If you have multiple environments being used for development purposes, don&rsquo;t talk about making updates to &ldquo;dev.&rdquo; This is going to confuse people about whether you meant <code>hacky-dev-builds.fancycloud.net</code> or <code>slightly-more-stable-dev.yourdomain.com.</code></p>
-
-<p>Refer to the environment by something more unique like the URI, and don&rsquo;t leave room for doubt about exactly what changes you made.</p>
-
-<p>Don&rsquo;t do this:</p>
-
-<blockquote><p>I just deployed the latest bits to dev.</p></blockquote>
-
-<p>Do this instead:</p>
-
-<blockquote><p>I just deployed to endpoint.host.tld. The changes included in this deployment since the last deployment are X, Y, and Z. [Actions people would need to take because of these changes]?.</p></blockquote>
 ]]></content>
   </entry>
   

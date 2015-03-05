@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The other day, I was trying to split a string and then get the various parts of it from within an MSBuild project, but it went totally nuts on me. &hellip;">
+  <meta name="description" content="This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,102 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/">Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-23T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
+
+<p><b>tl;dr  &ndash;  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
+
+<p>I updated a project from the Web API prerelease to the official Web API 2 a few nights ago, and it broke my build. The HttpGet and HttpPost attributes take no arguments, so [HttpGet(&ldquo;someroute&rdquo;)] and [HttpPost(&ldquo;otherRoute&rdquo;)] were no longer valid.</p>
+
+<p>Now, you just use [Route(&ldquo;theRoute&rdquo;)], and it will take it&rsquo;s best guess about which HTTP Method to use. It&rsquo;s usually right (especially if you use the preexisting conventions). I felt the need to find a contrived example where it chooses wrong to confirm how to make it right.</p>
+
+<p>Let&rsquo;s say we want this X to get wired up as GET /api. It actually gets wired as a POST, and if you try to GET, it throws 405 Method Not Allowed.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In reality, I&rsquo;d just rename this from X to Get, but this is a contrived example! Let&rsquo;s pretend someone put a note on the work item that the implementation method must be named X. We can turn the world right-side-up again by stacking the Http* method attribute. The following works as GET /api, and attempting to POST throws 405.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
+</span><span class='line'><span class="na">  [HttpGet]</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hope this saves someone a few minutes sometime.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -916,501 +1012,6 @@ Remember also we only request one parent with the child, not both. So this is TW
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/03/07/roy-osheroves-solid-kata-string-calculator-redux/">Roy Osherove&#8217;s SOLID Kata String Calculator Redux</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-07T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="https://twitter.com/RoyOsherove" target="_blank">Roy Osherove</a> recently <a href="http://osherove.com/blog/2013/3/6/refactoring-string-calculator-with-solid-principles-in-mind.html" target="_blank">posted a challenge</a> to refactor a simple <a href="https://gist.github.com/anonymous/5098336" target="_blank">StringCalculator</a> using <a href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)" target="_blank">SOLID principles</a>. Sounds fun to me!</p>
-
-<p>Here&rsquo;s his original gist showing a StringCalculator.</p>
-
-<div><script src='https://gist.github.com/5098336.js'></script>
-<noscript><pre><code>using NUnit.Framework;
-
-namespace StringCalculatorTests
-{
-    [TestFixture]
-    public class StringCalculatorTests
-    {
-        [TestCase(&quot;&quot;,0)]
-        [TestCase(&quot;1&quot;,1)]
-        [TestCase(&quot;1,2&quot;,3)]
-        public void Add_Empty_DefaultResults(string input,int expected)
-        {
-            StringCalculator sc = new StringCalculator();
-
-            int result = sc.Add(input);
-
-            Assert.AreEqual(result, expected);
-        }
-
-    }
-
-    public class StringCalculator
-    {
-        public int DEFAULT_RESULT = 0;
-
-        public int Add(string input)
-        {
-            if (input==string.Empty)
-            {
-                return DEFAULT_RESULT;
-            }
-            if (input.Contains(&quot;,&quot;))
-            {
-                return handleMultiple(input);
-            }
-            return ParseSingle(input);
-        }
-
-        private static int ParseSingle(string input)
-        {
-            return int.Parse(input);
-        }
-
-        private int handleMultiple(string input)
-        {
-            string[] numbers = input.Split(',');
-            return Add(numbers[0]) + Add(numbers[1]);
-        }
-    }
-}
-</code></pre></noscript></div>
-
-
-
-
-<h3>Responsibilities</h3>
-
-
-<p>This thing is doing at least two things, and I contrived a third.</p>
-
-<ol>
-    <li>It is parsing string input into a set of integer values</li>
-    <li>It is performing the sum operation</li>
-    <li>It is defining a default result in the absence of valid input</li>
-</ol>
-
-
-<p>I think perhaps it should only be responsible for the second of these. It is a calculator, so parsing should certainly be outside of its scope. We will save the definition of the default result for later. First, let&rsquo;s separate parsing.</p>
-
-<h3>Creating IntParser</h3>
-
-
-<p>The first thing I did was create an IntParser with a single method. This method accepted a string of input and returned an IEnumerable of int values.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">IntParser</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="n">IEnumerable</span> <span class="nf">Parse</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">foreach</span><span class="p">(</span><span class="kt">var</span> <span class="n">part</span> <span class="k">in</span> <span class="n">input</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="k">out</span> <span class="n">x</span><span class="p">))</span>
-</span><span class='line'>                <span class="k">yield</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<h3>Integrating IntParser</h3>
-
-
-<p>The simplest thing to do next was to accept an IntParser as a constructor parameter for the StringCalculator class. Now instead of the Add method checking the input and deciding how to get ints from it, it simply delegates that responsibility to the dependency.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">StringCalculator</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">DEFAULT_RESULT</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IntParser</span> <span class="n">parser</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">StringCalculator</span><span class="p">(</span><span class="n">IntParser</span> <span class="n">parser</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">parser</span> <span class="p">=</span> <span class="n">parser</span><span class="p">;</span> <span class="c1">// you could guard against null if you want</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">var</span> <span class="n">ints</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">parser</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// Uh-oh. The way I&#39;ve implemented this, I still pass the tests</span>
-</span><span class='line'>        <span class="c1">// but I have eliminated the explicit check for empty=&gt;0.</span>
-</span><span class='line'>        <span class="c1">// It is only 0 by an implementation coincidence.This is however</span>
-</span><span class='line'>        <span class="c1">// irrelevant to the SOLID part of this exercise, so I&#39;ll leave it</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">ints</span><span class="p">.</span><span class="n">Sum</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What have we achieved here? Well, the StringCalculator class is now immune to changes in how we handle or parse input. As long as IntParser will deliver some set of integers, it can add them. Is it SOLID now? While it&rsquo;s better, we still have a long way to go. Let&rsquo;s assess:</p>
-
-<ul>
-    <li>SRP  -  check, we have definitely separated the parsing</li>
-    <li>OCD  -  fail, this is neither open to extension nor closed to modification; if we wanted to handle new input formats, we cannot easily replace IntParser without changing StringCalculator</li>
-    <li>LSP  -  defer, as we see no subtypes we cannot analyze the effects of substitution</li>
-    <li>ISP  -  defer, as we have no interfaces, we cannot analyze their division</li>
-    <li>DIP  -  fail, we are depending on the &#8220;concretion&#8221; of IntParser</li>
-</ul>
-
-
-<h3></h3>
-
-
-<p>The Abstraction of IParseInts</p>
-
-<p>Extracting an interface from IntParser, we get the IParseInts interface. StringCalculator can now depend on this interface instead of the specific IntParser implementation.</p>
-
-<p>At this time, let&rsquo;s also rename IntParser to a more specific IntsFromCommaSeparatedString. This name is somewhat lengthy, but naming is hard and it&rsquo;ll do for now.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">interface</span> <span class="n">IParseInts</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">IEnumerable</span> <span class="nf">Parse</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">StringCalculator</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">DEFAULT_RESULT</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IParseInts</span> <span class="n">parser</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">StringCalculator</span><span class="p">(</span><span class="n">IParseInts</span> <span class="n">parser</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">parser</span> <span class="p">=</span> <span class="n">parser</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">var</span> <span class="n">ints</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">parser</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">ints</span><span class="p">.</span><span class="n">Sum</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What does this gain us? Well, now when we write unit tests around StringCalculator we can mock out IParseInts and have a reliable set of ints, even if our parser implementation regresses.</p>
-
-<p>We are also able to extend our system to handle new formats without changing the existing calculator or parser. We&rsquo;d simply pass the appropriate parser into the constructor. We could add a CanHandle(input) method to our interface and pass all registered parsers into the calculator, and let it ask on a case by case basis which one is appropriate. There are many ways to go here so I will leave it as an exercise for the reader or for a future blog post.</p>
-
-<p>So our responsibilities are separated (SRP), we can extend the system to new formats without changing the existing implementations (OCD), our interface is small and specific to a task (ISP), and the calculator depends on an abstraction rather than a specific concrete class (DIP). We still have no subtypes, but whatever.</p>
-
-<h3>IDefault</h3>
-
-
-<p>The other responsibility I contrived above was the determination of the default value. Something about having this as a public const was bothering me.Â  What if callers wanted to use a different default value, or perhaps even result in an exception if no sum could be calculated. How would they determine whether &ldquo;0&rdquo; was because the numbers added to zero, or because the input failed?</p>
-
-<p>So I made an IDefault interface and let StringCalculator depend on this as well. I made two implementations, the SimpleDefaulter which returns default(T) directly, and the ExceptionDefaulter which throws. (As an exercise, you could add a constructor to ExceptionDefaulter which accepts the message to use on the Exception, or a Func&lt;Exception&gt; that will construct the Exception on demand, or a Func&lt;string, Exception&gt; that would do the same but be able to utilize the string input&hellip;the sky is your limit).</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">interface</span> <span class="n">IDefault</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">T</span> <span class="nf">GetDefault</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">SimpleDefault</span> <span class="p">:</span> <span class="n">IDefault</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="n">T</span> <span class="nf">GetDefault</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nf">default</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ExceptionDefault</span><span class="p">&lt;</span><span class="n">TValue</span><span class="p">,</span> <span class="n">TException</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">IDefault</span>
-</span><span class='line'>    <span class="k">where</span> <span class="n">TException</span> <span class="p">:</span> <span class="n">Exception</span><span class="p">,</span><span class="k">new</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="n">TValue</span> <span class="nf">GetDefault</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">TException</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">StringCalculator</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IDefault</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">defaulter</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IParseInts</span> <span class="n">parser</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">StringCalculator</span><span class="p">(</span><span class="n">IParseInts</span> <span class="n">parser</span><span class="p">,</span> <span class="n">IDefault</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">defaulter</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">parser</span> <span class="p">=</span> <span class="n">parser</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">defaulter</span> <span class="p">=</span> <span class="n">defaulter</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">var</span> <span class="n">ints</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">parser</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(!</span><span class="n">ints</span><span class="p">.</span><span class="n">Any</span><span class="p">())</span>
-</span><span class='line'>            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">defaulter</span><span class="p">.</span><span class="n">GetDefault</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">ints</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>One might have been tempted to add this behavior to the IParseInts interface  &ndash;  after all, the default is only used in the case when the parsed ints are empty. However, we have practiced ISP by creating a separate, specific interface. Some systems might need defaults without parsing, or vice versa. Now either interface can be implemented without the baggage of the others!</p>
-
-<h3>Going Further?</h3>
-
-
-<p>We could go pretty crazy, but I think it&rsquo;s good enough for now. A couple of things I might do differently if I wanted to spend more time on this? Here is one thing that immediately comes to mind.Â In the above, &ldquo;a,b,c&rdquo; and &ldquo;David&rdquo; will behave exactly the same as &ldquo;&rdquo;. The default will be executed whether the set is empty or invalid. Thoughts regarding this:</p>
-
-<ul>
-<ul>
-    <li>This is currently an implementation detail of our IntParser class. It eats parts that cannot be parsed as ints.</li>
-    <li>We could change the spec of that implementation, but probably the &#8220;business&#8221; will want this to be consistent regardless of the parser or input format so&#8230;</li>
-    <li>We could have an IValidateInput interface, or add an IsValid to the existing IParseInts interface. IValidateInput is probably a more strict following of ISP, but could be overkill. In either case, I think the concrete implementation would have the responsibility of implementing both methods - the choice in my mind is simply whether it has to implement two interfaces or just one.</li>
-</ul>
-</ul>
-
-
-<p><strong>Update:Â </strong>Another thought is that while we have opened things up to support multiple string formats, we still only support string inputs. We could abstract this to instead of having IParseInts which parses a string, have something like IProvideInts, and instead of .Parse, have .RetrieveAll. The add method would then either accept an IProvideInts parameters instead of a string, or it would just directly accept the set of ints (having been obtained previously by the caller).</p>
-
-<h3>Conclusion</h3>
-
-
-<p>So here is my final gist.</p>
-
-<div><script src='https://gist.github.com/5111493.js'></script>
-<noscript><pre><code>// I described the thought processes (SOLID violations, which to fix, how and why)
-// in my post at http://thedevstop.wordpress.com/2013/03/07/roy-osheroves-solid-katastring-calculator-redux/
-
-// Note that I did this in LINQPad and so instead of NUnit tests, I dumped failures
-// If I was to do this again, I'd either do it in VS with a test runner.
-void Main()
-{
-    var parser = new IntsFromCommaSeparatedString();
-    
-    var none = parser.Parse(&quot;&quot;).ToArray();
-    AssertEqual(0, none.Length);
-    
-    var one = parser.Parse(&quot;1&quot;).ToArray();
-    AssertEqual(1, one.Length);
-    AssertEqual(1, one[0]);
-    
-    var two = parser.Parse(&quot;1,2&quot;).ToArray();
-    AssertEqual(2, two.Length);
-    AssertEqual(1, two[0]);
-    AssertEqual(2, two[1]);
-    
-    var calc = new StringCalculator(parser, new SimpleDefault&lt;int&gt;());
-    AssertEqual(0, calc.Add(&quot;&quot;));
-    AssertEqual(1, calc.Add(&quot;1&quot;));
-    AssertEqual(3, calc.Add(&quot;1,2&quot;));
-}
-
-public interface IParseInts
-{
-    IEnumerable&lt;int&gt; Parse(string input);
-}
-
-public interface IDefault&lt;T&gt;
-{
-    T GetDefault(string input);
-}
-
-public class SimpleDefault&lt;T&gt; : IDefault&lt;T&gt;
-{
-    public T GetDefault(string input)
-    {
-        return default(T);
-    }
-}
-
-public class ExceptionDefault&lt;TValue, TException&gt; : IDefault&lt;TValue&gt;
-    where TException : Exception,new()
-{
-    public TValue GetDefault(string input)
-    {
-        throw new TException();
-    }
-}
-
-public class IntsFromCommaSeparatedString : IParseInts
-{
-    public IEnumerable&lt;int&gt; Parse(string input)
-    {
-        int x;
-        
-        foreach(var part in input.Split(','))
-        {
-            if (int.TryParse(part, out x))
-                yield return x;
-            }
-        }
-    }
-
-public class StringCalculator
-{
-    private readonly IDefault&lt;int&gt; defaulter;
-    private readonly IParseInts parser;
-    
-    public StringCalculator(IParseInts parser, IDefault&lt;int&gt; defaulter)
-    {
-        // you could guard against null if you want. Omitted for brevity
-        this.parser = parser;
-        this.defaulter = defaulter;
-    }
-    
-    public int Add(string input)
-    {
-        var ints = this.parser.Parse(input);
-        if (!ints.Any())
-            return this.defaulter.GetDefault(input);
-        
-        // Uh-oh. The way I’ve implemented this, I still pass the tests
-        // but I have eliminated the explicit check for empty=&gt;0.
-        // It is only 0 by an implementation coincidence. This is however
-        // irrelevant to the SOLID part of this exercise, so I'll leave it
-        return ints.Sum();
-    }
-}
-
-// Only for use in the LINQPad query to simulate tests
-private void AssertEqual(object expected, object actual)
-{
-    if (!expected.Equals(actual))
-        throw new Exception(string.Format(&quot;Expected {0} to equal {1}&quot;, actual, expected));
-}</code></pre></noscript></div>
-
-
-<p>I hope you enjoyed reading about this experience as much as I enjoyed going through the exercise. This is nothing groundbreaking but perhaps it will help SOLID click for someone. Also, I&rsquo;d be very interested in any comments about what I might have missed or mistaken, or links to your <a href="https://twitter.com/search?q=solidkata&amp;src=typd" target="_blank">#solidkata</a> exercises so that I can learn how others approach the task. Happy coding!</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/03/07/roy-osheroves-solid-katastring-calculator-redux/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1428,6 +1029,10 @@ private void AssertEqual(object expected, object actual)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
       </li>
     
@@ -1441,10 +1046,6 @@ private void AssertEqual(object expected, object actual)
     
       <li class="post">
         <a href="/blog/2015/02/26/committed-to-good-commits-work-item-association/">Committed to Good Commits: Work Item Association</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/25/high-performance-developers/">High Performance Developers</a>
       </li>
     
   </ul>
