@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Committed to Good Commits: Atomic, Frequent Commits - David Ruttka</title>
+  <meta name="author" content="David Ruttka">
+
+  
+  <meta name="description" content="This is part of a series on good commits. In this post, we&rsquo;ll discuss atomicity and frequency. Remember that this series and the talk from &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">
+  <link href="/favicon.png?v=2" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-49510588-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">David Ruttka</a></h1>
+  
+    <h2>I make computers do things</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.davidruttka.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/speaking">Speaking</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Committed to Good Commits: Atomic, Frequent Commits</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-06T08:15:12-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2015</time>
+        
+         | <a href="#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>This is part of a <a href="/blog/2014/06/03/committed-to-good-commits-introduction">series on good commits</a>.</em></p>
+
+<p>In this post, we&rsquo;ll discuss atomicity and frequency. Remember that this series and the talk from which it came is a description of what has worked well for me, not a prescription of what will work well for you. It&rsquo;s ok to <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">do things differently</a>.</p>
+
+<h3>Atomic Commits</h3>
+
+<p>By an atomic commit, I mean there&rsquo;s just one reason for change included in the commit.</p>
+
+<p><strong>This Commit Is Not Atomic</strong></p>
+
+<blockquote><p>Fix 4, 5, and 99</p>
+
+<p>4 Adjust font sizes and colors<br/>
+5 Changed the splash screen timeout from 1 sec to 5 sec<br/>
+99 Implemented the new ruleset for discounts</p></blockquote>
+
+<p>4 and 5 are pretty small, so why not include them all in one commit? Here are a few reasons to think about.</p>
+
+<ol>
+<li>The commit message is not concise. The actual change description comes in the extended details, not the summary.</li>
+<li>None of these can be reverted without reverting the others<sup>1</sup>.</li>
+<li>None of these changes can be cherry-picked without the others<sup>2</sup>.</li>
+<li>This works against making frequent commits, which we&rsquo;ll discuss shortly.</li>
+</ol>
+
+
+<p>We can see some parallels with the debugging and troubleshooting concept of only turning one knob at a time. If you change three things and it gets better, you don&rsquo;t know if it was one of them, a combination of two of them (which two?!), or all three working together. If all three are needed, then of course commit them as one cohesive unit. If not, consider keeping them separate<sup>3</sup>.</p>
+
+<p><strong>Why Not?</strong></p>
+
+<p>I&rsquo;ve only heard two common arguments against this, and one is the same &ldquo;habits&rdquo; reason we&rsquo;ve covered in almost every topic in the series.</p>
+
+<p>The other is that the log gets much longer, and that&rsquo;s certainly true. Whether this is a problem is another matter. I find that it&rsquo;s often helpful to see a greater number of more granular commits in the log than to see a few gigantic ones. It&rsquo;s more clear to me what changed when and why, especially since the message are more concise and specific. By the same token, it&rsquo;s easier to search for a given commit.</p>
+
+<p>There is one more option to keep in mind as you consider what works best for you. With some version control systems and branching strategies, you can have the best of both worlds. When the full history becomes irrelevant as a new feature reaches completion (i.e., in the future, we&rsquo;ll only care that the feature was implemented, not about each step we took along the way), then you can squash the Work In Progress commits into a smaller set just before you merge them in.</p>
+
+<h3>Frequency</h3>
+
+<p>If you&rsquo;re making atomic commits, you&rsquo;re probably also committing frequently.</p>
+
+<p><strong>It&rsquo;s like undo/redo, but</strong><br/>
+&ndash; with named states<br/>
+&ndash; across files<br/>
+&ndash; without loss of the undo stack when the IDE or system restarts<br/>
+&ndash; and you can jump back and forth multiple points at a time</p>
+
+<p><strong>It&rsquo;s like saving your game right before the boss fight</strong></p>
+
+<p>I&rsquo;ll usually commit each time I make forward progress toward my goal, or whenever I&rsquo;m about to make a significant change across multiple files. This might mean I get one more test passing, or it might mean I&rsquo;ve created something that &ldquo;works&rdquo; but needs to be refactored. The value in the commit is that no matter how bad I break things during the next step, there is zero effort to put things right. If I find myself down a terrible path, I just reset to HEAD, and I&rsquo;m safe at home.</p>
+
+<p>Depending on your branching strategy, you might even <strong>push your commits frequently</strong> so that you can get early feedback (from your peers and/or a build server). Contrast this with waiting until work is done, when feedback will often be withheld or ignored &ldquo;to avoid the cost of rework&rdquo;<sup>4</sup>.</p>
+
+<p><strong>So how frequently?</strong></p>
+
+<p>It depends ;) I certainly don&rsquo;t think of it in terms of time. I think of it more in terms of progress versus risk. Do you have more value than you had before? Do you want to protect it as a known good state to which you can time travel later? Are you about to experiment with a wild idea or undergo a large refactoring? Consider whether there&rsquo;s value in giving yourself a checkpoint, especially if your VCS supports squashing it later if you realize later that you didn&rsquo;t need it.</p>
+
+<p><strong>Why not?</strong></p>
+
+<p>A lot of people worry that this will cause destabilization.</p>
+
+<p>This is a very valid concern if committing means that it affects the whole team instead of just you<sup>5</sup>. If your commits only live locally until you push them to the server, or if your pushed commits will be isolated in a topic branch, then you&rsquo;re only affecting yourself.</p>
+
+<p>If the commits (or check-ins) are into a shared mainline, then yes, frequently adding your half-baked work in progress can indeed break builds and impact your team. However, there are ways around breaking your team and benefits to earlier integration. You <strong>will</strong> have to integrate at some point, and delaying that will only make it harder at the end. Do a <a href="http://codebetter.com/jeremymiller/2005/07/25/using-continuous-integration-better-do-the-check-in-dance/">check-in dance</a>. Find out earlier what&rsquo;s going to break, and it&rsquo;ll be easier to correct your course before getting too far down the wrong path<sup>6</sup>.</p>
+
+<h3>Thoughts?</h3>
+
+<p>Again, this is what has worked for me and my teams. It might not be best for everyone. It might not even be best for me&hellip;just the <em>best I&rsquo;ve found yet</em>. Please do share the pros and cons of any alternatives that have worked well for you.</p>
+
+<hr />
+
+
+<p><small></p>
+
+<p>Footnotes</p>
+
+<ol>
+<li>To be clear, you could manually revert them piece by piece by paying careful attention to what changes went with what commit. I&rsquo;m talking about a quick, automatic revert, as when using <code>git revert</code>.</li>
+<li>To cherry-pick or not to cherry-pick is another topic. All I&rsquo;m saying here is that if you were to cherry-pick, three changes come with that commit.</li>
+<li>If you&rsquo;ve already made several changes before realizing they should be separate, can look at <code>git add -p</code> to selective stage and commit portions of changed files instead of all of them. The danger would be that if you separate things that actually needed to be together, one of the commits might actually be unbuildable. When (if ever) that&rsquo;s acceptable is another topic.</li>
+<li>Transitioning from code reviews when work is considered complete to an ongoing, collaborative discussion as soon as work begins is incredibly powerful.</li>
+<li>And your pair(s).</li>
+<li>If you are isolating work in topic branches, you&rsquo;re guarding against destabilization of the mainline, but you&rsquo;re opening yourself up to the pain of delayed integration. You don&rsquo;t see conflicts or incompatible semantic changes until you merge. One solution is to regularly incorporate the mainline into your branch (e.g., rebasing or merging master) to see and resolve these problems earlier. Of course, this doesn&rsquo;t solve the case where Topic A and Topic B are both compatible with master, but not with each other. We will talk more about these tradeoffs in a future post about branching strategies.</li>
+</ol>
+
+
+<p></small></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-06T08:15:12-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/03/05/what-you-think-vs-what-you-know/" title="Previous Post: What You Think Vs. What You Know">&laquo; What You Think Vs. What You Know</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn't Cordova Run Windows Run the 8.1 App?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - David Ruttka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidruttka';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
