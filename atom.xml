@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2015-03-06T10:22:23-08:00</updated>
+  <updated>2015-08-01T13:27:30-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Templated Server Views With Hapi.js]]></title>
+    <link href="http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/"/>
+    <updated>2015-08-01T13:10:04-07:00</updated>
+    <id>http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js</id>
+    <content type="html"><![CDATA[<p>Today I realized I&rsquo;ve overlooked a great feature of Hapi.js, so I figured I&rsquo;d write a quick post about it.</p>
+
+<h3>What I Was Doing</h3>
+
+<p>For a server rendered view, I was doing this.</p>
+
+<pre><code>var jade = require('jade');
+var fs = require('fs');
+var template = jade.compile(fs.readFileSync(pathToTemplate));
+
+// later on
+return template(context);
+</code></pre>
+
+<p>This was fine for what I was doing at the time, since the rendered output was really part of a larger response, and was pretty much the only area in the system where such a thing was being done.</p>
+
+<h3>What I Was Doing Today</h3>
+
+<p>Instead of having some rendered output as part of a larger API response, I was creating a route that should actually return an HTML view. The above still works fine, but I could see a bit of friction coming in if this project has more views.</p>
+
+<ul>
+<li>I would want to set the Content-Type, either through Hapi&rsquo;s <code>reply.header</code> or <code>reply.type</code>. This could get repetitive.</li>
+<li>The <code>readFileSync</code> and <code>compile</code> dance could get a bit repetitive or tedious.</li>
+</ul>
+
+
+<h3>What I Do Now</h3>
+
+<pre><code>// During the server setup 
+server.views({
+  engines: { 
+    html: require('jade'),
+    path: __dirname + '/templates'
+  }
+});
+
+// Later, in handlers
+return reply.view('index', context);
+</code></pre>
+
+<p>Hapi takes care of reading, compiling, and applying the template as long as it&rsquo;s in the configured path.</p>
+
+<p>More information about what engines are supported and how to use other options can be found by reading up on Hapi&rsquo;s <a href="https://github.com/hapijs/vision">vision plugin</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Committed to Good Commits: Atomic, Frequent Commits]]></title>
@@ -1093,21 +1144,6 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <p>I was telling Patrick how I love to stay at the keyboard and eschew the mouse as much as possible, and he pointed out that I could just do <code>Alt+</code><del>Enter</del><code>Space*, E, P</code>. This isn&rsquo;t quite as short as the <code>Ctrl+V</code> remapping, but it works out of the box. I like it!</p>
 
 <p>* Thanks to <a href="http://msarchet.com">Michael</a> for noticing that I had this correct in the title, but typed the wrong content in the body.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Little Wonders: Uri.GetLeftPart]]></title>
-    <link href="http://www.davidruttka.com/blog/2014/04/14/little-wonders-uri-dot-getleftpart/"/>
-    <updated>2014-04-14T15:23:29-07:00</updated>
-    <id>http://www.davidruttka.com/blog/2014/04/14/little-wonders-uri-dot-getleftpart</id>
-    <content type="html"><![CDATA[<p>File another one under learning something new everyday. Patrick was asking me what the best way is to get the scheme + host + port of a Uri in .NET. We discussed a few ways that we&rsquo;ve done it in the past, but agreed that there must be a better way.</p>
-
-<p>Behold, <code>Uri.GetLeftPart</code>! This will give you everything up to and including the part you want.</p>
-
-<p>Given a <code>new Uri(http://somewhere.com:8080/this/is/path?andQuery#fragment)</code>, calling <code>GetLeftPart(UriPartial.Authority)</code> will give you back <code>http://somewhere.com:8080</code>. You can also use <code>Scheme</code>, <code>Path</code>, and <code>Query</code>. There&rsquo;s a table showing what comes back at each part in the <a href="http://msdn.microsoft.com/en-us/library/system.uri.getleftpart(v=vs.110).aspx">MSDN documentation</a>.</p>
-
-<p>It sure beats the string manipulations I&rsquo;ve done in the past!</p>
 ]]></content>
   </entry>
   

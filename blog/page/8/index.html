@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="The 15min split videos from my talk on Continuous Integration at Agile Birmingham are uploaded to YouTubeÂ and added to this playlistÂ for &hellip;">
+  <meta name="description" content="I planned to do a series on Git for a while. Then I thought maybe it had all been said already, so what&rsquo;s the point? Then Phil Haack moved to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,142 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/01/06/git-for-windows-and-net-developers-how-to-install-git/">Git for Windows and .NET Developers How to Install Git</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-06T00:00:00-08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
+
+<p>Then <a href="http://haacked.com/archive/2011/12/07/hello-github.aspx" target="_blank">Phil Haack moved to Github</a>, and I realized that <strong>a lot of .NET Developers were still completely oblivious</strong> to the existence of Git (or any DVCS), so I thought about it again.</p>
+
+<p>Then <a href="http://haacked.com/archive/2011/12/19/get-git-for-windows.aspx" target="_blank">Phil Haack got you guys up to speed</a>, so I went back to <strong>assuming it&rsquo;s all been said</strong>.</p>
+
+<p>Over the past few days, I&rsquo;ve realized that there are bits and pieces spread around the internet, but I haven&rsquo;t seen anyone do comprehensive posts that put it all together the way I like it. I was able to share some<strong> tricks, tips, and tools </strong>with several different people this week that have inspired me to take a crack at this, so here it comes.</p>
+
+<p><img src="http://farm1.staticflickr.com/35/73410200_7208ad1676.jpg" alt="" /></p>
+
+<p><span style="font-size:xx-small;">Image used under Creative Commons Attribution License: </span><a href="http://www.flickr.com/photos/selago/73410200"><span style="font-size:xx-small;"><a href="http://www.flickr.com/photos/selago/73410200">http://www.flickr.com/photos/selago/73410200</a></span></a></p>
+
+<h2>Spoon-feeding</h2>
+
+
+<p>I am using this image and this terminology for two reasons. The first is that I am going to try to spoon-feed this to you so that you&rsquo;ll be <strong>up and running quickly and smoothly</strong>. The other is  &ndash;  I&rsquo;ve had this discussion several times recently  &ndash;  I hope we can start to <strong>turn the .NET community away from a certain horrible stereotype </strong>(but that&rsquo;s for another post).</p>
+
+<p><strong>Note:</strong> what I&rsquo;m sharing will obviously be my own preferred way of working with Git. You can (and should) use this only as a starting point. Then. continue to explore, evaluate, and <strong>think for yourself </strong>about how it can work best for you.</p>
+
+<p><strong>Also note:</strong>Â this post will<strong> only cover the installation</strong> of Git and the basic tools I use alongside of it. <strong>There will be follow-ups</strong> to cover more advanced tools, what Git is, how it differs from centralized source control like TFS and SVN, best practices, branching strategies, etc.</p>
+
+<h2>Step 1: Console2</h2>
+
+
+<p>Scott Hanselman put together <a href="http://www.hanselman.com/blog/Console2ABetterWindowsCommandPrompt.aspx" target="_blank">a great post about configuring Console2</a> to take your command line to the next level. I recommend that you read it (I think I applied every setting he mentioned), but <strong>here are the settings I find most important</strong>:</p>
+
+<ul>
+    <li>Kill menu bar, status bar, and toolbar</li>
+    <li>Drop the alpha to 40</li>
+    <li>Set Ctrl+V for paste</li>
+    <li>Three tab types
+<ul>
+    <li>Ctrl+F1 opens a Console tab (default)</li>
+    <li>Ctrl+F2 opens a Git bash (we&#8217;ll add this in a bit)</li>
+    <li>Ctrl+F3 opens a Powershell tab (see Hanselman&#8217;s post above)</li>
+</ul>
+</li>
+</ul>
+
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb.png" alt="image" width="599" height="359" border="0" /></a></p>
+
+<p>Beautiful  &ndash;  notice that <strong>the transparency will allow you to read instructions</strong> while executing the commands you&rsquo;re reading about. Keep this in mind when you get to step 4.</p>
+
+<p>One more thing to be aware of  &ndash; Â I often go ahead and run this app as an Administrator, especially when I&rsquo;m engaging in tasks that are patently &ldquo;setup.&rdquo; Keep in mind that <strong>some of what we do from the command line might require elevation</strong>.</p>
+
+<h2>Step 2: msysgit</h2>
+
+
+<p><strong>This can&rsquo;t be easier.</strong> Go get the <a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">full installer for official Git for Windows from Google Code</a> and run it. You should be able to take all the defaults except for one thing:Â <strong>add Git to your path</strong> by choosing the middle option on this screen.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb1.png" alt="image" width="517" height="402" border="0" /></a></p>
+
+<h2>Step 3: Console Tab for Git Bash</h2>
+
+
+<p>Back in Console2, <strong>add a new tab type for the Git Bash</strong>. I use the same icon and shell that the Git Bash shortcut on your desktop or start menu would use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">icon</span> <span class="o">=</span> C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\e</span>tc<span class="se">\g</span>it.ico
+</span><span class='line'><span class="nv">shell</span> <span class="o">=</span> C:<span class="se">\W</span>indows<span class="se">\S</span>ysWOW64<span class="se">\c</span>md.exe /c <span class="s2">&quot;&quot;</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\b</span>in<span class="se">\s</span>h.exe<span class="s2">&quot; --login -i&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I also set a startup dir. All my git repositories will live here. We&rsquo;ll get to those later. I set the same startup dir for my Powershell tab, but this is entirely up to you (you could use Ctrl+F4 to use a GitPowershell tab that launches powershell with that startup dir!)</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image2.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb2.png" alt="image" width="517" height="530" border="0" /></a></p>
+
+<h2>Step 4: Verify the Install</h2>
+
+
+<p>So, Ctrl+F2 (or F3, or whatever tab type your Git Bash is). From the Git Bash run the following commands; I&rsquo;ve added <span style="color:#ff0000;">(verbose commentary)</span>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir demo
+</span><span class='line'><span class="nb">cd </span>demo
+</span><span class='line'>git init
+</span><span class='line'>touch foo.txt
+</span><span class='line'>git add .
+</span><span class='line'>git commit  - m <span class="s2">&quot;Just foo&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/untitled/" rel="attachment wp-att-459"><img title="git-verify-install" src="http://thedevstop.files.wordpress.com/2012/01/untitled.png?w=300" alt="verify git install" width="517" /></a></p>
+
+<p>Easy peasy; you&rsquo;re now using Git!</p>
+
+<h2>What&#8217;s Next?</h2>
+
+
+<p>There are some additional tools and options that I&rsquo;ll introduce in the next post, and then we&rsquo;ll begin learning what Git really is and why you should care.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -993,53 +1129,9 @@ return &ldquo;Bar&rdquo;;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2011/02/03/counter-questions/">Counter Questions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-03T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A wise man once told me that sometimes the best way to answer a question is with another question. Google is telling me that there&rsquo;s a similar quote attributed to the Buddha: &ldquo;There are questions that should be answered with a counter-question.&rdquo;</p>
-
-<p>I used this approach when I spent some time as a tutor. I&rsquo;ve tried to use it throughout my professional career as well. When the situation allows for it, I believe it&rsquo;s important to get people to think about what they&rsquo;re asking and help them work the problem out rather than just hand them the answer.Â This is especially true when you&rsquo;re learning fundamental concepts.</p>
-
-<p>All that has been my explanation for <a title="Java - Superclass and Subclass on Stack Overflow" href="http://stackoverflow.com/questions/4881994/java-superclass-and-subclass/4882014#4882014" target="_blank">this</a>.</p>
-
-<p>Aside: This has me nostalgic for the <a title="Universal Hint System" href="http://www.uhs-hints.com/" target="_blank">Universal Hint System</a>. Just enough guidance to help you figure it out for yourself!</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/02/03/counter-questions/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1052,6 +1144,10 @@ return &ldquo;Bar&rdquo;;
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
@@ -1067,10 +1163,6 @@ return &ldquo;Bar&rdquo;;
     
       <li class="post">
         <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
       </li>
     
   </ul>

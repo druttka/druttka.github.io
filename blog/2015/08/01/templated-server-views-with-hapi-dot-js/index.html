@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Starting Multiple Projects at Once in Visual Studio - David Ruttka</title>
+  <title>Templated Server Views With Hapi.js - David Ruttka</title>
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to Matt for reminding &hellip;">
+  <meta name="description" content="Today I realized I&rsquo;ve overlooked a great feature of Hapi.js, so I figured I&rsquo;d write a quick post about it. What I Was Doing For a server &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/">
+  <link rel="canonical" href="http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">
   <link href="/favicon.png?v=2" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
@@ -81,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Starting Multiple Projects at Once in Visual Studio</h1>
+      <h1 class="entry-title">Templated Server Views With Hapi.js</h1>
     
     
       <p class="meta">
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2014-03-30T08:30:32-07:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
+<time datetime="2015-08-01T13:10:04-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2015</time>
         
          | <a href="#disqus_thread"
 			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
@@ -108,22 +108,49 @@
   </header>
 
 
-<div class="entry-content"><p>Another setting that is so seldom used that it is often forgotten is setting multiple startup projects in your solution. Thanks to <a href="https://twitter.com/mj1856">Matt</a> for reminding me of this one. He was demoing something from a solution which spun up both a Web API app to act as the server and a console app to act as the client.</p>
+<div class="entry-content"><p>Today I realized I&rsquo;ve overlooked a great feature of Hapi.js, so I figured I&rsquo;d write a quick post about it.</p>
 
-<p><img src="/images/multiple-startup-projects.png"></p>
+<h3>What I Was Doing</h3>
 
-<p><code>Solution Properties &gt; Common Properties &gt; Startup Projects &gt; Multiple startup projects</code>.</p>
+<p>For a server rendered view, I was doing this.</p>
 
-<p>For each project in the solution, you can choose one of the following:</p>
+<pre><code>var jade = require('jade');
+var fs = require('fs');
+var template = jade.compile(fs.readFileSync(pathToTemplate));
+
+// later on
+return template(context);
+</code></pre>
+
+<p>This was fine for what I was doing at the time, since the rendered output was really part of a larger response, and was pretty much the only area in the system where such a thing was being done.</p>
+
+<h3>What I Was Doing Today</h3>
+
+<p>Instead of having some rendered output as part of a larger API response, I was creating a route that should actually return an HTML view. The above still works fine, but I could see a bit of friction coming in if this project has more views.</p>
 
 <ul>
-<li>Start</li>
-<li>Start without debugging</li>
-<li>None</li>
+<li>I would want to set the Content-Type, either through Hapi&rsquo;s <code>reply.header</code> or <code>reply.type</code>. This could get repetitive.</li>
+<li>The <code>readFileSync</code> and <code>compile</code> dance could get a bit repetitive or tedious.</li>
 </ul>
 
 
-<p>That&rsquo;s all there is to it. Like the <a href="http://thedevstop.wordpress.com/2014/03/28/how-to-run-your-asp-net-web-application-when-you-start-debugging-instead-of-launching-the-page-view-youre-editing/">Start action</a>, <strong>you just have to remember it exists!</strong> =)</p>
+<h3>What I Do Now</h3>
+
+<pre><code>// During the server setup 
+server.views({
+  engines: { 
+    html: require('jade'),
+    path: __dirname + '/templates'
+  }
+});
+
+// Later, in handlers
+return reply.view('index', context);
+</code></pre>
+
+<p>Hapi takes care of reading, compiling, and applying the template as long as it&rsquo;s in the configured path.</p>
+
+<p>More information about what engines are supported and how to use other options can be found by reading up on Hapi&rsquo;s <a href="https://github.com/hapijs/vision">vision plugin</a>.</p>
 </div>
 
 
@@ -146,7 +173,7 @@
   
 
 
-<time datetime="2014-03-30T08:30:32-07:00" pubdate data-updated="true">Mar 30<span>th</span>, 2014</time>
+<time datetime="2015-08-01T13:10:04-07:00" pubdate data-updated="true">Aug 1<span>st</span>, 2015</time>
       
 
 
@@ -154,7 +181,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -167,10 +194,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/29/setting-up-octopress-for-github-pages/" title="Previous Post: Setting Up Octopress for GitHub Pages">&laquo; Setting Up Octopress for GitHub Pages</a>
+        <a class="basic-alignment left" href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/" title="Previous Post: Committed to Good Commits: Atomic, Frequent Commits">&laquo; Committed to Good Commits: Atomic, Frequent Commits</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/01/facebook/" title="Next Post: Facebook?">Facebook? &raquo;</a>
       
     </p>
   </footer>
@@ -236,8 +261,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/';
+        var disqus_identifier = 'http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/';
+        var disqus_url = 'http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/';
         var disqus_script = 'embed.js';
       
     (function () {

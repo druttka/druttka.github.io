@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="I was reminded of this lesson when discussing the infamous Write-Host cmdlet with some colleagues. We all know that you&rsquo;re not supposed to use &hellip;">
+  <meta name="description" content="A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free & &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">Git for Windows, .NET, Visual Studio Developers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-01T10:57:33-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
+        
+        <a href="/blog/2014/04/01/git-for-visual-studio-developers/">Permalink</a>
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while ago, I started putting together a series of posts on Git for Windows / Visual Studio Developers. I never finished it. Here&rsquo;s a free &ldquo;all-day&rdquo; jump start course that I&rsquo;ll <a href="http://www.microsoftvirtualacademy.com/training-courses/using-git-with-visual-studio-2013-jump-start">link</a> to instead.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -616,113 +654,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoftweboptimization-110-when-optimizations-are-off/">ScriptBundle Subdirectories No Longer Work in Microsoft.Web.Optimization 1.1.0 When Optimizations Are Off</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-27T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Just a heads up for now. I&rsquo;ll track down where to report this or to whom in the morning. Excuse any spelling, grammar, sloppiness of screenshots, etc., I&rsquo;m doing this pretty quickly before heading out for the day.</p>
-
-<p><strong>tl;dr If you create ScriptBundles that recurse through subdirectories, and if you want to keep optimizations off for debug, stay on Microsoft.AspNet.Web.Optimization 1.0.0. If you go to 1.1.0, force EnableOptimizations=true, or your scripts from subdirectories won&rsquo;t come through.</strong></p>
-
-<p>I had the good fortune to do a File &gt; New Project a couple of days ago. When I did, I grabbed the bundling package</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Install-Package Microsoft.AspNet.Web.Optimization
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>To keep this simple (i.e., to provide a <a href="http://blogs.msdn.com/b/oldnewthing/archive/2013/10/18/10457796.aspx" target="_blank">reduction</a>), I am including just two scripts here. Scripts/foo.js logs &ldquo;foo&rdquo;, and Scripts/subdir/bar.js logs &ldquo;bar&rdquo;.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb.png" width="244" height="144" border="0" /></a></p>
-
-<p>I create a simple, standard ScriptBundle that should pick these up.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">BundleTable</span><span class="p">.</span><span class="n">Bundles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">ScriptBundle</span><span class="p">(</span><span class="s">&quot;~/scripts/bundle&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">.</span><span class="n">IncludeDirectory</span><span class="p">(</span><span class="s">&quot;~/Scripts&quot;</span><span class="p">,</span> <span class="s">&quot;*.js&quot;</span><span class="p">,</span> <span class="k">true</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>When I include these on the Home/Index view using</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">@System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Optimization</span><span class="p">.</span><span class="n">Scripts</span><span class="p">.</span><span class="n">Render</span><span class="p">(</span><span class="s">&quot;~/scripts/bundle&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Only foo gets logged.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image1.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb1.png" width="244" height="164" border="0" /></a></p>
-
-<p>But if I downgrade to 1.0.0</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Uninstall-Package Microsoft.AspNet.Web.Optimization
-</span><span class='line'>Install-Package Microsoft.AspNet.Web.Optimization  - version 1.0.0
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Then they both get logged.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image2.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb2.png" width="244" height="221" border="0" /></a></p>
-
-<p>If we update back to the 1.1.0 package, we can look in Fiddler and see the problem.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image3.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb3.png" width="244" height="123" border="0" /></a></p>
-
-<p>Optimization is recognizing that there&rsquo;s a bar.js somewhere, but the bundle loses track of the fact that it&rsquo;s in a subdirectory. Of course, this is in debug mode where the optimizations are not enabled and the scripts are still delivered separately. Let&rsquo;s see if enabling the optimization to deliver the bundle itself will help us.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">BundleTable</span><span class="p">.</span><span class="n">EnableOptimizations</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now both statements are logged.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image4.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb4.png" width="244" height="125" border="0" /></a></p>
-
-<p>Of course, looking at the delivered bundle, we can see that the contents of both scripts are there. In other words, you wouldn&rsquo;t see this problem in Release or if you&rsquo;re explicitly forcing the optimizations into effect.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2013/10/image5.png"><img style="background-image:none;padding-top:0;padding-left:0;margin:0;display:inline;padding-right:0;border:0;" title="image" alt="image" src="http://thedevstop.files.wordpress.com/2013/10/image_thumb5.png" width="244" height="125" border="0" /></a></p>
-
-<p>I lost a fair bit of time the other day thinking that I had mistyped something setting up my ScriptBundle or a similar mistake. Even after I saw the 404s in Fiddler, I blamed myself and kept looking for my own error. Then I realized that the package version was different and took this wild guess =) Hope this helps save someone from similar trouble until the problem is resolved.</p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/27/scriptbundle-subdirectories-no-longer-work-in-microsoft-web-optimization-1-1-0-when-optimizations-are-off/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -740,6 +671,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
       </li>
     
@@ -753,10 +688,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/02/a-set-of-fresh-eyes/">A Set of Fresh Eyes</a>
       </li>
     
   </ul>

@@ -350,7 +350,7 @@
         <loc>
             http://www.davidruttka.com/blog/2014/06/03/committed-to-good-commits-introduction/
         </loc>
-        <lastmod>2015-03-06T10:22:12-08:00</lastmod>
+        <lastmod>2015-08-01T13:03:29-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/blog/2014/06/04/committed-to-good-commits-messages/</loc>
@@ -412,7 +412,13 @@
         <loc>
             http://www.davidruttka.com/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/
         </loc>
-        <lastmod>2015-03-06T10:22:12-08:00</lastmod>
+        <lastmod>2015-08-01T13:03:29-07:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://www.davidruttka.com/blog/2015/08/01/templated-server-views-with-hapi-dot-js/
+        </loc>
+        <lastmod>2015-08-01T13:26:31-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/about/</loc>
@@ -420,11 +426,11 @@
     </url>
     <url>
         <loc>http://www.davidruttka.com/blog/archives/</loc>
-        <lastmod>2015-03-06T10:22:12-08:00</lastmod>
+        <lastmod>2015-08-01T13:26:31-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/</loc>
-        <lastmod>2015-03-06T10:22:13-08:00</lastmod>
+        <lastmod>2015-08-01T13:26:31-07:00</lastmod>
     </url>
     <url>
         <loc>http://www.davidruttka.com/robots.txt</loc>
