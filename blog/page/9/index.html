@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="A wise man once told me that sometimes the best way to answer a question is with another question. Google is telling me that there&rsquo;s a similar &hellip;">
+  <meta name="description" content="Is it just me, or did it get far too quiet around here after we finished our GiveCamp recaps? Before I start writing any new posts, I need to work &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,116 @@
   <header>
     
       
+      <h1 class="entry-title"><a href="/blog/2011/08/05/getting-started-with-syntaxhighlighter/">Getting Started With SyntaxHighlighter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Is it just me, or did it get far too quiet around here after we finished our <a href="http://givecampbirmingham.org" target="_blank">GiveCamp</a> recaps?</p>
+
+<p>Before I start writing any new posts, I need to work out syntax highlighting so that any code posted here looks good and is easily accessible. I throw a lot of snippets at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a>, but their editor takes care of the cosmetic stuff for me via toolbar buttons, ` characters, and four space indentations.</p>
+
+<p>Getting code to look right in blog posts is probably <span style="text-decoration:line-through;">old</span> ancient news for anyone who has been blogging for a while, but it&rsquo;s not something that I&rsquo;ve had to do before. This post is dedicated to all my fellow newbs.</p>
+
+<p>It turns out that a JavaScript solution called <a href="http://alexgorbatchev.com/SyntaxHighlighter/" target="_blank">SyntaxHighlighter</a> makes presenting code on the interwebs a wonderful dose of auto-magic! I should have known that Googling the topic would promptly direct me to <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">Hanselman&rsquo;s take on it</a>. I&rsquo;ve installed the <a href="http://precode.codeplex.com/" target="_blank">recommended WLW plugin</a>, but I also experimented with the <a href="http://en.support.wordpress.com/code/posting-source-code/" target="_blank">integration</a> in the <a href="http://wordpress.com" target="_blank">WordPress</a> editor.</p>
+
+<h3>WordPress Editor</h3>
+
+
+<p>When we started this thing, WordPress seemed to be the easiest, quickest, and cheapest option to get the wheels turning. What I found tonight is that the editor in wp-admin supports SyntaxHighlighter directly. Pop over to the HTML tab and make sure your code is wrapped like this:</p>
+
+<p><strong>[</strong><strong>sourcecode language=&ldquo;csharp&rdquo;]
+public string Foo(){
+return &ldquo;Bar&rdquo;;
+}
+[</strong><strong>/sourcecode]</strong></p>
+
+<p>The language value can be any one of the <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/" target="_blank">supported brushes</a> for the syntax highlighting. The result:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">string</span> <span class="nf">Foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">return</span> <span class="s">&quot;Bar&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>PreCode Plugin for Windows Live Writer</h3>
+
+
+<p>Well, all that switching between the Visual and HTML tabs can be a bit tedious, not to mention managing the indentation. Then there&rsquo;s the camp that says you should never use the online web editor if you can use a dedicated app like Live Writer instead. Let&rsquo;s take a look at one of the WLW plugin options.</p>
+
+<p><a href="http://precode.codeplex.com/" target="_blank">PreCode</a> is the plugin recommended on <a href="http://www.hanselman.com/blog/BestCodeSyntaxHighlighterForSnippetsInYourBlog.aspx" target="_blank">the post</a> I found from Scott Hanselman. The installation process is exactly what you&rsquo;d expect, so I&rsquo;m not going to detail it here. I will briefly cover the workflow and some of the options.</p>
+
+<p>Once again, I&rsquo;m new to the blogging thing, so this is probably well known to most of you. The plugins are accessed from the Insert toolbar.</p>
+
+<p><a href="http://thedevstop.files.wordpress.com/2011/08/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb4.png" alt="image" width="629" height="111" border="0" /></a></p>
+
+<p>When you click it, you&rsquo;ll get a full editor dedicated solely to the purpose of editing and formatting your code snippet.</p>
+
+<p align="center"><a href="http://thedevstop.files.wordpress.com/2011/08/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2011/08/image_thumb6.png" alt="image" width="636" height="520" border="0" /></a></p>
+
+
+<p align="left">Throw some in there. I will be wrapping my code in PRE tags rather than SCRIPT tags, but you can <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">check the documentation</a> to read up on the differences, advantages, and disadvantages.</p>
+
+
+<p align="left">You can flip a lot of other bits here: your highlighter class, whether to display the toolbar (for viewing source, copying to clipboard), etc. Also, <strong>don&#8217;t overlook the indentation management buttons</strong>! I experimented with some very broken indentation. I can&#8217;t say &#8220;Fix Indentation&#8221; always did the perfect thing, but it always came up with something decent.</p>
+
+
+<p align="left">Clicking &#8220;OK&#8221; with the options you see in the screenshot above result in what you see below.</p>
+
+
+
+
+<pre class="brush: csharp;">public string Foo()
+{
+    return "Bar";
+}</pre>
+
+
+<h3>Summary</h3>
+
+
+<p>SyntaxHighlighter and the PreCode plugin for WLW have robbed me of one of the last excuses I had left to delay blogging. There are <a href="http://alexgorbatchev.com/SyntaxHighlighter/integration.html" target="_blank">many other integration options</a> as well as support for your <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/installation.html" target="_blank">directly handcrafted efforts</a>. Here&rsquo;s to beautiful code on the internet.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2011/08/05/getting-started-with-syntaxhighlighter/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      
       <h1 class="entry-title"><a href="/blog/2011/02/03/counter-questions/">Counter Questions</a></h1>
     
     
@@ -140,6 +250,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
       </li>
     
@@ -153,10 +267,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
       </li>
     
   </ul>
@@ -181,7 +291,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - David Ruttka -
+  Copyright &copy; 2016 - David Ruttka -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

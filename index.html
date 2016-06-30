@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Today I realized I&rsquo;ve overlooked a great feature of Hapi.js, so I figured I&rsquo;d write a quick post about it. What I Was Doing For a server &hellip;">
+  <meta name="description" content="Lately, I&rsquo;ve found myself looking into UWP development. Tonight I want to share a problem I ran into and a workaround that I found. I&rsquo;ve &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-06-29T20:37:52-07:00" pubdate data-updated="true">Jun 29<span>th</span>, 2016</time>
+        
+         | <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/#disqus_thread"
+			 data-disqus-identifier="http://www.davidruttka.com/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">Comments</a>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lately, I&rsquo;ve found myself looking into UWP development. Tonight I want to share a problem I ran into and a workaround that I found. I&rsquo;ve created a <a href="https://github.com/druttka/DataTemplateResourceDictionaries">repo</a> that shows the step by step progression, and this blog post is meant to provide additional context around that.</p>
+
+<p><em>Pre-emptive nitpickers note: for the sake of problem reduction, the code in this repo is not overly concerned with patterns, best practices, error checking, and so on</em></p>
+
+<h3>Some Background</h3>
+
+<p>In XAML, there&rsquo;s the concept of a <code>DataTemplate</code>. This allows you to define what UI components or user controls are used when displaying certain objects inside of other content controls. A canonical example is a <code>ListView</code>.</p>
+
+<h3>Without Templates</h3>
+
+<p>By default, a <code>ListView</code> will just <code>ToString()</code> the object and put it on the screen. You can run <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/a36d04fe0ba6f2d8b04dd082390d005e6ca5f7c1">this commit</a>, or look at the screenshot below.</p>
+
+<p><img src="/images/20160629/no-template.PNG" alt="A ListView without a DataTemplate" /></p>
+
+<p>Notice that the ListView says &ldquo;DataTemplates.RedThing&rdquo; and &ldquo;DataTemplates.BlueThing&rdquo; (i.e., the <code>System.Type</code> of each item) instead of any meaningful representation of the instance properties.</p>
+
+<h3>DataTemplate, Binding</h3>
+
+<p>In <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/1eadbaf3b4547b5a0c51eaa6dae461b194ba14ab">this commit</a> we create a <code>ResourceDictionary</code><sup>1</sup> with a couple of <code>DataTemplate</code> definitions in it. We also merge that <code>ResourceDictionary</code> into the app resources in <code>App.xaml</code>, and create a <code>ThingTemplateSelector</code> to use one or the other based on the type of underlying <code>Thing</code>.</p>
+
+<p><img src="/images/20160629/with-template.PNG" alt="A ListView with a DataTemplate" /></p>
+
+<p>I&rsquo;m going to be very careful not to say this looks <em>good</em>, but it proves the technique. We can now let our designers have all the fun polishing the <code>DataTemplate</code> itself, and we&rsquo;re good to go! Right?</p>
+
+<h3>What Are Tests? Baby, Don&rsquo;t Hurt Me. Don&rsquo;t Hurt Me. No More!</h3>
+
+<p>I have to say that whatever positives there might be with UWP, the unit testing story is not one of them. The vast majority of issues we&rsquo;ve seen so far have boiled down to testability.</p>
+
+<p>The <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/f4eec19db1a48046bbf60bc2b62fd3d6ac1aa118">next commit</a> highlights one such example where our app runs run fine, but our unit test application crashes at startup. The error isn&rsquo;t what I&rsquo;d call helpful.</p>
+
+<blockquote><p>&hellip; test discovery output, a la deployment of application, etc., omitted &hellip;</p>
+
+<p>A user callback threw an exception.  Check the exception stack and inner exception to determine the callback that failed.</p>
+
+<p>========== Run test finished: 0 run (0:00:04.9484062) ==========</p></blockquote>
+
+<p>If you debug the test to check the stack and inner exception, both are null. You may now flip your tables.</p>
+
+<h3>The Workaround</h3>
+
+<p>Of course, I neither force quit nor flipped tables in real life. I took a breath and decided to push through the pain. What I found was that our test project would <em>not</em> crash if I removed our equivalent of <code>&lt;local:ThingTemplates /&gt;</code> from the App.xaml.</p>
+
+<p>In the <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/6b0c70c6267cde4e587e55921beb0cd3057345dd">final commit</a>, you can see how our custom <code>DataTemplateSelector</code> takes care of instantiating the dictionary it needs itself. One might argue this is actually cleaner anyway. I&rsquo;m not currently going to argue that point either way. All I&rsquo;m going to say is, &ldquo;Now we can put DataTemplates in a ResourceDictionary and still keep our unit tests, too!&rdquo; That makes me a much happier camper.</p>
+
+<p><sup>1</sup><em>Note: The ResourceDictionary needs a code behind because we&rsquo;re using <code>x:Bind</code>. This is a new alternative to <code>Binding</code> that lets you take advantage of static types. Leaving aside any debates on the merit of static types themselves, I feel that you might as well use &lsquo;em if you got &#8216;em. I have not confirmed if the problems in the unit test project would also exist when using <code>{Binding}</code> and eliminating the code behind.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -873,52 +958,6 @@ Wife: Yep.</p></blockquote>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2014/09/04/git-pushit/">Git Pushit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-04T13:48:05-07:00" pubdate data-updated="true">Sep 4<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/09/04/git-pushit/#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com/blog/2014/09/04/git-pushit/">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I wanted to do something silly this morning, so here&rsquo;s my newest git alias.</p>
-
-<pre><code>git config --global alias.pushit '!f() { git push; start http://druttka.github.io/pushit ; }; f'
-</code></pre>
-
-<p>This will do a git push and then open a browser. The browser will either play &ldquo;Push It&rdquo; by Salt-N-Pepa or &ldquo;Push It&rdquo; by Static-X.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -934,6 +973,10 @@ Wife: Yep.</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
       </li>
     
@@ -947,10 +990,6 @@ Wife: Yep.</p></blockquote>
     
       <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
       </li>
     
   </ul>
@@ -975,7 +1014,7 @@ Wife: Yep.</p></blockquote>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - David Ruttka -
+  Copyright &copy; 2016 - David Ruttka -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

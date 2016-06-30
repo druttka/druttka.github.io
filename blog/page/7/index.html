@@ -9,7 +9,7 @@
   <meta name="author" content="David Ruttka">
 
   
-  <meta name="description" content="Today, I found that the CodeStock 2012 schedule has been finalized. Now you know exactly when you can come see me. My first talk conflicts with Leon &hellip;">
+  <meta name="description" content="Continuing on my journey into MonoDroid, this post will take a quick look at activities. You may remember from last time that the project template &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,212 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      
+      <h1 class="entry-title"><a href="/blog/2012/05/22/android-development-with-mono-for-android-activities/">Android Development With Mono for Android Activities</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-22T00:00:00-07:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Continuing on my journey into <a href="http://xamarin.com/monoforandroid" target="_blank">MonoDroid</a>, this post will take a quick look at activities. You may remember from <a title="MonoDroid 101 - Installation and Hello World with Mono forÂ Android" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/" target="_blank">last time</a> that the project template gives us an Activity1.cs file with a click counter. We could launch this from the main launcher / apps list.</p>
+
+<p>But what if my app has a lot of possible screens in it, and I don&rsquo;t want them all cluttering the apps list? What if I want to launch one from another instead? Are there events or callbacks that let me know when I&rsquo;m being spun up or spun down?</p>
+
+<h3>What Is An Activity</h3>
+
+
+<p>This is perhaps the most succinct definition I&rsquo;ve found.</p>
+
+<blockquote>An activity is a single, focused thing that the user can do.  -  <a href="http://developer.android.com/reference/android/app/Activity.html" target="_blank">Android Developer&#8217;s Reference</a></blockquote>
+
+
+<p>This one is a bit more complete.</p>
+
+<blockquote>An <code><a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a></code> is an application component that provides a screen with which users can interact in order to do something, such as dial the phone, take a photo, send an email, or view a map. Each activity is given a window in which to draw its user interface.  -  <a href="http://developer.android.com/guide/topics/fundamentals/activities.html" target="_blank">Android Developer&#8217;s Guide</a></blockquote>
+
+
+<p>The important thing to be aware of here is that your application may be comprised of many activities, but you won&rsquo;t necessarily want to display all (or any!?) of them in the main launcher / app screen.</p>
+
+<h3>The [Activity] Attribute</h3>
+
+
+<p>Mono for Android makes it dead simple to include your Activity elements in the <a href="http://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_blank">AndroidManifest.xml</a>. You might notice that this file isn&rsquo;t even in your project by default. <a href="http://android.xamarin.com/Tutorials/Working_with_AndroidManifest.xml" target="_blank">mandroid.exe will generate it</a> based on custom attributes (or merge it if Properties\AndroidManifest.xml does exist).</p>
+
+<p><a href="http://docs.monodroid.net/index.aspx?link=T%3aAndroid.App.ActivityAttribute" target="_blank">ActivityAttribute</a> is such a custom attribute.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Activity(Label = &quot;AndroidApplication1&quot;, MainLauncher = true, Icon = &quot;@drawable/icon&quot;)]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are a lot of properties available here, but the ones I&rsquo;ve used most so far have been</p>
+
+<ul>
+    <li>MainLauncher  -  specifies whether the user can launch this Activity from their Apps screen</li>
+    <li>Label  -  sets the text; this appears in the main launcher</li>
+    <li>Icon  -  which drawable resource should graphically represent the Activity</li>
+    <li>NoHistory  -  causes the Activity to be excluded from the history and finished if the user leaves it (i.e., there&#8217;s no going back)</li>
+</ul>
+
+
+<p>I imagine that I&rsquo;ll be using LaunchMode and ScreenOrientation in the near future, but haven&rsquo;t needed them quite yet.</p>
+
+<h3>The Activity Lifecycle</h3>
+
+
+<p>An Activity has <a href="http://developer.android.com/guide/topics/fundamentals/activities.html#Lifecycle" target="_blank">several lifecycle events</a>. That link has a great flowchart as well as a table with descriptions, possible next states, and recommendations on what to do when. No sense in copying it here  &ndash;  go check it out and come back.</p>
+
+<p>For those who learn better by seeing it in action and experimenting, you might write debug statements in each of the methods and experiment in the emulator. Or maybe I can do that for you =p</p>
+
+<p>Launching the activity from the main launcher results in OnCreate followed by OnStart and finally OnResume. Simply clicking the Back button to terminate the Activity results in OnPause, OnStop, and OnDestroy.</p>
+
+<p>I think that should all be pretty self-explanatory. What about Restart? Can we pause and resume without stopping and destroying ourselves?</p>
+
+<p>If you&rsquo;re in the Activity and press the Home button to navigate away, you&rsquo;ll get OnPause and OnStop. Going back to the main launcher and starting again, we get OnRestart, OnStart, and OnResume.</p>
+
+<p>In contrast, if you use the emulator&rsquo;s End Call button to lock the screen, you&rsquo;ll only get OnPause. You never navigated away in favor of another activity, you just put the to sleep. As you might expect, pressing Begin Call to wake up the device, you only get OnResume.</p>
+
+<h3>Launching Activities</h3>
+
+
+<p>The first and most obvious way for an Activity to be launched is from the main launcher / apps screen. We&rsquo;ve already seen how this can be achieved simply by setting MainLauncher to true.</p>
+
+<p>An Activity can also launch another. From within an Activity, simply call StartActivity(typeof(YourSuperActivity)). It will become the current activity on the activity stack; the back button will return the user to the calling activity as long as NoHistory was false.</p>
+
+<p>There will be more complex scenarios to follow, but for now, we&rsquo;re still just covering the basics.</p>
+
+<h3>Making A Splash</h3>
+
+
+<p>It should seem pretty clear now how we could make a splash screen.</p>
+
+<ul>
+    <li>Remove the initial application Activity from the main launcher</li>
+    <li>Create another activity that
+<ul>
+    <li>is started from the main launcher</li>
+    <li>is not part of the Activity history stack</li>
+    <li>has the full screen splash image</li>
+    <li>launches the initial application Activity</li>
+</ul>
+</li>
+</ul>
+
+
+<p>My new Splash activity had a couple of new properties on the Activity attribute.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Activity(MainLauncher=true, NoHistory=true, Theme=&quot;@style/Theme.Splash&quot;, Label=&quot;Foo&quot;, Icon=&quot;@drawable/icon&quot;)]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I&rsquo;m specifying a theme here. I added it to Resources/Values/Styles.xml.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;resources&gt;</span>
+</span><span class='line'><span class="nt">&lt;styleÂ</span> <span class="na">name=</span><span class="s">&quot;Theme.Splash&quot;</span><span class="err">Â</span> <span class="na">parent=</span><span class="s">&quot;android:Theme&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;itemÂ</span> <span class="na">name=</span><span class="s">&quot;android:windowBackground&quot;</span><span class="nt">&gt;</span>@drawable/splash<span class="nt">&lt;/item&gt;</span>
+</span><span class='line'><span class="nt">&lt;itemÂ</span> <span class="na">name=</span><span class="s">&quot;android:windowNoTitle&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+</span><span class='line'><span class="nt">&lt;/style&gt;</span>
+</span><span class='line'><span class="nt">&lt;/resources&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also note that the style references a splash image, so be sure to create or add one in Resources/Drawable. Eventually you&rsquo;ll want to <a href="http://developer.android.com/guide/practices/screens_support.html" target="_blank">support multiple sizes and densities</a>, but again, we&rsquo;re still just covering basics.</p>
+
+<p>The guts of our OnCreate method can look something like this</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">base</span><span class="p">.</span><span class="n">OnCreate</span><span class="p">(</span><span class="n">bundle</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// For demonstration purposes</span>
+</span><span class='line'><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">2000</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Move along to the real Activity.</span>
+</span><span class='line'><span class="c1">// Since we are NoHistory, this one will be finished</span>
+</span><span class='line'><span class="n">StartActivity</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Activity1</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Optionally, you could add these overrides in your Splash Activity for additional proof that it does get finished and destroyed.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Finish</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">Diagnostics</span><span class="p">.</span><span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Splash.Finish&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">base</span><span class="p">.</span><span class="n">Finish</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnDestroy</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">Diagnostics</span><span class="p">.</span><span class="n">Debug</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Splash.OnDestroy&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">base</span><span class="p">.</span><span class="n">OnDestroy</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>Summary</h3>
+
+
+<p>Activities are a pretty substantial backbone of Android apps. Mono for Android makes it easy to get right down to business and avoid the ceremony of crafting the AndroidManifest.xml. Lifecycle callbacks allow you to perform setup, cleanup, and state preservation logic at critical points, and launching a new Activity can be as simple as calling StartActivity(type).</p>
+
+<p>I&rsquo;m not sure yet what we&rsquo;ll look at next time. A couple of the things I&rsquo;ve been looking at and using in my CodeStock app/hack are the <a href="https://github.com/praeclarum/sqlite-net" target="_blank">sqlite-net</a> library, and this <a href="https://github.com/soundnRg/ActionBar" target="_blank">ActionBar widget</a>, so those are good candidates.</p>
+
+<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/22/android-development-with-mono-for-androidactivities/">The DevStop</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1083,138 +1289,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      
-      <h1 class="entry-title"><a href="/blog/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">Git for Windows and .NET Developers Part 2 Advanced Tools and Options</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-09T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>If you followed <a title="Git for Windows - How To Install Git for .NET Developers" href="http://wp.me/p1cpn1-75" target="_blank">my last post</a>, you&rsquo;ve got Git installed. You can initialize and commit to a repository. What now?</p>
-
-<h2>posh-git</h2>
-
-
-<p>You could constantly type <strong>git branch</strong> to see which one you&rsquo;re on, and <strong>git status</strong> to see how many adds / mods / deletes you have, like this:</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image4.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb4.png" alt="image" width="634" height="366" border="0" /></a></p>
-
-<p>Alternatively, <strong>you could just see those bits of information in your prompt</strong>:</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image5.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb5.png" alt="image" width="626" height="411" border="0" /></a></p>
-
-<p>This magic comes from <a href="https://github.com/dahlbyk/posh-git" target="_blank">posh-git</a>, and here&rsquo;s the way I got it installed. These are just about the same instructions as on the github page linked above, but I make a few assumptions. For example, you&rsquo;re using a decent version of Powershell and you added Git to your path as instructed in my last post.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone https://github.com/dahlbyk/posh-git.git
-</span><span class='line'>Set-ExecutionPolicy RemoteSigned
-</span><span class='line'>.<span class="se">\p</span>osh-git<span class="se">\i</span>nstall.ps1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>What does this do?</p>
-
-<ol>
-    <li>First we get the code. We&#8217;ll talk more about <strong>git clone</strong> later.</li>
-    <li>Next we <strong>set an execution policy</strong>. This might already be set. You could use Get-ExecutionPolicy to find out, but a set is quicker than a check plus a set.</li>
-    <li>Finally we <strong>run the install script</strong> that is in the directory that <strong>git clone</strong> created.</li>
-</ol>
-
-
-<p>If you still have that &ldquo;demo&rdquo; dir/repo we created last time, you can cd into it, change some files, and see the fruits of our labor!</p>
-
-<h2>.gitignore</h2>
-
-
-<p>If you&rsquo;ve been using TFS, SVN, Fortress, or Visual SourceSafe, you&rsquo;ve probably become accustomed to Visual Studio deciding what goes into source control and what doesn&rsquo;t. Add a file to the project? That&rsquo;s included. Build? Those binaries are not.</p>
-
-<p>Git is file system based, which means if it&rsquo;s a file, it&rsquo;s included. How can we prevent junk from getting into our repository? <strong>Tell Git to ignore what doesn&rsquo;t belong!</strong></p>
-
-<p>I can&rsquo;t take credit for the most awesome .gitignore file I&rsquo;ve seen. That belongs to <a href="http://mahdi.mp/a-gitignore-file-for-net-developers/" target="_blank">Madhi Taghizadeh</a>, and you can <a href="https://raw.github.com/gist/1119793/f9af455954e2db67bb1074e5ad729aac46a91cb8/.gitignore" target="_blank">get it here</a>.</p>
-
-<p>Note that I&rsquo;ve been using <a href="http://blog.davidebbo.com/2011/08/easy-way-to-set-up-nuget-to-restore.html" target="_blank">this handy dandy trick</a> to <strong>make projects automatically restore NuGet packages before each build</strong>. If you do this as well, you probably want to <strong>kill the two negations at the bottom of the file </strong>that tell Git to include NuGet package DLLs.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image6.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border-width:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb6.png" alt="image" width="583" height="491" border="0" /></a></p>
-
-<h2>gitflow</h2>
-
-
-<p><strong>You may not fully appreciate this one until we talk about branching, merging, and the strategies surrounding this topic</strong>, but let&rsquo;s get it setup anyway. You can wait and do this later (after you&rsquo;ve seen why you&rsquo;ll want it), or you can <strong>trust me and get this out of the way</strong>Â <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/01/wlemoticon-winkingsmile.png" alt="Winking smile" /></p>
-
-<p>First, we needÂ to collect two dependencies that <a title="gitflow" href="https://github.com/nvie/gitflow" target="_blank">gitflow</a> utilizes.</p>
-
-<ul>
-    <li>Navigate to <a href="http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm">http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm</a></li>
-    <li>Get the Binaries zip and copy the <strong>getopt.exe</strong>file to your git\bin</li>
-    <li>Get the Dependencies zip and copy the <strong>libintl32.dll</strong> to your git\bin</li>
-</ul>
-
-
-<p>Now, from the command line</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone --recursive https://github.com/nvie/gitflow.git
-</span><span class='line'><span class="nb">cd </span>gitflow
-</span><span class='line'>contrib<span class="se">\m</span>sysgit-install.cmd
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So what does this do?</p>
-
-<ol>
-    <li>First, get some code again. <strong>Do not forget the &#8211;recursive flag!</strong></li>
-    <li>Change to the gitflow directory that <strong>git clone</strong> just created</li>
-    <li>Run the installation</li>
-</ol>
-
-
-<h2>What&#8217;s Next?</h2>
-
-
-<p><span style="color:#000000;">Like I said, <strong>what gitflow does and why you&rsquo;ll want it will come into play later</strong>, as we explore some of the more popular branching strategies in the Git universe. In the next post, we&rsquo;ll learn how Git differs from SVN, TFS (or heaven forbid Visual SourceSafe), and take a look at the strategy upon which gitflow was based.</span></p>
-
-<h2>Sneak Peek</h2>
-
-
-<p>Alright&hellip;if you&rsquo;re already familiar with Git but not with gitflow, check this out.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image7.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb7.png" alt="image" width="616" height="420" border="0" /></a></p>
-
-<p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/">The DevStop</a>.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -1232,6 +1306,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
       </li>
     
@@ -1245,10 +1323,6 @@
     
       <li class="post">
         <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It&#8217;s Good for You, Good for You!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/02/why-doesnt-cordova-run-windows-run-the-8-dot-1-app/">Why Doesn&#8217;t Cordova Run Windows Run the 8.1 App?</a>
       </li>
     
   </ul>
@@ -1273,7 +1347,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - David Ruttka -
+  Copyright &copy; 2016 - David Ruttka -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
