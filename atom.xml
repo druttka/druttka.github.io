@@ -4,7 +4,7 @@
   <title><![CDATA[David Ruttka]]></title>
   <link href="http://www.davidruttka.com/atom.xml" rel="self"/>
   <link href="http://www.davidruttka.com/"/>
-  <updated>2016-06-29T21:45:13-07:00</updated>
+  <updated>2016-06-30T17:34:15-07:00</updated>
   <id>http://www.davidruttka.com/</id>
   <author>
     <name><![CDATA[David Ruttka]]></name>
@@ -46,7 +46,7 @@
 
 <p>I have to say that whatever positives there might be with UWP, the unit testing story is not one of them. The vast majority of issues we&rsquo;ve seen so far have boiled down to testability.</p>
 
-<p>The <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/f4eec19db1a48046bbf60bc2b62fd3d6ac1aa118">next commit</a> highlights one such example where our app runs run fine, but our unit test application crashes at startup. The error isn&rsquo;t what I&rsquo;d call helpful.</p>
+<p>The <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/a544f1d2b0de432af56afd45f8e1d8e3f8c9c941">next commit</a> highlights one such example where our app runs run fine, but our unit test application crashes at startup. The error isn&rsquo;t what I&rsquo;d call helpful.</p>
 
 <blockquote><p>&hellip; test discovery output, a la deployment of application, etc., omitted &hellip;</p>
 
@@ -56,11 +56,13 @@
 
 <p>If you debug the test to check the stack and inner exception, both are null. You may now flip your tables.</p>
 
+<p><em>Update 6/30: After some discussion about this post, I realized it could be even clearer. In the original commits, the unit test was a UITestMethod that tested the template selector itself, making it seem like the problem was limited to testing UI concerns. Now, our unit test does nothing other than <code>Assert.IsTrue(true)</code> in a TestMethod. Let us all agree that one should always be able to <code>Assert.IsTrue(true)</code> without one&rsquo;s unit tests crashing.</em></p>
+
 <h3>The Workaround</h3>
 
 <p>Of course, I neither force quit nor flipped tables in real life. I took a breath and decided to push through the pain. What I found was that our test project would <em>not</em> crash if I removed our equivalent of <code>&lt;local:ThingTemplates /&gt;</code> from the App.xaml.</p>
 
-<p>In the <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/6b0c70c6267cde4e587e55921beb0cd3057345dd">final commit</a>, you can see how our custom <code>DataTemplateSelector</code> takes care of instantiating the dictionary it needs itself. One might argue this is actually cleaner anyway. I&rsquo;m not currently going to argue that point either way. All I&rsquo;m going to say is, &ldquo;Now we can put DataTemplates in a ResourceDictionary and still keep our unit tests, too!&rdquo; That makes me a much happier camper.</p>
+<p>In the <a href="https://github.com/druttka/DataTemplateResourceDictionaries/commit/6e25d97a99f735e06d4f567ff468108ce5858f41">final commit</a>, you can see how our custom <code>DataTemplateSelector</code> takes care of instantiating the dictionary it needs itself. One might argue this is actually cleaner anyway. I&rsquo;m not currently going to argue that point either way. All I&rsquo;m going to say is, &ldquo;Now we can put DataTemplates in a ResourceDictionary and still keep our unit tests, too!&rdquo; That makes me a much happier camper.</p>
 
 <p><sup>1</sup><em>Note: The ResourceDictionary needs a code behind because we&rsquo;re using <code>x:Bind</code>. This is a new alternative to <code>Binding</code> that lets you take advantage of static types. Leaving aside any debates on the merit of static types themselves, I feel that you might as well use &lsquo;em if you got &#8216;em. I have not confirmed if the problems in the unit test project would also exist when using <code>{Binding}</code> and eliminating the code behind.</em></p>
 ]]></content>
