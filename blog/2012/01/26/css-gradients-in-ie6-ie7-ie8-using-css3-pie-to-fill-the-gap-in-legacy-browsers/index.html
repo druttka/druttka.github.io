@@ -1,155 +1,102 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>CSS Gradients in IE6, IE7, IE8 Using CSS3 PIE to Fill the Gap in Legacy Browsers - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    CSS Gradients in IE6, IE7, IE8   Using CSS3 PIE to fill the gap in legacy browsers | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2012/01/26/css-gradients-in-ie6-ie7-ie8-using-css3-pie-to-fill-the-gap-in-legacy-browsers/" rel="bookmark">CSS Gradients in IE6, IE7, IE8   Using CSS3 PIE to fill the gap in legacy browsers</a>
+  </h2>
   
-  <header>
-    
-      <h1 class="entry-title">CSS Gradients in IE6, IE7, IE8 Using CSS3 PIE to Fill the Gap in Legacy Browsers</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+  <time datetime="2012-01-26T00:00:00Z">
+    26 January, 2012
+  </time>
   
+</header>
 
-
-<time datetime="2012-01-26T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients, Modernizr, using polyfills, etc.  &ndash;  but today I want to highlight a specific fallback that has saved my designs.</p>
-
+  <p>Just a quick post to share something that many are unaware of, and that I myself was unaware of until recently. Most of us are aware of CSS gradients, Modernizr, using polyfills, etc.  -  but today I want to highlight a specific fallback that has saved my designs.
 <p align="center"><a title="CSS3 Pie" href="http://css3pie.com" target="_blank"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="CSS3 PIE" src="http://thedevstop.files.wordpress.com/2012/01/image16.png" alt="CSS3 PIE" width="547" height="183" border="0" /></a></p>
+<strong>Sometimes I pronounce &ldquo;IE&rdquo; as if I&rsquo;m falling from a precipice: &ldquo;aiiyeeeeeee!!!&rdquo;</strong> Why? Well, consider this style which applies a linear gradient:</p>
 
+<pre><code class="language-css">
+.selector {
+background: #233331;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#4d6f6b), to(#233331));
+/* Saf4+, Chrome */
+background-image: -webkit-linear-gradient(#4d6f6b, #233331);
+/* Chrome 10+, Saf5.1*/
+background-image: -moz-linear-gradient(#4d6f6b, #233331);
+/* FF3.6 */
+background-image: -ms-linear-gradient(#4d6f6b, #233331);
+/* IE10 */
+background-image: -o-linear-gradient(#4d6f6b, #233331);
+/* Opera 11.10*/
+background-image: linear-gradient(#4d6f6b, #233331); }
 
-<p><strong>Sometimes I pronounce &ldquo;IE&rdquo; as if I&rsquo;m falling from a precipice: &ldquo;aiiyeeeeeee!!!&rdquo;</strong> Why? Well, consider this style which applies a linear gradient:</p>
+</code></pre>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nc">.selector</span> <span class="p">{</span>
-</span><span class='line'><span class="k">background</span><span class="o">:</span> <span class="m">#233331</span><span class="p">;</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="k">left</span> <span class="k">top</span><span class="o">,</span> <span class="k">left</span> <span class="k">bottom</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#233331</span><span class="p">));</span>
-</span><span class='line'><span class="c">/* Saf4+, Chrome */</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
-</span><span class='line'><span class="c">/* Chrome 10+, Saf5.1*/</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
-</span><span class='line'><span class="c">/* FF3.6 */</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
-</span><span class='line'><span class="c">/* IE10 */</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span>
-</span><span class='line'><span class="c">/* Opera 11.10*/</span>
-</span><span class='line'><span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="m">#4d6f6b</span><span class="o">,</span> <span class="m">#233331</span><span class="p">);</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This is all fun and games until you test in Internet Explorer &lt; 9. There, you just get solid block of #233331. Now, as this is the second stop anyway, it&rsquo;s not the end of the world. It&rsquo;s nicer, though, to hold onto that gradient that you had decided upon! Enter <a href="http://css3pie.com" title="CSS3 PIE" target="_blank">CSS3 PIE</a>.</p>
-
+<p>This is all fun and games until you test in Internet Explorer &lt; 9. There, you just get solid block of #233331. Now, as this is the second stop anyway, it&rsquo;s not the end of the world. It&rsquo;s nicer, though, to hold onto that gradient that you had decided upon! Enter <a href="http://css3pie.com" title="CSS3 PIE" target="_blank">CSS3 PIE</a>.
 <h2>Easy as (CSS3) Pie</h2>
+I couldn&rsquo;t decide on the cheesy &ldquo;easy as pie&rdquo; reference or a much more obscure but only slightly less cheesy Twin Peaks quote.</p>
 
-
-<p>I couldn&rsquo;t decide on the cheesy &ldquo;easy as pie&rdquo; reference or a much more obscure but only slightly less cheesy Twin Peaks quote.</p>
-
-<p>Anyway, let&rsquo;s solve our IE problem. Note that this isn&rsquo;t just for CSS Gradients; CSS3 Pie can help you fill the gap for a variety of <a title="About CSS3 Pie" href="http://css3pie.com/about/" target="_blank">features</a>:</p>
-
+<p>Anyway, let&rsquo;s solve our IE problem. Note that this isn&rsquo;t just for CSS Gradients; CSS3 Pie can help you fill the gap for a variety of <a title="About CSS3 Pie" href="http://css3pie.com/about/" target="_blank">features</a>:
 <ul>
 <ul>
     <li>border-radius</li>
@@ -159,193 +106,66 @@
     <li>linear-gradient as background image</li>
 </ul>
 </ul>
-
-
-<p>Enabling support for linear gradients is just a matter of telling PIE to take care of it. How?</p>
-
+Enabling support for linear gradients is just a matter of telling PIE to take care of it. How?
 <h3>Add PIE Behavior to the Style</h3>
+Just add this at the bottom of your linear gradient definitions:</p>
 
+<pre><code class="language-css">
+-pie-background: linear-gradient(#4d6f6b, #233331);
+/*PIE*/
+behavior: url(/Scripts/PIE.htc);
 
-<p>Just add this at the bottom of your linear gradient definitions:</p>
+</code></pre>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">-pie-background</span><span class="o">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nf">#4d6f6b</span><span class="o">,</span> <span class="nf">#233331</span><span class="o">);</span>
-</span><span class='line'><span class="c">/*PIE*/</span>
-</span><span class='line'><span class="nt">behavior</span><span class="o">:</span> <span class="nt">url</span><span class="o">(/</span><span class="nt">Scripts</span><span class="o">/</span><span class="nt">PIE</span><span class="nc">.htc</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>Should be obvious, but make sure you have the correct location to the .htc file. You can download everything you need from the <a title="CSS3 PIE on Github" href="https://github.com/lojjic/PIE/downloads" target="_blank">project site on Github</a>.
+<h3>Load the CSS3 PIE script</h3></p>
 
+<p>I do this conditionally using <a title="yepnope" href="http://yepnopejs.com/" target="_blank">yepnope.js</a>, but how you load it is up to you. The point is that CSS3 PIE can&rsquo;t do any of it&rsquo;s work if you don&rsquo;t load it :-).<strong></strong> Note that the script below also assumes that you&rsquo;ve loaded <a title="Modernizr" href="http://www.modernizr.com/" target="_blank">Modernizr</a> for the test condition. (Note: Modernizr now incorporates yepnope and uses it in <a title="Modernizr documentation" href="http://www.modernizr.com/docs/" target="_blank">.load</a>, but I&rsquo;m using an older build of Modernizr here).</p>
 
-<p>Should be obvious, but make sure you have the correct location to the .htc file. You can download everything you need from the <a title="CSS3 PIE on Github" href="https://github.com/lojjic/PIE/downloads" target="_blank">project site on Github</a>.</p>
+<pre><code class="language-javascript">
+yepnope({
+test: Modernizr.cssgradients,
+nope: '/Scripts/PIE.js'
+});
 
-<h3>Load the CSS3 PIE script</h3>
-
-
-<p>I do this conditionally using <a title="yepnope" href="http://yepnopejs.com/" target="_blank">yepnope.js</a>, but how you load it is up to you. The point is that CSS3 PIE can&rsquo;t do any of it&rsquo;s work if you don&rsquo;t load it :&ndash;).<strong></strong> Note that the script below also assumes that you&rsquo;ve loaded <a title="Modernizr" href="http://www.modernizr.com/" target="_blank">Modernizr</a> for the test condition. (Note: Modernizr now incorporates yepnope and uses it in <a title="Modernizr documentation" href="http://www.modernizr.com/docs/" target="_blank">.load</a>, but I&rsquo;m using an older build of Modernizr here).</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">yepnope</span><span class="p">({</span>
-</span><span class='line'><span class="nx">test</span><span class="o">:</span> <span class="nx">Modernizr</span><span class="p">.</span><span class="nx">cssgradients</span><span class="p">,</span>
-</span><span class='line'><span class="nx">nope</span><span class="o">:</span> <span class="s1">&#39;/Scripts/PIE.js&#39;</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+</code></pre>
 
 <h2>What about &lt;noscript&gt;?</h2>
 
-
 <p>I am a huge fan of doing everything possible to <a href="http://christianheilmann.com/2011/12/06/that-javascript-not-available-case/" target="_blank" title="Christian Heilmann on requiring JavaScript">avoid delivering a broken interface to a user</a>, no matter how far into the past they are stuck. However, as this is just style and not functionality, I&rsquo;d mark it as an exception. People who are in the intersection of legacy browsers and disabled JavaScript simply will not benefit from this.</p>
 
-<p>So, could you use an image fallback? Sure. You could also <a href="http://designfestival.com/a-farewell-to-css3-gradients/" target="_blank" title="Alex Walker on SVG gradients">get rid of the CSS completely</a> and use SVG. Both are valid options worth considering, and I plan to take a closer look at all the pros and cons soon. I encourage everyone to do the same and use whatever is most appropriate for the constraints and use cases of the project.</p>
-
-<h2>Conclusion</h2>
-
+<p>So, could you use an image fallback? Sure. You could also <a href="http://designfestival.com/a-farewell-to-css3-gradients/" target="_blank" title="Alex Walker on SVG gradients">get rid of the CSS completely</a> and use SVG. Both are valid options worth considering, and I plan to take a closer look at all the pros and cons soon. I encourage everyone to do the same and use whatever is most appropriate for the constraints and use cases of the project.
+<h2>Conclusion</h2></p>
 
 <p>CSS3 PIE eases some of the pain caused by those who cling to (or at times are forced to use) old versions of IE. The project is well documented, and you should be able to quickly apply any of the <a title="CSS3 PIE - Instructions for supported features" href="http://css3pie.com/documentation/supported-css3-features/" target="_blank">detailed instructions</a> for each of the supported features. Give it a shot and let me know what you think!</p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/26/css-gradients-in-ie6-ie7-ie8using-css3-pie-to-fill-the-gap-in-legacy-browsers/">The DevStop</a>.</em></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2012-01-26T00:00:00-08:00" pubdate data-updated="true"></time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/01/26/css-gradients-in-ie6-ie7-ie8-using-css3-pie-to-fill-the-gap-in-legacy-browsers/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/01/26/css-gradients-in-ie6-ie7-ie8-using-css3-pie-to-fill-the-gap-in-legacy-browsers/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/" title="Previous Post: Git for Windows and .NET Developers Part 2   Advanced Tools and Options">&laquo; Git for Windows and .NET Developers Part 2   Advanced Tools and Options</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2012/01/27/comic-sans-for-github-its-like-april-fools-day-only-way-earlier%21/" title="Next Post: Comic Sans for Github   It's Like April Fools' Day, Only Way Earlier!">Comic Sans for Github   It's Like April Fools' Day, Only Way Earlier! &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-</div>
 
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

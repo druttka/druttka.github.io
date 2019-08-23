@@ -1,124 +1,83 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Why Git Makes Things Better - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Why Git Makes Things better | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="I still plan on writing some posts about how we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Why Git Makes Things Better</h1>
-    
-    
-      <p class="meta">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
         
 
-
-
-
-
-
-
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/" rel="bookmark">Why Git Makes Things better</a>
+  </h2>
+  
+  <time datetime="2014-04-24T21:03:27-07:00">
+    24 April, 2014
+  </time>
+  
+</header>
 
   
 
+<p>I still plan on writing some posts about <em>how</em> we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over the first couple of days that we were officially on Git, and express <em>why</em> I&rsquo;ve wanted to do this for so long.</p>
 
-<time datetime="2014-04-24T21:03:27-07:00" pubdate data-updated="true">Apr 24<span>th</span>, 2014</time>
-        
-         | <a href="#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
-        
-        
-      </p>
-    
-  </header>
+<p><blockquote class="twitter-tweet" lang="en"><p>I&#39;ve used <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> at other jobs. Today is the first day we&#39;re officially on it at current job. Live is so good today. // <a href="https://twitter.com/msarchet">@msarchet</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459074019635896320">April 23, 2014</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-
-<div class="entry-content"><p>I still plan on writing some posts about <em>how</em> we migrated from TFVC (TFS) to Git. For now, I want to share a few stories of things that happened over the first couple of days that we were officially on Git, and express <em>why</em> I&rsquo;ve wanted to do this for so long.</p>
-
-<blockquote class="twitter-tweet" lang="en"><p>I&#39;ve used <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> at other jobs. Today is the first day we&#39;re officially on it at current job. Live is so good today. // <a href="https://twitter.com/msarchet">@msarchet</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459074019635896320">April 23, 2014</a></blockquote>
-
-
-<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h2>Collaboration</h2>
+<h2 id="collaboration">Collaboration</h2>
 
 <!-- more -->
-
 
 <p><a href="http://msarchet.com">Michael</a> and I have been pairing through a story. We&rsquo;re also realizing that we think a lot alike, and I end up saying things that he&rsquo;s already doing. We got to that point where there were some rote, trivial things to finish up, and there was a bit of a cut line where it could be done in parallel.</p>
 
@@ -126,7 +85,7 @@
 
 <p>He pushed the branch, I went back to my desk, and we each committed separately. Then we pushed and merged together on the branch. And it was good. And it was easy. <strong>And I honestly think it would have taken us two or three times longer if we were still on TFVC</strong>.</p>
 
-<h2>Resolving Blockers Amidst Feature Work</h2>
+<h2 id="resolving-blockers-amidst-feature-work">Resolving Blockers Amidst Feature Work</h2>
 
 <p>During the <strong>same day</strong>, we were notified of an issue that was blocking test. It&rsquo;s an issue we knew about, but were planning to do in the next day or two because we didn&rsquo;t realize anyone was using it yet. As Michael and I discussed it, <a href="http://willi.am">Will</a> came over; he had been discussing the same with <a href="http://codeofmatt.com">Matt</a>.</p>
 
@@ -134,12 +93,9 @@
 
 <p><strong>But wait, there&rsquo;s more!</strong> That feature work&hellip;we were still evolving that past what we had done earlier in the day. We were in the middle of that when we became aware of the blocker. We were able to effortlessly switch back to <code>master</code>, make a branch for the fix, and when we were done roll right back into the feature work. No shelvesets or conflicts. No multiple workspaces. No muss, no fuss, just sheer productivity and ass kicking.</p>
 
-<blockquote class="twitter-tweet" lang="en"><p>So I just saw an IM sent to me with a reaction gif regarding our move to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> and our super productive pairing day. <a href="http://t.co/jQGvMcqHNp">http://t.co/jQGvMcqHNp</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459177091905236992">April 24, 2014</a></blockquote>
+<p><blockquote class="twitter-tweet" lang="en"><p>So I just saw an IM sent to me with a reaction gif regarding our move to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a> and our super productive pairing day. <a href="http://t.co/jQGvMcqHNp">http://t.co/jQGvMcqHNp</a></p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459177091905236992">April 24, 2014</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-
-<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h2>Revisionist History</h2>
+<h2 id="revisionist-history">Revisionist History</h2>
 
 <p>So, carrying on from the above, that bug fix work saw some feedback in code review. Little stuff like missing header comments or <code>using</code> statement arrangement. Or a <code>csproj</code> file not getting committed because Visual Studio doesn&rsquo;t always save those <em>sigh</em>.</p>
 
@@ -147,7 +103,7 @@
 
 <p><em>I&rsquo;m joking about the benefit of looking perfect. The real benefit here is that it keeps our history looking cleaner, and in the case of the <code>csproj</code> change, ensures each commit is actually buildable.</em></p>
 
-<h2>Time Travel</h2>
+<h2 id="time-travel">Time Travel</h2>
 
 <p>As all this is going on, we have a situation where we want to deploy to a new environment. We want to include everything that was done at the end of the last sprint (about ten days ago), plus <strong>only a subset</strong> of what we&rsquo;ve done since then.
 We aren&rsquo;t all fancy schmancy with feature toggles right now, so we actually need some of the source changes and not others. I cannot even imagine doing this on a centralized version control. With Git, we&rsquo;re just going to</p>
@@ -172,183 +128,45 @@ git cherry-pick &lt;sha we want&gt;
 
 <p>Either way, it&rsquo;s ridiculously easy. Then we build and deploy from that branch, and master keeps rolling on into the future. Git <strong>is</strong> the future. Get on it.</p>
 
-<h2>Git Fever. It&rsquo;s Catching!</h2>
+<h2 id="git-fever-it-s-catching">Git Fever. It&rsquo;s Catching!</h2>
 
 <p>I was really excited when <a href="https://twitter.com/robjoh">Rob</a> came over and asked why one of our others projects couldn&rsquo;t be moved. My response? I&rsquo;ll have it moved in the next hour or two. And then I did it! This is how much I love Git, and it appears I&rsquo;m not alone. Now that we&rsquo;re there, <strong>people want more of it</strong>.</p>
 
-<blockquote class="twitter-tweet" lang="en"><p>Just migrated some more shared source from a TF proj to Git. Because someone WANTED Git. That&#39;s two migrations this week. It is happening!</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459488856794869760">April 25, 2014</a></blockquote>
+<p><blockquote class="twitter-tweet" lang="en"><p>Just migrated some more shared source from a TF proj to Git. Because someone WANTED Git. That&#39;s two migrations this week. It is happening!</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459488856794869760">April 25, 2014</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-
-<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h2>Optimize for happiness</h2>
+<h2 id="optimize-for-happiness">Optimize for happiness</h2>
 
 <p>I&rsquo;ve been on teams moving to Git before. In the past, even the staunchest opponents have become avid evangelists after a few weeks. I think this is because Git doesn&rsquo;t just change your toolchain, but it changes your entire workflow for the better. It allows you to do incredibly powerful, useful things and to correct mistakes when they are made. It is <strong>built for speed and collaboration.</strong></p>
 
-<h3>To put it simply</h3>
+<h3 id="to-put-it-simply">To put it simply</h3>
 
-<blockquote class="twitter-tweet" lang="en"><p>&quot;<a href="https://twitter.com/RitchieS">@RitchieS</a>: Everything&#39;s amazing, but nobody&#39;s happy.&quot; Well, actually, I&#39;m happy because we finally moved to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a>.</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459489030204186624">April 25, 2014</a></blockquote>
-
-
-<p> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
+<p><blockquote class="twitter-tweet" lang="en"><p>&quot;<a href="https://twitter.com/RitchieS">@RitchieS</a>: Everything&#39;s amazing, but nobody&#39;s happy.&quot; Well, actually, I&#39;m happy because we finally moved to <a href="https://twitter.com/search?q=%23git&amp;src=hash">#git</a>.</p>&mdash; David Ruttka (@druttka) <a href="https://twitter.com/druttka/statuses/459489030204186624">April 25, 2014</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
   
 
-
-<time datetime="2014-04-24T21:03:27-07:00" pubdate data-updated="true">Apr 24<span>th</span>, 2014</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/" title="Previous Post: Normalizing line endings in a Git repo">&laquo; Normalizing line endings in a Git repo</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/04/25/git-clone-the-quickening/" title="Next Post: Git Clone: The Quickening!">Git Clone: The Quickening! &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
-</div>
-
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'davidruttka';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/24/why-git-makes-things-better/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

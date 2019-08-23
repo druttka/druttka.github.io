@@ -1,116 +1,79 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Rewriting History to Remove Unwanted Binaries - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Rewriting History To Remove Unwanted Binaries | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Rewriting History to Remove Unwanted Binaries</h1>
-    
-    
-      <p class="meta">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
         
 
-
-
-
-
-
-
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/" rel="bookmark">Rewriting History To Remove Unwanted Binaries</a>
+  </h2>
+  
+  <time datetime="2014-04-16T20:41:38-07:00">
+    16 April, 2014
+  </time>
+  
+</header>
 
   
 
+<p>We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one thing that we&rsquo;re cleaning up in the process.</p>
 
-<time datetime="2014-04-16T20:41:38-07:00" pubdate data-updated="true">Apr 16<span>th</span>, 2014</time>
-        
-         | <a href="#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>We&rsquo;re in the middle of a TFVC (TFS) to Git migration that I&rsquo;ll probably blog about more completely later. Right now, I want to cover one thing that we&rsquo;re cleaning up in the process.</p>
-
-<h2>These Aren&rsquo;t The Packages You&rsquo;re Looking For</h2>
+<h2 id="these-aren-t-the-packages-you-re-looking-for">These Aren&rsquo;t The Packages You&rsquo;re Looking For</h2>
 
 <p>We got into a bad situation where we were checking in our <code>packages</code> folder instead of letting NuGet restore handle it.</p>
 
@@ -119,8 +82,7 @@
 <li>Some of this was because we have private packages that aren&rsquo;t on any feed that VSO can currently access</li>
 </ul>
 
-
-<h2>Rewriting History</h2>
+<h2 id="rewriting-history">Rewriting History</h2>
 
 <p>If we&rsquo;re going to have a new project in VSO, and we&rsquo;re going to be creating a new repo based on the TFVC history, we might as well move up to the new templates and pretend those packages were never there.</p>
 
@@ -128,12 +90,10 @@
 
 <p>Here&rsquo;s a command that would do the trick for the <code>Newtonsoft.Json.6.0.1</code> package alone.</p>
 
-<p><strong>DANGER! WARNING! WE&rsquo;RE DOING THIS TO A NEW REPO, DURING MIGRATION, BEFORE IT BECOMES SHARED HISTORY. READ THE MANUAL AND CAVEATS BEFORE YOU DO THIS TO EXISTING, SHARED REPOS</strong> <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">read it here</a></p>
+<p><strong>DANGER! WARNING! WE&rsquo;RE DOING THIS TO A NEW REPO, DURING MIGRATION, BEFORE IT BECOMES SHARED HISTORY. READ THE MANUAL AND CAVEATS BEFORE YOU DO THIS TO EXISTING, SHARED REPOS</strong> <a href="https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html">read it here</a>
+    git filter-branch -f &ndash;index-filter &ldquo;git rm -rf &ndash;cached &ndash;ignore-unmatch packages/Newtonsoft.Json.6.0.1&rdquo; HEAD</p>
 
-<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/Newtonsoft.Json.6.0.1" HEAD
-</code></pre>
-
-<h3>Breakdown</h3>
+<h3 id="breakdown">Breakdown</h3>
 
 <p><strong>tl;dr this is going to roll through all of our commits, and for each one, remove the Newtonsoft.Json.6.0.1 directory and everything inside of it from both the working tree and index. It NEVER EXISTED.</strong></p>
 
@@ -150,8 +110,7 @@
 <li><code>-f</code> forces. I will cover why we added this, but not just yet.</li>
 </ul>
 
-
-<h2>But That&rsquo;s Just One Of Them</h2>
+<h2 id="but-that-s-just-one-of-them">But That&rsquo;s Just One Of Them</h2>
 
 <p>We want to do this for all the public packages, and we want to do it for none of our private ones. We&rsquo;ll need to get a list.</p>
 
@@ -161,10 +120,10 @@
     |? { $_ -ne $null -and $_ -match 'create mode \d+ (.*)?(/lib/.*)' } `
     |% { $($matches[1]) } `
     | select -unique | sort `
-    |% { "git filter-branch -f --index-filter ""git rm -rf --cached --ignore-unmatch $_"" HEAD" }
+    |% { &quot;git filter-branch -f --index-filter &quot;&quot;git rm -rf --cached --ignore-unmatch $_&quot;&quot; HEAD&quot; }
 </code></pre>
 
-<h3>Breakdown</h3>
+<h3 id="breakdown-1">Breakdown</h3>
 
 <ol>
 <li>The first line dumps all of the adds that happened in the current directory (<code>packages</code>)</li>
@@ -174,16 +133,15 @@
 <li>Write the command we want to execute to the output stream. <strong>This doesn&rsquo;t execute it, it just outputs what you want to execute.</strong></li>
 </ol>
 
-
 <p>The output looks something like this</p>
 
-<pre><code>git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/bar" HEAD
-git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packages/foo" HEAD
+<pre><code>git filter-branch -f --index-filter &quot;git rm -rf --cached --ignore-unmatch packages/bar&quot; HEAD
+git filter-branch -f --index-filter &quot;git rm -rf --cached --ignore-unmatch packages/foo&quot; HEAD
 </code></pre>
 
-<p>You <strong>could</strong> go so far as to not wrap that in quotes and dump it to the output stream. You <strong>could</strong> just execute it directly. But then, you wouldn&rsquo;t have accounted for the private packages, so you&rsquo;d want to have some kind of <code>$safePackages = ("x","y","z")</code> and add a <code>|?</code> to strip them. Your choice, but until we&rsquo;ve run this through its paces, I kind of like the safety of having the chance to review what&rsquo;s going to be done.</p>
+<p>You <strong>could</strong> go so far as to not wrap that in quotes and dump it to the output stream. You <strong>could</strong> just execute it directly. But then, you wouldn&rsquo;t have accounted for the private packages, so you&rsquo;d want to have some kind of <code>$safePackages = (&quot;x&quot;,&quot;y&quot;,&quot;z&quot;)</code> and add a <code>|?</code> to strip them. Your choice, but until we&rsquo;ve run this through its paces, I kind of like the safety of having the chance to review what&rsquo;s going to be done.</p>
 
-<h2>The Final Stroke, And Why We -f It</h2>
+<h2 id="the-final-stroke-and-why-we-f-it">The Final Stroke, And Why We -f It</h2>
 
 <p>Each <code>filter-branch</code> creates a <code>.git-rewrite</code> directory and a bunch of temporary history. While this exists, the next <code>filter-branch</code> will not execute and ask you to clean it up. We are going to be doing this a whole bunch of times and then clean it up after all of them are done, so we just <code>-f</code> through it.</p>
 
@@ -197,164 +155,32 @@ git filter-branch -f --index-filter "git rm -rf --cached --ignore-unmatch packag
 <p>* Hat tip to an old post by <a href="http://dound.com/2009/04/git-forever-remove-files-or-folders-from-history/">David Underhill</a> that got us started.</p>
 
 <p>** More thanks to <a href="http://joshuarogers.net">Josh</a> for responding quite quickly to my call for his favorite way to find subdirectories that used to exist but got deleted. I ended up going a different way, and just looking for everything that was ever added, whether it exists or not. And using PowerShell. He says he&rsquo;s considering blogging his solution <a href="http://joshuarogers.net/find-all-directories-have-been-deleted-git">soon</a>!!</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2014-04-16T20:41:38-07:00" pubdate data-updated="true">Apr 16<span>th</span>, 2014</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/04/14/little-wonders-alt-plus-space/" title="Previous Post: Little wonders: Alt+Space, E, P">&laquo; Little wonders: Alt+Space, E, P</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/04/17/normalizing-line-endings-in-a-git-repo/" title="Next Post: Normalizing line endings in a Git repo">Normalizing line endings in a Git repo &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
-</div>
-
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'davidruttka';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/16/rewriting-history-to-remove-unwanted-binaries/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

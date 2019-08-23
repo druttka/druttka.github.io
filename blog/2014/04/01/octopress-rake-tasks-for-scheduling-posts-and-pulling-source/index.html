@@ -1,156 +1,108 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Octopress Rake Tasks for Scheduling Posts and Pulling Source - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Octopress rake tasks for scheduling posts and pulling source | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="Earlier today I posted a link about how to sync Octopress across multiple machines. That was very helpful because when I took the trivial approach &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" rel="bookmark">Octopress rake tasks for scheduling posts and pulling source</a>
+  </h2>
   
-  <header>
-    
-      <h1 class="entry-title">Octopress Rake Tasks for Scheduling Posts and Pulling Source</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+  <time datetime="2014-04-01T19:13:02-07:00">
+    1 April, 2014
+  </time>
   
+</header>
 
-
-<time datetime="2014-04-01T19:13:02-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-        
-         | <a href="#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
+  <p>Earlier today I posted a link about how to <a href="http://colca7.com/blog/2014/01/27/octopress-sync-octopress-on-different-machines/">sync Octopress across multiple machines</a>. That was very helpful because when I took the trivial approach and just went through the set up a second time, I quickly arrived in Merge Conflict, USA and it was decidely <strong>not</strong> groovy.</p>
 
 <p>When I got back to the first machine, I decided to automate a few things&hellip;</p>
 
-<h2>Source vs. Master</h2>
+<p>##Source vs. Master
+If you&rsquo;ve paid attention to what&rsquo;s going on with Octopress, you know that what gets deployed to GitHub Pages is the <strong>master</strong> branch of your <strong>_deploy</strong> directory. The raw, ungenerated material (markdown, themes, layouts, etc.) stick around in the <strong>source</strong> branch which you can push, well, wherever. I push mine to a private repo.</p>
 
-<p>If you&rsquo;ve paid attention to what&rsquo;s going on with Octopress, you know that what gets deployed to GitHub Pages is the <strong>master</strong> branch of your <strong>_deploy</strong> directory. The raw, ungenerated material (markdown, themes, layouts, etc.) stick around in the <strong>source</strong> branch which you can push, well, wherever. I push mine to a private repo.</p>
+<p>If I&rsquo;m going to be working on posts from multiple machines, I find myself doing a lot of this&hellip;
+    git pull private source
+    cd _deploy
+    git pull origin master<br />
+    cd ..</p>
 
-<p>If I&rsquo;m going to be working on posts from multiple machines, I find myself doing a lot of this&hellip;</p>
-
-<pre><code>git pull private source
-cd _deploy
-git pull origin master  
-cd ..
-</code></pre>
-
-<p><strong>I would rather just do this</strong></p>
-
-<pre><code>rake pull
-</code></pre>
+<p><strong>I would rather just do this</strong>
+    rake pull</p>
 
 <p>Spoiler alert: Now I can =) I created an <a href="https://gist.github.com/druttka/9926932">Octopress rake gist</a> if you want to add this to your own Rakefile.</p>
 
-<h2>Drafts and Scheduling</h2>
-
-<p>Two of the things I missed from WordPress</p>
+<p>##Drafts and Scheduling
+Two of the things I missed from WordPress</p>
 
 <ul>
 <li>working on drafts</li>
 <li>marking posts as &ldquo;done&rdquo;, but for a future date</li>
 </ul>
 
-
 <p>I know that Octopress has <code>published: false</code> to support drafts, but I&rsquo;d rather have a <code>_drafts</code> directory. This keeps them isolated so it&rsquo;s easier to see what&rsquo;s a draft and prevents mistakes around the <code>published</code> flag.</p>
 
 <p>When a draft is done, I can <code>mv it.markdown ../_posts/YYYY-MM-DD-it.markdown</code> to include it immediately.</p>
 
-<p><strong>I would rather </strong> <code>mv it.markdown YYYY-MM-DD-it.markdown</code> <strong>and have it included when we reach that date.</strong></p>
+<p>**I would rather ** <code>mv it.markdown YYYY-MM-DD-it.markdown</code> <strong>and have it included when we reach that date.</strong></p>
 
-<p>Spoiler alert again: Now I can =) At any point, I (or any automated worker process) can just</p>
-
-<pre><code>rake post_drafts &amp;&amp; rake generate &amp;&amp; rake deploy
-</code></pre>
+<p>Spoiler alert again: Now I can =) At any point, I (or any automated worker process) can just
+    rake post_drafts &amp;&amp; rake generate &amp;&amp; rake deploy</p>
 
 <p><em>Yes, for now I called it post_drafts even though it doesn&rsquo;t include the generate or deploy. I&rsquo;m still undecided on what I want to do here, and my philosophy is don&rsquo;t go pushing things live unless you&rsquo;re sure that&rsquo;s what you wanted.</em></p>
 
@@ -158,171 +110,38 @@ cd ..
 
 <p>I also created an <a href="https://gist.github.com/druttka/9927030">Octopress rake post_drafts gist</a>. <strong>Do remember to define drafts_dir, as that&rsquo;s not something in the default Rakefile!</strong></p>
 
-<h2>Am I doing it wrong?</h2>
-
-<p>This was a fun excercise for me. It eased a couple of my pain points and gave me an excuse to hack on Ruby and Rake for a few minutes. Maybe I&rsquo;ll look into that automated worker to promote scheduled drafts without any human intervention, so things go live even if I&rsquo;m on vacation.</p>
+<p>##Am I doing it wrong?
+This was a fun excercise for me. It eased a couple of my pain points and gave me an excuse to hack on Ruby and Rake for a few minutes. Maybe I&rsquo;ll look into that automated worker to promote scheduled drafts without any human intervention, so things go live even if I&rsquo;m on vacation.</p>
 
 <p>I&rsquo;ve already decided that <code>post_drafts</code> needs a better name, and I&rsquo;m considering that perhaps promotion of scheduled content into _posts should just be part of the <code>generate</code> task instead. That said, I&rsquo;m still getting into Octopress, and as much as I love Ruby, it&rsquo;s not where I have the most depth. Am I missing a better way? How do you handle drafts and scheduling in Octopress.</p>
 
 <p><strong>Update:</strong> I created a <a href="https://gist.github.com/druttka/9927637"><code>new_draft</code></a> task that works much like the <code>new_page</code> task, but it puts the file in the configured <code>drafts_dir</code>. I have used it to quickly create empty stubs of things I want to cover soon, and pushed that to my private repo. This new platform and tool chain might just be what gets me blogging regularly again, but only time will tell.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2014-04-01T19:13:02-07:00" pubdate data-updated="true">Apr 1<span>st</span>, 2014</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/04/01/git-for-visual-studio-developers/" title="Previous Post: Git for Windows, .NET, Visual Studio Developers">&laquo; Git for Windows, .NET, Visual Studio Developers</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/04/04/exposing-additional-headers-in-cors-responses-using-the-enablecorsattribute/" title="Next Post: Exposing additional headers in CORS responses using the EnableCorsAttribute">Exposing additional headers in CORS responses using the EnableCorsAttribute &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
-</div>
-
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'davidruttka';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/01/octopress-rake-tasks-for-scheduling-posts-and-pulling-source/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

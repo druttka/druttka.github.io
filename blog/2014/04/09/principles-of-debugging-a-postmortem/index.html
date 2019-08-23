@@ -1,122 +1,87 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Principles of Debugging: A Postmortem - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Principles of Debugging: A Postmortem | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Principles of Debugging: A Postmortem</h1>
-    
-    
-      <p class="meta">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
         
 
-
-
-
-
-
-
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/" rel="bookmark">Principles of Debugging: A Postmortem</a>
+  </h2>
+  
+  <time datetime="2014-04-09T10:00:19-07:00">
+    9 April, 2014
+  </time>
+  
+</header>
 
   
 
+<p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
 
-<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
-        
-         | <a href="#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
-        
-        
-      </p>
-    
-  </header>
+<blockquote>
+<p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. - Actual quote</p>
+</blockquote>
 
-
-<div class="entry-content"><p>The following is a combination horror story and true crime documentary of developers tricking themselves into seeing things that aren&rsquo;t there, not seeing things right in front of their faces, and breaking various rules of debugging. The faint of heart should close the browser tab now.</p>
-
-<blockquote><p>No, it&rsquo;s not a Heisenbug. Heisenbugs don&rsquo;t repro the same when you&rsquo;re looking into them. This is&hellip;something else. &ndash; Actual quote</p></blockquote>
-
-<h2>Wont-Fix</h2>
+<h2 id="wont-fix">Wont-Fix</h2>
 
 <p>There&rsquo;s one part of this story that I will not address. We have to use 64-bit integers (C# long) for the ids of one of our resources due to downstream / legacy dependencies. They end up being incredibly large, non-sequential values. That&rsquo;s not the point here, just some context.</p>
 
-<h2>A Problem Is Reported</h2>
+<h2 id="a-problem-is-reported">A Problem Is Reported</h2>
 
 <p><em>INT. A developer&rsquo;s desk, early morning, before coffee, bright blue sunny day.</em></p>
 
@@ -128,8 +93,7 @@
 
 <!-- more -->
 
-
-<h2>The Plot Thickens</h2>
+<h2 id="the-plot-thickens">The Plot Thickens</h2>
 
 <p><em>INT. The same developer&rsquo;s desk. After standup. A second developer joins to pair.</em></p>
 
@@ -141,17 +105,17 @@
 
 <p>We have some message handlers that fire late in the pipeline, just before the response stream is written. The original dev has set breakpoints there and confirmed the ID is correct before it goes out the door.</p>
 
-<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two. We record each id->mutatedId pairing to look for deeper patterns.</p>
+<p>Yet, Fiddler keeps showing that odd ids always become even. Even ids always stay even, but sometimes go up or down by two. We record each id-&gt;mutatedId pairing to look for deeper patterns.</p>
 
 <p>And then, on a whim, add <code>Accept: text/xml</code> to the Fiddler composer instead of taking the default <code>json</code>.</p>
 
 <p><strong>It&rsquo;s correct in the XML.</strong></p>
 
-<h2>Wat</h2>
+<h2 id="wat">Wat</h2>
 
 <p><em>INT. Kitchenette. Coffee. Sanity beginning to slip.</em></p>
 
-<h2>That Annoying BAMB BAMB Sound From Law and Order</h2>
+<h2 id="that-annoying-bamb-bamb-sound-from-law-and-order">That Annoying BAMB BAMB Sound From Law and Order</h2>
 
 <p><em>INT. The same developer&rsquo;s desk. Plus another. Total of three developers.</em></p>
 
@@ -159,15 +123,15 @@
 
 <p>It&rsquo;s only happening to json. Could it be in the serializer? The message formatter? What is going on?</p>
 
-<p>For the sake of reduction, we go to File > New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see <strong>the correct values displayed in the browser</strong>. What&rsquo;s different about the new project? Do we have a different version of the json serializer package? A different version of our web api framework package? What else is our the pipeline, but only for json and not for xml?</p>
+<p>For the sake of reduction, we go to File &gt; New Project. Eliminate all of our code from this and spin up a barebones project. F5 and see <strong>the correct values displayed in the browser</strong>. What&rsquo;s different about the new project? Do we have a different version of the json serializer package? A different version of our web api framework package? What else is our the pipeline, but only for json and not for xml?</p>
 
-<h2>Lunch</h2>
+<h2 id="lunch">Lunch</h2>
 
 <p><em>EXT. Beautiful, bright blue day. Sunny. Warm. The opposite of the cold grey oppression of this bug.</em></p>
 
 <p>Walk to lunch, eat lunch, decide to work from a coffee shop and wrap our heads around this thing.</p>
 
-<h2>Frayed Ends of Sanity</h2>
+<h2 id="frayed-ends-of-sanity">Frayed Ends of Sanity</h2>
 
 <p><em>EXT. Outdoor tables at local cafe.</em></p>
 
@@ -183,7 +147,7 @@
 
 <p>But even as LinqPad is showing the right ids, Fiddler is showing the wrong ids&hellip;</p>
 
-<h2>Derp</h2>
+<h2 id="derp">Derp</h2>
 
 <p>The raw tab of Fiddler always had the correct id. It was only the json tab that displayed incorrect ids. The json tab that you know, handles numbers the way JavaScript handles numbers.</p>
 
@@ -191,11 +155,11 @@
 
 <p>When we started a new Web API project from scratch, we viewed those responses <strong>in a browser</strong> instead of in Fiddler. We changed too much at once, including what we used to view the output.</p>
 
-<h2>Debug It!</h2>
+<h2 id="debug-it">Debug It!</h2>
 
 <p>A few years ago, I read <a href="http://pragprog.com/book/pbdp/debug-it">this book</a> and recommended it to everyone I worked with. As I look at what we went through in this story, I see that we held fast to some of the principles for good debugging, but got caught out on a couple others.</p>
 
-<h3>What Went Well</h3>
+<h3 id="what-went-well">What Went Well</h3>
 
 <ul>
 <li>We had good evidence of the problem and quickly established a scenario to reproduce the problem</li>
@@ -203,174 +167,40 @@
 <li>We further isolated it to only the json output, further supporting the case that our commands and queries were not the cause of mutation.</li>
 </ul>
 
-
-<h3><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
+<h3 id="lessons-learned-things-we-knew-better-but-wth-were-we-doing"><del>Lessons Learned</del> Things We Knew Better But WTH Were We Doing</h3>
 
 <ul>
 <li>Fiddler is a great tool, but it isn&rsquo;t showing you the raw response unless you&rsquo;re actually looking at the raw tab</li>
 <li>We narrowed the issue down to &ldquo;the response pipeline,&rdquo; but didn&rsquo;t consider what the tools used to view the output might do after the response was delivered.</li>
 <li>The prime directive to turn only one knob at a time includes what you&rsquo;re using to view output. If this had been a CSS thing, we certainly would have counted different browsers as knobs we were turning. Here, we tricked ourselves into thinking the raw text response in the browser was the same as the json tab in Fiddler.</li>
-<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2<sup>53</sup>.</li>
+<li>JavaScript can&rsquo;t go full 64-bit on integers. All numbers are 64-bit floating point numbers, so the max &ldquo;long&rdquo; is 2^53.</li>
 </ul>
 
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
 
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-09T10:00:19-07:00" pubdate data-updated="true">Apr 9<span>th</span>, 2014</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/04/08/violating-all-the-principles-of-debugging-a-postmortem/" title="Previous Post: Violating All The Principles of Debugging: A Postmortem">&laquo; Violating All The Principles of Debugging: A Postmortem</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/04/10/another-take-on-our-debugging-adventure/" title="Next Post: Another take on our debugging adventure">Another take on our debugging adventure &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
-</div>
-
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'davidruttka';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/04/09/principles-of-debugging-a-postmortem/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

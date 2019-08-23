@@ -1,122 +1,85 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>MonoDroid 101 Installation and Hello World With Mono for Android - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    MonoDroid 101   Installation and Hello World with Mono for Android | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="I think we can all agree that developing mobile apps is a hot topic these days. One of the concerns I hear most often is having to deal with multiple &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2012/05/17/monodroid-101-installation-and-hello-world-with-mono-for-android/" rel="bookmark">MonoDroid 101   Installation and Hello World with Mono for Android</a>
+  </h2>
   
-  <header>
-    
-      <h1 class="entry-title">MonoDroid 101 Installation and Hello World With Mono for Android</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+  <time datetime="2012-05-17T00:00:00Z">
+    17 May, 2012
+  </time>
   
+</header>
 
-
-<time datetime="2012-05-17T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>I think we can all agree that developing mobile apps is a hot topic these days. One of the concerns I hear most often is having to deal with multiple languages, frameworks, and platforms. Everyone understandably wants to have a common toolset, write code once and reuse it as much code as they can, etc.</p>
+  <p>I think we can all agree that developing mobile apps is a hot topic these days. One of the concerns I hear most often is having to deal with multiple languages, frameworks, and platforms. Everyone understandably wants to have a common toolset, write code once and reuse it as much code as they can, etc.</p>
 
 <p>There are several ways to achieve this. One way is to forget native apps completely and just have a <a href="http://mediaqueri.es/" target="_blank">responsive website</a>. Going this route will cost you a few things such as native device functionality (GPS, camera, accelerometer, etc.) and monetization (marketplace / app store presence).</p>
 
 <p>Another, which I&rsquo;ll be speaking about at <a href="http://codestock.org/" target="_blank">CodeStock 2012</a> (and probably should have blogged about before), is <a href="http://phonegap.com/" target="_blank">PhoneGap</a>. With this option, we leverage our standard web development toolset (HTML, JavaScript, CSS) and bridge the gap with some native libraries. Now we&rsquo;re closer to a write-once scenario but we can still take advantage of the things we lost above.</p>
 
-<p>What I want to look at in this post is <a href="http://xamarin.com/monoforandroid" target="_blank">Mono for Android</a>, or <a href="http://stackoverflow.com/questions/tagged/monodroid" target="_blank">MonoDroid</a>, from <a href="http://xamarin.com/" target="_blank">Xamarin</a>. There&rsquo;s also <a href="http://xamarin.com/monotouch/" target="_blank">MonoTouch</a> for creating iOS apps, but that&rsquo;ll be for later. These offerings allow developers to apply their existing C# and .NET skills to these platforms and share the code between them! The Mono for Android offering also provides the choice of using MonoDevelop or Visual Studio.</p>
-
+<p>What I want to look at in this post is <a href="http://xamarin.com/monoforandroid" target="_blank">Mono for Android</a>, or <a href="http://stackoverflow.com/questions/tagged/monodroid" target="_blank">MonoDroid</a>, from <a href="http://xamarin.com/" target="_blank">Xamarin</a>. There&rsquo;s also <a href="http://xamarin.com/monotouch/" target="_blank">MonoTouch</a> for creating iOS apps, but that&rsquo;ll be for later. These offerings allow developers to apply their existing C# and .NET skills to these platforms and share the code between them! The Mono for Android offering also provides the choice of using MonoDevelop or Visual Studio.
 <h3>Installation (Windows)</h3>
-
-
-<p>This is so simple, there&rsquo;s not a whole lot to say. Head over to the trial download page, answer a few questions, and get the bits.</p>
+This is so simple, there&rsquo;s not a whole lot to say. Head over to the trial download page, answer a few questions, and get the bits.</p>
 
 <p><a href="http://thedevstop.files.wordpress.com/2012/05/trial-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="trial download page" src="http://thedevstop.files.wordpress.com/2012/05/trial-highlight_thumb1.png" alt="Download Mono For Android" width="644" height="333" border="0" /></a></p>
 
@@ -126,15 +89,10 @@
 
 <p>When it&rsquo;s all done, you can launch MonoDevelop or open Visual Studio (integration via a plugin).</p>
 
-<p><a href="http://thedevstop.files.wordpress.com/2012/05/launch1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="You're Ready!" src="http://thedevstop.files.wordpress.com/2012/05/launch_thumb1.png" alt="You're Ready!" width="554" height="484" border="0" /></a></p>
-
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/launch1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="You're Ready!" src="http://thedevstop.files.wordpress.com/2012/05/launch_thumb1.png" alt="You're Ready!" width="554" height="484" border="0" /></a>
 <h2></h2>
-
-
 <h3>Looking at MonoDevelop</h3>
-
-
-<p>I&rsquo;m choosing to go the MonoDevelop route in this post for two reasons. First, I haven&rsquo;t used MonoDevelop before and I figure I should see what all the good buzz is about. Second, some readers just might not have Visual Studio, but everyone who has come this far will have MonoDevelop. If you want a complete getting started guide for Visual Studio, you could check out <a href="http://docs.xamarin.com/android/getting_started/hello_world" target="_blank">Xamarin&rsquo;s documentation</a>. Alternatively, if someone asks me specifically to post about it, I will.</p>
+I&rsquo;m choosing to go the MonoDevelop route in this post for two reasons. First, I haven&rsquo;t used MonoDevelop before and I figure I should see what all the good buzz is about. Second, some readers just might not have Visual Studio, but everyone who has come this far will have MonoDevelop. If you want a complete getting started guide for Visual Studio, you could check out <a href="http://docs.xamarin.com/android/getting_started/hello_world" target="_blank">Xamarin&rsquo;s documentation</a>. Alternatively, if someone asks me specifically to post about it, I will.</p>
 
 <p>When you open MonoDevelop, you get a Start Page. The concept should be pretty familiar. Go ahead and start a new solution.</p>
 
@@ -142,15 +100,10 @@
 
 <p>You can choose from a variety of Mono for Android project templates. Let&rsquo;s go for the gold and target API 15 or higher (&ldquo;Ice Cream Sandwich&rdquo;).</p>
 
-<p><a href="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="project template choices" src="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight_thumb1.png" alt="project template choices" width="644" height="398" border="0" /></a></p>
-
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="project template choices" src="http://thedevstop.files.wordpress.com/2012/05/newsln-highlight_thumb1.png" alt="project template choices" width="644" height="398" border="0" /></a>
 <h3></h3>
-
-
 <h3>Hello MonoDroid</h3>
-
-
-<p>The project should be created with a structure like this.</p>
+The project should be created with a structure like this.</p>
 
 <p><a href="http://thedevstop.files.wordpress.com/2012/05/code1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="project template" src="http://thedevstop.files.wordpress.com/2012/05/code_thumb1.png" alt="project template" width="644" height="366" border="0" /></a></p>
 
@@ -172,153 +125,38 @@
 
 <p>If you click the back button, the app will close, but you can still find it in the app list. I called my project IceCream, and you&rsquo;ll see IceCream in the lower left of the list. Your name may vary <img class="wlEmoticon wlEmoticon-smile" style="border-style:none;" src="http://thedevstop.files.wordpress.com/2012/05/wlemoticon-smile.png" alt="Smile" /></p>
 
-<p><a href="http://thedevstop.files.wordpress.com/2012/05/applist1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="emulator app list" src="http://thedevstop.files.wordpress.com/2012/05/applist_thumb1.png" alt="emulator app list" width="644" height="417" border="0" /></a></p>
-
+<p><a href="http://thedevstop.files.wordpress.com/2012/05/applist1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:block;float:none;margin-left:auto;margin-right:auto;padding-top:0;border:0;" title="emulator app list" src="http://thedevstop.files.wordpress.com/2012/05/applist_thumb1.png" alt="emulator app list" width="644" height="417" border="0" /></a>
 <h3></h3>
-
-
 <h3>Summary</h3>
-
-
-<p>It&rsquo;s oddly satisfying to see apps written in C# with .NET get deployed and executed on Android, and I&rsquo;m pretty excited about diving in deeper and seeing how far we can take it. Next time, we&rsquo;ll take a closer look at what all these files are and the concepts they represent.</p>
+It&rsquo;s oddly satisfying to see apps written in C# with .NET get deployed and executed on Android, and I&rsquo;m pretty excited about diving in deeper and seeing how far we can take it. Next time, we&rsquo;ll take a closer look at what all these files are and the concepts they represent.</p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/05/17/monodroid-101installation-and-hello-world-with-mono-for-android/">The DevStop</a>.</em></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2012-05-17T00:00:00-07:00" pubdate data-updated="true"></time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/05/17/monodroid-101-installation-and-hello-world-with-mono-for-android/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/05/17/monodroid-101-installation-and-hello-world-with-mono-for-android/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2012/05/06/lessons-for-developers-courtesy-of-the-avengers/" title="Previous Post: Lessons for Developers Courtesy of The Avengers">&laquo; Lessons for Developers Courtesy of The Avengers</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2012/05/21/teaser-codestock-conference-app-for-android/" title="Next Post: Teaser   CodeStock Conference App for Android">Teaser   CodeStock Conference App for Android &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-</div>
 
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

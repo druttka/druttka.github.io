@@ -1,116 +1,79 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Setting Up Octopress for GitHub Pages - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Setting Up Octopress for GitHub Pages | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="Last time we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with Octopress to generate our static content and deploy it seamlessly. &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Setting Up Octopress for GitHub Pages</h1>
-    
-    
-      <p class="meta">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
         
 
-
-
-
-
-
-
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/" rel="bookmark">Setting Up Octopress for GitHub Pages</a>
+  </h2>
+  
+  <time datetime="2014-03-29T21:31:06-07:00">
+    29 March, 2014
+  </time>
+  
+</header>
 
   
 
+<p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
 
-<time datetime="2014-03-29T21:31:06-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-        
-         | <a href="#disqus_thread"
-			 data-disqus-identifier="http://www.davidruttka.com">Comments</a>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><em><a href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress">Last time</a> we looked at setting up GitHub Pages. Now we&rsquo;ll get rolling with <a href="http://octopress.org">Octopress</a> to generate our static content and deploy it seamlessly.</em></p>
-
-<h2>Installing Octopress</h2>
+<h2 id="installing-octopress">Installing Octopress</h2>
 
 <p>As with GitHub Pages, the <a href="http://octopress.org/docs/setup/">official documentation</a> is super solid, here. I&rsquo;m going to attempt to give a more terse set of steps that I took, but do refer back to the docs if you need more information.</p>
 
@@ -121,13 +84,11 @@
 <li><code>gem install bundler</code></li>
 <li><code>bundle install</code>.</li>
 <li><code>rake install</code>, and I actually <strong>did hit a snag here</strong>
-
-<blockquote><p>You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</p></blockquote></li>
+&gt; You have already activated rake 10.0.3, but your Gemfile requires rake 0.9.2.2.</li>
 <li>All I had to do was update the Gemfile to reference 10.0.3 and <code>rake install</code> again.</li>
 </ul>
 
-
-<h2>Configuration</h2>
+<h2 id="configuration">Configuration</h2>
 
 <p>Start with <code>rake setup_github_pages</code>. This will ask where your repo is, and set up deployments accordingly.</p>
 
@@ -141,10 +102,9 @@
 <li>twitter_user</li>
 </ul>
 
-
 <p>More information in the official docs for <a href="http://octopress.org/docs/configuring/">Configuration</a> and <a href="http://octopress.org/docs/deploying/github/">Deployment</a>.</p>
 
-<h2>Themes</h2>
+<h2 id="themes">Themes</h2>
 
 <p>I went to <a href="http://octopressthemes.com/">Octopress Themes</a> and got a free one. I went the submodule route. Assuming you chose classic light, you&rsquo;d do something like this.</p>
 
@@ -156,24 +116,23 @@
 <li><code>rake install[classic]</code>, with the following <code>rake generate</code>, will put things back if you don&rsquo;t like it</li>
 </ul>
 
-
 <p>FWIW, at the time of this writing, I&rsquo;m using <a href="https://github.com/octothemes/forest">forest</a>.</p>
 
-<h2>Hello, Octopress</h2>
+<h2 id="hello-octopress">Hello, Octopress</h2>
 
-<p><code>rake new_post["Hello Octopress"]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
+<p><code>rake new_post[&quot;Hello Octopress&quot;]</code> will generate a markdown file in <code>source/_posts</code>. It will have the correct date and title format, and all you have to do is fill in the content.</p>
 
 <p><code>rake generate</code>, and then <code>rake preview</code>.</p>
 
-<h2>That&rsquo;s great for posts, what about pages</h2>
+<h2 id="that-s-great-for-posts-what-about-pages">That&rsquo;s great for posts, what about pages</h2>
 
-<p>You might have guessed it, but <code>rake new_page["About"]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
+<p>You might have guessed it, but <code>rake new_page[&quot;About&quot;]</code>. This will generate a markdown file in <code>{pagename}/index.markdown</code>, and all you have to do is edit it.</p>
 
 <p>Don&rsquo;t forget to update your navigation to include your new page! You&rsquo;ll find it in <code>source/_includes/custom/navigation.html</code>, at which point you&rsquo;re just adding a link.</p>
 
 <p><em>I removed the date, and turned off the sharing and footnote options for my About page. I just think it looks cleaner that way.</em></p>
 
-<h2>It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
+<h2 id="it-s-not-git-push-it-s-rake-deploy">It&rsquo;s not git push, it&rsquo;s rake deploy</h2>
 
 <p>When you like what you&rsquo;re seeing in <code>rake preview</code>, <code>rake deploy</code>. Given that you&rsquo;ve already gone through the delay setting up the repo and CNAME, it&rsquo;ll be live ridiculously fast.</p>
 
@@ -181,178 +140,44 @@
 
 <p><em>Heads up again! That CNAME that was in the root of your repo should now be in <code>source</code>. This will ensure it sticks around each time you <code>rake generate</code>.</em></p>
 
-<h2>Images</h2>
+<h2 id="images">Images</h2>
 
 <p>One thing I found while doing my <a href="/about">About</a> page was including images. The idea is as follows</p>
 
 <ul>
 <li>Add the image to <code>source/images</code></li>
-<li>Use the image tag plugin: <code>&lt;img src="/images/the_image.jpg"&gt;</code>
+<li>Use the image tag plugin: <code>{% img /images/the_image.jpg %}</code>
 
 <ul>
 <li>You can also specify <code>left</code>, <code>right</code>, <code>[width]</code> and <code>[height]</code>, etc. Full docs <a href="http://octopress.org/docs/plugins/image-tag/">here</a>.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2014-03-29T21:31:06-07:00" pubdate data-updated="true">Mar 29<span>th</span>, 2014</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/03/29/moving-from-wordpress-to-github-pages-using-jekyll-via-octopress/" title="Previous Post: Moving from WordPress to GitHub Pages using Jekyll via Octopress">&laquo; Moving from WordPress to GitHub Pages using Jekyll via Octopress</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/03/30/starting-multiple-projects-at-once-in-visual-studio/" title="Next Post: Starting Multiple Projects At Once In Visual Studio">Starting Multiple Projects At Once In Visual Studio &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
-</div>
-
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'davidruttka';
-      
-        
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/';
-        var disqus_url = 'http://www.davidruttka.com/blog/2014/03/29/setting-up-octopress-for-github-pages/';
-        var disqus_script = 'embed.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

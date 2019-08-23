@@ -1,113 +1,79 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2? - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Where did Attribute Routing go when updating from Web API 5.0.0  pre to Web API 2? | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  <link rel="canonical" href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/" rel="bookmark">Where did Attribute Routing go when updating from Web API 5.0.0  pre to Web API 2?</a>
+  </h2>
   
-  <header>
-    
-      <h1 class="entry-title">Where Did Attribute Routing Go When Updating From Web API 5.0.0 Pre to Web API 2?</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+  <time datetime="2013-10-23T00:00:00Z">
+    23 October, 2013
+  </time>
   
+</header>
 
+  <p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  -  plenty of posts have already done that.</p>
 
-<time datetime="2013-10-23T00:00:00-07:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>This is just a heads up for moving to Web API 2 from the prerelease bits. If you weren&rsquo;t using Web API 5.0.0-pre bits, you can probably ignore this and never know any different. I&rsquo;m not going to cover Attribute Routing itself here  &ndash;  plenty of posts have already done that.</p>
-
-<p><b>tl;dr  &ndash;  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
+<p><b>tl;dr  -  instead of HttpGet(&ldquo;route&rdquo;), you now use Route(&ldquo;route&rdquo;), and optionally use HttpGet with no arguments if you need to explicitly define the HTTP method. Same goes for HttpPost, etc.</b></p>
 
 <p>I updated a project from the Web API prerelease to the official Web API 2 a few nights ago, and it broke my build. The HttpGet and HttpPost attributes take no arguments, so [HttpGet(&ldquo;someroute&rdquo;)] and [HttpPost(&ldquo;otherRoute&rdquo;)] were no longer valid.</p>
 
@@ -115,191 +81,64 @@
 
 <p>Let&rsquo;s say we want this X to get wired up as GET /api. It actually gets wired as a POST, and if you try to GET, it throws 405 Method Not Allowed.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-csharp">
+[RoutePrefix(&quot;api&quot;)]
+public class ValuesController : ApiController
+{
+  [Route(&quot;&quot;)]
+  public int X()
+  {
+    return 42;
+  }
+}
 
+</code></pre>
 
 <p>In reality, I&rsquo;d just rename this from X to Get, but this is a contrived example! Let&rsquo;s pretend someone put a note on the work item that the implementation method must be named X. We can turn the world right-side-up again by stacking the Http* method attribute. The following works as GET /api, and attempting to POST throws 405.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[RoutePrefix(&quot;api&quot;)]</span>
-</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ValuesController</span> <span class="p">:</span> <span class="n">ApiController</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="na">  [Route(&quot;&quot;)]</span>
-</span><span class='line'><span class="na">  [HttpGet]</span>
-</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">X</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="m">42</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<pre><code class="language-csharp">
+[RoutePrefix(&quot;api&quot;)]
+public class ValuesController : ApiController
+{
+  [Route(&quot;&quot;)]
+  [HttpGet]
+  public int X()
+  {
+    return 42;
+  }
+}
 
+</code></pre>
 
 <p>Hope this saves someone a few minutes sometime.</p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-5-0-0-pre-to-web-api-2/">The DevStop</a>.</em></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2013-10-23T00:00:00-07:00" pubdate data-updated="true"></time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2013/10/23/where-did-attribute-routing-go-when-updating-from-web-api-500-pre-to-web-api-2/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2013/07/24/msbuild-string-manipulation-chaos/" title="Previous Post: MSBuild String Manipulation Chaos">&laquo; MSBuild String Manipulation Chaos</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2013/10/24/how-can-i-preselect-an-option-element-in-a-select-box/" title="Next Post: How can I preselect an option element in a select box?">How can I preselect an option element in a select box? &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-</div>
 
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>

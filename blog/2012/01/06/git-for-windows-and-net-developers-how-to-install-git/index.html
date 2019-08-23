@@ -1,111 +1,77 @@
 
+
+
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>Git for Windows and .NET Developers How to Install Git - David Ruttka</title>
-  <meta name="author" content="David Ruttka">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    
+    Git for Windows And .NET Developers   How To Install Git | David Ruttka
+    
+  </title>
   
-  <meta name="description" content="I planned to do a series on Git for a while. Then I thought maybe it had all been said already, so what&rsquo;s the point? Then Phil Haack moved to &hellip;">
   
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   
-  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">
-  <link href="/favicon.png?v=2" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="David Ruttka" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="http://www.davidruttka.com/css/base.min.3a7fcef4c48758d1538e0d574d8a0eff239aa671af556d20f9d8bf807db38483.css" integrity="sha256-On/O9MSHWNFTjg1XTYoO/yOapnGvVW0g&#43;di/gH2zhIM=" crossorigin="anonymous">
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-49510588-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
+  
+  <meta name="generator" content="Hugo 0.57.1" />
+  
+  <link rel="canonical" href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/" />
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-49510588-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">David Ruttka</a></h1>
-  
-    <h2>I make computers do things</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.davidruttka.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
-  <li><a href="/speaking">Speaking</a></li>
-</ul>
-
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/">David Ruttka</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/blog/">Blog</a>
+      </li>
+      
+      <li class="Banner-item">
+        <a class="Banner-link u-clickable" href="http://www.davidruttka.com/about/">About</a>
+      </li>
+      
+    </ul>
+  </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="http://www.davidruttka.com/blog/2012/01/06/git-for-windows-and-net-developers-how-to-install-git/" rel="bookmark">Git for Windows And .NET Developers   How To Install Git</a>
+  </h2>
   
-  <header>
-    
-      <h1 class="entry-title">Git for Windows and .NET Developers How to Install Git</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
+  <time datetime="2012-01-06T00:00:00Z">
+    6 January, 2012
+  </time>
   
+</header>
 
-
-<time datetime="2012-01-06T00:00:00-08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
+  <p>I planned to do a series on <a href="http://git-scm.com/" target="_blank">Git</a> for a while. Then I thought <strong>maybe it had all been said already</strong>, so what&rsquo;s the point?</p>
 
 <p>Then <a href="http://haacked.com/archive/2011/12/07/hello-github.aspx" target="_blank">Phil Haack moved to Github</a>, and I realized that <strong>a lot of .NET Developers were still completely oblivious</strong> to the existence of Git (or any DVCS), so I thought about it again.</p>
 
@@ -115,22 +81,15 @@
 
 <p><img src="http://farm1.staticflickr.com/35/73410200_7208ad1676.jpg" alt="" /></p>
 
-<p><span style="font-size:xx-small;">Image used under Creative Commons Attribution License: </span><a href="http://www.flickr.com/photos/selago/73410200"><span style="font-size:xx-small;"><a href="http://www.flickr.com/photos/selago/73410200">http://www.flickr.com/photos/selago/73410200</a></span></a></p>
-
+<p><span style="font-size:xx-small;">Image used under Creative Commons Attribution License: </span><a href="http://www.flickr.com/photos/selago/73410200"><span style="font-size:xx-small;"><a href="http://www.flickr.com/photos/selago/73410200">http://www.flickr.com/photos/selago/73410200</a></span></a>
 <h2>Spoon-feeding</h2>
-
-
-<p>I am using this image and this terminology for two reasons. The first is that I am going to try to spoon-feed this to you so that you&rsquo;ll be <strong>up and running quickly and smoothly</strong>. The other is  &ndash;  I&rsquo;ve had this discussion several times recently  &ndash;  I hope we can start to <strong>turn the .NET community away from a certain horrible stereotype </strong>(but that&rsquo;s for another post).</p>
+I am using this image and this terminology for two reasons. The first is that I am going to try to spoon-feed this to you so that you&rsquo;ll be <strong>up and running quickly and smoothly</strong>. The other is  -  I&rsquo;ve had this discussion several times recently  -  I hope we can start to <strong>turn the .NET community away from a certain horrible stereotype </strong>(but that&rsquo;s for another post).</p>
 
 <p><strong>Note:</strong> what I&rsquo;m sharing will obviously be my own preferred way of working with Git. You can (and should) use this only as a starting point. Then. continue to explore, evaluate, and <strong>think for yourself </strong>about how it can work best for you.</p>
 
-<p><strong>Also note:</strong>Â this post will<strong> only cover the installation</strong> of Git and the basic tools I use alongside of it. <strong>There will be follow-ups</strong> to cover more advanced tools, what Git is, how it differs from centralized source control like TFS and SVN, best practices, branching strategies, etc.</p>
-
+<p><strong>Also note:</strong>Â this post will<strong> only cover the installation</strong> of Git and the basic tools I use alongside of it. <strong>There will be follow-ups</strong> to cover more advanced tools, what Git is, how it differs from centralized source control like TFS and SVN, best practices, branching strategies, etc.
 <h2>Step 1: Console2</h2>
-
-
-<p>Scott Hanselman put together <a href="http://www.hanselman.com/blog/Console2ABetterWindowsCommandPrompt.aspx" target="_blank">a great post about configuring Console2</a> to take your command line to the next level. I recommend that you read it (I think I applied every setting he mentioned), but <strong>here are the settings I find most important</strong>:</p>
-
+Scott Hanselman put together <a href="http://www.hanselman.com/blog/Console2ABetterWindowsCommandPrompt.aspx" target="_blank">a great post about configuring Console2</a> to take your command line to the next level. I recommend that you read it (I think I applied every setting he mentioned), but <strong>here are the settings I find most important</strong>:
 <ul>
     <li>Kill menu bar, status bar, and toolbar</li>
     <li>Drop the alpha to 40</li>
@@ -138,208 +97,78 @@
     <li>Three tab types
 <ul>
     <li>Ctrl+F1 opens a Console tab (default)</li>
-    <li>Ctrl+F2 opens a Git bash (we&#8217;ll add this in a bit)</li>
-    <li>Ctrl+F3 opens a Powershell tab (see Hanselman&#8217;s post above)</li>
+    <li>Ctrl+F2 opens a Git bash (we&rsquo;ll add this in a bit)</li>
+    <li>Ctrl+F3 opens a Powershell tab (see Hanselman&rsquo;s post above)</li>
 </ul>
 </li>
 </ul>
+<a href="http://thedevstop.files.wordpress.com/2012/01/image.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb.png" alt="image" width="599" height="359" border="0" /></a></p>
 
+<p>Beautiful  -  notice that <strong>the transparency will allow you to read instructions</strong> while executing the commands you&rsquo;re reading about. Keep this in mind when you get to step 4.</p>
 
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb.png" alt="image" width="599" height="359" border="0" /></a></p>
-
-<p>Beautiful  &ndash;  notice that <strong>the transparency will allow you to read instructions</strong> while executing the commands you&rsquo;re reading about. Keep this in mind when you get to step 4.</p>
-
-<p>One more thing to be aware of  &ndash; Â I often go ahead and run this app as an Administrator, especially when I&rsquo;m engaging in tasks that are patently &ldquo;setup.&rdquo; Keep in mind that <strong>some of what we do from the command line might require elevation</strong>.</p>
-
+<p>One more thing to be aware of  - Â I often go ahead and run this app as an Administrator, especially when I&rsquo;m engaging in tasks that are patently &ldquo;setup.&rdquo; Keep in mind that <strong>some of what we do from the command line might require elevation</strong>.
 <h2>Step 2: msysgit</h2>
+<strong>This can&rsquo;t be easier.</strong> Go get the <a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">full installer for official Git for Windows from Google Code</a> and run it. You should be able to take all the defaults except for one thing:Â <strong>add Git to your path</strong> by choosing the middle option on this screen.</p>
 
-
-<p><strong>This can&rsquo;t be easier.</strong> Go get the <a href="http://code.google.com/p/msysgit/downloads/list" target="_blank">full installer for official Git for Windows from Google Code</a> and run it. You should be able to take all the defaults except for one thing:Â <strong>add Git to your path</strong> by choosing the middle option on this screen.</p>
-
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb1.png" alt="image" width="517" height="402" border="0" /></a></p>
-
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image1.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb1.png" alt="image" width="517" height="402" border="0" /></a>
 <h2>Step 3: Console Tab for Git Bash</h2>
+Back in Console2, <strong>add a new tab type for the Git Bash</strong>. I use the same icon and shell that the Git Bash shortcut on your desktop or start menu would use:</p>
 
+<pre><code class="language-bash">
+icon = C:\Program Files (x86)\Git\etc\git.ico
+shell = C:\Windows\SysWOW64\cmd.exe /c &quot;&quot;C:\Program Files (x86)\Git\bin\sh.exe&quot; --login -i&quot;
 
-<p>Back in Console2, <strong>add a new tab type for the Git Bash</strong>. I use the same icon and shell that the Git Bash shortcut on your desktop or start menu would use:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">icon</span> <span class="o">=</span> C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\e</span>tc<span class="se">\g</span>it.ico
-</span><span class='line'><span class="nv">shell</span> <span class="o">=</span> C:<span class="se">\W</span>indows<span class="se">\S</span>ysWOW64<span class="se">\c</span>md.exe /c <span class="s2">&quot;&quot;</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\G</span>it<span class="se">\b</span>in<span class="se">\s</span>h.exe<span class="s2">&quot; --login -i&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+</code></pre>
 
 <p>Note that I also set a startup dir. All my git repositories will live here. We&rsquo;ll get to those later. I set the same startup dir for my Powershell tab, but this is entirely up to you (you could use Ctrl+F4 to use a GitPowershell tab that launches powershell with that startup dir!)</p>
 
-<p><a href="http://thedevstop.files.wordpress.com/2012/01/image2.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb2.png" alt="image" width="517" height="530" border="0" /></a></p>
-
+<p><a href="http://thedevstop.files.wordpress.com/2012/01/image2.png"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="image" src="http://thedevstop.files.wordpress.com/2012/01/image_thumb2.png" alt="image" width="517" height="530" border="0" /></a>
 <h2>Step 4: Verify the Install</h2>
+So, Ctrl+F2 (or F3, or whatever tab type your Git Bash is). From the Git Bash run the following commands; I&rsquo;ve added <span style="color:#ff0000;">(verbose commentary)</span>.</p>
 
+<pre><code class="language-bash">
+mkdir demo
+cd demo
+git init
+touch foo.txt
+git add .
+git commit  - m &quot;Just foo&quot;
 
-<p>So, Ctrl+F2 (or F3, or whatever tab type your Git Bash is). From the Git Bash run the following commands; I&rsquo;ve added <span style="color:#ff0000;">(verbose commentary)</span>.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir demo
-</span><span class='line'><span class="nb">cd </span>demo
-</span><span class='line'>git init
-</span><span class='line'>touch foo.txt
-</span><span class='line'>git add .
-</span><span class='line'>git commit  - m <span class="s2">&quot;Just foo&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+</code></pre>
 
 <p><a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/untitled/" rel="attachment wp-att-459"><img title="git-verify-install" src="http://thedevstop.files.wordpress.com/2012/01/untitled.png?w=300" alt="verify git install" width="517" /></a></p>
 
-<p>Easy peasy; you&rsquo;re now using Git!</p>
-
-<h2>What&#8217;s Next?</h2>
-
-
-<p>There are some additional tools and options that I&rsquo;ll introduce in the next post, and then we&rsquo;ll begin learning what Git really is and why you should care.</p>
+<p>Easy peasy; you&rsquo;re now using Git!
+<h2>What&rsquo;s Next?</h2>
+There are some additional tools and options that I&rsquo;ll introduce in the next post, and then we&rsquo;ll begin learning what Git really is and why you should care.</p>
 
 <p><em>This post originally appeared on <a href="http://thedevstop.wordpress.com/2012/01/06/git-for-windows-how-to-install-git-for-net-developers/">The DevStop</a>.</em></p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">David Ruttka</span></span>
-
-      
-
-
-
-
-
-
-
 
   
 
-
-<time datetime="2012-01-06T00:00:00-08:00" pubdate data-updated="true"></time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.davidruttka.com/blog/2012/01/06/git-for-windows-and-net-developers-how-to-install-git/" data-via="druttka" data-counturl="http://www.davidruttka.com/blog/2012/01/06/git-for-windows-and-net-developers-how-to-install-git/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2011/12/07/resources-from-my-continuous-integration-presentation/" title="Previous Post: Resources From My Continuous Integration Presentation">&laquo; Resources From My Continuous Integration Presentation</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2012/01/09/git-for-windows-and-net-developers-part-2-advanced-tools-and-options/" title="Next Post: Git for Windows and .NET Developers Part 2   Advanced Tools and Options">Git for Windows and .NET Developers Part 2   Advanced Tools and Options &raquo;</a>
-      
-    </p>
-  </footer>
+  <script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//davidruttka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('crossorigin', "anonymous");
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </article>
 
-</div>
 
-<aside class="sidebar">
+      </div>
+    </div>
+  </main>
   
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/06/29/uwp-data-templates-in-resource-dictionaries/">UWP - Data Templates in Resource Dictionaries</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/08/01/templated-server-views-with-hapi-dot-js/">Templated Server Views With Hapi.js</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/06/committed-to-good-commits-frequent-atomic-commits/">Committed to Good Commits: Atomic, Frequent Commits</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/05/what-you-think-vs-what-you-know/">What You Think vs. What You Know</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/03/if-its-good-for-you-good-for-you/">If It's Good for You, Good for You!</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-
+<footer class="Footer">
+  <div class="u-wrapper">
+    <div class="u-padding">
+      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - David Ruttka -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
 </footer>
-  
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
 
 
 </body>
