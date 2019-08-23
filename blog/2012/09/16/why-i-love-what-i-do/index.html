@@ -81,15 +81,25 @@ if (!doNotTrack) {
 
   
 
-  <script>
-    (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = '//davidruttka.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('crossorigin', "anonymous");
-        (d.head || d.body).appendChild(s);
-    })();
+  <div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "http:\/\/www.davidruttka.com\/blog\/2012\/09\/16\/why-i-love-what-i-do\/";  
+this.page.identifier = "c0ea5a74de1ad08a0e4fb226da7969db"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://davidruttka.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </article>
 
 

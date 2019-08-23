@@ -97,15 +97,25 @@ if (!doNotTrack) {
 
   
 
-  <script>
-    (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = '//davidruttka.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('crossorigin', "anonymous");
-        (d.head || d.body).appendChild(s);
-    })();
+  <div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "http:\/\/www.davidruttka.com\/blog\/2013\/01\/17\/how-to-make-google-hangout-screen-share-bigger-or-full-screen\/";  
+this.page.identifier = "fbdabaf460bd392ec42a6ec5f2a9d528"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://davidruttka.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </article>
 
 

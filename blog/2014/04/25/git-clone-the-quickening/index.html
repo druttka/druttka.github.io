@@ -117,15 +117,25 @@ qc-ds = &quot;!f() { p=${1}; d=${2-$1}; git clone https://me.visualstudio.com/De
 
   
 
-  <script>
-    (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = '//davidruttka.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('crossorigin', "anonymous");
-        (d.head || d.body).appendChild(s);
-    })();
+  <div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "http:\/\/www.davidruttka.com\/blog\/2014\/04\/25\/git-clone-the-quickening\/";  
+this.page.identifier = "920cef5fe8295e6bd20164cb55556f9e"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://davidruttka.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </article>
 
 

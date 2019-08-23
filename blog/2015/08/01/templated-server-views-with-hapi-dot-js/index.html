@@ -116,15 +116,25 @@ return reply.view('index', context);
 
   
 
-  <script>
-    (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = '//davidruttka.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        s.setAttribute('crossorigin', "anonymous");
-        (d.head || d.body).appendChild(s);
-    })();
+  <div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "http:\/\/www.davidruttka.com\/blog\/2015\/08\/01\/templated-server-views-with-hapi-dot-js\/";  
+this.page.identifier = "5361bb467f65fefcb8b313100480f9d5"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://davidruttka.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </article>
 
 
