@@ -43,14 +43,6 @@
             </div>
           </main>
           
-<footer class="Footer">
-  <div class="u-wrapper">
-    <div class="u-padding">
-      Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license"> Creative Commons Attribution 4.0 International License</a>.
-    </div>
-  </div>
-</footer>
-
 
         </body>
       </html>
@@ -62,6 +54,7 @@
     <description>Recent content on David Ruttka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Wed, 29 Jun 2016 20:37:52 -0700</lastBuildDate>
     <atom:link href="http://www.davidruttka.com/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
